@@ -111,3 +111,9 @@ virtual void A(int a = 0); // error
 virtual void B(int a); // ok
 ```
 
+27.使用'= default'定义一个简单的默认构造函数
+
+28.尽可能得使用const auto&，从而减少拷贝
+
+29.%lu表示输出无符号长整型整数 (long unsigned)
+
