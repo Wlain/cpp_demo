@@ -265,49 +265,31 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/include/basic_timer.h">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/include/test.h">
-			<Option target="cpp_demo"/>
-		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/include/vec2f.h">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/main.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/auto_ptr.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/callbackTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/callbackTest.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testAuto.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/shared_ptr.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testConst.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/test.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testConstantPointer.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/testAuto.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testDecltype.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/testConst.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/testConstantPointer.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/testDecltype.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/testMemoryAlloc.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/unique_ptr.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/vec2f.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/src/weak_ptr.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/vec2f.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/CMakeLists.txt">

@@ -12,10 +12,6 @@ iostream
 typeinfo
 -
 
-../include/test.h
-base.h
-../include/base.h
-
 ../include/vec2f.h
 base.h
 ../include/base.h
@@ -43,6 +39,4 @@ include/basic_timer.h
 /Users/william/git/demo/cpp_demo/include/basic_timer.h
 vector
 -
-test.h
-/Users/william/git/demo/cpp_demo/test.h
 

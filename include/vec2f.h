@@ -12,7 +12,7 @@ public:
   Vec2f();
   virtual ~Vec2f();
   Vec2f(float x, float y);
-  Vec2f(const Vec2f &);
+  [[maybe_unused]] Vec2f(const Vec2f &);
   Vec2f(const Vec2f &&) = default;           // 移动构造函数
   Vec2f &operator=(const Vec2f &) = default; // 拷贝赋值函数
   Vec2f &operator=(Vec2f &&) = default;      // 移动赋值函数

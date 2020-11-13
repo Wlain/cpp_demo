@@ -46,18 +46,13 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/demo/cpp_demo/main.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/main.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/auto_ptr.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/auto_ptr.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/callbackTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/shared_ptr.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/shared_ptr.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/test.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/test.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/testAuto.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/testAuto.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/testConst.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/testConst.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/testConstantPointer.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/testDecltype.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/testMemoryAlloc.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/unique_ptr.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/unique_ptr.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/vec2f.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o"
-  "/Users/william/git/demo/cpp_demo/src/weak_ptr.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/weak_ptr.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/callbackTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testAuto.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testConst.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testConst.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testConstantPointer.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testDecltype.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/vec2f.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

@@ -2,9 +2,9 @@
 // Created by william on 2020/7/1.
 //
 
-#include "../include/base.h"
+#include "base.h"
 
-int arr[3]; // 全局数组:全局/静态区
+[[maybe_unused]] int arr[3]; // 全局数组:全局/静态区
 
 void testMemoryAlloc() {
   int a;                     // 函数里面的局部变量：栈区

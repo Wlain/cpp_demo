@@ -1034,329 +1034,194 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/auto_ptr.o: src/auto_ptr.cpp.o
+test/callbackTest.o: test/callbackTest.cpp.o
 
-.PHONY : src/auto_ptr.o
-
-# target to build an object file
-src/auto_ptr.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/auto_ptr.cpp.o
-.PHONY : src/auto_ptr.cpp.o
-
-src/auto_ptr.i: src/auto_ptr.cpp.i
-
-.PHONY : src/auto_ptr.i
-
-# target to preprocess a source file
-src/auto_ptr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/auto_ptr.cpp.i
-.PHONY : src/auto_ptr.cpp.i
-
-src/auto_ptr.s: src/auto_ptr.cpp.s
-
-.PHONY : src/auto_ptr.s
-
-# target to generate assembly for a file
-src/auto_ptr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/auto_ptr.cpp.s
-.PHONY : src/auto_ptr.cpp.s
-
-src/callbackTest.o: src/callbackTest.cpp.o
-
-.PHONY : src/callbackTest.o
+.PHONY : test/callbackTest.o
 
 # target to build an object file
-src/callbackTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.o
-.PHONY : src/callbackTest.cpp.o
+test/callbackTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o
+.PHONY : test/callbackTest.cpp.o
 
-src/callbackTest.i: src/callbackTest.cpp.i
+test/callbackTest.i: test/callbackTest.cpp.i
 
-.PHONY : src/callbackTest.i
+.PHONY : test/callbackTest.i
 
 # target to preprocess a source file
-src/callbackTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.i
-.PHONY : src/callbackTest.cpp.i
+test/callbackTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.i
+.PHONY : test/callbackTest.cpp.i
 
-src/callbackTest.s: src/callbackTest.cpp.s
+test/callbackTest.s: test/callbackTest.cpp.s
 
-.PHONY : src/callbackTest.s
+.PHONY : test/callbackTest.s
 
 # target to generate assembly for a file
-src/callbackTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.s
-.PHONY : src/callbackTest.cpp.s
+test/callbackTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.s
+.PHONY : test/callbackTest.cpp.s
 
-src/shared_ptr.o: src/shared_ptr.cpp.o
+test/testAuto.o: test/testAuto.cpp.o
 
-.PHONY : src/shared_ptr.o
+.PHONY : test/testAuto.o
 
 # target to build an object file
-src/shared_ptr.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/shared_ptr.cpp.o
-.PHONY : src/shared_ptr.cpp.o
+test/testAuto.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o
+.PHONY : test/testAuto.cpp.o
 
-src/shared_ptr.i: src/shared_ptr.cpp.i
+test/testAuto.i: test/testAuto.cpp.i
 
-.PHONY : src/shared_ptr.i
+.PHONY : test/testAuto.i
 
 # target to preprocess a source file
-src/shared_ptr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/shared_ptr.cpp.i
-.PHONY : src/shared_ptr.cpp.i
+test/testAuto.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testAuto.cpp.i
+.PHONY : test/testAuto.cpp.i
 
-src/shared_ptr.s: src/shared_ptr.cpp.s
+test/testAuto.s: test/testAuto.cpp.s
 
-.PHONY : src/shared_ptr.s
+.PHONY : test/testAuto.s
 
 # target to generate assembly for a file
-src/shared_ptr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/shared_ptr.cpp.s
-.PHONY : src/shared_ptr.cpp.s
+test/testAuto.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testAuto.cpp.s
+.PHONY : test/testAuto.cpp.s
 
-src/test.o: src/test.cpp.o
+test/testConst.o: test/testConst.cpp.o
 
-.PHONY : src/test.o
+.PHONY : test/testConst.o
 
 # target to build an object file
-src/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
+test/testConst.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConst.cpp.o
+.PHONY : test/testConst.cpp.o
 
-src/test.i: src/test.cpp.i
+test/testConst.i: test/testConst.cpp.i
 
-.PHONY : src/test.i
+.PHONY : test/testConst.i
 
 # target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
+test/testConst.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConst.cpp.i
+.PHONY : test/testConst.cpp.i
 
-src/test.s: src/test.cpp.s
+test/testConst.s: test/testConst.cpp.s
 
-.PHONY : src/test.s
+.PHONY : test/testConst.s
 
 # target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
+test/testConst.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConst.cpp.s
+.PHONY : test/testConst.cpp.s
 
-src/testAuto.o: src/testAuto.cpp.o
+test/testConstantPointer.o: test/testConstantPointer.cpp.o
 
-.PHONY : src/testAuto.o
+.PHONY : test/testConstantPointer.o
 
 # target to build an object file
-src/testAuto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testAuto.cpp.o
-.PHONY : src/testAuto.cpp.o
+test/testConstantPointer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o
+.PHONY : test/testConstantPointer.cpp.o
 
-src/testAuto.i: src/testAuto.cpp.i
+test/testConstantPointer.i: test/testConstantPointer.cpp.i
 
-.PHONY : src/testAuto.i
+.PHONY : test/testConstantPointer.i
 
 # target to preprocess a source file
-src/testAuto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testAuto.cpp.i
-.PHONY : src/testAuto.cpp.i
+test/testConstantPointer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.i
+.PHONY : test/testConstantPointer.cpp.i
 
-src/testAuto.s: src/testAuto.cpp.s
+test/testConstantPointer.s: test/testConstantPointer.cpp.s
 
-.PHONY : src/testAuto.s
+.PHONY : test/testConstantPointer.s
 
 # target to generate assembly for a file
-src/testAuto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testAuto.cpp.s
-.PHONY : src/testAuto.cpp.s
+test/testConstantPointer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.s
+.PHONY : test/testConstantPointer.cpp.s
 
-src/testConst.o: src/testConst.cpp.o
+test/testDecltype.o: test/testDecltype.cpp.o
 
-.PHONY : src/testConst.o
+.PHONY : test/testDecltype.o
 
 # target to build an object file
-src/testConst.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConst.cpp.o
-.PHONY : src/testConst.cpp.o
+test/testDecltype.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o
+.PHONY : test/testDecltype.cpp.o
 
-src/testConst.i: src/testConst.cpp.i
+test/testDecltype.i: test/testDecltype.cpp.i
 
-.PHONY : src/testConst.i
+.PHONY : test/testDecltype.i
 
 # target to preprocess a source file
-src/testConst.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConst.cpp.i
-.PHONY : src/testConst.cpp.i
+test/testDecltype.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.i
+.PHONY : test/testDecltype.cpp.i
 
-src/testConst.s: src/testConst.cpp.s
+test/testDecltype.s: test/testDecltype.cpp.s
 
-.PHONY : src/testConst.s
+.PHONY : test/testDecltype.s
 
 # target to generate assembly for a file
-src/testConst.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConst.cpp.s
-.PHONY : src/testConst.cpp.s
+test/testDecltype.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.s
+.PHONY : test/testDecltype.cpp.s
 
-src/testConstantPointer.o: src/testConstantPointer.cpp.o
+test/testMemoryAlloc.o: test/testMemoryAlloc.cpp.o
 
-.PHONY : src/testConstantPointer.o
+.PHONY : test/testMemoryAlloc.o
 
 # target to build an object file
-src/testConstantPointer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.o
-.PHONY : src/testConstantPointer.cpp.o
+test/testMemoryAlloc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o
+.PHONY : test/testMemoryAlloc.cpp.o
 
-src/testConstantPointer.i: src/testConstantPointer.cpp.i
+test/testMemoryAlloc.i: test/testMemoryAlloc.cpp.i
 
-.PHONY : src/testConstantPointer.i
+.PHONY : test/testMemoryAlloc.i
 
 # target to preprocess a source file
-src/testConstantPointer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.i
-.PHONY : src/testConstantPointer.cpp.i
+test/testMemoryAlloc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.i
+.PHONY : test/testMemoryAlloc.cpp.i
 
-src/testConstantPointer.s: src/testConstantPointer.cpp.s
+test/testMemoryAlloc.s: test/testMemoryAlloc.cpp.s
 
-.PHONY : src/testConstantPointer.s
+.PHONY : test/testMemoryAlloc.s
 
 # target to generate assembly for a file
-src/testConstantPointer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.s
-.PHONY : src/testConstantPointer.cpp.s
+test/testMemoryAlloc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.s
+.PHONY : test/testMemoryAlloc.cpp.s
 
-src/testDecltype.o: src/testDecltype.cpp.o
+test/vec2f.o: test/vec2f.cpp.o
 
-.PHONY : src/testDecltype.o
+.PHONY : test/vec2f.o
 
 # target to build an object file
-src/testDecltype.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.o
-.PHONY : src/testDecltype.cpp.o
+test/vec2f.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o
+.PHONY : test/vec2f.cpp.o
 
-src/testDecltype.i: src/testDecltype.cpp.i
+test/vec2f.i: test/vec2f.cpp.i
 
-.PHONY : src/testDecltype.i
-
-# target to preprocess a source file
-src/testDecltype.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.i
-.PHONY : src/testDecltype.cpp.i
-
-src/testDecltype.s: src/testDecltype.cpp.s
-
-.PHONY : src/testDecltype.s
-
-# target to generate assembly for a file
-src/testDecltype.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.s
-.PHONY : src/testDecltype.cpp.s
-
-src/testMemoryAlloc.o: src/testMemoryAlloc.cpp.o
-
-.PHONY : src/testMemoryAlloc.o
-
-# target to build an object file
-src/testMemoryAlloc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.o
-.PHONY : src/testMemoryAlloc.cpp.o
-
-src/testMemoryAlloc.i: src/testMemoryAlloc.cpp.i
-
-.PHONY : src/testMemoryAlloc.i
+.PHONY : test/vec2f.i
 
 # target to preprocess a source file
-src/testMemoryAlloc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.i
-.PHONY : src/testMemoryAlloc.cpp.i
+test/vec2f.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.i
+.PHONY : test/vec2f.cpp.i
 
-src/testMemoryAlloc.s: src/testMemoryAlloc.cpp.s
+test/vec2f.s: test/vec2f.cpp.s
 
-.PHONY : src/testMemoryAlloc.s
-
-# target to generate assembly for a file
-src/testMemoryAlloc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.s
-.PHONY : src/testMemoryAlloc.cpp.s
-
-src/unique_ptr.o: src/unique_ptr.cpp.o
-
-.PHONY : src/unique_ptr.o
-
-# target to build an object file
-src/unique_ptr.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/unique_ptr.cpp.o
-.PHONY : src/unique_ptr.cpp.o
-
-src/unique_ptr.i: src/unique_ptr.cpp.i
-
-.PHONY : src/unique_ptr.i
-
-# target to preprocess a source file
-src/unique_ptr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/unique_ptr.cpp.i
-.PHONY : src/unique_ptr.cpp.i
-
-src/unique_ptr.s: src/unique_ptr.cpp.s
-
-.PHONY : src/unique_ptr.s
+.PHONY : test/vec2f.s
 
 # target to generate assembly for a file
-src/unique_ptr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/unique_ptr.cpp.s
-.PHONY : src/unique_ptr.cpp.s
-
-src/vec2f.o: src/vec2f.cpp.o
-
-.PHONY : src/vec2f.o
-
-# target to build an object file
-src/vec2f.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o
-.PHONY : src/vec2f.cpp.o
-
-src/vec2f.i: src/vec2f.cpp.i
-
-.PHONY : src/vec2f.i
-
-# target to preprocess a source file
-src/vec2f.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.i
-.PHONY : src/vec2f.cpp.i
-
-src/vec2f.s: src/vec2f.cpp.s
-
-.PHONY : src/vec2f.s
-
-# target to generate assembly for a file
-src/vec2f.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.s
-.PHONY : src/vec2f.cpp.s
-
-src/weak_ptr.o: src/weak_ptr.cpp.o
-
-.PHONY : src/weak_ptr.o
-
-# target to build an object file
-src/weak_ptr.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/weak_ptr.cpp.o
-.PHONY : src/weak_ptr.cpp.o
-
-src/weak_ptr.i: src/weak_ptr.cpp.i
-
-.PHONY : src/weak_ptr.i
-
-# target to preprocess a source file
-src/weak_ptr.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/weak_ptr.cpp.i
-.PHONY : src/weak_ptr.cpp.i
-
-src/weak_ptr.s: src/weak_ptr.cpp.s
-
-.PHONY : src/weak_ptr.s
-
-# target to generate assembly for a file
-src/weak_ptr.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/weak_ptr.cpp.s
-.PHONY : src/weak_ptr.cpp.s
+test/vec2f.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.s
+.PHONY : test/vec2f.cpp.s
 
 # Help Target
 help:
@@ -1466,42 +1331,27 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/auto_ptr.o"
-	@echo "... src/auto_ptr.i"
-	@echo "... src/auto_ptr.s"
-	@echo "... src/callbackTest.o"
-	@echo "... src/callbackTest.i"
-	@echo "... src/callbackTest.s"
-	@echo "... src/shared_ptr.o"
-	@echo "... src/shared_ptr.i"
-	@echo "... src/shared_ptr.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
-	@echo "... src/testAuto.o"
-	@echo "... src/testAuto.i"
-	@echo "... src/testAuto.s"
-	@echo "... src/testConst.o"
-	@echo "... src/testConst.i"
-	@echo "... src/testConst.s"
-	@echo "... src/testConstantPointer.o"
-	@echo "... src/testConstantPointer.i"
-	@echo "... src/testConstantPointer.s"
-	@echo "... src/testDecltype.o"
-	@echo "... src/testDecltype.i"
-	@echo "... src/testDecltype.s"
-	@echo "... src/testMemoryAlloc.o"
-	@echo "... src/testMemoryAlloc.i"
-	@echo "... src/testMemoryAlloc.s"
-	@echo "... src/unique_ptr.o"
-	@echo "... src/unique_ptr.i"
-	@echo "... src/unique_ptr.s"
-	@echo "... src/vec2f.o"
-	@echo "... src/vec2f.i"
-	@echo "... src/vec2f.s"
-	@echo "... src/weak_ptr.o"
-	@echo "... src/weak_ptr.i"
-	@echo "... src/weak_ptr.s"
+	@echo "... test/callbackTest.o"
+	@echo "... test/callbackTest.i"
+	@echo "... test/callbackTest.s"
+	@echo "... test/testAuto.o"
+	@echo "... test/testAuto.i"
+	@echo "... test/testAuto.s"
+	@echo "... test/testConst.o"
+	@echo "... test/testConst.i"
+	@echo "... test/testConst.s"
+	@echo "... test/testConstantPointer.o"
+	@echo "... test/testConstantPointer.i"
+	@echo "... test/testConstantPointer.s"
+	@echo "... test/testDecltype.o"
+	@echo "... test/testDecltype.i"
+	@echo "... test/testDecltype.s"
+	@echo "... test/testMemoryAlloc.o"
+	@echo "... test/testMemoryAlloc.i"
+	@echo "... test/testMemoryAlloc.s"
+	@echo "... test/vec2f.o"
+	@echo "... test/vec2f.i"
+	@echo "... test/vec2f.s"
 .PHONY : help
 
 

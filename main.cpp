@@ -5,7 +5,6 @@
 #include "vec2f.h"
 #include "include/basic_timer.h"
 #include <vector>
-#include "test.h"
 
 
 extern void testAuto();
@@ -22,7 +21,7 @@ int main()
     //  testAuto();
     //  testDecltype();
     //  testConstantPointer();
-    //  callbackTest();
+    callbackTest();
     return 0;
 }
 

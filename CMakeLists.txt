@@ -15,7 +15,8 @@ file(GLOB SOURCES
     3rdparty/lua-5.4.0/src/*.c
     include/*.h
     src/*.cpp
+    test/*.cpp
     *.cpp
 )
 
-add_executable(cpp_demo ${SOURCES} include/basic_timer.h src/callbackTest.cpp)
+add_executable(cpp_demo ${SOURCES} include/basic_timer.h test/callbackTest.cpp)

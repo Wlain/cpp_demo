@@ -2,7 +2,7 @@
 // Created by william on 2020/7/1.
 //
 
-#include "../include/base.h"
+#include "base.h"
 
 // 命名常量/符号常量
 

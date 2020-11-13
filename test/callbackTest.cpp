@@ -5,7 +5,8 @@
 #include "base.h"
 
 // 函数指针
-int add(int a, int b) { return a + b; }
+template <typename T>
+int add(T a, T b) { return a + b; }
 
 void callbackTest() {
   int (*p)(int, int);

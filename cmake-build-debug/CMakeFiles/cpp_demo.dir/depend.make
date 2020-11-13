@@ -416,43 +416,30 @@ CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/s
 CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/src/lzio.h
 
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/test.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/vec2f.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/basic_timer.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../main.cpp
 
-CMakeFiles/cpp_demo.dir/src/auto_ptr.cpp.o: ../src/auto_ptr.cpp
+CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o: ../test/callbackTest.cpp
 
-CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/callbackTest.cpp.o: ../src/callbackTest.cpp
+CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: ../test/testAuto.cpp
 
-CMakeFiles/cpp_demo.dir/src/shared_ptr.cpp.o: ../src/shared_ptr.cpp
+CMakeFiles/cpp_demo.dir/test/testConst.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testConst.cpp.o: ../test/testConst.cpp
 
-CMakeFiles/cpp_demo.dir/src/test.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/test.cpp.o: ../include/test.h
-CMakeFiles/cpp_demo.dir/src/test.cpp.o: ../src/test.cpp
+CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o: ../test/testConstantPointer.cpp
 
-CMakeFiles/cpp_demo.dir/src/testAuto.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/testAuto.cpp.o: ../src/testAuto.cpp
+CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: ../test/testDecltype.cpp
 
-CMakeFiles/cpp_demo.dir/src/testConst.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/testConst.cpp.o: ../src/testConst.cpp
+CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: ../test/testMemoryAlloc.cpp
 
-CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/testConstantPointer.cpp.o: ../src/testConstantPointer.cpp
-
-CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/testDecltype.cpp.o: ../src/testDecltype.cpp
-
-CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/testMemoryAlloc.cpp.o: ../src/testMemoryAlloc.cpp
-
-CMakeFiles/cpp_demo.dir/src/unique_ptr.cpp.o: ../src/unique_ptr.cpp
-
-CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../include/base.h
-CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../include/vec2f.h
-CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../src/vec2f.cpp
-
-CMakeFiles/cpp_demo.dir/src/weak_ptr.cpp.o: ../src/weak_ptr.cpp
+CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o: ../include/vec2f.h
+CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o: ../test/vec2f.cpp
 

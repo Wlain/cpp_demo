@@ -2,7 +2,7 @@
 // Created by william on 2020/7/1.
 //
 
-#include "../include/base.h"
+#include "base.h"
 
 using std::cin;
 using std::cout;
