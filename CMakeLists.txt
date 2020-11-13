@@ -19,4 +19,4 @@ file(GLOB SOURCES
     *.cpp
 )
 
-add_executable(cpp_demo ${SOURCES} include/basic_timer.h test/testCallback.cpp)
+add_executable(cpp_demo ${SOURCES})
