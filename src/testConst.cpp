@@ -12,4 +12,3 @@ int const X = 5;
 const char C = 'K';
 const char *STR = "hello";
 auto str = "hello";
-
