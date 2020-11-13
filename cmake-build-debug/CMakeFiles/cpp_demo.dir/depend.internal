@@ -421,12 +421,16 @@ CMakeFiles/cpp_demo.dir/main.cpp.o
  /Users/william/git/demo/cpp_demo/include/base.h
  /Users/william/git/demo/cpp_demo/include/basic_timer.h
  /Users/william/git/demo/cpp_demo/main.cpp
-CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o
+CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o
  ../include/base.h
- /Users/william/git/demo/cpp_demo/test/callbackTest.cpp
+ ../include/vec2f.h
+ /Users/william/git/demo/cpp_demo/src/vec2f.cpp
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testAuto.cpp
+CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o
+ ../include/base.h
+ /Users/william/git/demo/cpp_demo/test/testCallback.cpp
 CMakeFiles/cpp_demo.dir/test/testConst.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testConst.cpp
@@ -439,7 +443,3 @@ CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp
-CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o
- ../include/base.h
- ../include/vec2f.h
- /Users/william/git/demo/cpp_demo/test/vec2f.cpp

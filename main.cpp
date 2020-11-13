@@ -2,10 +2,8 @@
 // Created by william on 2020/7/1.
 //
 #include "include/base.h"
-#include "vec2f.h"
 #include "include/basic_timer.h"
-#include <vector>
-
+#include "vec2f.h"
 
 extern void testAuto();
 extern void testDecltype();
@@ -24,4 +22,3 @@ int main()
     callbackTest();
     return 0;
 }
-

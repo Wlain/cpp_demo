@@ -271,10 +271,13 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/main.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/test/callbackTest.cpp">
+		<Unit filename="/Users/william/git/demo/cpp_demo/src/vec2f.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testAuto.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testCallback.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testConst.cpp">
@@ -287,9 +290,6 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/demo/cpp_demo/test/vec2f.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/CMakeLists.txt">

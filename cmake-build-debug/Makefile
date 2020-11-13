@@ -1034,32 +1034,32 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-test/callbackTest.o: test/callbackTest.cpp.o
+src/vec2f.o: src/vec2f.cpp.o
 
-.PHONY : test/callbackTest.o
+.PHONY : src/vec2f.o
 
 # target to build an object file
-test/callbackTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.o
-.PHONY : test/callbackTest.cpp.o
+src/vec2f.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o
+.PHONY : src/vec2f.cpp.o
 
-test/callbackTest.i: test/callbackTest.cpp.i
+src/vec2f.i: src/vec2f.cpp.i
 
-.PHONY : test/callbackTest.i
+.PHONY : src/vec2f.i
 
 # target to preprocess a source file
-test/callbackTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.i
-.PHONY : test/callbackTest.cpp.i
+src/vec2f.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.i
+.PHONY : src/vec2f.cpp.i
 
-test/callbackTest.s: test/callbackTest.cpp.s
+src/vec2f.s: src/vec2f.cpp.s
 
-.PHONY : test/callbackTest.s
+.PHONY : src/vec2f.s
 
 # target to generate assembly for a file
-test/callbackTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/callbackTest.cpp.s
-.PHONY : test/callbackTest.cpp.s
+src/vec2f.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.s
+.PHONY : src/vec2f.cpp.s
 
 test/testAuto.o: test/testAuto.cpp.o
 
@@ -1087,6 +1087,33 @@ test/testAuto.s: test/testAuto.cpp.s
 test/testAuto.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testAuto.cpp.s
 .PHONY : test/testAuto.cpp.s
+
+test/testCallback.o: test/testCallback.cpp.o
+
+.PHONY : test/testCallback.o
+
+# target to build an object file
+test/testCallback.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o
+.PHONY : test/testCallback.cpp.o
+
+test/testCallback.i: test/testCallback.cpp.i
+
+.PHONY : test/testCallback.i
+
+# target to preprocess a source file
+test/testCallback.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testCallback.cpp.i
+.PHONY : test/testCallback.cpp.i
+
+test/testCallback.s: test/testCallback.cpp.s
+
+.PHONY : test/testCallback.s
+
+# target to generate assembly for a file
+test/testCallback.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testCallback.cpp.s
+.PHONY : test/testCallback.cpp.s
 
 test/testConst.o: test/testConst.cpp.o
 
@@ -1196,33 +1223,6 @@ test/testMemoryAlloc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.s
 .PHONY : test/testMemoryAlloc.cpp.s
 
-test/vec2f.o: test/vec2f.cpp.o
-
-.PHONY : test/vec2f.o
-
-# target to build an object file
-test/vec2f.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.o
-.PHONY : test/vec2f.cpp.o
-
-test/vec2f.i: test/vec2f.cpp.i
-
-.PHONY : test/vec2f.i
-
-# target to preprocess a source file
-test/vec2f.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.i
-.PHONY : test/vec2f.cpp.i
-
-test/vec2f.s: test/vec2f.cpp.s
-
-.PHONY : test/vec2f.s
-
-# target to generate assembly for a file
-test/vec2f.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/vec2f.cpp.s
-.PHONY : test/vec2f.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1331,12 +1331,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... test/callbackTest.o"
-	@echo "... test/callbackTest.i"
-	@echo "... test/callbackTest.s"
+	@echo "... src/vec2f.o"
+	@echo "... src/vec2f.i"
+	@echo "... src/vec2f.s"
 	@echo "... test/testAuto.o"
 	@echo "... test/testAuto.i"
 	@echo "... test/testAuto.s"
+	@echo "... test/testCallback.o"
+	@echo "... test/testCallback.i"
+	@echo "... test/testCallback.s"
 	@echo "... test/testConst.o"
 	@echo "... test/testConst.i"
 	@echo "... test/testConst.s"
@@ -1349,9 +1352,6 @@ help:
 	@echo "... test/testMemoryAlloc.o"
 	@echo "... test/testMemoryAlloc.i"
 	@echo "... test/testMemoryAlloc.s"
-	@echo "... test/vec2f.o"
-	@echo "... test/vec2f.i"
-	@echo "... test/vec2f.s"
 .PHONY : help
 
 

@@ -8,4 +8,4 @@
 #include <iostream>
 #include <typeinfo>
 
-#endif //C___BASE_H
+#endif // C___BASE_H

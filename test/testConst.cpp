@@ -10,5 +10,5 @@ const double PI = 3.14159;
 const int SIZE = 3;
 int const X = 5;
 const char C = 'K';
-const char *STR = "hello";
+const char* STR = "hello";
 auto str = "hello";
