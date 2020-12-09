@@ -1223,6 +1223,60 @@ test/testMemoryAlloc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.s
 .PHONY : test/testMemoryAlloc.cpp.s
 
+test/testRegex.o: test/testRegex.cpp.o
+
+.PHONY : test/testRegex.o
+
+# target to build an object file
+test/testRegex.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o
+.PHONY : test/testRegex.cpp.o
+
+test/testRegex.i: test/testRegex.cpp.i
+
+.PHONY : test/testRegex.i
+
+# target to preprocess a source file
+test/testRegex.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testRegex.cpp.i
+.PHONY : test/testRegex.cpp.i
+
+test/testRegex.s: test/testRegex.cpp.s
+
+.PHONY : test/testRegex.s
+
+# target to generate assembly for a file
+test/testRegex.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testRegex.cpp.s
+.PHONY : test/testRegex.cpp.s
+
+test/testSwitchNew.o: test/testSwitchNew.cpp.o
+
+.PHONY : test/testSwitchNew.o
+
+# target to build an object file
+test/testSwitchNew.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o
+.PHONY : test/testSwitchNew.cpp.o
+
+test/testSwitchNew.i: test/testSwitchNew.cpp.i
+
+.PHONY : test/testSwitchNew.i
+
+# target to preprocess a source file
+test/testSwitchNew.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.i
+.PHONY : test/testSwitchNew.cpp.i
+
+test/testSwitchNew.s: test/testSwitchNew.cpp.s
+
+.PHONY : test/testSwitchNew.s
+
+# target to generate assembly for a file
+test/testSwitchNew.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.s
+.PHONY : test/testSwitchNew.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1352,6 +1406,12 @@ help:
 	@echo "... test/testMemoryAlloc.o"
 	@echo "... test/testMemoryAlloc.i"
 	@echo "... test/testMemoryAlloc.s"
+	@echo "... test/testRegex.o"
+	@echo "... test/testRegex.i"
+	@echo "... test/testRegex.s"
+	@echo "... test/testSwitchNew.o"
+	@echo "... test/testSwitchNew.i"
+	@echo "... test/testSwitchNew.s"
 .PHONY : help
 
 

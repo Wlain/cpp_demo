@@ -53,6 +53,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/demo/cpp_demo/test/testConstantPointer.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testDecltype.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testRegex.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

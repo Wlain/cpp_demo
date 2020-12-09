@@ -443,3 +443,8 @@ CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp
+CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o
+ /Users/william/git/demo/cpp_demo/test/testRegex.cpp
+CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o
+ ../include/base.h
+ /Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp

@@ -18,7 +18,7 @@ Vec2f::Vec2f(float x, float y)
     constructorCount++;
 }
 
-[[maybe_unused]] Vec2f::Vec2f(const Vec2f&)
+Vec2f::Vec2f(const Vec2f&)
 {
     std::cout << "copy constructor called" << std::endl;
     constructorCount++;
@@ -28,4 +28,14 @@ Vec2f::~Vec2f()
 {
     destructorCount++;
     std::cout << "destructor called" << std::endl;
+}
+Vec2f& Vec2f::operator=(const Vec2f& vec)
+{
+    destructorCount++;
+    std::cout << "destructor called" << std::endl;
+    if (this == &vec)
+    {
+        return *this;
+    }
+    return *this;
 }

@@ -37,32 +37,20 @@ include/basic_timer.h
 /Users/william/git/demo/cpp_demo/include/basic_timer.h
 vec2f.h
 /Users/william/git/demo/cpp_demo/vec2f.h
-
-/Users/william/git/demo/cpp_demo/src/vec2f.cpp
-vec2f.h
-/Users/william/git/demo/cpp_demo/src/vec2f.h
+array
+-
+regex
+-
+random
+-
 
 /Users/william/git/demo/cpp_demo/test/testAuto.cpp
 base.h
 /Users/william/git/demo/cpp_demo/test/base.h
 
-/Users/william/git/demo/cpp_demo/test/testCallback.cpp
+/Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp
 base.h
 /Users/william/git/demo/cpp_demo/test/base.h
-
-/Users/william/git/demo/cpp_demo/test/testConst.cpp
-base.h
-/Users/william/git/demo/cpp_demo/test/base.h
-
-/Users/william/git/demo/cpp_demo/test/testConstantPointer.cpp
-base.h
-/Users/william/git/demo/cpp_demo/test/base.h
-
-/Users/william/git/demo/cpp_demo/test/testDecltype.cpp
-base.h
-/Users/william/git/demo/cpp_demo/test/base.h
-
-/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp
-base.h
-/Users/william/git/demo/cpp_demo/test/base.h
+random
+-
 

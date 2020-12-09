@@ -9,6 +9,7 @@ using std::cout;
 using std::endl;
 
 const int base = 0;
+int c = 1;
 
 auto max(int x, int y)
 {
