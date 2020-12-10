@@ -1061,6 +1061,60 @@ src/vec2f.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vec2f.cpp.s
 .PHONY : src/vec2f.cpp.s
 
+src/vector2.o: src/vector2.cpp.o
+
+.PHONY : src/vector2.o
+
+# target to build an object file
+src/vector2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vector2.cpp.o
+.PHONY : src/vector2.cpp.o
+
+src/vector2.i: src/vector2.cpp.i
+
+.PHONY : src/vector2.i
+
+# target to preprocess a source file
+src/vector2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vector2.cpp.i
+.PHONY : src/vector2.cpp.i
+
+src/vector2.s: src/vector2.cpp.s
+
+.PHONY : src/vector2.s
+
+# target to generate assembly for a file
+src/vector2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vector2.cpp.s
+.PHONY : src/vector2.cpp.s
+
+test/constevalTest.o: test/constevalTest.cpp.o
+
+.PHONY : test/constevalTest.o
+
+# target to build an object file
+test/constevalTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o
+.PHONY : test/constevalTest.cpp.o
+
+test/constevalTest.i: test/constevalTest.cpp.i
+
+.PHONY : test/constevalTest.i
+
+# target to preprocess a source file
+test/constevalTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.i
+.PHONY : test/constevalTest.cpp.i
+
+test/constevalTest.s: test/constevalTest.cpp.s
+
+.PHONY : test/constevalTest.s
+
+# target to generate assembly for a file
+test/constevalTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.s
+.PHONY : test/constevalTest.cpp.s
+
 test/testAuto.o: test/testAuto.cpp.o
 
 .PHONY : test/testAuto.o
@@ -1195,6 +1249,33 @@ test/testDecltype.s: test/testDecltype.cpp.s
 test/testDecltype.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.s
 .PHONY : test/testDecltype.cpp.s
+
+test/testLambda.o: test/testLambda.cpp.o
+
+.PHONY : test/testLambda.o
+
+# target to build an object file
+test/testLambda.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o
+.PHONY : test/testLambda.cpp.o
+
+test/testLambda.i: test/testLambda.cpp.i
+
+.PHONY : test/testLambda.i
+
+# target to preprocess a source file
+test/testLambda.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testLambda.cpp.i
+.PHONY : test/testLambda.cpp.i
+
+test/testLambda.s: test/testLambda.cpp.s
+
+.PHONY : test/testLambda.s
+
+# target to generate assembly for a file
+test/testLambda.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testLambda.cpp.s
+.PHONY : test/testLambda.cpp.s
 
 test/testMemoryAlloc.o: test/testMemoryAlloc.cpp.o
 
@@ -1388,6 +1469,12 @@ help:
 	@echo "... src/vec2f.o"
 	@echo "... src/vec2f.i"
 	@echo "... src/vec2f.s"
+	@echo "... src/vector2.o"
+	@echo "... src/vector2.i"
+	@echo "... src/vector2.s"
+	@echo "... test/constevalTest.o"
+	@echo "... test/constevalTest.i"
+	@echo "... test/constevalTest.s"
 	@echo "... test/testAuto.o"
 	@echo "... test/testAuto.i"
 	@echo "... test/testAuto.s"
@@ -1403,6 +1490,9 @@ help:
 	@echo "... test/testDecltype.o"
 	@echo "... test/testDecltype.i"
 	@echo "... test/testDecltype.s"
+	@echo "... test/testLambda.o"
+	@echo "... test/testLambda.i"
+	@echo "... test/testLambda.s"
 	@echo "... test/testMemoryAlloc.o"
 	@echo "... test/testMemoryAlloc.i"
 	@echo "... test/testMemoryAlloc.s"

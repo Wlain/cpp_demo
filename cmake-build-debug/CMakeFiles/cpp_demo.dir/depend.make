@@ -417,6 +417,7 @@ CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/s
 
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/vec2f.h
+CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/vector2.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/basic_timer.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../main.cpp
@@ -424,6 +425,11 @@ CMakeFiles/cpp_demo.dir/main.cpp.o: ../main.cpp
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../include/vec2f.h
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../src/vec2f.cpp
+
+CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: ../include/vector2.h
+CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: ../src/vector2.cpp
+
+CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o: ../test/constevalTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: ../test/testAuto.cpp
@@ -439,6 +445,9 @@ CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o: ../test/testConstantPoin
 
 CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: ../test/testDecltype.cpp
+
+CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o: ../test/testLambda.cpp
 
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: ../test/testMemoryAlloc.cpp

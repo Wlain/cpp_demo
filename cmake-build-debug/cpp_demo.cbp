@@ -268,10 +268,19 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/include/vec2f.h">
 			<Option target="cpp_demo"/>
 		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/include/vector2.h">
+			<Option target="cpp_demo"/>
+		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/main.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/src/vec2f.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/src/vector2.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/constevalTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testAuto.cpp">
@@ -287,6 +296,9 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testDecltype.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testLambda.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp">

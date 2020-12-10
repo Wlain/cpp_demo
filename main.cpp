@@ -4,6 +4,7 @@
 #include "include/base.h"
 #include "include/basic_timer.h"
 #include "vec2f.h"
+#include "vector2.h"
 
 #include <array>
 #include <regex>
@@ -17,6 +18,7 @@ extern void ifTest1();
 extern void ifTest2();
 extern void ifSwitch1();
 extern void ifSwitch2();
+extern void lambdaTest();
 
 int Vec2f::constructorCount = 0;
 int Vec2f::destructorCount = 0;
@@ -70,6 +72,8 @@ int main()
 //        else
 //            ++it; //指向下一个位置
 //    }
+
+
 //    cout << Vec2f::getConstructorCount() << endl;
 //    std::random_device rd;
 //    std::default_random_engine gen = std::default_random_engine(rd());
@@ -85,9 +89,14 @@ int main()
 //    {
 //        cout << uniformDist(e1) << "\t";
 //    }
-    ifTest1();
-    ifTest2();
-    ifSwitch1();
-    ifSwitch2();
+    Vector2 v1{1, 2};
+    Vector2 v2{3, 4};
+    const Vector2& v3 = v1 + v2;
+    Vector2 rightDir = (v1 - v2);
+//    ifTest1();
+//    ifTest2();
+//    ifSwitch1();
+//    ifSwitch2();
+    lambdaTest();
     return 0;
 }
