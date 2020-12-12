@@ -7,8 +7,8 @@
 #include "vector2.h"
 
 #include <array>
-#include <regex>
 #include <random>
+#include <regex>
 
 extern void testAuto();
 extern void testDecltype();
@@ -19,6 +19,10 @@ extern void ifTest2();
 extern void ifSwitch1();
 extern void ifSwitch2();
 extern void lambdaTest();
+extern void testModern01();
+
+
+
 
 int Vec2f::constructorCount = 0;
 int Vec2f::destructorCount = 0;
@@ -60,43 +64,57 @@ int main()
     //        std::cout << match_str << '\n';
     //    }
 
-//    vector<int> vec;
-//    for (int i = 0; i < 10; i++)
-//    {
-//        vec.push_back(i);
-//    }
-//    for (auto it = vec.begin(); it != vec.end();)
-//    {
-//        if (*it % 3 == 0)
-//            it = vec.erase(it); //删除元素，返回值指向已删除元素的下一个位置
-//        else
-//            ++it; //指向下一个位置
-//    }
+    //    vector<int> vec;
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        vec.push_back(i);
+    //    }
+    //    for (auto it = vec.begin(); it != vec.end();)
+    //    {
+    //        if (*it % 3 == 0)
+    //            it = vec.erase(it); //删除元素，返回值指向已删除元素的下一个位置
+    //        else
+    //            ++it; //指向下一个位置
+    //    }
 
-
-//    cout << Vec2f::getConstructorCount() << endl;
-//    std::random_device rd;
-//    std::default_random_engine gen = std::default_random_engine(rd());
-//    std::uniform_int_distribution<int> dis(1,10);
-//    srand((unsigned)time(nullptr));
-//    std::cout << "some random numbers between 1 and 10: ";
-//    cout << "------------(rand() % 800 / 1000.0f)-----------"
-//    for (int i=0; i<10; ++i)
-//        std::cout << (rand() % 800 / 1000.0f) << " ";
-//    std::cout << std::endl;
-//    以随机值播种，若可能
-//    for (int i = 0; i < 100; ++i)
-//    {
-//        cout << uniformDist(e1) << "\t";
-//    }
-    Vector2 v1{1, 2};
-    Vector2 v2{3, 4};
+    //    cout << Vec2f::getConstructorCount() << endl;
+    //    std::random_device rd;
+    //    std::default_random_engine gen = std::default_random_engine(rd());
+    //    std::uniform_int_distribution<int> dis(1,10);
+    //    srand((unsigned)time(nullptr));
+    //    std::cout << "some random numbers between 1 and 10: ";
+    //    cout << "------------(rand() % 800 / 1000.0f)-----------"
+    //    for (int i=0; i<10; ++i)
+    //        std::cout << (rand() % 800 / 1000.0f) << " ";
+    //    std::cout << std::endl;
+    //    以随机值播种，若可能
+    //    for (int i = 0; i < 100; ++i)
+    //    {
+    //        cout << uniformDist(e1) << "\t";
+    //    }
+    Vector2 v1{ 1, 2 };
+    Vector2 v2{ 3, 4 };
     const Vector2& v3 = v1 + v2;
     Vector2 rightDir = (v1 - v2);
-//    ifTest1();
-//    ifTest2();
-//    ifSwitch1();
-//    ifSwitch2();
+    //    ifTest1();
+    //    ifTest2();
+    //    ifSwitch1();
+    //    ifSwitch2();
     lambdaTest();
+    // C++ 17 类型推导
+    std::array arr{1, 2, 3, 4}; // // -> std::array<int, 4>
+    std::array m_attribs{ -1, -1 };
+    std::array m_meshAttribs{ -1, -1 };
+
+    std::reverse_copy(arr.begin(), arr.end(),
+                      std::ostream_iterator<int>(std::cout, " "));
+
+    std::cout << std::endl;
+    std::vector vec{1, 2, 3};
+    std::reverse_copy(vec.begin(), vec.end(),
+                      std::ostream_iterator<int>(std::cout, " "));
+    std::cout << endl;
+    testModern01();
+    cout << endl;
     return 0;
 }

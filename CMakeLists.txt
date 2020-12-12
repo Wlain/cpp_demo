@@ -15,4 +15,4 @@ file(GLOB SOURCES
     *.cpp
 )
 
-add_executable(cpp_demo ${SOURCES} test/testRegex.cpp test/testSwitchNew.cpp src/vector2.cpp include/vector2.h test/testLambda.cpp test/constevalTest.cpp)
+add_executable(cpp_demo ${SOURCES} test/testRegex.cpp test/testSwitchNew.cpp src/vector2.cpp include/vector2.h test/testLambda.cpp test/constevalTest.cpp test/testTemplate.cpp test/testModernC++.cpp)

@@ -42,8 +42,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o"
   "cpp_demo"
   "cpp_demo.pdb"
 )

@@ -17,11 +17,11 @@ void lambdaTest()
     std::for_each(c.begin(), c.end(), [](int i) { std::cout << i << ' '; });
     std::cout << '\n';
 
-    auto func1 = [](int i = 6){return i + 4;};
+    auto func1 = [](int i = 6) { return i + 4; };
     std::cout << "func1:" << func1() << std::endl;
 
     // 与所有可调用对象相同，闭包能可以被捕获到 std::function 之中
     // （这可能带来不必要的开销）
-    std::function<int(int)> func2 = [](int i) {return i + 4};
+    std::function<int(int)> func2 = [](int i) { return i + 4; };
     std::cout << "func2" << func2(6) << std::endl;
 }

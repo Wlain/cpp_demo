@@ -304,10 +304,16 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testModernC++.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testRegex.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/testTemplate.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/CMakeLists.txt">

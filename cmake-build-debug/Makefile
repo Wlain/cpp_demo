@@ -1304,6 +1304,33 @@ test/testMemoryAlloc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.s
 .PHONY : test/testMemoryAlloc.cpp.s
 
+test/testModernC++.o: test/testModernC++.cpp.o
+
+.PHONY : test/testModernC++.o
+
+# target to build an object file
+test/testModernC++.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o
+.PHONY : test/testModernC++.cpp.o
+
+test/testModernC++.i: test/testModernC++.cpp.i
+
+.PHONY : test/testModernC++.i
+
+# target to preprocess a source file
+test/testModernC++.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.i
+.PHONY : test/testModernC++.cpp.i
+
+test/testModernC++.s: test/testModernC++.cpp.s
+
+.PHONY : test/testModernC++.s
+
+# target to generate assembly for a file
+test/testModernC++.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.s
+.PHONY : test/testModernC++.cpp.s
+
 test/testRegex.o: test/testRegex.cpp.o
 
 .PHONY : test/testRegex.o
@@ -1357,6 +1384,33 @@ test/testSwitchNew.s: test/testSwitchNew.cpp.s
 test/testSwitchNew.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.s
 .PHONY : test/testSwitchNew.cpp.s
+
+test/testTemplate.o: test/testTemplate.cpp.o
+
+.PHONY : test/testTemplate.o
+
+# target to build an object file
+test/testTemplate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o
+.PHONY : test/testTemplate.cpp.o
+
+test/testTemplate.i: test/testTemplate.cpp.i
+
+.PHONY : test/testTemplate.i
+
+# target to preprocess a source file
+test/testTemplate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.i
+.PHONY : test/testTemplate.cpp.i
+
+test/testTemplate.s: test/testTemplate.cpp.s
+
+.PHONY : test/testTemplate.s
+
+# target to generate assembly for a file
+test/testTemplate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s
+.PHONY : test/testTemplate.cpp.s
 
 # Help Target
 help:
@@ -1496,12 +1550,18 @@ help:
 	@echo "... test/testMemoryAlloc.o"
 	@echo "... test/testMemoryAlloc.i"
 	@echo "... test/testMemoryAlloc.s"
+	@echo "... test/testModernC++.o"
+	@echo "... test/testModernC++.i"
+	@echo "... test/testModernC++.s"
 	@echo "... test/testRegex.o"
 	@echo "... test/testRegex.i"
 	@echo "... test/testRegex.s"
 	@echo "... test/testSwitchNew.o"
 	@echo "... test/testSwitchNew.i"
 	@echo "... test/testSwitchNew.s"
+	@echo "... test/testTemplate.o"
+	@echo "... test/testTemplate.i"
+	@echo "... test/testTemplate.s"
 .PHONY : help
 
 
