@@ -104,7 +104,7 @@ int main()
 // 那么COM(6+5,3)它就会换成这样: 6+5*3, 这样显然就和宏的意图不符合了。
 ```
 
-26.虚函数不能带有缺省参数
+26.虚函数派生类的函数不能带有缺省参数，因为缺省参数是静态编译，而虚函数机制是动态编译
 
 ```C++
 virtual void A(int a = 0); // error
@@ -116,6 +116,12 @@ virtual void B(int a); // ok
 28.尽可能得使用const auto&，从而减少拷贝
 
 29.%lu表示输出无符号长整型整数 (long unsigned)
+
+30.遍历整个array并且打印：
+```C++
+std::reverse_copy(arr.begin(), arr.end(),
+                  std::ostream_iterator<int>(std::cout, " "));
+```
 
 ##C++ 编程规范 101条规则、准则与最佳实践
 001.了解哪些东西不应该标准化
@@ -138,7 +144,6 @@ virtual void B(int a); // ok
 
 010.尽量减少全局和共享数据
 
-011.
 
 
 
