@@ -3,7 +3,6 @@
 //
 #include <functional>
 #include <iostream>
-#include <string>
 
 void testModern01()
 {
@@ -91,7 +90,7 @@ public:
     {
         m_v1 = 1;
     }
-    Base(int value) :
+    explicit Base(int value) :
         Base()
     {
         m_v2 = value;
@@ -99,8 +98,11 @@ public:
     virtual void foo() final;
 public:
     int m_v1;
-    int m_v2;
+    int m_v2{};
 };
+void Base::foo()
+{
+}
 
 class SubClass : public Base
 {

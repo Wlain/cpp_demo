@@ -10,7 +10,7 @@ void testMemoryAlloc()
 {
     int a;                     // 函数里面的局部变量：栈区
     char* p;                   // 函数里面的局部变量： 栈区
-    char* str = "hello world"; // 函数里面的局部变量：栈区，"hello
+    const char* str = "hello world"; // 函数里面的局部变量：栈区，"hello
                                // world":是一个字符串常量，位于常量区
 }
 
