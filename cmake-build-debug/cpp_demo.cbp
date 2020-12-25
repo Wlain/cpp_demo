@@ -283,6 +283,15 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/constevalTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/emplace_backTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/moveTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testAuto.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
@@ -314,6 +323,9 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testTemplate.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/volatileTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/CMakeLists.txt">

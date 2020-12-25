@@ -35,6 +35,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o"
   "CMakeFiles/cpp_demo.dir/src/vector2.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testConst.cpp.o"
@@ -46,6 +49,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
   "CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o"
+  "CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o"
   "cpp_demo"
   "cpp_demo.pdb"
 )

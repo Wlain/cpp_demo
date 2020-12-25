@@ -20,14 +20,47 @@ extern void ifSwitch1();
 extern void ifSwitch2();
 extern void lambdaTest();
 extern void testModern01();
-
-
-
+extern void emplace_backTest();
+extern void referenceTest();
 
 int Vec2f::constructorCount = 0;
 int Vec2f::destructorCount = 0;
 // 必须在定义类的文件中对静态成员变量进行一次说明,或初始化。否则编译能通过，链接不能通过。
 using namespace std;
+
+class Base
+{
+public:
+    Base()
+    {
+        std::cout << "Base call" << std::endl;
+        temp = std::make_shared<float>();
+    }
+
+    Base(int a)
+    {
+        std::cout << "Base call : a" << std::endl;
+    }
+
+private:
+    float a = 0;
+    std::shared_ptr<float> temp;
+    //    float b =0;
+    //    float c =0;
+};
+
+class Derived : public Base
+{
+public:
+    Derived() = default;
+    Derived(int a){};
+};
+
+std::string getString()
+{
+    return std::string("123") + std::string("12223");
+}
+
 int main()
 {
     //  testAuto();
@@ -102,7 +135,7 @@ int main()
     //    ifSwitch2();
     lambdaTest();
     // C++ 17 类型推导
-    std::array arr{1, 2, 3, 4}; // // -> std::array<int, 4>
+    std::array arr{ 1, 2, 3, 4 }; // // -> std::array<int, 4>
     std::array m_attribs{ -1, -1 };
     std::array m_meshAttribs{ -1, -1 };
 
@@ -110,11 +143,19 @@ int main()
                       std::ostream_iterator<int>(std::cout, " "));
 
     std::cout << std::endl;
-    std::vector vec{1, 2, 3};
+    std::vector vec{ 1, 2, 3 };
     std::reverse_copy(vec.begin(), vec.end(),
                       std::ostream_iterator<int>(std::cout, " "));
     std::cout << endl;
     testModern01();
     cout << endl;
+    Base base;
+    Derived derived;
+    cout << sizeof(base) << endl;
+    cout << sizeof(derived) << endl;
+    emplace_backTest();
+    const char* s = getString().c_str();
+    cout << s << endl;
+    referenceTest();
     return 0;
 }

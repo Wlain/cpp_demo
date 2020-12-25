@@ -122,6 +122,8 @@ virtual void B(int a); // ok
 std::reverse_copy(arr.begin(), arr.end(),
                   std::ostream_iterator<int>(std::cout, " "));
 ```
+31.头文件千万不要写using namespace xxx,源文件里面可以写
+
 
 ##C++ 编程规范 101条规则、准则与最佳实践
 001.了解哪些东西不应该标准化

@@ -16,3 +16,5 @@ file(GLOB SOURCES
 )
 
 add_executable(cpp_demo ${SOURCES})
+
+set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")

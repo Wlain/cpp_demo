@@ -1115,6 +1115,87 @@ test/constevalTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.s
 .PHONY : test/constevalTest.cpp.s
 
+test/emplace_backTest.o: test/emplace_backTest.cpp.o
+
+.PHONY : test/emplace_backTest.o
+
+# target to build an object file
+test/emplace_backTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o
+.PHONY : test/emplace_backTest.cpp.o
+
+test/emplace_backTest.i: test/emplace_backTest.cpp.i
+
+.PHONY : test/emplace_backTest.i
+
+# target to preprocess a source file
+test/emplace_backTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.i
+.PHONY : test/emplace_backTest.cpp.i
+
+test/emplace_backTest.s: test/emplace_backTest.cpp.s
+
+.PHONY : test/emplace_backTest.s
+
+# target to generate assembly for a file
+test/emplace_backTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.s
+.PHONY : test/emplace_backTest.cpp.s
+
+test/moveTest.o: test/moveTest.cpp.o
+
+.PHONY : test/moveTest.o
+
+# target to build an object file
+test/moveTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o
+.PHONY : test/moveTest.cpp.o
+
+test/moveTest.i: test/moveTest.cpp.i
+
+.PHONY : test/moveTest.i
+
+# target to preprocess a source file
+test/moveTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/moveTest.cpp.i
+.PHONY : test/moveTest.cpp.i
+
+test/moveTest.s: test/moveTest.cpp.s
+
+.PHONY : test/moveTest.s
+
+# target to generate assembly for a file
+test/moveTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/moveTest.cpp.s
+.PHONY : test/moveTest.cpp.s
+
+test/referenceDeclarationTest.o: test/referenceDeclarationTest.cpp.o
+
+.PHONY : test/referenceDeclarationTest.o
+
+# target to build an object file
+test/referenceDeclarationTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o
+.PHONY : test/referenceDeclarationTest.cpp.o
+
+test/referenceDeclarationTest.i: test/referenceDeclarationTest.cpp.i
+
+.PHONY : test/referenceDeclarationTest.i
+
+# target to preprocess a source file
+test/referenceDeclarationTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.i
+.PHONY : test/referenceDeclarationTest.cpp.i
+
+test/referenceDeclarationTest.s: test/referenceDeclarationTest.cpp.s
+
+.PHONY : test/referenceDeclarationTest.s
+
+# target to generate assembly for a file
+test/referenceDeclarationTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.s
+.PHONY : test/referenceDeclarationTest.cpp.s
+
 test/testAuto.o: test/testAuto.cpp.o
 
 .PHONY : test/testAuto.o
@@ -1412,6 +1493,33 @@ test/testTemplate.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s
 .PHONY : test/testTemplate.cpp.s
 
+test/volatileTest.o: test/volatileTest.cpp.o
+
+.PHONY : test/volatileTest.o
+
+# target to build an object file
+test/volatileTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o
+.PHONY : test/volatileTest.cpp.o
+
+test/volatileTest.i: test/volatileTest.cpp.i
+
+.PHONY : test/volatileTest.i
+
+# target to preprocess a source file
+test/volatileTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.i
+.PHONY : test/volatileTest.cpp.i
+
+test/volatileTest.s: test/volatileTest.cpp.s
+
+.PHONY : test/volatileTest.s
+
+# target to generate assembly for a file
+test/volatileTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.s
+.PHONY : test/volatileTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1529,6 +1637,15 @@ help:
 	@echo "... test/constevalTest.o"
 	@echo "... test/constevalTest.i"
 	@echo "... test/constevalTest.s"
+	@echo "... test/emplace_backTest.o"
+	@echo "... test/emplace_backTest.i"
+	@echo "... test/emplace_backTest.s"
+	@echo "... test/moveTest.o"
+	@echo "... test/moveTest.i"
+	@echo "... test/moveTest.s"
+	@echo "... test/referenceDeclarationTest.o"
+	@echo "... test/referenceDeclarationTest.i"
+	@echo "... test/referenceDeclarationTest.s"
 	@echo "... test/testAuto.o"
 	@echo "... test/testAuto.i"
 	@echo "... test/testAuto.s"
@@ -1562,6 +1679,9 @@ help:
 	@echo "... test/testTemplate.o"
 	@echo "... test/testTemplate.i"
 	@echo "... test/testTemplate.s"
+	@echo "... test/volatileTest.o"
+	@echo "... test/volatileTest.i"
+	@echo "... test/volatileTest.s"
 .PHONY : help
 
 

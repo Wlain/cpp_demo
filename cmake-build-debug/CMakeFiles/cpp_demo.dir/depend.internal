@@ -431,6 +431,15 @@ CMakeFiles/cpp_demo.dir/src/vector2.cpp.o
  /Users/william/git/demo/cpp_demo/src/vector2.cpp
 CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o
  /Users/william/git/demo/cpp_demo/test/constevalTest.cpp
+CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o
+ ../include/base.h
+ /Users/william/git/demo/cpp_demo/test/emplace_backTest.cpp
+CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o
+ ../include/base.h
+ /Users/william/git/demo/cpp_demo/test/moveTest.cpp
+CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o
+ ../include/base.h
+ /Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testAuto.cpp
@@ -462,3 +471,5 @@ CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o
  ../include/base.h
  /Users/william/git/demo/cpp_demo/test/testTemplate.cpp
+CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o
+ /Users/william/git/demo/cpp_demo/test/volatileTest.cpp

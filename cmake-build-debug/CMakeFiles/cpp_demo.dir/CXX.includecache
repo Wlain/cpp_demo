@@ -6,11 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/Users/william/git/demo/cpp_demo/test/testModernC++.cpp
-functional
--
+../include/base.h
 iostream
+-
+typeinfo
 -
 string
 -
+array
+-
+algorithm
+-
+iterator
+-
+iostream
+-
+
+/Users/william/git/demo/cpp_demo/test/emplace_backTest.cpp
+base.h
+/Users/william/git/demo/cpp_demo/test/base.h
+vector
+-
+
+/Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp
+base.h
+/Users/william/git/demo/cpp_demo/test/base.h
 
