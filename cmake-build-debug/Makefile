@@ -1007,6 +1007,87 @@ cpp_demo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.s
 .PHONY : 3rdparty/lua-5.4.0/src/lzio.c.s
 
+cpppreference/autoTest.o: cpppreference/autoTest.cpp.o
+
+.PHONY : cpppreference/autoTest.o
+
+# target to build an object file
+cpppreference/autoTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o
+.PHONY : cpppreference/autoTest.cpp.o
+
+cpppreference/autoTest.i: cpppreference/autoTest.cpp.i
+
+.PHONY : cpppreference/autoTest.i
+
+# target to preprocess a source file
+cpppreference/autoTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.i
+.PHONY : cpppreference/autoTest.cpp.i
+
+cpppreference/autoTest.s: cpppreference/autoTest.cpp.s
+
+.PHONY : cpppreference/autoTest.s
+
+# target to generate assembly for a file
+cpppreference/autoTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.s
+.PHONY : cpppreference/autoTest.cpp.s
+
+cpppreference/extendedFriendDeclarationsTest.o: cpppreference/extendedFriendDeclarationsTest.cpp.o
+
+.PHONY : cpppreference/extendedFriendDeclarationsTest.o
+
+# target to build an object file
+cpppreference/extendedFriendDeclarationsTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o
+.PHONY : cpppreference/extendedFriendDeclarationsTest.cpp.o
+
+cpppreference/extendedFriendDeclarationsTest.i: cpppreference/extendedFriendDeclarationsTest.cpp.i
+
+.PHONY : cpppreference/extendedFriendDeclarationsTest.i
+
+# target to preprocess a source file
+cpppreference/extendedFriendDeclarationsTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.i
+.PHONY : cpppreference/extendedFriendDeclarationsTest.cpp.i
+
+cpppreference/extendedFriendDeclarationsTest.s: cpppreference/extendedFriendDeclarationsTest.cpp.s
+
+.PHONY : cpppreference/extendedFriendDeclarationsTest.s
+
+# target to generate assembly for a file
+cpppreference/extendedFriendDeclarationsTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.s
+.PHONY : cpppreference/extendedFriendDeclarationsTest.cpp.s
+
+cpppreference/staticAssertTest.o: cpppreference/staticAssertTest.cpp.o
+
+.PHONY : cpppreference/staticAssertTest.o
+
+# target to build an object file
+cpppreference/staticAssertTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o
+.PHONY : cpppreference/staticAssertTest.cpp.o
+
+cpppreference/staticAssertTest.i: cpppreference/staticAssertTest.cpp.i
+
+.PHONY : cpppreference/staticAssertTest.i
+
+# target to preprocess a source file
+cpppreference/staticAssertTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.i
+.PHONY : cpppreference/staticAssertTest.cpp.i
+
+cpppreference/staticAssertTest.s: cpppreference/staticAssertTest.cpp.s
+
+.PHONY : cpppreference/staticAssertTest.s
+
+# target to generate assembly for a file
+cpppreference/staticAssertTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.s
+.PHONY : cpppreference/staticAssertTest.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -1088,6 +1169,60 @@ src/vector2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/src/vector2.cpp.s
 .PHONY : src/vector2.cpp.s
 
+test/RETest.o: test/RETest.cpp.o
+
+.PHONY : test/RETest.o
+
+# target to build an object file
+test/RETest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/RETest.cpp.o
+.PHONY : test/RETest.cpp.o
+
+test/RETest.i: test/RETest.cpp.i
+
+.PHONY : test/RETest.i
+
+# target to preprocess a source file
+test/RETest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/RETest.cpp.i
+.PHONY : test/RETest.cpp.i
+
+test/RETest.s: test/RETest.cpp.s
+
+.PHONY : test/RETest.s
+
+# target to generate assembly for a file
+test/RETest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/RETest.cpp.s
+.PHONY : test/RETest.cpp.s
+
+test/bitsetTest.o: test/bitsetTest.cpp.o
+
+.PHONY : test/bitsetTest.o
+
+# target to build an object file
+test/bitsetTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o
+.PHONY : test/bitsetTest.cpp.o
+
+test/bitsetTest.i: test/bitsetTest.cpp.i
+
+.PHONY : test/bitsetTest.i
+
+# target to preprocess a source file
+test/bitsetTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.i
+.PHONY : test/bitsetTest.cpp.i
+
+test/bitsetTest.s: test/bitsetTest.cpp.s
+
+.PHONY : test/bitsetTest.s
+
+# target to generate assembly for a file
+test/bitsetTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.s
+.PHONY : test/bitsetTest.cpp.s
+
 test/constevalTest.o: test/constevalTest.cpp.o
 
 .PHONY : test/constevalTest.o
@@ -1168,6 +1303,33 @@ test/moveTest.s: test/moveTest.cpp.s
 test/moveTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/moveTest.cpp.s
 .PHONY : test/moveTest.cpp.s
+
+test/randomTest.o: test/randomTest.cpp.o
+
+.PHONY : test/randomTest.o
+
+# target to build an object file
+test/randomTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o
+.PHONY : test/randomTest.cpp.o
+
+test/randomTest.i: test/randomTest.cpp.i
+
+.PHONY : test/randomTest.i
+
+# target to preprocess a source file
+test/randomTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/randomTest.cpp.i
+.PHONY : test/randomTest.cpp.i
+
+test/randomTest.s: test/randomTest.cpp.s
+
+.PHONY : test/randomTest.s
+
+# target to generate assembly for a file
+test/randomTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/randomTest.cpp.s
+.PHONY : test/randomTest.cpp.s
 
 test/referenceDeclarationTest.o: test/referenceDeclarationTest.cpp.o
 
@@ -1493,6 +1655,33 @@ test/testTemplate.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s
 .PHONY : test/testTemplate.cpp.s
 
+test/tupleTest.o: test/tupleTest.cpp.o
+
+.PHONY : test/tupleTest.o
+
+# target to build an object file
+test/tupleTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o
+.PHONY : test/tupleTest.cpp.o
+
+test/tupleTest.i: test/tupleTest.cpp.i
+
+.PHONY : test/tupleTest.i
+
+# target to preprocess a source file
+test/tupleTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.i
+.PHONY : test/tupleTest.cpp.i
+
+test/tupleTest.s: test/tupleTest.cpp.s
+
+.PHONY : test/tupleTest.s
+
+# target to generate assembly for a file
+test/tupleTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.s
+.PHONY : test/tupleTest.cpp.s
+
 test/volatileTest.o: test/volatileTest.cpp.o
 
 .PHONY : test/volatileTest.o
@@ -1625,6 +1814,15 @@ help:
 	@echo "... 3rdparty/lua-5.4.0/src/lzio.o"
 	@echo "... 3rdparty/lua-5.4.0/src/lzio.i"
 	@echo "... 3rdparty/lua-5.4.0/src/lzio.s"
+	@echo "... cpppreference/autoTest.o"
+	@echo "... cpppreference/autoTest.i"
+	@echo "... cpppreference/autoTest.s"
+	@echo "... cpppreference/extendedFriendDeclarationsTest.o"
+	@echo "... cpppreference/extendedFriendDeclarationsTest.i"
+	@echo "... cpppreference/extendedFriendDeclarationsTest.s"
+	@echo "... cpppreference/staticAssertTest.o"
+	@echo "... cpppreference/staticAssertTest.i"
+	@echo "... cpppreference/staticAssertTest.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -1634,6 +1832,12 @@ help:
 	@echo "... src/vector2.o"
 	@echo "... src/vector2.i"
 	@echo "... src/vector2.s"
+	@echo "... test/RETest.o"
+	@echo "... test/RETest.i"
+	@echo "... test/RETest.s"
+	@echo "... test/bitsetTest.o"
+	@echo "... test/bitsetTest.i"
+	@echo "... test/bitsetTest.s"
 	@echo "... test/constevalTest.o"
 	@echo "... test/constevalTest.i"
 	@echo "... test/constevalTest.s"
@@ -1643,6 +1847,9 @@ help:
 	@echo "... test/moveTest.o"
 	@echo "... test/moveTest.i"
 	@echo "... test/moveTest.s"
+	@echo "... test/randomTest.o"
+	@echo "... test/randomTest.i"
+	@echo "... test/randomTest.s"
 	@echo "... test/referenceDeclarationTest.o"
 	@echo "... test/referenceDeclarationTest.i"
 	@echo "... test/referenceDeclarationTest.s"
@@ -1679,6 +1886,9 @@ help:
 	@echo "... test/testTemplate.o"
 	@echo "... test/testTemplate.i"
 	@echo "... test/testTemplate.s"
+	@echo "... test/tupleTest.o"
+	@echo "... test/tupleTest.i"
+	@echo "... test/tupleTest.s"
 	@echo "... test/volatileTest.o"
 	@echo "... test/volatileTest.i"
 	@echo "... test/volatileTest.s"

@@ -259,6 +259,15 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/3rdparty/lua-5.4.0/src/lzio.h">
 			<Option target="cpp_demo"/>
 		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/cpppreference/autoTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/cpppreference/extendedFriendDeclarationsTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/cpppreference/staticAssertTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/include/base.h">
 			<Option target="cpp_demo"/>
 		</Unit>
@@ -280,6 +289,12 @@
 		<Unit filename="/Users/william/git/demo/cpp_demo/src/vector2.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/RETest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/bitsetTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/constevalTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
@@ -287,6 +302,9 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/moveTest.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/randomTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp">
@@ -323,6 +341,9 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/testTemplate.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/demo/cpp_demo/test/tupleTest.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/demo/cpp_demo/test/volatileTest.cpp">

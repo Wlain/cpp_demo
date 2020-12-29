@@ -415,6 +415,14 @@ CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/s
 CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/src/lzio.c
 CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o: ../3rdparty/lua-5.4.0/src/lzio.h
 
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o: ../cpppreference/autoTest.cpp
+
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o: ../cpppreference/extendedFriendDeclarationsTest.cpp
+
+CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o: ../cpppreference/staticAssertTest.cpp
+
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/vec2f.h
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../include/vector2.h
@@ -429,6 +437,11 @@ CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../src/vec2f.cpp
 CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: ../include/vector2.h
 CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: ../src/vector2.cpp
 
+CMakeFiles/cpp_demo.dir/test/RETest.cpp.o: ../test/RETest.cpp
+
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o: ../include/base.h
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o: ../test/bitsetTest.cpp
+
 CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o: ../test/constevalTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o: ../include/base.h
@@ -436,6 +449,8 @@ CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o: ../test/emplace_backTest.cp
 
 CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o: ../test/moveTest.cpp
+
+CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o: ../test/randomTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o: ../test/referenceDeclarationTest.cpp
@@ -470,6 +485,8 @@ CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o: ../test/testSwitchNew.cpp
 
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o: ../include/base.h
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o: ../test/testTemplate.cpp
+
+CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o: ../test/tupleTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o: ../test/volatileTest.cpp
 

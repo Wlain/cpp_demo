@@ -45,12 +45,18 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/william/git/demo/cpp_demo/cpppreference/autoTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o"
+  "/Users/william/git/demo/cpp_demo/cpppreference/extendedFriendDeclarationsTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o"
+  "/Users/william/git/demo/cpp_demo/cpppreference/staticAssertTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/main.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/main.cpp.o"
   "/Users/william/git/demo/cpp_demo/src/vec2f.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o"
   "/Users/william/git/demo/cpp_demo/src/vector2.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/src/vector2.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/RETest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/RETest.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/bitsetTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/constevalTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/emplace_backTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/moveTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/randomTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testAuto.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testCallback.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o"
@@ -63,6 +69,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/demo/cpp_demo/test/testRegex.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/testTemplate.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o"
+  "/Users/william/git/demo/cpp_demo/test/tupleTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o"
   "/Users/william/git/demo/cpp_demo/test/volatileTest.cpp" "/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

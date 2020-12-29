@@ -11,10 +11,11 @@ file(GLOB SOURCES
     3rdparty/lua-5.4.0/src/*.c
     include/*.h
     src/*.cpp
+    cpppreference/*.cpp
     test/*.cpp
     *.cpp
 )
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} cpppreference/extendedFriendDeclarationsTest.cpp cpppreference/autoTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")

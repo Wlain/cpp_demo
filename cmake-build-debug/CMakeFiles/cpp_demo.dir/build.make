@@ -493,9 +493,48 @@ CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/william/git/demo/cpp_demo/3rdparty/lua-5.4.0/src/lzio.c -o CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.s
 
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o: ../cpppreference/autoTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o -c /Users/william/git/demo/cpp_demo/cpppreference/autoTest.cpp
+
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/cpppreference/autoTest.cpp > CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/cpppreference/autoTest.cpp -o CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.s
+
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o: ../cpppreference/extendedFriendDeclarationsTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o -c /Users/william/git/demo/cpp_demo/cpppreference/extendedFriendDeclarationsTest.cpp
+
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/cpppreference/extendedFriendDeclarationsTest.cpp > CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/cpppreference/extendedFriendDeclarationsTest.cpp -o CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.s
+
+CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o: ../cpppreference/staticAssertTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o -c /Users/william/git/demo/cpp_demo/cpppreference/staticAssertTest.cpp
+
+CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/cpppreference/staticAssertTest.cpp > CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/cpppreference/staticAssertTest.cpp -o CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.s
+
 CMakeFiles/cpp_demo.dir/main.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/cpp_demo.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/cpp_demo.dir/main.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/main.cpp.o -c /Users/william/git/demo/cpp_demo/main.cpp
 
 CMakeFiles/cpp_demo.dir/main.cpp.i: cmake_force
@@ -508,7 +547,7 @@ CMakeFiles/cpp_demo.dir/main.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o: ../src/vec2f.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o -c /Users/william/git/demo/cpp_demo/src/vec2f.cpp
 
 CMakeFiles/cpp_demo.dir/src/vec2f.cpp.i: cmake_force
@@ -521,7 +560,7 @@ CMakeFiles/cpp_demo.dir/src/vec2f.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/src/vector2.cpp.o: ../src/vector2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/cpp_demo.dir/src/vector2.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/cpp_demo.dir/src/vector2.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/src/vector2.cpp.o -c /Users/william/git/demo/cpp_demo/src/vector2.cpp
 
 CMakeFiles/cpp_demo.dir/src/vector2.cpp.i: cmake_force
@@ -532,9 +571,35 @@ CMakeFiles/cpp_demo.dir/src/vector2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/src/vector2.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/src/vector2.cpp -o CMakeFiles/cpp_demo.dir/src/vector2.cpp.s
 
+CMakeFiles/cpp_demo.dir/test/RETest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/test/RETest.cpp.o: ../test/RETest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/cpp_demo.dir/test/RETest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/RETest.cpp.o -c /Users/william/git/demo/cpp_demo/test/RETest.cpp
+
+CMakeFiles/cpp_demo.dir/test/RETest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/test/RETest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/test/RETest.cpp > CMakeFiles/cpp_demo.dir/test/RETest.cpp.i
+
+CMakeFiles/cpp_demo.dir/test/RETest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/RETest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/RETest.cpp -o CMakeFiles/cpp_demo.dir/test/RETest.cpp.s
+
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o: ../test/bitsetTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/bitsetTest.cpp
+
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/test/bitsetTest.cpp > CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/bitsetTest.cpp -o CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.s
+
 CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o: ../test/constevalTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/constevalTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.i: cmake_force
@@ -547,7 +612,7 @@ CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o: ../test/emplace_backTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/emplace_backTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.i: cmake_force
@@ -560,7 +625,7 @@ CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o: ../test/moveTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/moveTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/moveTest.cpp.i: cmake_force
@@ -571,9 +636,22 @@ CMakeFiles/cpp_demo.dir/test/moveTest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/moveTest.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/moveTest.cpp -o CMakeFiles/cpp_demo.dir/test/moveTest.cpp.s
 
+CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o: ../test/randomTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/randomTest.cpp
+
+CMakeFiles/cpp_demo.dir/test/randomTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/test/randomTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/test/randomTest.cpp > CMakeFiles/cpp_demo.dir/test/randomTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/test/randomTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/randomTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/randomTest.cpp -o CMakeFiles/cpp_demo.dir/test/randomTest.cpp.s
+
 CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o: ../test/referenceDeclarationTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/referenceDeclarationTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.i: cmake_force
@@ -586,7 +664,7 @@ CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o: ../test/testAuto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o -c /Users/william/git/demo/cpp_demo/test/testAuto.cpp
 
 CMakeFiles/cpp_demo.dir/test/testAuto.cpp.i: cmake_force
@@ -599,7 +677,7 @@ CMakeFiles/cpp_demo.dir/test/testAuto.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o: ../test/testCallback.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o -c /Users/william/git/demo/cpp_demo/test/testCallback.cpp
 
 CMakeFiles/cpp_demo.dir/test/testCallback.cpp.i: cmake_force
@@ -612,7 +690,7 @@ CMakeFiles/cpp_demo.dir/test/testCallback.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testConst.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testConst.cpp.o: ../test/testConst.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/cpp_demo.dir/test/testConst.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/cpp_demo.dir/test/testConst.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testConst.cpp.o -c /Users/william/git/demo/cpp_demo/test/testConst.cpp
 
 CMakeFiles/cpp_demo.dir/test/testConst.cpp.i: cmake_force
@@ -625,7 +703,7 @@ CMakeFiles/cpp_demo.dir/test/testConst.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o: ../test/testConstantPointer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.o -c /Users/william/git/demo/cpp_demo/test/testConstantPointer.cpp
 
 CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.i: cmake_force
@@ -638,7 +716,7 @@ CMakeFiles/cpp_demo.dir/test/testConstantPointer.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o: ../test/testDecltype.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.o -c /Users/william/git/demo/cpp_demo/test/testDecltype.cpp
 
 CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.i: cmake_force
@@ -651,7 +729,7 @@ CMakeFiles/cpp_demo.dir/test/testDecltype.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o: ../test/testLambda.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testLambda.cpp.o -c /Users/william/git/demo/cpp_demo/test/testLambda.cpp
 
 CMakeFiles/cpp_demo.dir/test/testLambda.cpp.i: cmake_force
@@ -664,7 +742,7 @@ CMakeFiles/cpp_demo.dir/test/testLambda.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o: ../test/testMemoryAlloc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.o -c /Users/william/git/demo/cpp_demo/test/testMemoryAlloc.cpp
 
 CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.i: cmake_force
@@ -677,7 +755,7 @@ CMakeFiles/cpp_demo.dir/test/testMemoryAlloc.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o: ../test/testModernC++.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o -c /Users/william/git/demo/cpp_demo/test/testModernC++.cpp
 
 CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.i: cmake_force
@@ -690,7 +768,7 @@ CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o: ../test/testRegex.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o -c /Users/william/git/demo/cpp_demo/test/testRegex.cpp
 
 CMakeFiles/cpp_demo.dir/test/testRegex.cpp.i: cmake_force
@@ -703,7 +781,7 @@ CMakeFiles/cpp_demo.dir/test/testRegex.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o: ../test/testSwitchNew.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o -c /Users/william/git/demo/cpp_demo/test/testSwitchNew.cpp
 
 CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.i: cmake_force
@@ -716,7 +794,7 @@ CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.s: cmake_force
 
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o: ../test/testTemplate.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o -c /Users/william/git/demo/cpp_demo/test/testTemplate.cpp
 
 CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.i: cmake_force
@@ -727,9 +805,22 @@ CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/testTemplate.cpp -o CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.s
 
+CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
+CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o: ../test/tupleTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/tupleTest.cpp
+
+CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/william/git/demo/cpp_demo/test/tupleTest.cpp > CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.i
+
+CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/william/git/demo/cpp_demo/test/tupleTest.cpp -o CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.s
+
 CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o: CMakeFiles/cpp_demo.dir/flags.make
 CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o: ../test/volatileTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o -c /Users/william/git/demo/cpp_demo/test/volatileTest.cpp
 
 CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.i: cmake_force
@@ -774,12 +865,18 @@ cpp_demo_OBJECTS = \
 "CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lutf8lib.c.o" \
 "CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lvm.c.o" \
 "CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o" \
+"CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o" \
+"CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o" \
+"CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/main.cpp.o" \
 "CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o" \
 "CMakeFiles/cpp_demo.dir/src/vector2.cpp.o" \
+"CMakeFiles/cpp_demo.dir/test/RETest.cpp.o" \
+"CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o" \
+"CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o" \
@@ -792,6 +889,7 @@ cpp_demo_OBJECTS = \
 "CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o" \
+"CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o" \
 "CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o"
 
 # External object files for target cpp_demo
@@ -829,12 +927,18 @@ cpp_demo: CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lundump.c.o
 cpp_demo: CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lutf8lib.c.o
 cpp_demo: CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lvm.c.o
 cpp_demo: CMakeFiles/cpp_demo.dir/3rdparty/lua-5.4.0/src/lzio.c.o
+cpp_demo: CMakeFiles/cpp_demo.dir/cpppreference/autoTest.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/cpppreference/extendedFriendDeclarationsTest.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/cpppreference/staticAssertTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/main.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/src/vec2f.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/src/vector2.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/test/RETest.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/test/bitsetTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/constevalTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/emplace_backTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/moveTest.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/test/randomTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/referenceDeclarationTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/testAuto.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/testCallback.cpp.o
@@ -847,10 +951,11 @@ cpp_demo: CMakeFiles/cpp_demo.dir/test/testModernC++.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/testRegex.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/testSwitchNew.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/testTemplate.cpp.o
+cpp_demo: CMakeFiles/cpp_demo.dir/test/tupleTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/test/volatileTest.cpp.o
 cpp_demo: CMakeFiles/cpp_demo.dir/build.make
 cpp_demo: CMakeFiles/cpp_demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Linking CXX executable cpp_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/william/git/demo/cpp_demo/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Linking CXX executable cpp_demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cpp_demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
