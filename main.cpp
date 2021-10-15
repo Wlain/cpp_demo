@@ -60,11 +60,13 @@ extern void stringTest();
 extern void addAddTest();
 extern void luaTest();
 extern std::string toHex(int num);
+extern int assignment0();
 
 int main()
 {
-    OpencvTest test;
-    test.show();
+//    OpencvTest test;
+//    test.show();
+    assignment0();
     std::cout << "hello world" << std::endl;
     return 0;
 }

@@ -66,6 +66,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/cpp_demo.dir/cpppreference/vectorTest.cpp.o"
   "CMakeFiles/cpp_demo.dir/cpppreference/委托构造.cpp.o"
   "CMakeFiles/cpp_demo.dir/cpppreference/智能指针.cpp.o"
+  "CMakeFiles/cpp_demo.dir/graphics/assignment0.cpp.o"
   "CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.o"
   "CMakeFiles/cpp_demo.dir/leetCode/assign_Cookies(Easy).cpp.o"
   "CMakeFiles/cpp_demo.dir/leetCode/candy_(Hard).cpp.o"

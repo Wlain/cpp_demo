@@ -53,6 +53,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../graphics"
   "../3rdparty/lua-5.1.5/src"
   "../3rdparty/tolua-master/include"
+  "../3rdparty/eigen3/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/sample/cpp_demo/cpppreference/++Test.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/++Test.cpp.o"
@@ -90,6 +91,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/sample/cpp_demo/cpppreference/vectorTest.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/vectorTest.cpp.o"
   "/Users/william/git/sample/cpp_demo/cpppreference/委托构造.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/委托构造.cpp.o"
   "/Users/william/git/sample/cpp_demo/cpppreference/智能指针.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/智能指针.cpp.o"
+  "/Users/william/git/sample/cpp_demo/graphics/assignment0.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/graphics/assignment0.cpp.o"
   "/Users/william/git/sample/cpp_demo/graphics/opencvTest.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.o"
   "/Users/william/git/sample/cpp_demo/leetCode/assign Cookies(Easy).cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/leetCode/assign_Cookies(Easy).cpp.o"
   "/Users/william/git/sample/cpp_demo/leetCode/candy (Hard).cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/leetCode/candy_(Hard).cpp.o"
@@ -139,6 +141,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../graphics"
   "../3rdparty/lua-5.1.5/src"
   "../3rdparty/tolua-master/include"
+  "../3rdparty/eigen3/include"
   )
 
 # Targets to which this target links.

@@ -15,6 +15,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphics
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include
 )
 
 file(GLOB_RECURSE SOURCES
@@ -28,7 +29,7 @@ file(GLOB_RECURSE SOURCES
         *.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} graphics/opencvTest.cpp graphics/opencvTest.h)
+add_executable(cpp_demo ${SOURCES} graphics/opencvTest.cpp graphics/opencvTest.h graphics/assignment0.cpp)
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 

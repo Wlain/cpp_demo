@@ -51,6 +51,7 @@
 					<Add directory="/Users/william/git/sample/cpp_demo/graphics"/>
 					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src"/>
 					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include"/>
+					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/eigen3/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include"/>
@@ -79,6 +80,7 @@
 					<Add directory="/Users/william/git/sample/cpp_demo/graphics"/>
 					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src"/>
 					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include"/>
+					<Add directory="/Users/william/git/sample/cpp_demo/3rdparty/eigen3/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.5/include"/>
@@ -356,6 +358,9 @@
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/sample/cpp_demo/cpppreference/智能指针.cpp">
+			<Option target="cpp_demo"/>
+		</Unit>
+		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/assignment0.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/opencvTest.cpp">
