@@ -2,10 +2,9 @@
 // Created by william on 2020/7/1.
 //
 #include "include/base.h"
-#include "vec2f.h"
-
 #include <array>
 #include <random>
+#include "opencvTest.h"
 
 namespace enableSharedFromThisTest
 {
@@ -64,7 +63,8 @@ extern std::string toHex(int num);
 
 int main()
 {
-    interviews();
-    std::cout << toHex(100) << std::endl;
+    OpencvTest test;
+    test.show();
+    std::cout << "hello world" << std::endl;
     return 0;
 }

@@ -40,6 +40,8 @@
 #include <filesystem>
 #include <csignal>
 
+#define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR#__VA_ARGS__
+
 #define TO_STRING( s ) #s
 #define CONNECTENATE(x, y) x##y
 

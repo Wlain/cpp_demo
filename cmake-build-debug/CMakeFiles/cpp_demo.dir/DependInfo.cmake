@@ -40,9 +40,17 @@ set(CMAKE_DEPENDS_CHECK_C
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_C
+  "CURRENT_PROJECT_DIR=\"/Users/william/git/sample/cpp_demo\""
+  )
+
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "/usr/local/Cellar/opencv@2/2.4.13.7_12/include/opencv"
+  "/usr/local/Cellar/opencv@2/2.4.13.7_12/include"
   "../include"
+  "../graphics"
   "../3rdparty/lua-5.1.5/src"
   "../3rdparty/tolua-master/include"
   )
@@ -82,6 +90,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/william/git/sample/cpp_demo/cpppreference/vectorTest.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/vectorTest.cpp.o"
   "/Users/william/git/sample/cpp_demo/cpppreference/委托构造.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/委托构造.cpp.o"
   "/Users/william/git/sample/cpp_demo/cpppreference/智能指针.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/cpppreference/智能指针.cpp.o"
+  "/Users/william/git/sample/cpp_demo/graphics/opencvTest.cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.o"
   "/Users/william/git/sample/cpp_demo/leetCode/assign Cookies(Easy).cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/leetCode/assign_Cookies(Easy).cpp.o"
   "/Users/william/git/sample/cpp_demo/leetCode/candy (Hard).cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/leetCode/candy_(Hard).cpp.o"
   "/Users/william/git/sample/cpp_demo/leetCode/non-overlapping Intervals (Medium).cpp" "/Users/william/git/sample/cpp_demo/cmake-build-debug/CMakeFiles/cpp_demo.dir/leetCode/non-overlapping_Intervals_(Medium).cpp.o"
@@ -117,9 +126,17 @@ set(CMAKE_DEPENDS_CHECK_CXX
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "CURRENT_PROJECT_DIR=\"/Users/william/git/sample/cpp_demo\""
+  )
+
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/usr/local/Cellar/opencv@2/2.4.13.7_12/include/opencv"
+  "/usr/local/Cellar/opencv@2/2.4.13.7_12/include"
   "../include"
+  "../graphics"
   "../3rdparty/lua-5.1.5/src"
   "../3rdparty/tolua-master/include"
   )

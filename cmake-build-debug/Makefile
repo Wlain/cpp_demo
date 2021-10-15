@@ -1952,6 +1952,33 @@ cpppreference/智能指针.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/cpppreference/智能指针.cpp.s
 .PHONY : cpppreference/智能指针.cpp.s
 
+graphics/opencvTest.o: graphics/opencvTest.cpp.o
+
+.PHONY : graphics/opencvTest.o
+
+# target to build an object file
+graphics/opencvTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.o
+.PHONY : graphics/opencvTest.cpp.o
+
+graphics/opencvTest.i: graphics/opencvTest.cpp.i
+
+.PHONY : graphics/opencvTest.i
+
+# target to preprocess a source file
+graphics/opencvTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.i
+.PHONY : graphics/opencvTest.cpp.i
+
+graphics/opencvTest.s: graphics/opencvTest.cpp.s
+
+.PHONY : graphics/opencvTest.s
+
+# target to generate assembly for a file
+graphics/opencvTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_demo.dir/build.make CMakeFiles/cpp_demo.dir/graphics/opencvTest.cpp.s
+.PHONY : graphics/opencvTest.cpp.s
+
 leetCode/assign_Cookies(Easy).o: leetCode/assign_Cookies(Easy).cpp.o
 
 .PHONY : leetCode/assign_Cookies(Easy).o
@@ -3026,6 +3053,9 @@ help:
 	@echo "... cpppreference/智能指针.o"
 	@echo "... cpppreference/智能指针.i"
 	@echo "... cpppreference/智能指针.s"
+	@echo "... graphics/opencvTest.o"
+	@echo "... graphics/opencvTest.i"
+	@echo "... graphics/opencvTest.s"
 	@echo "... leetCode/assign_Cookies(Easy).o"
 	@echo "... leetCode/assign_Cookies(Easy).i"
 	@echo "... leetCode/assign_Cookies(Easy).s"

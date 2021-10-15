@@ -5,13 +5,13 @@
 # compile CXX with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
 C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11.0    -O0
 
-C_DEFINES = 
+C_DEFINES = -DCURRENT_PROJECT_DIR=\"/Users/william/git/sample/cpp_demo\"
 
-C_INCLUDES = -I/Users/william/git/sample/cpp_demo/include -I/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src -I/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include 
+C_INCLUDES = -I/usr/local/Cellar/opencv@2/2.4.13.7_12/include/opencv -I/usr/local/Cellar/opencv@2/2.4.13.7_12/include -I/Users/william/git/sample/cpp_demo/include -I/Users/william/git/sample/cpp_demo/graphics -I/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src -I/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include 
 
 CXX_FLAGS =  -std=c++20 -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk -mmacosx-version-min=11.0    -O0 -std=gnu++2a
 
-CXX_DEFINES = 
+CXX_DEFINES = -DCURRENT_PROJECT_DIR=\"/Users/william/git/sample/cpp_demo\"
 
-CXX_INCLUDES = -I/Users/william/git/sample/cpp_demo/include -I/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src -I/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include 
+CXX_INCLUDES = -I/usr/local/Cellar/opencv@2/2.4.13.7_12/include/opencv -I/usr/local/Cellar/opencv@2/2.4.13.7_12/include -I/Users/william/git/sample/cpp_demo/include -I/Users/william/git/sample/cpp_demo/graphics -I/Users/william/git/sample/cpp_demo/3rdparty/lua-5.1.5/src -I/Users/william/git/sample/cpp_demo/3rdparty/tolua-master/include 
 

@@ -37,6 +37,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.17.5/CMakeCCompiler.cmake"
   "CMakeFiles/3.17.5/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.17.5/CMakeSystem.cmake"
+  "/usr/local/opt/opencv@2/share/OpenCV/OpenCVConfig-version.cmake"
+  "/usr/local/opt/opencv@2/share/OpenCV/OpenCVConfig.cmake"
+  "/usr/local/opt/opencv@2/share/OpenCV/OpenCVModules-release.cmake"
+  "/usr/local/opt/opencv@2/share/OpenCV/OpenCVModules.cmake"
   )
 
 # The corresponding makefile is:
