@@ -4,7 +4,6 @@
 #include "include/base.h"
 #include <array>
 #include <random>
-#include "opencvTest.h"
 
 namespace enableSharedFromThisTest
 {
@@ -60,13 +59,12 @@ extern void stringTest();
 extern void addAddTest();
 extern void luaTest();
 extern std::string toHex(int num);
-extern int assignment0();
+extern void eigen3Test();
+extern void opencvTest();
 
 int main()
 {
-//    OpencvTest test;
-//    test.show();
-    assignment0();
+    opencvTest();
     std::cout << "hello world" << std::endl;
     return 0;
 }

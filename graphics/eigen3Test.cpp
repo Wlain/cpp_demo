@@ -6,7 +6,7 @@
 #include <cmath>
 #include <eigen3/Eigen/Core>
 
-int assignment0()
+int eigen3Test()
 {
     // Basic Example of cpp
     std::cout << "Example of cpp\n";

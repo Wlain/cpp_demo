@@ -1,23 +1,19 @@
 //
 // Created by william on 2021/10/15.
 //
-#include "opencvTest.h"
 #include "base.h"
+#include <opencv2/opencv.hpp>
 
-OpencvTest::OpencvTest()
+void opencvTest()
 {
-    m_image = cv::imread(GET_CURRENT(/resources/test.jpg));
-}
-
-OpencvTest::~OpencvTest() = default;
-
-void OpencvTest::show()
-{
-    if (!m_image.data)
+    cv::Mat image = cv::imread(GET_CURRENT(/resources/test.jpg));
+    if (!image.data)
     {
         printf("No m_image data \n");
         return;
     }
-    imshow("Display Image", m_image);
+    imshow("Display Image", image);
     cv::waitKey(0);
 }
+
+

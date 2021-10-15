@@ -360,13 +360,10 @@
 		<Unit filename="/Users/william/git/sample/cpp_demo/cpppreference/智能指针.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
-		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/assignment0.cpp">
+		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/eigen3Test.cpp">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/opencvTest.cpp">
-			<Option target="cpp_demo"/>
-		</Unit>
-		<Unit filename="/Users/william/git/sample/cpp_demo/graphics/opencvTest.h">
 			<Option target="cpp_demo"/>
 		</Unit>
 		<Unit filename="/Users/william/git/sample/cpp_demo/include/base.h">

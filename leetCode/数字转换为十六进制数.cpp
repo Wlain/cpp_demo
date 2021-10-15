@@ -31,40 +31,40 @@
 
 std::string toHex(int num)
 {
-    if (num == 0)
-    {
-        return "0";
-    }
-    else if (num > 0)
-    {
-        int index = 0;
-        while (16 * (++index) <= num)
-            ;
-        std::string hex;
-        for (int i = index - 1; i > -1; --i)
-        {
-            if (num >= 16)
-            {
-                int powNum =16 * i;
-                auto dev = num / powNum;
-                num = num - powNum;
-                hex += (char)(dev < 10 ? '0' + dev : 'a' + (dev - 10));
-            }
-            else
-            {
-                hex += (char)(num < 10 ? '0' + num : 'a' + (num - 10));
-            }
-        }
-        return hex;
-    }
-    else
-    {
-        std::string hex = "0123456789abcdef", ans;
-        while (num && ans.size() < 8)
-        {
-            ans = hex[num & 0xf] + ans;
-            num >>= 4;
-        }
-        return ans;
-    }
+//    if (num == 0)
+//    {
+//        return "0";
+//    }
+//    else if (num > 0)
+//    {
+//        int index = 0;
+//        while (16 * (++index) <= num)
+//            ;
+//        std::string hex;
+//        for (int i = index - 1; i > -1; --i)
+//        {
+//            if (num >= 16)
+//            {
+//                int powNum =16 * i;
+//                auto dev = num / powNum;
+//                num = num - powNum;
+//                hex += (char)(dev < 10 ? '0' + dev : 'a' + (dev - 10));
+//            }
+//            else
+//            {
+//                hex += (char)(num < 10 ? '0' + num : 'a' + (num - 10));
+//            }
+//        }
+//        return hex;
+//    }
+//    else
+//    {
+//        std::string hex = "0123456789abcdef", ans;
+//        while (num && ans.size() < 8)
+//        {
+//            ans = hex[num & 0xf] + ans;
+//            num >>= 4;
+//        }
+//        return ans;
+//    }
 }
