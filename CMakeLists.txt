@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.17)
+project(cpp_demo)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+# 头文件目录
+include_directories(
+        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
+        ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
+)
+
+file(GLOB_RECURSE SOURCES
+        3rdparty/lua-5.1.5/src/*.c
+        3rdparty/tolua-master/src/lib/*c
+        include/*.h
+        src/*.cpp
+        cpppreference/*.cpp
+        test/*.cpp
+        *.cpp
+        )
+
+add_executable(cpp_demo ${SOURCES} leetCode/数字转换为十六进制数.cpp)
+
+set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
