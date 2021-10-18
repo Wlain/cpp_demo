@@ -34,3 +34,4 @@
 compiledDependencies/
 cmake-build-*
 build-*
+.idea/
