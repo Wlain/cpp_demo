@@ -71,8 +71,6 @@ void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Prim
     }
     auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
     auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
-    float f1 = (100.0f - 0.1f) / 2.0f;
-    float f2 = (100.0f + 0.1f) / 2.0f;
     Matrix4f mvp = m_projection * m_view * m_model;
     for (auto& i : indicesBuffer)
     {
@@ -90,7 +88,7 @@ void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Prim
         {
             vert.x() = 0.5f * (float)m_width * (vert.x() + 1.0f);
             vert.y() = 0.5f * (float)m_height * (vert.y() + 1.0f);
-            vert.z() = vert.z() * f1 + f2;
+            vert.z() = vert.z();
         }
         for (int j = 0; j < 3; ++j)
         {
