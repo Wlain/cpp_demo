@@ -2,6 +2,7 @@
 // Created by william on 2020/7/1.
 //
 #include "include/base.h"
+
 #include <array>
 #include <random>
 
@@ -61,10 +62,13 @@ extern void luaTest();
 extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
+namespace rst
+{
+extern void Assignment1();
+}
 
 int main()
 {
-    opencvTest();
-    std::cout << "hello world" << std::endl;
+    rst::Assignment1();
     return 0;
 }

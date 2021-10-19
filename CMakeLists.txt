@@ -29,7 +29,7 @@ file(GLOB_RECURSE SOURCES
         *.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} graphics/opencvTest.cpp graphics/eigen3Test.cpp)
+add_executable(cpp_demo ${SOURCES})
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 
