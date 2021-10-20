@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
+add_compile_options(-fno-elide-constructors)    #关闭编译器优化
+set(CMAKE_CXX_FLAGS "-fno-elide-constructors ${CMAKE_CXX_FLAGS}")
+
 add_definitions(-DCURRENT_PROJECT_DIR="${PROJECT_SOURCE_DIR}")
 find_package(OpenCV REQUIRED)
 

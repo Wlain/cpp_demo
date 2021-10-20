@@ -18,6 +18,11 @@ extern void tryLockTest();
 extern void mutexTest();
 } // namespace mutexTest
 
+namespace threadTest
+{
+extern void threadTest();
+}
+
 extern void testAuto();
 extern void testDecltype();
 extern void testConstantPointer();
@@ -62,14 +67,16 @@ extern void luaTest();
 extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
+
 namespace rst
 {
 extern void Assignment1();
 extern void Assignment2();
 } // namespace rst
 
+
 int main()
 {
-    rst::Assignment1();
+    threadTest::threadTest();
     return 0;
 }

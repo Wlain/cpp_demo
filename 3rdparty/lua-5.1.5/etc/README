@@ -24,7 +24,7 @@ luavs.bat
 
 min.c
 	A minimal Lua interpreter.
-	Good for learning and for starting your own.
+	ThreadTest for learning and for starting your own.
 	Do "make min" for a demo.
 
 noparser.c

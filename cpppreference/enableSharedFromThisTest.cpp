@@ -21,7 +21,7 @@ struct Good : std::enable_shared_from_this<Good> // note: public inheritance
 
     ~Good()
     {
-        std::cout << "Good::~Good() called\n";
+        std::cout << "ThreadTest::ThreadTestadTest() called\n";
     }
 };
 
@@ -67,15 +67,15 @@ void enableSharedFromThisTest()
     }
     std::cout << "pf2 is gone\n";
     std::cout << f1.get() << std::endl;
-//    // Good the two shared_ptr's share the same object
-//    std::shared_ptr<Good> gp1 = std::make_shared<Good>();
-//    std::shared_ptr<Good> gp2 = gp1->getPtr();
+//    // ThreadTest the two shared_ptr's share the same object
+//    std::shared_ptr<ThreadTest> gp1 = std::make_shared<ThreadTest>();
+//    std::shared_ptr<ThreadTest> gp2 = gp1->getPtr();
 //    std::cout << "gp2.use_count() = " << gp1.use_count() << '\n';
 //    //     Bad: shared_from_this is called without having std::shared_ptr owning the caller
 //    try
 //    {
-//        Good not_so_good;
-//        std::shared_ptr<Good> gp3 = not_so_good.getPtr();
+//        ThreadTest not_so_good;
+//        std::shared_ptr<ThreadTest> gp3 = not_so_good.getPtr();
 //    }
 //    catch (std::bad_weak_ptr& e)
 //    {
