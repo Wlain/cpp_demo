@@ -1,5 +1,5 @@
 //
-// Created by ytech on 2021/10/18.
+// Created by william on 2021/10/18.
 //
 #include "rasterizer.h"
 
@@ -62,7 +62,7 @@ void Assignment1()
     rasterizer.setProjection(getProjectionMatrix(45, 1, 0.1, 50));
     rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-    rasterizer.draw(posId, indicesId, Primitive::Triangle);
+    rasterizer.draw(posId, indicesId, Primitive::Triangle_Line);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
     cv::imshow("image", image);
     cv::waitKey();

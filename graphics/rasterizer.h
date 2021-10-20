@@ -1,5 +1,5 @@
 //
-// Created by ytech on 2021/10/18.
+// Created by william on 2021/10/18.
 //
 
 #ifndef CPP_DEMO_RASTERIZER_H
@@ -35,7 +35,8 @@ inline Buffers operator&(Buffers a, Buffers b)
 enum class Primitive : uint32_t
 {
     Line,
-    Triangle
+    Triangle,
+    Triangle_Line
 };
 
 struct PosBufferHandle
@@ -86,6 +87,7 @@ private:
     void ddaLine(const Vector3f& begin, const Vector3f& end);
     void midLine(const Vector3f& begin, const Vector3f& end);
     void rasterizeWireframe(const Triangle& t);
+    void rasterizeTriangle(const Triangle& t);
     int getIndex(int i, int j);
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)

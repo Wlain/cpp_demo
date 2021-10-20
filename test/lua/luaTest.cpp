@@ -1,5 +1,5 @@
 //
-// Created by ytech on 2021/9/24.
+// Created by william on 2021/9/24.
 //
 #include "base.h"
 extern "C" {
@@ -121,7 +121,7 @@ void luaTest()
     lua_setglobal(L, "callTest");
     lua_pushcfunction(L, crashTest);
     lua_setglobal(L, "crashTest");
-    if (luaL_dofile(L, "/Users/ytech/Developor/cpp_demo/test/lua/test.lua"))
+    if (luaL_dofile(L, "/Users/william/Developor/cpp_demo/test/lua/test.lua"))
     {
         std::cout << "error:" << lua_tostring(L, -1) << std::endl;
     }

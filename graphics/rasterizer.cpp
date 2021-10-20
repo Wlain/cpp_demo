@@ -1,5 +1,5 @@
 //
-// Created by ytech on 2021/10/18.
+// Created by william on 2021/10/18.
 //
 
 #include "rasterizer.h"
@@ -59,15 +59,15 @@ void Rasterizer::clear(Buffers buff)
     }
     if ((buff & Buffers::Depth) == Buffers::Depth)
     {
-        std::fill(m_depthBuffer.begin(), m_depthBuffer.end(), 0.0f);
+        std::fill(m_depthBuffer.begin(), m_depthBuffer.end(), std::numeric_limits<float>::infinity());
     }
 }
 
 void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Primitive type)
 {
-    if (type != Primitive::Triangle)
+    if (type == Primitive::Line)
     {
-        throw std::runtime_error("Drawing primitives other than triangle is not implemented yet!");
+        throw std::runtime_error("Drawing primitives Line is not implemented yet!");
     }
     auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
     auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
@@ -97,7 +97,14 @@ void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Prim
         triangle.setColor(0, 255.0, 0.0, 0.0);
         triangle.setColor(1, 0.0, 255.0, 0.0);
         triangle.setColor(2, 0.0, 0.0, 255.0);
-        rasterizeWireframe(triangle);
+        if (type == Primitive::Triangle_Line)
+        {
+            rasterizeWireframe(triangle);
+        }
+        else
+        {
+            rasterizeTriangle(triangle);
+        }
     }
 }
 
@@ -123,12 +130,12 @@ void Rasterizer::ddaLine(const Vector3f& begin, const Vector3f& end)
     if (absDx >= absDy) //  // 斜率 k <= 1 || 斜率 k >= -1
     {
         // 如果第二个点在第一个点的左边，需要做一个交换
-        if(dx < 0)
+        if (dx < 0)
         {
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        while(x1 < x2)
+        while (x1 < x2)
         {
             setPixel(x1, int(y1 + 0.5f), lineColor);
             y1 = y1 + k;
@@ -137,12 +144,12 @@ void Rasterizer::ddaLine(const Vector3f& begin, const Vector3f& end)
     }
     else // 斜率k > 1 || 斜率 k < -1
     {
-        if(dy < 0)
+        if (dy < 0)
         {
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        while(y1 < y2)
+        while (y1 < y2)
         {
             setPixel(int(x1 + 0.5f), y1, lineColor);
             x1 = x1 + _k;
@@ -157,7 +164,6 @@ void Rasterizer::midLine(const Vector3f& begin, const Vector3f& end)
 {
     /// TODO
 }
-
 
 void Rasterizer::drawLine(const Vector3f& begin, const Vector3f& end)
 {
@@ -258,6 +264,10 @@ void Rasterizer::rasterizeWireframe(const Triangle& t)
     ddaLine(t.x(), t.y());
     ddaLine(t.x(), t.z());
     ddaLine(t.z(), t.y());
+}
+
+void Rasterizer::rasterizeTriangle(const Triangle& t)
+{
 }
 
 int Rasterizer::getIndex(int i, int j)

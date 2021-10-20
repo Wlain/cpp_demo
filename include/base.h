@@ -10,7 +10,9 @@
 #include <atomic>
 #include <cassert>
 #include <chrono>
+#include <csignal>
 #include <cstring>
+#include <filesystem>
 #include <forward_list>
 #include <functional>
 #include <future>
@@ -36,13 +38,47 @@
 #include <valarray>
 #include <variant>
 #include <vector>
-#include <atomic>
-#include <filesystem>
-#include <csignal>
 
-#define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR#__VA_ARGS__
+/// assert macros
+#define ASSERT(expression) assert(expression)
 
-#define TO_STRING( s ) #s
+/// Error macro
+#define LOG_ERROR(...)                                  \
+    do                                                  \
+    {                                                   \
+        Logger::log(Logger::Level::Error, __VA_ARGS__); \
+    } while (0)
+
+/// Info macro
+#define LOG_INFO(...)                                  \
+    do                                                 \
+    {                                                  \
+        Logger::log(Logger::Level::Info, __VA_ARGS__); \
+    } while (0)
+
+/// Warn macro
+#define LOG_WARN(...)                                  \
+    do                                                 \
+    {                                                  \
+        Logger::log(Logger::Level::Warn, __VA_ARGS__); \
+    } while (0)
+
+#if defined(NDEBUG) && defined(__GNUC__)
+    #define ASSERT_ONLY __attribute__((unused))
+#else
+    #define ASSERT_ONLY
+#endif
+
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(*x))
+
+#define CGE_ENUM_ALIAS(name, member) \
+    constexpr auto name##_##member = name::member
+
+#include "logger.h"
+
+#define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR #__VA_ARGS__
+
+#define TO_STRING(s) #s
 #define CONNECTENATE(x, y) x##y
 
 #define NO_REF_TYPE(t) std::remove_reference<decltype(*t)>::type

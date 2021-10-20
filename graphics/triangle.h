@@ -1,5 +1,5 @@
 //
-// Created by ytech on 2021/10/18.
+// Created by william on 2021/10/18.
 //
 
 #ifndef CPP_DEMO_TRIANGLE_H
