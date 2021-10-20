@@ -39,14 +39,19 @@ enum class Primitive : uint32_t
     Triangle_Line
 };
 
-struct PosBufferHandle
+struct PositionBufferHandle
 {
     int posHandle = 0;
 };
 
-struct IndBufferHandle
+struct IndicesBufferHandle
 {
     int indicesHandle = 0;
+};
+
+struct ColorBufferHandle
+{
+    int colorHandle = 0;
 };
 
 class Rasterizer
@@ -59,8 +64,9 @@ public:
         m_frameBuffer.resize(w * h);
         m_depthBuffer.resize(w * h);
     }
-    PosBufferHandle loadPositions(const std::vector<Vector3f>& position);
-    IndBufferHandle loadIndices(const std::vector<Vector3i>& indices);
+    PositionBufferHandle loadPositions(const std::vector<Vector3f>& position);
+    IndicesBufferHandle loadIndices(const std::vector<Vector3i>& indices);
+    ColorBufferHandle loadColors(std::vector<Vector4f>& colors);
 
     void setModel(const Matrix4f& m)
     {
@@ -79,8 +85,11 @@ public:
     void setPixel(int x, int y, const Vector3f& color);
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
-    void draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Primitive type);
+    void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
+
+public:
+    static bool insideTriangle(int x, int y, const Vector3f& vec);
 
 private:
     void drawLine(const Vector3f& begin, const Vector3f& end);
@@ -101,6 +110,7 @@ private:
     Matrix4f m_projection;
     std::map<int, std::vector<Vector3f>> m_positionBuf;
     std::map<int, std::vector<Vector3i>> m_indicesBuf;
+    std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<float> m_depthBuffer;
     float m_red = 0.0f;

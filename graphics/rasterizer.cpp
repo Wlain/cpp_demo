@@ -18,17 +18,28 @@ Rasterizer::Rasterizer(int w, int h) :
     resize(w, h);
 }
 
-PosBufferHandle Rasterizer::loadPositions(const std::vector<Vector3f>& position)
+PositionBufferHandle Rasterizer::loadPositions(const std::vector<Vector3f>& position)
 {
     auto id = getNextId();
     m_positionBuf.emplace(id, position);
     return { id };
 }
 
-IndBufferHandle Rasterizer::loadIndices(const std::vector<Vector3i>& indices)
+IndicesBufferHandle Rasterizer::loadIndices(const std::vector<Vector3i>& indices)
 {
     auto id = getNextId();
     m_indicesBuf.emplace(id, indices);
+    return { id };
+}
+
+ColorBufferHandle Rasterizer::loadColors(std::vector<Vector4f>& colors)
+{
+    auto id = getNextId();
+    for (auto& color : colors)
+    {
+        color *= 255.0f;
+    }
+    m_colorBuf.emplace(id, colors);
     return { id };
 }
 
@@ -63,7 +74,7 @@ void Rasterizer::clear(Buffers buff)
     }
 }
 
-void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Primitive type)
+void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type)
 {
     if (type == Primitive::Line)
     {
@@ -71,6 +82,7 @@ void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Prim
     }
     auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
     auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
+    auto& colorBuffer = m_colorBuf[colBuffer.colorHandle];
     Matrix4f mvp = m_projection * m_view * m_model;
     for (auto& i : indicesBuffer)
     {
@@ -94,9 +106,12 @@ void Rasterizer::draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Prim
         {
             triangle.setVertex(j, v[j].head<3>());
         }
-        triangle.setColor(0, 255.0, 0.0, 0.0);
-        triangle.setColor(1, 0.0, 255.0, 0.0);
-        triangle.setColor(2, 0.0, 0.0, 255.0);
+        auto colA = colorBuffer[i[0]];
+        auto colB = colorBuffer[i[1]];
+        auto colC = colorBuffer[i[2]];
+        triangle.setColor(0, colA[0], colA[1], colA[2]);
+        triangle.setColor(1, colB[0], colB[1], colB[2]);
+        triangle.setColor(2, colC[0], colC[1], colC[2]);
         if (type == Primitive::Triangle_Line)
         {
             rasterizeWireframe(triangle);
@@ -264,6 +279,11 @@ void Rasterizer::rasterizeWireframe(const Triangle& t)
     ddaLine(t.x(), t.y());
     ddaLine(t.x(), t.z());
     ddaLine(t.z(), t.y());
+}
+
+bool Rasterizer::insideTriangle(int x, int y, const Vector3f& _v)
+{
+    return false;
 }
 
 void Rasterizer::rasterizeTriangle(const Triangle& t)

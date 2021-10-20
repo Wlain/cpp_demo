@@ -49,22 +49,30 @@ Matrix4f getProjectionMatrix(float eyeFov, float aspectRatio, float zNear, float
     return projection;
 }
 
+// 实现简单的直线扫描算法，绘制三角形线框
 void Assignment1()
 {
     Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
     std::vector<Vector3f> position = { { 2.0f, 0.0f, -2.0f }, { 0.0f, 2.0f, -2.0f }, { -2.0f, 0.0f, -2.0f } };
+    std::vector<Vector4f> color = { { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 0.0f, 1.0f, 1.0f } };
     std::vector<Eigen::Vector3i> indices = { { 0, 1, 2 } };
     auto posId = rasterizer.loadPositions(position);
+    auto colorID = rasterizer.loadColors(color);
     auto indicesId = rasterizer.loadIndices(indices);
     rasterizer.setModel(getModelMatrix(0));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45, 1, 0.1, 50));
     rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-    rasterizer.draw(posId, indicesId, Primitive::Triangle_Line);
+    rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle_Line);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
-    cv::imshow("image", image);
+    cv::imshow("triangle line", image);
     cv::waitKey();
+}
+
+void Assignment2()
+{
+
 }
 } // namespace rst

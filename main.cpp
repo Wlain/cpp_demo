@@ -65,7 +65,8 @@ extern void opencvTest();
 namespace rst
 {
 extern void Assignment1();
-}
+extern void Assignment2();
+} // namespace rst
 
 int main()
 {
