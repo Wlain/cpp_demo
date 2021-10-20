@@ -75,7 +75,7 @@ public:
         m_projection = p;
     }
 
-    void setPixel(const Vector3f& point, const Vector3f& color);
+    void setPixel(int x, int y, const Vector3f& color);
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
     void draw(PosBufferHandle posBuffer, IndBufferHandle indBuffer, Primitive type);
@@ -83,6 +83,8 @@ public:
 
 private:
     void drawLine(const Vector3f& begin, const Vector3f& end);
+    void ddaLine(const Vector3f& begin, const Vector3f& end);
+    void midLine(const Vector3f& begin, const Vector3f& end);
     void rasterizeWireframe(const Triangle& t);
     int getIndex(int i, int j);
     inline int getNextId() { return m_nextID++; }

@@ -53,7 +53,7 @@ void Assignment1()
 {
     Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
-    std::vector<Vector3f> position = { { 2, 0, -2 }, { 0, 2, -2 }, { -2, 0, -2 } };
+    std::vector<Vector3f> position = { { 2.0f, 0.0f, -2.0f }, { 0.0f, 2.0f, -2.0f }, { -2.0f, 0.0f, -2.0f } };
     std::vector<Eigen::Vector3i> indices = { { 0, 1, 2 } };
     auto posId = rasterizer.loadPositions(position);
     auto indicesId = rasterizer.loadIndices(indices);
