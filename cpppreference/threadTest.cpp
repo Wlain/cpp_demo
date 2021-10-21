@@ -24,6 +24,7 @@ public:
         }
     }
     std::shared_ptr<int>& isLive() { return m_checkIsLife; }
+
 private:
     std::shared_ptr<int> m_checkIsLife = std::make_shared<int>();
 };
@@ -33,7 +34,7 @@ struct ThreadTest : public ThreadTestCheck
     // operator=, returns a reference to this
     ~ThreadTest()
     {
-
+        std::cout << "~ThreadTest called" << std::endl;
     }
     std::string& str()
     {
@@ -43,13 +44,14 @@ struct ThreadTest : public ThreadTestCheck
     {
         m_str = std::move(s);
     }
+
 private:
     std::string m_str = "null";
 };
 
 void threadTest()
 {
-    ThreadTest* test = new ThreadTest();
+    auto* test = new ThreadTest();
     auto str = test->str();
     LOG_INFO("%s", str.c_str());
     delete test;
@@ -67,4 +69,4 @@ void threadTest()
     test->setStr("after");
     LOG_ERROR(test->str().c_str());
 }
-}
+} // namespace threadTest

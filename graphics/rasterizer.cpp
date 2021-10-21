@@ -4,6 +4,8 @@
 
 #include "rasterizer.h"
 
+#include "base.h"
+
 #include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <stdexcept>
@@ -83,6 +85,10 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
     auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
     auto& colorBuffer = m_colorBuf[colBuffer.colorHandle];
+    /// 模型变换 -> 世界坐标系
+    /// 视图变换 -> 观察者坐标系
+    /// 投影变换 -> 裁剪坐标系
+    /// 透视除法 -> 规范化坐标系
     Matrix4f mvp = m_projection * m_view * m_model;
     for (auto& i : indicesBuffer)
     {
@@ -281,13 +287,91 @@ void Rasterizer::rasterizeWireframe(const Triangle& t)
     ddaLine(t.z(), t.y());
 }
 
-bool Rasterizer::insideTriangle(int x, int y, const Vector3f& _v)
+/// 判断平面上的一个点是否在三角形内部
+static bool insideTriangle(float x, float y, const Vector3f* _v)
 {
+    Vector3f p = { x, y, 0.0f };
+
+    Vector3f p10 = _v[1] - _v[0];
+    Vector3f p21 = _v[2] - _v[1];
+    Vector3f p02 = _v[0] - _v[2];
+
+    Vector3f p0 = p - _v[0];
+    Vector3f p1 = p - _v[1];
+    Vector3f p2 = p - _v[2];
+
+    Vector3f c0 = p10.cross(p0);
+    Vector3f c1 = p21.cross(p1);
+    Vector3f c2 = p02.cross(p2);
+    ///只要是同一顺序，就必定全为正数
+    if (c0[2] > 0 && c1[2] > 0 && c2[2] > 0)
+    {
+        return true;
+    }
     return false;
+}
+
+/// 计算三角形内一个点的重心坐标
+static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
+{
+    float c1 = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
+    float c2 = (x * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * y + v[2].x() * v[0].y() - v[0].x() * v[2].y()) / (v[1].x() * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * v[1].y() + v[2].x() * v[0].y() - v[0].x() * v[2].y());
+    float c3 = (x * (v[0].y() - v[1].y()) + (v[1].x() - v[0].x()) * y + v[0].x() * v[1].y() - v[1].x() * v[0].y()) / (v[2].x() * (v[0].y() - v[1].y()) + (v[1].x() - v[0].x()) * v[2].y() + v[0].x() * v[1].y() - v[1].x() * v[0].y());
+    return { c1, c2, c3 };
+}
+
+// 对每个像素进行ratio x ratio采样
+static float msaa(float ratio, float x, float y, const Vector3f* _v)
+{
+    float percentage = 0;
+    float samplerTimes = 1.0f / (ratio * ratio);
+    float dUnit = 1.0f / ratio; // 每一次的步进距离
+    x += dUnit / 2;
+    y += dUnit / 2;
+    // x, y设置为中心点
+    for (int i = 0; i < ratio; ++i)
+    {
+        for (int j = 0; j < ratio; ++j)
+        {
+            if (insideTriangle(x + i * dUnit, y + j * dUnit, _v))
+            {
+                percentage += samplerTimes;
+            }
+        }
+    }
+    return percentage;
 }
 
 void Rasterizer::rasterizeTriangle(const Triangle& t)
 {
+    auto v = t.toVector4();
+    float minX = std::min(std::min(v[0].x(), v[1].x()), v[2].x());
+    float maxX = std::max(std::max(v[0].x(), v[1].x()), v[2].x());
+    float minY = std::min(std::min(v[0].y(), v[1].y()), v[2].y());
+    float maxY = std::max(std::max(v[0].y(), v[1].y()), v[2].y());
+    /// 包围盒逻辑
+    for (int y = minY; y < maxY; ++y)
+    {
+        for (int x = minX; x < maxX; ++x)
+        {
+            float percentage = msaa(m_msaaRatio, x, y, t.vertex());
+            if (percentage == 0) continue;
+
+            {
+                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.vertex());
+                float reciprocalWeight = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+                float zInterpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+                zInterpolated *= reciprocalWeight;
+                // z-Buffer算法
+                if (zInterpolated >= m_depthBuffer[y * m_width + x])
+                {
+                    continue;
+                }
+                m_depthBuffer[y * m_width + x] = zInterpolated;
+                setPixel(x, y, t.color()[0] * percentage);
+            }
+        }
+    }
 }
 
 int Rasterizer::getIndex(int i, int j)
@@ -295,4 +379,3 @@ int Rasterizer::getIndex(int i, int j)
     return (m_height - 1 - j) * m_width + i;
 }
 } // namespace rst
-  // namespace rst

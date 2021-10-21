@@ -14,12 +14,14 @@ class Triangle
 public:
     Triangle();
     ~Triangle();
-    void setColor(int handle, float r, float g, float b);
     std::array<Vector4f, 3> toVector4() const;
+    void setColor(int handle, float r, float g, float b);
+    inline const Vector3f* color() const { return m_color; }
     inline const Vector3f& x() const { return m_vertex[0]; }
     inline const Vector3f& y() const { return m_vertex[1]; }
     inline const Vector3f& z() const { return m_vertex[2]; }
     inline void setVertex(int handle, Vector3f v) { m_vertex[handle] = std::move(v); }
+    inline const Vector3f* vertex() const  { return m_vertex; }
     inline void setTexCoord(int handle, float s, float t) { m_texCoords[handle] = Vector2f(s, t); }
     inline void setTexCoord(int handle, Vector2f f) { m_texCoords[handle] = std::move(f); }
     inline void setNormal(int handle, Vector3f n) { m_normal[handle] = std::move(n); }

@@ -70,13 +70,13 @@ extern void opencvTest();
 
 namespace rst
 {
-extern void Assignment1();
-extern void Assignment2();
+extern void assignment1();
+extern void assignment2();
 } // namespace rst
 
 
 int main()
 {
-    threadTest::threadTest();
+    rst::assignment2();
     return 0;
 }

@@ -85,11 +85,12 @@ public:
     void setPixel(int x, int y, const Vector3f& color);
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
+    inline void setMsaaRatio(float ratio)
+    {
+        m_msaaRatio = ratio;
+    }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
-
-public:
-    static bool insideTriangle(int x, int y, const Vector3f& vec);
 
 private:
     void drawLine(const Vector3f& begin, const Vector3f& end);
@@ -113,6 +114,7 @@ private:
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<float> m_depthBuffer;
+    float m_msaaRatio = 1.0f;
     float m_red = 0.0f;
     float m_green = 0.0f;
     float m_blue = 0.0f;

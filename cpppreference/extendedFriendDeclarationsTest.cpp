@@ -41,7 +41,7 @@ public:
     }
     char* foo(int)
     {
-        return "";
+        return "foo";
     }
 
 public:
