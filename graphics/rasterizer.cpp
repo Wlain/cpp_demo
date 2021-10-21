@@ -4,10 +4,7 @@
 
 #include "rasterizer.h"
 
-#include "base.h"
-
 #include <algorithm>
-#include <opencv2/opencv.hpp>
 #include <stdexcept>
 
 namespace rst
@@ -356,7 +353,6 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
         {
             float percentage = msaa(m_msaaRatio, x, y, t.vertex());
             if (percentage == 0) continue;
-
             {
                 auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.vertex());
                 float reciprocalWeight = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
@@ -367,7 +363,10 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
                 {
                     continue;
                 }
-                m_depthBuffer[y * m_width + x] = zInterpolated;
+                if(percentage == 1.0f)
+                {
+                    m_depthBuffer[y * m_width + x] = zInterpolated;
+                }
                 setPixel(x, y, t.color()[0] * percentage);
             }
         }
