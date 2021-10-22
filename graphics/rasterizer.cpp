@@ -343,14 +343,14 @@ static float msaa(float ratio, float x, float y, const Vector3f* _v)
 void Rasterizer::rasterizeTriangle(const Triangle& t)
 {
     auto v = t.toVector4();
-    float minX = std::min(std::min(v[0].x(), v[1].x()), v[2].x());
-    float maxX = std::max(std::max(v[0].x(), v[1].x()), v[2].x());
-    float minY = std::min(std::min(v[0].y(), v[1].y()), v[2].y());
-    float maxY = std::max(std::max(v[0].y(), v[1].y()), v[2].y());
+    const auto vertexX = { v[0].x(), v[1].x(), v[2].x() };
+    const auto vertexY = { v[0].y(), v[1].y(), v[2].y() };
+    auto [minX, maxX] = std::minmax_element(std::begin(vertexX), std::end(vertexX));
+    auto [minY, maxY] = std::minmax_element(std::begin(vertexY), std::end(vertexY));
     /// 包围盒逻辑
-    for (int y = (int)minY; y < (int)maxY; ++y)
+    for (int y = (int)*minY; y < (int)*maxY; ++y)
     {
-        for (int x = (int)minX; x < (int)maxX; ++x)
+        for (int x = (int)*minX; x < (int)*maxX; ++x)
         {
             float percentage = msaa(m_msaaRatio, (float)x, (float)y, t.vertex());
             if (percentage == 0) continue;
