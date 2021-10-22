@@ -44,8 +44,7 @@ ColorBufferHandle Rasterizer::loadColors(std::vector<Vector4f>& colors)
 
 void Rasterizer::setPixel(int x, int y, const Vector3f& color)
 {
-    if (x < 0.0f || x >= (float)m_width ||
-        y < 0.0f || y >= (float)m_height)
+    if (x < 0 || x >= m_width || y < 0 || y >= m_height)
     {
         return;
     }
@@ -82,10 +81,10 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
     auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
     auto& colorBuffer = m_colorBuf[colBuffer.colorHandle];
+    /// 原始：局部坐标系
     /// 模型变换 -> 世界坐标系
     /// 视图变换 -> 观察者坐标系
     /// 投影变换 -> 裁剪坐标系
-    /// 透视除法 -> 规范化坐标系
     Matrix4f mvp = m_projection * m_view * m_model;
     for (auto& i : indicesBuffer)
     {
@@ -95,10 +94,12 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
             mvp * toVec4(positionBuffer[i[1]], 1.0f),
             mvp * toVec4(positionBuffer[i[2]], 1.0f)
         };
+        /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : v)
         {
             vec /= vec.w();
         }
+        /// 视口变换 -> 屏幕坐标系
         for (auto& vert : v)
         {
             vert.x() = 0.5f * (float)m_width * (vert.x() + 1.0f);
@@ -139,8 +140,8 @@ void Rasterizer::ddaLine(const Vector3f& begin, const Vector3f& end)
     auto x2 = end.x();
     auto y2 = end.y();
     Vector3f lineColor = { 255, 255, 255 };
-    int dx = x2 - x1;
-    int dy = y2 - y1;
+    int dx = (int)x2 - (int)x1;
+    int dy = (int)y2 - (int)y1;
     float k = (float)dy / (float)dx;
     float _k = (float)dx / (float)dy;
     int absDx = fabs(dx);
@@ -193,8 +194,8 @@ void Rasterizer::drawLine(const Vector3f& begin, const Vector3f& end)
 
     Vector3f lineColor = { 255, 255, 255 };
     int x, y, xe, ye;
-    int dx = x2 - x1;
-    int dy = y2 - y1;
+    int dx = (int)x2 - (int)x1;
+    int dy = (int)y2 - (int)y1;
 
     int dx1 = fabs(dx);
     int dy1 = fabs(dy);
@@ -317,7 +318,7 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
     return { c1, c2, c3 };
 }
 
-// 对每个像素进行ratio x ratio采样
+/// 对每个像素进行ratio x ratio采样
 static float msaa(float ratio, float x, float y, const Vector3f* _v)
 {
     float percentage = 0;
@@ -326,11 +327,11 @@ static float msaa(float ratio, float x, float y, const Vector3f* _v)
     x += dUnit / 2;
     y += dUnit / 2;
     // x, y设置为中心点
-    for (int i = 0; i < ratio; ++i)
+    for (int i = 0; i < (int)ratio; ++i)
     {
-        for (int j = 0; j < ratio; ++j)
+        for (int j = 0; j < (int)ratio; ++j)
         {
-            if (insideTriangle(x + i * dUnit, y + j * dUnit, _v))
+            if (insideTriangle(x + (float)i * dUnit, y + (float)j * dUnit, _v))
             {
                 percentage += samplerTimes;
             }
@@ -347,23 +348,24 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
     float minY = std::min(std::min(v[0].y(), v[1].y()), v[2].y());
     float maxY = std::max(std::max(v[0].y(), v[1].y()), v[2].y());
     /// 包围盒逻辑
-    for (int y = minY; y < maxY; ++y)
+    for (int y = (int)minY; y < (int)maxY; ++y)
     {
-        for (int x = minX; x < maxX; ++x)
+        for (int x = (int)minX; x < (int)maxX; ++x)
         {
-            float percentage = msaa(m_msaaRatio, x, y, t.vertex());
+            float percentage = msaa(m_msaaRatio, (float)x, (float)y, t.vertex());
             if (percentage == 0) continue;
             {
-                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.vertex());
+                auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, t.vertex());
                 float reciprocalWeight = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
                 float zInterpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
                 zInterpolated *= reciprocalWeight;
+
                 // z-Buffer算法
                 if (zInterpolated >= m_depthBuffer[y * m_width + x])
                 {
                     continue;
                 }
-                if(percentage == 1.0f)
+                if (percentage == 1.0f)
                 {
                     m_depthBuffer[y * m_width + x] = zInterpolated;
                 }
@@ -373,7 +375,7 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
     }
 }
 
-int Rasterizer::getIndex(int i, int j)
+int Rasterizer::getIndex(int i, int j) const
 {
     return (m_height - 1 - j) * m_width + i;
 }

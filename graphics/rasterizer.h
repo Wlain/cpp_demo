@@ -98,7 +98,7 @@ private:
     void midLine(const Vector3f& begin, const Vector3f& end);
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& t);
-    int getIndex(int i, int j);
+    int getIndex(int i, int j) const;
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
     {
