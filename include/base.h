@@ -84,4 +84,12 @@
 #define NO_REF_TYPE(t) std::remove_reference<decltype(*t)>::type
 #define MAKE_SHARED(t, ...) std::make_shared<typename NO_REF_TYPE(t)>(__VA_ARGS__)
 
+
+/// math macros
+#define MATH_PI 3.1415926f
+#define TWO_MATH_PI (MATH_PI * 2.0f)
+#define MATH_DEG_TO_RAD(x) ((x)*0.0174532925f)
+#define MATH_PIOVER2 1.57079632679489661923f
+#define MATH_EPSILON 0.000001f
+
 #endif // C___BASE_H

@@ -201,6 +201,9 @@ char* testStrcpy(char* dest, const char* src)
 
 void interviews()
 {
+    float* t1, t2;
+    /// 注意此时声明的是：float* t1, float t2;
+
     unsigned int a = -1; //std::pow(2, 31);
     int b = (int&)a;
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))

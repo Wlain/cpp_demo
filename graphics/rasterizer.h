@@ -4,9 +4,11 @@
 
 #ifndef CPP_DEMO_RASTERIZER_H
 #define CPP_DEMO_RASTERIZER_H
+#include "shader.h"
 #include "triangle.h"
 
 #include <algorithm>
+#include <optional>
 
 using namespace Eigen;
 
@@ -14,7 +16,7 @@ using namespace Eigen;
  * 基于CPU的一个简易渲染器
  */
 
-namespace rst
+namespace graphics
 {
 enum class Buffers : uint32_t
 {
@@ -68,34 +70,20 @@ public:
     IndicesBufferHandle loadIndices(const std::vector<Vector3i>& indices);
     ColorBufferHandle loadColors(std::vector<Vector4f>& colors);
 
-    void setModel(const Matrix4f& m)
-    {
-        m_model = m;
-    }
-    void setView(const Matrix4f& v)
-    {
-        m_view = v;
-    }
-
-    void setProjection(const Matrix4f& p)
-    {
-        m_projection = p;
-    }
-
+    void setModel(const Matrix4f& m) { m_model = m; }
+    void setView(const Matrix4f& v) { m_view = v; }
+    void setProjection(const Matrix4f& p) { m_projection = p; }
     void setPixel(int x, int y, const Vector3f& color);
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
-    inline void setMsaaRatio(float ratio)
-    {
-        m_msaaRatio = ratio;
-    }
+    inline void setMsaaRatio(float ratio) { m_msaaRatio = ratio; }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
-
-private:
     void drawLine(const Vector3f& begin, const Vector3f& end);
     void ddaLine(const Vector3f& begin, const Vector3f& end);
     void midLine(const Vector3f& begin, const Vector3f& end);
+
+private:
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& t);
     int getIndex(int i, int j) const;
@@ -114,6 +102,9 @@ private:
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<float> m_depthBuffer;
+    std::function<Vector3f(FragmentShader)> fragmentShader;
+    std::function<Vector3f(VertexShader)> vertexShader;
+    std::optional<Texture> texture;
     float m_msaaRatio = 1.0f;
     float m_red = 0.0f;
     float m_green = 0.0f;
@@ -123,6 +114,6 @@ private:
     int m_height = 0;
     int m_nextID = 0;
 };
-} // namespace rst
+} // namespace graphics
 
 #endif //CPP_DEMO_RASTERIZER_H

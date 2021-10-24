@@ -3,7 +3,7 @@
 //
 
 #include "triangle.h"
-namespace rst
+namespace graphics
 {
 Triangle::Triangle()
 {
@@ -32,4 +32,18 @@ std::array<Vector4f, 3> Triangle::toVector4() const
     return res;
 }
 
-} // namespace rst
+void Triangle::setNormals(const std::array<Vector3f, 3>& normals)
+{
+    m_normal[0] = normals[0];
+    m_normal[1] = normals[1];
+    m_normal[2] = normals[2];
+}
+
+void Triangle::setColors(const std::array<Vector3f, 3>& colors)
+{
+    setColor(0, colors[0][0], colors[0][1], colors[0][2]);
+    setColor(1, colors[1][0], colors[1][1], colors[1][2]);
+    setColor(2, colors[2][0], colors[2][1], colors[2][2]);
+}
+
+} // namespace graphics

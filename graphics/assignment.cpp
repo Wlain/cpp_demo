@@ -1,14 +1,14 @@
 //
 // Created by william on 2021/10/18.
 //
+#include "base.h"
 #include "rasterizer.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
 using namespace Eigen;
-#define MATH_PI 3.1415926f
 
-namespace rst
+namespace graphics
 {
 /// 计算视图矩阵
 Matrix4f getViewMatrix(const Vector3f& eyePos)
@@ -57,11 +57,11 @@ Matrix4f getRotation(Eigen::Vector3f axis, float angle)
 Matrix4f getProjectionMatrix(float eyeFov, float aspectRatio, float zNear, float zFar)
 {
     Matrix4f projection = Matrix4f::Identity();
-    double d = 1.0f / tan((eyeFov / 2.0f) * MATH_PI / 180.0f);
+    double D = 1.0f / tan((eyeFov / 2.0f) * MATH_PI / 180.0f);
     double A = -(zFar + zNear) / (zFar - zNear);
     double B = -2.0f * zFar * zNear / (zFar - zNear);
-    projection << d / aspectRatio, 0, 0, 0,
-        0, d, 0, 0,
+    projection << D / aspectRatio, 0, 0, 0,
+        0, D, 0, 0,
         0, 0, A, B,
         0, 0, -1, 0;
 
@@ -129,4 +129,9 @@ void assignment2()
     cv::imshow("triangles", image);
     cv::waitKey();
 }
-} // namespace rst
+
+void assignment3()
+{
+
+}
+} // namespace graphics

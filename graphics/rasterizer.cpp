@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace rst
+namespace graphics
 {
 Rasterizer::Rasterizer() = default;
 
@@ -309,13 +309,13 @@ static bool insideTriangle(float x, float y, const Vector3f* _v)
     return false;
 }
 
-/// 计算三角形内一个点的重心坐标
+///  面积法：计算三角形内一个点的重心坐标
 static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
 {
-    float c1 = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
-    float c2 = (x * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * y + v[2].x() * v[0].y() - v[0].x() * v[2].y()) / (v[1].x() * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * v[1].y() + v[2].x() * v[0].y() - v[0].x() * v[2].y());
-    float c3 = (x * (v[0].y() - v[1].y()) + (v[1].x() - v[0].x()) * y + v[0].x() * v[1].y() - v[1].x() * v[0].y()) / (v[2].x() * (v[0].y() - v[1].y()) + (v[1].x() - v[0].x()) * v[2].y() + v[0].x() * v[1].y() - v[1].x() * v[0].y());
-    return { c1, c2, c3 };
+    float alpha = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
+    float beta = (x * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * y + v[2].x() * v[0].y() - v[0].x() * v[2].y()) / (v[1].x() * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * v[1].y() + v[2].x() * v[0].y() - v[0].x() * v[2].y());
+    float gamma = 1.0 - alpha - beta;
+    return { alpha, beta, gamma };
 }
 
 /// 对每个像素进行ratio x ratio采样
@@ -356,10 +356,11 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
             if (percentage == 0) continue;
             {
                 auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, t.vertex());
-                float reciprocalWeight = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+                /// 透视插值矫正
+                float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
                 float zInterpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
-                zInterpolated *= reciprocalWeight;
 
+                zInterpolated *= reciprocalCorrect;
                 // z-Buffer算法
                 if (zInterpolated >= m_depthBuffer[y * m_width + x])
                 {
@@ -379,4 +380,4 @@ int Rasterizer::getIndex(int i, int j) const
 {
     return (m_height - 1 - j) * m_width + i;
 }
-} // namespace rst
+} // namespace graphics

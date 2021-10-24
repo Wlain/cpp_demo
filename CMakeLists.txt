@@ -15,6 +15,7 @@ find_package(OpenCV REQUIRED)
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/math
         ${PROJECT_SOURCE_DIR}/graphics
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
@@ -28,11 +29,12 @@ file(GLOB_RECURSE SOURCES
         src/*.cpp
         graphics/*.cpp
         cpppreference/*.cpp
+        math/*.cpp
         test/*.cpp
         *.cpp
         )
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} graphics/texture.cpp graphics/texture.h graphics/shader.cpp graphics/shader.h graphics/objLoader.h graphics/objLoader.cpp cpppreference/optionalTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 

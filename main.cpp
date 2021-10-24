@@ -1,7 +1,6 @@
 //
 // Created by william on 2020/7/1.
 //
-#include "include/base.h"
 
 #include <array>
 #include <random>
@@ -67,16 +66,17 @@ extern void luaTest();
 extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
+extern void optionalTest();
 
-namespace rst
+namespace graphics
 {
 extern void assignment1();
 extern void assignment2();
-} // namespace rst
-
+extern void assignment3();
+} // namespace graphics
 
 int main()
 {
-    rst::assignment2();
+    optionalTest();
     return 0;
 }

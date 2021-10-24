@@ -7,7 +7,7 @@
 #include <array>
 #include <eigen3/Eigen/Eigen>
 using namespace Eigen;
-namespace rst
+namespace graphics
 {
 class Triangle
 {
@@ -26,12 +26,16 @@ public:
     inline void setTexCoord(int handle, Vector2f f) { m_texCoords[handle] = std::move(f); }
     inline void setNormal(int handle, Vector3f n) { m_normal[handle] = std::move(n); }
 
+    void setNormals(const std::array<Vector3f, 3>& normals);
+    void setColors(const std::array<Vector3f, 3>& colors);
+
+
 private:
     Vector3f m_vertex[3];
     Vector3f m_color[3];
     Vector2f m_texCoords[2];
     Vector3f m_normal[3];
 };
-} // namespace rst
+} // namespace graphics
 
 #endif //CPP_DEMO_TRIANGLE_H
