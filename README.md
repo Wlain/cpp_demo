@@ -1,4 +1,10 @@
 # cpp_demo
+代码量查询：
+
+```shell
+find . -name "*.c*" -or -name "*.h*" | xargs cat | wc -l
+```
+
 ##一些开发中遇到的实践经验
 
 1.有override就不要写virtual了

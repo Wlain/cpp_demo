@@ -215,8 +215,8 @@ std::string ObjLoader::firstToken(const std::string& in)
 {
     if (!in.empty())
     {
-        size_t tokenStart = in.find_first_not_of('\t');
-        size_t tokenEnd = in.find_first_of('\t', tokenStart);
+        size_t tokenStart = in.find_first_not_of(" \t");
+        size_t tokenEnd = in.find_first_of(" \t", tokenStart);
         if (tokenStart != std::string::npos && tokenEnd != std::string::npos)
         {
             return in.substr(tokenStart, tokenEnd - tokenStart);
@@ -233,7 +233,7 @@ std::string ObjLoader::tail(const std::string& in)
 {
     if (!in.empty())
     {
-        size_t tokenStart = in.find_first_not_of('\t');
+        size_t tokenStart = in.find_first_not_of(" \t");
         size_t spaceStart = in.find_first_of(" \t", tokenStart);
         size_t tailStart = in.find_first_not_of(" \t", spaceStart);
         size_t tailEnd = in.find_last_not_of(" \t");
