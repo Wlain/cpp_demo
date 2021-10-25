@@ -269,7 +269,7 @@ Vector3 Vector3::projection(const Vector3& a, const Vector3& b)
     return vec * dot(a, vec);
 }
 
-bool sameSide(Vector3& p1, Vector3 p2, Vector3 a, Vector3 b)
+bool notSameSide(Vector3& p1, Vector3 p2, Vector3 a, Vector3 b)
 {
     Vector3 cp1, cp2;
     Vector3::cross(b - a, p1 - a, &cp1);
@@ -278,21 +278,9 @@ bool sameSide(Vector3& p1, Vector3 p2, Vector3 a, Vector3 b)
     return Vector3::dot(cp1, cp2) >= 0;
 }
 
+/// 判断点是否在三角形内部
 bool inTriangle(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)
 {
-    /// 判断点是否在三角形内部
     // 测试点是否在三角形所在平面,具体原理如下：如果一个点在三角形内部，则点必然在AB下面， BC左面，AC右边。
-    bool withinTrianglePrisim = sameSide(point, tri1, tri2, tri3) && sameSide(point, tri2, tri1, tri3) && sameSide(point, tri3, tri1, tri2);
-    if (!withinTrianglePrisim)
-        return false;
-    /// 判断点是否在三角形的三边上
-    return inTriangleEdge(point, tri1, tri2, tri3);
-}
-
-bool inTriangleEdge(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)
-{
-    Vector3 normal = genTriangleNormal(tri1, tri2, tri3);
-    Vector3 proj = Vector3::projection(point, normal);
-    // If the distance from the triangle to the point is 0,it lies on the triangle
-    return proj.length() == 0;
+    return notSameSide(point, tri1, tri2, tri3) && notSameSide(point, tri2, tri1, tri3) && notSameSide(point, tri3, tri1, tri2);
 }

@@ -67,11 +67,10 @@ public:
 
 inline Vector3 operator*(float x, const Vector3& v);
 /// 测试点p1和点p2是都在直线ab的同一边，https://www.cnblogs.com/icmzn/p/7273677.html
-bool sameSide(Vector3& p1, Vector3 p2, Vector3 a, Vector3 b);
+bool notSameSide(Vector3& p1, Vector3 p2, Vector3 a, Vector3 b);
 /// 生成一个三角形的法线
 inline Vector3 genTriangleNormal(Vector3 t1, Vector3 t2, Vector3 t3);
 bool inTriangle(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3);
-bool inTriangleEdge(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3);
 
 #include "vector3.inl"
 #endif //CPP_DEMO_VECTOR3_H

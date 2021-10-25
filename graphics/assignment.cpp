@@ -56,15 +56,28 @@ Matrix4f getRotation(Eigen::Vector3f axis, float angle)
 /// 计算投影矩阵
 Matrix4f getProjectionMatrix(float eyeFov, float aspectRatio, float zNear, float zFar)
 {
-    Matrix4f projection = Matrix4f::Identity();
-    double D = 1.0f / tan((eyeFov / 2.0f) * MATH_PI / 180.0f);
-    double A = -(zFar + zNear) / (zFar - zNear);
-    double B = -2.0f * zFar * zNear / (zFar - zNear);
-    projection << D / aspectRatio, 0, 0, 0,
-        0, D, 0, 0,
-        0, 0, A, B,
-        0, 0, -1, 0;
+    Matrix4f projection = Eigen::Matrix4f::Identity();
 
+    Matrix4f proToOrt, translation, scaling;
+    proToOrt << zNear, 0.0f, 0.0f, 0.0f,
+        0.0f, zNear, 0.0f, 0.0f,
+        0.0f, 0.0f, zNear + zFar, -zNear * zFar,
+        0.0f, 0.0f, 1.0f, 0.0f;
+    float theta = eyeFov / 360.0f * MATH_PI; //divide into 2，360=180*2
+    float t = fabs(zNear) * tan(theta);   //top(y axis)
+    float b = -t;                         //bottom
+    float r = t * aspectRatio;            //right(x axis)
+    float l = -r;                         //left
+
+    scaling << 2.0f / (r - l), 0.0f, 0.0f, 0.0f,
+        0.0f, 2.0f / (t - b), 0.0f, 0.0f,
+        0.0f, 0.0f, 2.0f / (zNear - zFar), 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f;
+    translation << 1.0f, 0.0f, 0.0f, -(r + l) / 2.0f,
+        0.0f, 1.0f, 0.0f, -(t + b) / 2.0f,
+        0.0f, 0.0f, 1.0f, -(zNear + zFar) / 2.0f,
+        0.0f, 0.0f, 0.0f, 1.0f;
+    projection = scaling * translation * proToOrt; //from left to right calculate
     return projection;
 }
 
@@ -91,13 +104,14 @@ void assignment1()
     auto posId = rasterizer.loadPositions(position);
     auto colorID = rasterizer.loadColors(color);
     auto indicesId = rasterizer.loadIndices(indices);
-    rasterizer.setModel(getRotation({ 1, 1, 0 }, 0));
+    rasterizer.setModel(getRotation({ 1.0f, 1.0f, 0.0f }, 0.0f));
     rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45, 1, 0.1, 50));
+    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.10f, 50.0f));
     rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle_Line);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    cv::flip(image, image, -1);
     cv::imshow("triangle line", image);
     cv::waitKey();
 }
@@ -112,7 +126,7 @@ void assignment2()
         { 0.0f, 2.0f, -2.0f },
         { -2.0f, 0.0f, -2.0f },
         { 3.5f, -1.0f, -5.0f },
-        { 2.5f, 2.5f, -5.0f },
+        { 2.5f, 1.5f, -5.0f },
         { -1.0f, 0.5f, -5.0f }
     };
     std::vector<Eigen::Vector4f> colors = {
@@ -130,14 +144,16 @@ void assignment2()
     auto posId = rasterizer.loadPositions(position);
     auto colorID = rasterizer.loadColors(colors);
     auto indicesId = rasterizer.loadIndices(indices);
-    rasterizer.setModel(getModelMatrix(20));
+    rasterizer.setModel(getModelMatrix(20.0f));
     rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45, 1, 0.1, 50));
+    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.setMsaaRatio(4.0f);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    // opencv的原点位于左上角，而实际原点应该是位于左下角，需要做一次翻转
+    cv::flip(image, image, -1);
     cv::imshow("triangles", image);
     cv::waitKey();
 }
@@ -164,13 +180,14 @@ void assignment3()
     auto indicesId = rasterizer.loadIndices(indices);
     rasterizer.setVertexShader(baseVertexShader);
     rasterizer.setFragmentShader(baseFragShader);
-    rasterizer.setModel(getModelMatrix(20));
+    rasterizer.setModel(getModelMatrix(20.0f));
     rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45, 1, 0.1, 50));
+    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    cv::flip(image, image, -1);
     cv::imshow("triangles", image);
     cv::waitKey();
 }

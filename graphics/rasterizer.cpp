@@ -3,7 +3,7 @@
 //
 
 #include "rasterizer.h"
-
+#include "vector3.h"
 #include <algorithm>
 #include <stdexcept>
 
@@ -319,7 +319,7 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
 {
     float alpha = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
     float beta = (x * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * y + v[2].x() * v[0].y() - v[0].x() * v[2].y()) / (v[1].x() * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * v[1].y() + v[2].x() * v[0].y() - v[0].x() * v[2].y());
-    float gamma = 1.0 - alpha - beta;
+    float gamma = 1.0f - alpha - beta;
     return { alpha, beta, gamma };
 }
 
@@ -329,14 +329,14 @@ static float msaa(float ratio, float x, float y, const Vector3f* _v)
     float percentage = 0;
     float samplerTimes = 1.0f / (ratio * ratio);
     float dUnit = 1.0f / ratio; // 每一次的步进距离
-    x += dUnit / 2;
-    y += dUnit / 2;
+    x += dUnit / 2.0f;
+    y += dUnit / 2.0f;
     // x, y设置为中心点
     for (int i = 0; i < (int)ratio; ++i)
     {
         for (int j = 0; j < (int)ratio; ++j)
         {
-            if (insideTriangle(x + (float)i * dUnit, y + (float)j * dUnit, _v))
+            if (inTriangle({x + (float)i * dUnit, y + (float)j * dUnit, 1.0f}, {_v[0].x(), _v[0].y(), _v[0].z()}, {_v[1].x(), _v[1].y(), _v[1].z()}, {_v[2].x(), _v[2].y(), _v[2].z()}))
             {
                 percentage += samplerTimes;
             }

@@ -33,13 +33,12 @@ public:
         a = y.data;
     }
     ~X()
-    {
-    }
+    = default;
     friend void friendSet(X& p, int i)
     {
         p.a = i; // 此为非成员函数
     }
-    char* foo(int)
+    static const char* foo(int)
     {
         return "foo";
     }
