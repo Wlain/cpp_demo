@@ -286,6 +286,11 @@ bool inTriangle(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)
     if (!withinTrianglePrisim)
         return false;
     /// 判断点是否在三角形的三边上
+    return inTriangleEdge(point, tri1, tri2, tri3);
+}
+
+bool inTriangleEdge(Vector3 point, Vector3 tri1, Vector3 tri2, Vector3 tri3)
+{
     Vector3 normal = genTriangleNormal(tri1, tri2, tri3);
     Vector3 proj = Vector3::projection(point, normal);
     // If the distance from the triangle to the point is 0,it lies on the triangle

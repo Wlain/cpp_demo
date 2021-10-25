@@ -127,6 +127,11 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     }
 }
 
+void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
+{
+//    Matrix4f mvp = projection * view * model;
+}
+
 /// 直线扫描算法
 /// 1.DDA画线算法（数值微分法）：引进图形学中一个很重要的思想—增量思想。
 /// 点xi，yi满足直线方程yi=kxi+b，

@@ -65,19 +65,26 @@ public:
     {
         m_frameBuffer.resize(w * h);
         m_depthBuffer.resize(w * h);
+        m_texture = std::nullopt;
     }
     PositionBufferHandle loadPositions(const std::vector<Vector3f>& position);
     IndicesBufferHandle loadIndices(const std::vector<Vector3i>& indices);
     ColorBufferHandle loadColors(std::vector<Vector4f>& colors);
 
-    void setModel(const Matrix4f& m) { m_model = m; }
-    void setView(const Matrix4f& v) { m_view = v; }
-    void setProjection(const Matrix4f& p) { m_projection = p; }
+    inline void setModel(const Matrix4f& m) { m_model = m; }
+    inline void setView(const Matrix4f& v) { m_view = v; }
+    inline void setProjection(const Matrix4f& p) { m_projection = p; }
     void setPixel(int x, int y, const Vector3f& color);
+
+    inline void setTexture(Texture tex) { m_texture = std::move(tex); }
+    inline void setVertexShader(std::function<Vector3f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
+    inline void setFragmentShader(std::function<Vector3f(FragmentShader)> fragShader) { m_fragmentShader = std::move(fragShader); }
+
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
     inline void setMsaaRatio(float ratio) { m_msaaRatio = ratio; }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
+    void draw(std::vector<std::shared_ptr<Triangle>>& triangleList);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
     void drawLine(const Vector3f& begin, const Vector3f& end);
     void ddaLine(const Vector3f& begin, const Vector3f& end);
@@ -102,9 +109,9 @@ private:
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<float> m_depthBuffer;
-    std::function<Vector3f(FragmentShader)> fragmentShader;
-    std::function<Vector3f(VertexShader)> vertexShader;
-    std::optional<Texture> texture;
+    std::function<Vector3f(FragmentShader)> m_fragmentShader;
+    std::function<Vector3f(VertexShader)> m_vertexShader;
+    std::optional<Texture> m_texture;
     float m_msaaRatio = 1.0f;
     float m_red = 0.0f;
     float m_green = 0.0f;

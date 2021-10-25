@@ -77,6 +77,6 @@ extern void assignment3();
 
 int main()
 {
-    optionalTest();
+    graphics::assignment2();
     return 0;
 }
