@@ -2,6 +2,7 @@
 // Created by william on 2021/10/18.
 //
 #include "base.h"
+#include "objLoader.h"
 #include "rasterizer.h"
 
 #include <eigen3/Eigen/Eigen>
@@ -64,10 +65,10 @@ Matrix4f getProjectionMatrix(float eyeFov, float aspectRatio, float zNear, float
         0.0f, 0.0f, zNear + zFar, -zNear * zFar,
         0.0f, 0.0f, 1.0f, 0.0f;
     float theta = eyeFov / 360.0f * MATH_PI; //divide into 2，360=180*2
-    float t = fabs(zNear) * tan(theta);   //top(y axis)
-    float b = -t;                         //bottom
-    float r = t * aspectRatio;            //right(x axis)
-    float l = -r;                         //left
+    float t = fabs(zNear) * tan(theta);      //top(y axis)
+    float b = -t;                            //bottom
+    float r = t * aspectRatio;               //right(x axis)
+    float l = -r;                            //left
 
     scaling << 2.0f / (r - l), 0.0f, 0.0f, 0.0f,
         0.0f, 2.0f / (t - b), 0.0f, 0.0f,
@@ -161,32 +162,39 @@ void assignment2()
 void assignment3()
 {
     Rasterizer rasterizer(800, 800);
+    float angle = 140.0f;
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
-    std::vector<Eigen::Vector3f> position = {
-        { 2.0f, 0.0f, -2.0f },
-        { 0.0f, 2.0f, -2.0f },
-        { -2.0f, 0.0f, -2.0f }
-    };
-    std::vector<Eigen::Vector4f> colors = {
-        { 217.0f / 255.0f, 238.0f / 255.0f, 185.0f / 255.0f, 1.0f },
-        { 217.0f / 255.0f, 238.0f / 255.0f, 185.0f / 255.0f, 1.0f },
-        { 217.0f / 255.0f, 238.0f / 255.0f, 185.0f / 255.0f, 1.0f }
-    };
-    std::vector<Eigen::Vector3i> indices = {
-        { 0, 1, 2 },
-    };
-    auto posId = rasterizer.loadPositions(position);
-    auto colorID = rasterizer.loadColors(colors);
-    auto indicesId = rasterizer.loadIndices(indices);
+    std::vector<std::shared_ptr<Triangle>> triangles;
+    ObjLoader loader;
+    std::string objPath = "../resources/models/spot/";
+    auto spotPath = objPath + "spot_triangulated_good.obj";
+    auto ret = loader.loadFile(spotPath);
+    for (auto& mesh : loader.m_meshes)
+    {
+        for (int i = 0; i < (int)mesh.vertices.size(); ++i)
+        {
+            std::shared_ptr<Triangle> t = std::make_shared<Triangle>();
+            for (int j = 0; j < 3; ++j)
+            {
+                t->setVertex(j, { mesh.vertices[i + j].position.x, mesh.vertices[i + j].position.y, mesh.vertices[i + j].position.z });
+                t->setNormal(j, { mesh.vertices[i + j].normal.x, mesh.vertices[i + j].normal.y, mesh.vertices[i + j].normal.z });
+                t->setTexCoord(j, { mesh.vertices[i + j].texCoords.x, mesh.vertices[i + j].texCoords.y });
+            }
+        }
+    }
+    auto texturePath = objPath + "hmap.jpg";
     rasterizer.setVertexShader(baseVertexShader);
     rasterizer.setFragmentShader(baseFragShader);
-    rasterizer.setModel(getModelMatrix(20.0f));
+    rasterizer.setTexture(Texture(texturePath.c_str()));
+    rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
-    rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-    rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
+    rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    image.convertTo(image, CV_8UC3, 1.0f);
+    cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
     cv::flip(image, image, -1);
     cv::imshow("triangles", image);
     cv::waitKey();

@@ -290,30 +290,6 @@ void Rasterizer::rasterizeWireframe(const Triangle& t)
     ddaLine(t.z(), t.y());
 }
 
-/// 判断平面上的一个点是否在三角形内部
-static bool insideTriangle(float x, float y, const Vector3f* _v)
-{
-    Vector3f p = { x, y, 0.0f };
-
-    Vector3f p10 = _v[1] - _v[0];
-    Vector3f p21 = _v[2] - _v[1];
-    Vector3f p02 = _v[0] - _v[2];
-
-    Vector3f p0 = p - _v[0];
-    Vector3f p1 = p - _v[1];
-    Vector3f p2 = p - _v[2];
-
-    Vector3f c0 = p10.cross(p0);
-    Vector3f c1 = p21.cross(p1);
-    Vector3f c2 = p02.cross(p2);
-    ///只要是同一顺序，就必定全为正数
-    if (c0[2] > 0 && c1[2] > 0 && c2[2] > 0)
-    {
-        return true;
-    }
-    return false;
-}
-
 ///  面积法：计算三角形内一个点的重心坐标
 static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
 {
@@ -323,7 +299,7 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
     return { alpha, beta, gamma };
 }
 
-/// 对每个像素进行ratio x ratio采样
+/// 对每个像素进行ratio x ratio采样，msaa 是对ssaa的一个改进（super sampling antiAliasing）
 static float msaa(float ratio, float x, float y, const Vector3f* _v)
 {
     float percentage = 0;
