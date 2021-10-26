@@ -103,6 +103,7 @@ void assignment3()
                 t->setNormal(j, { mesh.vertices[i + j].normal.x, mesh.vertices[i + j].normal.y, mesh.vertices[i + j].normal.z });
                 t->setTexCoord(j, { mesh.vertices[i + j].texCoords.x, mesh.vertices[i + j].texCoords.y });
             }
+            triangles.emplace_back(t);
         }
     }
     auto texturePath = objPath + "hmap.jpg";

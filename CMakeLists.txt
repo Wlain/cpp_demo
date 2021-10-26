@@ -34,7 +34,7 @@ file(GLOB_RECURSE SOURCES
         *.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} graphics/texture.cpp graphics/texture.h graphics/shader.cpp graphics/shader.h graphics/objLoader.h graphics/objLoader.cpp cpppreference/optionalTest.cpp)
+add_executable(cpp_demo ${SOURCES})
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 

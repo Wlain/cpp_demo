@@ -93,11 +93,18 @@ public:
 private:
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& t);
+    void rasterizeTriangle(const std::shared_ptr<Triangle>& t, const std::array<Vector3f, 3>& viewPos);
     int getIndex(int i, int j) const;
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
     {
         return { v3.x(), v3.y(), v3.z(), w };
+    }
+
+    template <typename vec>
+    vec interpolate(float alpha, float beta, float gamma, const vec& vert1, const vec& vert2, const vec& vert3, float weight)
+    {
+        return (alpha * vert1 + beta * vert2 + gamma * vert3) / weight;
     }
 
 private:

@@ -7,8 +7,6 @@
 
 #include "texture.h"
 
-#include <eigen3/Eigen/Eigen>
-
 namespace graphics
 {
 class Shader

@@ -109,16 +109,16 @@ bool ObjLoader::loadFile(std::string& path)
                 m_vertices.emplace_back(vVert);
             }
 
-            std::vector<unsigned int> iIndices;
-            vertexTriangluation(iIndices, vVerts);
+            std::vector<unsigned int> vIndices;
+            vertexTriangluation(vIndices, vVerts);
 
             // add indices
-            for (int i = 0; i < (int)iIndices.size(); ++i)
+            for (unsigned int vIndice : vIndices)
             {
-                unsigned int indnum = (unsigned int)((vertices.size()) - vVerts.size()) + iIndices[i];
+                unsigned int indnum = (unsigned int)((vertices.size()) - vVerts.size()) + vIndice;
                 indices.push_back(indnum);
 
-                indnum = (unsigned int)((m_vertices.size()) - vVerts.size()) + iIndices[i];
+                indnum = (unsigned int)((m_vertices.size()) - vVerts.size()) + vIndice;
                 m_indices.push_back(indnum);
             }
         }

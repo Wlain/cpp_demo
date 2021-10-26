@@ -67,6 +67,7 @@ extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
 extern void optionalTest();
+extern void transformTest();
 
 namespace graphics
 {

@@ -22,6 +22,7 @@ public:
     inline const Vector3f& z() const { return m_vertex[2]; }
     inline void setVertex(int handle, Vector3f v) { m_vertex[handle] = std::move(v); }
     inline const Vector3f* vertex() const  { return m_vertex; }
+    inline const Vector3f* normal() const  { return m_normal; }
     inline void setTexCoord(int handle, float s, float t) { m_texCoords[handle] = Vector2f(s, t); }
     inline void setTexCoord(int handle, Vector2f f) { m_texCoords[handle] = std::move(f); }
     inline void setNormal(int handle, Vector3f n) { m_normal[handle] = std::move(n); }

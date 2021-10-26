@@ -3,7 +3,9 @@
 //
 
 #include "rasterizer.h"
+
 #include "vector3.h"
+
 #include <algorithm>
 #include <stdexcept>
 
@@ -85,7 +87,7 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     /// 模型变换 -> 世界坐标系
     /// 视图变换 -> 观察者坐标系
     /// 投影变换 -> 裁剪坐标系
-    Matrix4f mvp = m_projection * m_view * m_model;
+    auto mvp = m_projection * m_view * m_model;
     for (auto& i : indicesBuffer)
     {
         Triangle triangle;
@@ -129,7 +131,63 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
 
 void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
 {
-//    Matrix4f mvp = projection * view * model;
+    auto mvp = m_projection * m_view * m_model;
+    for (auto& triangle : triangleList)
+    {
+        std::array<Eigen::Vector3f, 3> viewSpacePosition;
+        std::array<Eigen::Vector4f, 3> mm {
+            (m_view * m_model * toVec4(triangle->vertex()[0], 1.0f)),
+            (m_view * m_model * toVec4(triangle->vertex()[1], 1.0f)),
+            (m_view * m_model * toVec4(triangle->vertex()[2], 1.0f))
+        };
+        std::transform(mm.begin(), mm.end(), viewSpacePosition.begin(), [](auto& v) {
+          return v.template head<3>();
+        });
+        /// 原始：局部坐标系
+        /// 模型变换 -> 世界坐标系
+        /// 视图变换 -> 观察者坐标系
+        /// 投影变换 -> 裁剪坐标系
+        Vector4f v[] = {
+            mvp * toVec4(triangle->vertex()[0], 1.0f),
+            mvp * toVec4(triangle->vertex()[1], 1.0f),
+            mvp * toVec4(triangle->vertex()[2], 1.0f)
+        };
+        /// 透视除法 -> 规范化坐标系(NDC)
+        for (auto& vec : v)
+        {
+            vec /= vec.w();
+        }
+        /// 逆变换
+        Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
+        Eigen::Vector4f n[] = {
+            inverseTrans * toVec4(triangle->normal()[0], 0.0f),
+            inverseTrans * toVec4(triangle->normal()[1], 0.0f),
+            inverseTrans * toVec4(triangle->normal()[2], 0.0f)
+        };
+        /// 视口变换 -> 屏幕坐标系
+        for (auto& vert : v)
+        {
+            vert.x() = 0.5f * (float)m_width * (vert.x() + 1.0f);
+            vert.y() = 0.5f * (float)m_height * (vert.y() + 1.0f);
+            vert.z() = vert.z();
+        }
+        for (int i = 0; i < 3; ++i)
+        {
+            // screen space coordinates
+            triangle->setVertex(i, v[i].head<3>());
+        }
+
+        for (int i = 0; i < 3; ++i)
+        {
+            //view space normal
+            triangle->setNormal(i, n[i].head<3>());
+        }
+        triangle->setColor(0, 148,121.0,92.0);
+        triangle->setColor(1, 148,121.0,92.0);
+        triangle->setColor(2, 148,121.0,92.0);
+        // Also pass view space vertice position
+        rasterizeTriangle(triangle, viewSpacePosition);
+    }
 }
 
 /// 直线扫描算法
@@ -312,7 +370,7 @@ static float msaa(float ratio, float x, float y, const Vector3f* _v)
     {
         for (int j = 0; j < (int)ratio; ++j)
         {
-            if (inTriangle({x + (float)i * dUnit, y + (float)j * dUnit, 1.0f}, {_v[0].x(), _v[0].y(), _v[0].z()}, {_v[1].x(), _v[1].y(), _v[1].z()}, {_v[2].x(), _v[2].y(), _v[2].z()}))
+            if (inTriangle({ x + (float)i * dUnit, y + (float)j * dUnit, 1.0f }, { _v[0].x(), _v[0].y(), _v[0].z() }, { _v[1].x(), _v[1].y(), _v[1].z() }, { _v[2].x(), _v[2].y(), _v[2].z() }))
             {
                 percentage += samplerTimes;
             }
@@ -355,6 +413,11 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
             }
         }
     }
+}
+
+void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& t, const std::array<Vector3f, 3>& viewPos)
+{
+
 }
 
 int Rasterizer::getIndex(int i, int j) const

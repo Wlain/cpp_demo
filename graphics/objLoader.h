@@ -35,13 +35,13 @@ struct Material
     /// 镜面反射光颜色
     Vector3 Ks;
     /// 镜面反射光指数
-    float Ns;
+    float Ns{};
     /// 光密度
-    float Ni;
+    float Ni{};
     /// 溶解度
-    float dissolve;
+    float dissolve{};
     /// 光照强度
-    int Illumination;
+    int Illumination{};
     /// Ambient Texture Map
     std::string mapKa;
     /// Diffuse Texture Map
