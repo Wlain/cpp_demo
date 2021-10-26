@@ -23,8 +23,6 @@ bool ObjLoader::loadFile(std::string& path)
         return false;
 
     m_meshes.clear();
-    m_vertices.clear();
-    m_indices.clear();
 
     std::vector<Vector3> positions;
     std::vector<Vector2> texCoords;
@@ -65,11 +63,8 @@ bool ObjLoader::loadFile(std::string& path)
             {
                 if (!indices.empty() && !vertices.empty())
                 {
-                    tempMesh = Mesh(vertices, indices);
-                    tempMesh.name = meshName;
+                    tempMesh = Mesh(vertices, indices, meshName);
                     m_meshes.emplace_back(tempMesh);
-                    m_vertices.clear();
-                    m_indices.clear();
                     meshName.clear();
                 }
                 else
@@ -106,7 +101,6 @@ bool ObjLoader::loadFile(std::string& path)
             for (const auto& vVert : vVerts)
             {
                 vertices.emplace_back(vVert);
-                m_vertices.emplace_back(vVert);
             }
 
             std::vector<unsigned int> vIndices;
@@ -117,9 +111,6 @@ bool ObjLoader::loadFile(std::string& path)
             {
                 unsigned int indnum = (unsigned int)((vertices.size()) - vVerts.size()) + vIndice;
                 indices.push_back(indnum);
-
-                indnum = (unsigned int)((m_vertices.size()) - vVerts.size()) + vIndice;
-                m_indices.push_back(indnum);
             }
         }
 
@@ -132,21 +123,18 @@ bool ObjLoader::loadFile(std::string& path)
             if (!indices.empty() && !vertices.empty())
             {
                 // create Mesh
-                tempMesh = Mesh(vertices, indices);
-                tempMesh.name = meshName;
+                auto tempName = meshName;
                 int i = 2;
-                while (1)
+                while (true)
                 {
-                    tempMesh.name = meshName + "_" + std::to_string(i);
-
+                    tempName = meshName + "_" + std::to_string(i);
                     for (auto& m : m_meshes)
-                        if (m.name == tempMesh.name)
+                        if (m.name == tempName)
                             continue;
                     break;
                 }
-
                 // Insert Mesh
-                m_meshes.emplace_back(tempMesh);
+                m_meshes.emplace_back(vertices, indices, tempName);
 
                 // Cleanup
                 vertices.clear();
@@ -160,7 +148,7 @@ bool ObjLoader::loadFile(std::string& path)
         {
             auto temp = split(path, "/");
 
-            std::string pathTomat = "";
+            std::string pathTomat;
 
             if (temp.size() != 1)
             {
@@ -182,12 +170,7 @@ bool ObjLoader::loadFile(std::string& path)
     // deal with last mesh
     if (!indices.empty() && !vertices.empty())
     {
-        // Create Mesh
-        tempMesh = Mesh(vertices, indices);
-        tempMesh.name = meshName;
-
-        // Insert Mesh
-        m_meshes.push_back(tempMesh);
+        m_meshes.emplace_back(vertices, indices, meshName);
     }
 
     file.close();
@@ -208,7 +191,7 @@ bool ObjLoader::loadFile(std::string& path)
             }
         }
     }
-    return !m_meshes.empty() && !m_vertices.empty() && !m_indices.empty();
+    return !m_meshes.empty();
 }
 
 std::string ObjLoader::firstToken(const std::string& in)
@@ -249,7 +232,7 @@ std::string ObjLoader::tail(const std::string& in)
     return "";
 }
 
-std::vector<std::string> ObjLoader::split(const std::string& in, std::string token)
+std::vector<std::string> ObjLoader::split(const std::string& in, const std::string& token)
 {
     std::string temp;
     std::vector<std::string> result;
@@ -356,8 +339,7 @@ void ObjLoader::genVerticesFromRawOBJ(std::vector<Vertex>& verts,
             verts.emplace_back(vVert);
             break;
         }
-        default:
-        {
+        default: {
             break;
         }
         }
@@ -646,9 +628,12 @@ bool ObjLoader::loadMaterials(std::string& path)
             material.mapBump = tail(curline);
         }
     }
-
     m_materials.emplace_back(material);
     return !m_materials.empty();
 }
 
+Mesh::Mesh(std::vector<Vertex>& vertices_, std::vector<unsigned int>& indices_, std::string name_) :
+    vertices(vertices_), indices(indices_), name(std::move(name_))
+{
+}
 } // namespace graphics

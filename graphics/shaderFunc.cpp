@@ -7,7 +7,7 @@ using namespace Eigen;
 
 namespace graphics
 {
-Vector3f baseVertexShader(const VertexShader& vertShader)
+Vector3f baseVertShader(const VertexShader& vertShader)
 {
     return vertShader.position();
 }

@@ -20,7 +20,7 @@ void Triangle::setColor(int handle, float r, float g, float b)
     {
         throw std::runtime_error("Invalid color values");
     }
-    m_color[handle] = Vector3f(r / 255.0f, g / 255.0f, b / 255.0f);
+    m_color[handle] = Vector3f(r, g, b);
 }
 
 std::array<Vector4f, 3> Triangle::toVector4() const

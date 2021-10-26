@@ -41,7 +41,7 @@ struct Material
     /// 溶解度
     float dissolve{};
     /// 光照强度
-    int Illumination{};
+    float Illumination{};
     /// Ambient Texture Map
     std::string mapKa;
     /// Diffuse Texture Map
@@ -59,10 +59,7 @@ struct Material
 struct Mesh
 {
     Mesh() = default;
-    Mesh(std::vector<Vertex>& vertices_, std::vector<unsigned int>& indices_) :
-        vertices(vertices_), indices(indices_)
-    {
-    }
+    Mesh(std::vector<Vertex>& vertices_, std::vector<unsigned int>& indices_, std::string  name_);
     std::string name;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -83,7 +80,7 @@ private:
     /// 获取尾部符号
     static std::string tail(const std::string& in);
     /// 在给定的标记处将一个字符串分割成一个字符串数组
-    static std::vector<std::string> split(const std::string& in, std::string token);
+    static std::vector<std::string> split(const std::string& in, const std::string& token);
 
     template <class T>
     inline const T& getElement(const std::vector<T>& elements, std::string& index)
@@ -103,13 +100,11 @@ private:
                                const std::vector<Vector3>& normals,
                                std::string& curline);
 
-    void vertexTriangluation(std::vector<unsigned int>& indices,
-                             const std::vector<Vertex>& verts);
+    static void vertexTriangluation(std::vector<unsigned int>& indices,
+                                    const std::vector<Vertex>& verts);
 
 public:
     std::vector<Mesh> m_meshes;
-    std::vector<Vertex> m_vertices;
-    std::vector<unsigned int> m_indices;
     std::vector<Material> m_materials;
 };
 

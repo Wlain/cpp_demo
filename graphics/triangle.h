@@ -17,6 +17,7 @@ public:
     std::array<Vector4f, 3> toVector4() const;
     void setColor(int handle, float r, float g, float b);
     inline const Vector3f* color() const { return m_color; }
+    inline const Vector2f* texCoords() const { return m_texCoords; }
     inline const Vector3f& x() const { return m_vertex[0]; }
     inline const Vector3f& y() const { return m_vertex[1]; }
     inline const Vector3f& z() const { return m_vertex[2]; }

@@ -83,7 +83,7 @@ void assignment2()
 void assignment3()
 {
     Rasterizer rasterizer(800, 800);
-    float angle = 140.0f;
+    float angle = 20.0f;
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
     ObjLoader loader;
@@ -108,9 +108,9 @@ void assignment3()
     }
     auto texturePath = objPath + "hmap.jpg";
     ASSERT(isFileExist(texturePath));
-    rasterizer.setVertexShader(baseVertexShader);
+    rasterizer.setVertexShader(baseVertShader);
     rasterizer.setFragmentShader(baseFragShader);
-    rasterizer.setTexture(Texture(texturePath.c_str()));
+    rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
@@ -118,10 +118,8 @@ void assignment3()
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
-    image.convertTo(image, CV_8UC3, 1.0f);
-    cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
     cv::flip(image, image, -1);
-    cv::imshow("triangles", image);
+    cv::imshow("mesh", image);
     cv::waitKey();
 }
 } // namespace graphics

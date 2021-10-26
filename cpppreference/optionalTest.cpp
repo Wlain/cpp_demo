@@ -6,7 +6,6 @@
 #include <functional>
 #include <iostream>
 #include <optional>
-#include <string>
 
 // optional 可用作可能失败的工厂的返回类型
 std::optional<std::string> create(bool b)

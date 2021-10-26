@@ -76,7 +76,7 @@ public:
     inline void setProjection(const Matrix4f& p) { m_projection = p; }
     void setPixel(int x, int y, const Vector3f& color);
 
-    inline void setTexture(Texture tex) { m_texture = std::move(tex); }
+    inline void setTexture(std::shared_ptr<Texture> tex) { m_texture = std::move(tex); }
     inline void setVertexShader(std::function<Vector3f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
     inline void setFragmentShader(std::function<Vector3f(FragmentShader)> fragShader) { m_fragmentShader = std::move(fragShader); }
 
@@ -93,7 +93,7 @@ public:
 private:
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& t);
-    void rasterizeTriangle(const std::shared_ptr<Triangle>& t, const std::array<Vector3f, 3>& viewPos);
+    void rasterizeTriangle(const std::shared_ptr<Triangle>& t, const Vector3f* viewPos);
     int getIndex(int i, int j) const;
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
@@ -102,9 +102,9 @@ private:
     }
 
     template <typename vec>
-    vec interpolate(float alpha, float beta, float gamma, const vec& vert1, const vec& vert2, const vec& vert3, float weight)
+    vec interpolate(float alpha, float beta, float gamma, const vec* vert, float weight)
     {
-        return (alpha * vert1 + beta * vert2 + gamma * vert3) / weight;
+        return (alpha * vert[0] + beta * vert[1] + gamma * vert[2]) / weight;
     }
 
 private:
@@ -118,7 +118,7 @@ private:
     std::vector<float> m_depthBuffer;
     std::function<Vector3f(FragmentShader)> m_fragmentShader;
     std::function<Vector3f(VertexShader)> m_vertexShader;
-    std::optional<Texture> m_texture;
+    std::optional<std::shared_ptr<Texture>> m_texture;
     float m_msaaRatio = 1.0f;
     float m_red = 0.0f;
     float m_green = 0.0f;

@@ -33,11 +33,15 @@ class FragmentShader : public Shader
 {
 public:
     FragmentShader();
-    FragmentShader(const Eigen::Vector3f colors, const Eigen::Vector3f normals, const Eigen::Vector2f texCoords, Texture* texture);
+    FragmentShader(const Eigen::Vector3f colors, const Eigen::Vector3f normals, const Eigen::Vector2f texCoords, std::shared_ptr<Texture> texture);
     ~FragmentShader() override;
+    inline auto& viewPosition() { return m_viewPosition; }
+    inline auto& color() { return m_color; }
+    inline auto& normal() { return m_normal; }
+    inline auto& texCoords() { return m_texCoords; }
 
 public:
-    Texture* m_texture = nullptr;
+    std::shared_ptr<Texture> m_texture;
     Eigen::Vector3f m_viewPosition;
     Eigen::Vector3f m_color;
     Eigen::Vector3f m_normal;
