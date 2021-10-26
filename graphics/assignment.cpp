@@ -114,10 +114,12 @@ void assignment3()
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
-    rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    image.convertTo(image, CV_8UC3, 1.0f);
+    cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
     cv::flip(image, image, -1);
     cv::imshow("mesh", image);
     cv::waitKey();

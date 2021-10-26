@@ -178,9 +178,6 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
             //view space normal
             triangle->setNormal(i, n[i].head<3>());
         }
-        triangle->setColor(0, 148,121.0,92.0);
-        triangle->setColor(1, 148,121.0,92.0);
-        triangle->setColor(2, 148,121.0,92.0);
         // Also pass view space vertice position
         rasterizeTriangle(triangle, viewSpacePosition);
     }
@@ -441,16 +438,16 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& t, const Vec
                     m_depthBuffer[y * m_width + x] = interpolatedZValue;
                 }
                 const auto interpolatedColor = interpolate(alpha, beta, gamma, t->color(), 1.0f);
-                const auto interpolatedNormal =  interpolate(alpha, beta, gamma, t->normal(), 1.0f);
+                const auto interpolatedNormal = interpolate(alpha, beta, gamma, t->normal(), 1.0f);
                 const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, t->texCoords(), 1.0f);
                 auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, 1.0f);
                 FragmentShader fragShader(interpolatedColor, interpolatedNormal, interpolatedTexCoords, m_texture.value_or(nullptr));
                 fragShader.viewPosition() = interpolatedViewPosition;
                 VertexShader vertexShader;
-                vertexShader.setPosition({x, y, interpolatedZValue});
+                vertexShader.setPosition({ x, y, interpolatedZValue });
                 auto pixelColor = m_fragmentShader(fragShader);
                 auto vPosition = m_vertexShader(vertexShader);
-                setPixel(vPosition.x(), vPosition.y(), pixelColor * percentage * 255.0f);
+                setPixel(vPosition.x(), vPosition.y(), pixelColor * percentage);
             }
         }
     }

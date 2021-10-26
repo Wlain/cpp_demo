@@ -14,6 +14,6 @@ Vector3f baseVertShader(const VertexShader& vertShader)
 
 Vector3f baseFragShader(const FragmentShader& fragShader)
 {
-    return { 1.0, 1.0, 1.0f };
+    return { 148.0f ,121.0f, 92.0f };
 }
 } // namespace graphics
