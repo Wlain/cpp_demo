@@ -36,9 +36,9 @@ public:
     FragmentShader(const Eigen::Vector3f colors, const Eigen::Vector3f normals, const Eigen::Vector2f texCoords, std::shared_ptr<Texture> texture);
     ~FragmentShader() override;
     inline auto& viewPosition() { return m_viewPosition; }
-    inline auto& color() { return m_color; }
-    inline auto& normal() { return m_normal; }
-    inline auto& texCoords() { return m_texCoords; }
+    inline const auto& color() const { return m_color; }
+    inline const auto& normal() const { return m_normal; }
+    inline const auto& texCoords() const { return m_texCoords; }
 
 public:
     std::shared_ptr<Texture> m_texture;

@@ -3,6 +3,7 @@
 //
 
 #include "matrix4.h"
+
 #include "base.h"
 
 /// 计算视图矩阵
@@ -20,17 +21,26 @@ Matrix4f getViewMatrix(const Vector3f& eyePos)
 
 Matrix4f getModelMatrix(float rotationAngle)
 {
-    Matrix4f model = Matrix4f::Identity();
-    if (rotationAngle == 0) return model;
-    float rotation_radian = rotationAngle * MATH_PI / 180.0f;
-    Matrix4f rotateZ;
-    rotateZ << cos(rotation_radian), -sin(rotation_radian), 0.0f, 0.0f,
-        sin(rotation_radian), cos(rotation_radian), 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f;
-    model = model * rotateZ;
+    Eigen::Matrix4f rotation;
+    rotationAngle = rotationAngle * MATH_PI / 180.f;
+    rotation << cos(rotationAngle), 0.0f, sin(rotationAngle), 0.0f,
+        0.0f, 1, 0.0f, 0.0f,
+        -sin(rotationAngle), 0.0f, cos(rotationAngle), 0.0f,
+        0.0f, 0.0f, 0.0f, 1;
 
-    return model;
+    Eigen::Matrix4f scale;
+    scale << 2.5, 0.0f, 0.0f, 0.0f,
+        0.0f, 2.5, 0.0f, 0.0f,
+        0.0f, 0.0f, 2.5, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f;
+
+    Eigen::Matrix4f translate;
+    translate << 1, 0.0f, 0.0f, 0.0f,
+        0.0f, 1, 0.0f, 0.0f,
+        0.0f, 0.0f, 1, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f;
+
+    return translate * rotation * scale;
 }
 
 /// 任意轴旋转矩阵

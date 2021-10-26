@@ -16,4 +16,10 @@ Vector3f baseFragShader(const FragmentShader& fragShader)
 {
     return { 148.0f ,121.0f, 92.0f };
 }
+
+Vector3f normalFragShader(const FragmentShader& fragShader)
+{
+    Vector3f returnColor = (fragShader.normal().normalized() + Eigen::Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
+    return {returnColor.x() * 255, returnColor.y() * 255, returnColor.z() * 255};
+}
 } // namespace graphics

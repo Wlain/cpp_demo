@@ -91,18 +91,18 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     for (auto& i : indicesBuffer)
     {
         Triangle triangle;
-        Vector4f v[] = {
+        Vector4f position[] = {
             mvp * toVec4(positionBuffer[i[0]], 1.0f),
             mvp * toVec4(positionBuffer[i[1]], 1.0f),
             mvp * toVec4(positionBuffer[i[2]], 1.0f)
         };
         /// 透视除法 -> 规范化坐标系(NDC)
-        for (auto& vec : v)
+        for (auto& vec : position)
         {
             vec /= vec.w();
         }
         /// 视口变换 -> 屏幕坐标系
-        for (auto& vert : v)
+        for (auto& vert : position)
         {
             vert.x() = 0.5f * (float)m_width * (vert.x() + 1.0f);
             vert.y() = 0.5f * (float)m_height * (vert.y() + 1.0f);
@@ -110,7 +110,7 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
         }
         for (int j = 0; j < 3; ++j)
         {
-            triangle.setVertex(j, v[j].head<3>());
+            triangle.setVertex(j, position[j].head<3>());
         }
         auto colA = colorBuffer[i[0]];
         auto colB = colorBuffer[i[1]];
@@ -131,6 +131,9 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
 
 void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
 {
+    float f1 = (50 - 0.1) / 2.0;
+    float f2 = (50 + 0.1) / 2.0;
+
     auto mvp = m_projection * m_view * m_model;
     for (auto& triangle : triangleList)
     {
@@ -143,40 +146,40 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
         /// 模型变换 -> 世界坐标系
         /// 视图变换 -> 观察者坐标系
         /// 投影变换 -> 裁剪坐标系
-        Vector4f v[] = {
+        Vector4f position[] = {
             mvp * toVec4(triangle->vertex()[0], 1.0f),
             mvp * toVec4(triangle->vertex()[1], 1.0f),
             mvp * toVec4(triangle->vertex()[2], 1.0f)
         };
         /// 透视除法 -> 规范化坐标系(NDC)
-        for (auto& vec : v)
+        for (auto& vec : position)
         {
             vec /= vec.w();
         }
         /// 逆变换
         Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
-        Eigen::Vector4f n[] = {
+        Eigen::Vector4f normal[] = {
             inverseTrans * toVec4(triangle->normal()[0], 0.0f),
             inverseTrans * toVec4(triangle->normal()[1], 0.0f),
             inverseTrans * toVec4(triangle->normal()[2], 0.0f)
         };
         /// 视口变换 -> 屏幕坐标系
-        for (auto& vert : v)
+        for (auto& vert : position)
         {
             vert.x() = 0.5f * (float)m_width * (vert.x() + 1.0f);
             vert.y() = 0.5f * (float)m_height * (vert.y() + 1.0f);
-            vert.z() = vert.z();
+            vert.z() = vert.z() * f1 + f2; // 猜测是做扰动？防止精度问题
         }
         for (int i = 0; i < 3; ++i)
         {
             // screen space coordinates
-            triangle->setVertex(i, v[i].head<3>());
+            triangle->setVertex(i, position[i].head<3>());
         }
 
         for (int i = 0; i < 3; ++i)
         {
             //view space normal
-            triangle->setNormal(i, n[i].head<3>());
+            triangle->setNormal(i, normal[i].head<3>());
         }
         // Also pass view space vertice position
         rasterizeTriangle(triangle, viewSpacePosition);
@@ -402,7 +405,7 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
                 {
                     m_depthBuffer[y * m_width + x] = zInterpolated;
                 }
-                setPixel(x, y, t.color()[0] * percentage);
+                setPixel(x, y, t.color()[0] * percentage / 255.0f);
             }
         }
     }
@@ -416,9 +419,9 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& t, const Vec
     auto [minX, maxX] = std::minmax_element(std::begin(vertexX), std::end(vertexX));
     auto [minY, maxY] = std::minmax_element(std::begin(vertexY), std::end(vertexY));
     /// 包围盒逻辑
-    for (int y = (int)*minY; y < (int)*maxY; ++y)
+    for (int x = (int)*minX; x < (int)*maxX; ++x)
     {
-        for (int x = (int)*minX; x < (int)*maxX; ++x)
+        for (int y = (int)*minY; y < (int)*maxY; ++y)
         {
             float percentage = msaa(m_msaaRatio, (float)x, (float)y, t->vertex());
             if (percentage == 0) continue;

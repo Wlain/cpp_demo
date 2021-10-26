@@ -5,8 +5,8 @@
 #include "matrix4.h"
 #include "objLoader.h"
 #include "rasterizer.h"
-#include "utils.h"
 #include "shaderFunc.h"
+#include "utils.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -42,7 +42,7 @@ void assignment1()
 void assignment2()
 {
     Rasterizer rasterizer(800, 800);
-    Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
+    Vector3f eyePos = { 0.0f, 0.0f, 18.0f };
     std::vector<Eigen::Vector3f> position = {
         { 2.0f, 0.0f, -2.0f },
         { 0.0f, 2.0f, -2.0f },
@@ -66,7 +66,7 @@ void assignment2()
     auto posId = rasterizer.loadPositions(position);
     auto colorID = rasterizer.loadColors(colors);
     auto indicesId = rasterizer.loadIndices(indices);
-    rasterizer.setModel(getModelMatrix(20.0f));
+    rasterizer.setModel(getModelMatrix(-10.0f));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -83,8 +83,8 @@ void assignment2()
 void assignment3()
 {
     Rasterizer rasterizer(800, 800);
-    float angle = 20.0f;
-    Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
+    float angle = 140.0f;
+    Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
     ObjLoader loader;
     std::string objPath = "../resources/models/spot/";
@@ -94,7 +94,7 @@ void assignment3()
     ASSERT(ret);
     for (auto& mesh : loader.m_meshes)
     {
-        for (int i = 0; i < (int)mesh.vertices.size(); ++i)
+        for (int i = 0; i < (int)mesh.vertices.size(); i += 3)
         {
             std::shared_ptr<Triangle> t = std::make_shared<Triangle>();
             for (int j = 0; j < 3; ++j)
@@ -106,10 +106,11 @@ void assignment3()
             triangles.emplace_back(t);
         }
     }
+
     auto texturePath = objPath + "hmap.jpg";
     ASSERT(isFileExist(texturePath));
     rasterizer.setVertexShader(baseVertShader);
-    rasterizer.setFragmentShader(baseFragShader);
+    rasterizer.setFragmentShader(normalFragShader);
     rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));

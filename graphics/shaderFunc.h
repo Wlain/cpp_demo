@@ -10,11 +10,14 @@
 
 namespace graphics
 {
-// 顶点着色器
+// 基础顶点着色器
 Eigen::Vector3f baseVertShader(const VertexShader& vertShader);
 
-// 片元着色器
+// 基础片元着色器
 Eigen::Vector3f baseFragShader(const FragmentShader& fragShader);
+
+// 绘制法线
+Eigen::Vector3f normalFragShader(const FragmentShader& fragShader);
 
 } // namespace graphics
 #endif //CPP_DEMO_SHADERFUNC_H
