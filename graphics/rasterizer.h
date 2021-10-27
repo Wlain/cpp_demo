@@ -67,7 +67,7 @@ public:
         m_depthBuffer.resize(w * h);
         m_texture = std::nullopt;
     }
-    PositionBufferHandle loadPositions(const std::vector<Vector3f>& position);
+    PositionBufferHandle loadPositions(const std::vector<Vector4f>& position);
     IndicesBufferHandle loadIndices(const std::vector<Vector3i>& indices);
     ColorBufferHandle loadColors(std::vector<Vector4f>& colors);
 
@@ -77,23 +77,23 @@ public:
     void setPixel(int x, int y, const Vector3f& color);
 
     inline void setTexture(std::shared_ptr<Texture> tex) { m_texture = std::move(tex); }
-    inline void setVertexShader(std::function<Vector3f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
+    inline void setVertexShader(std::function<Vector4f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
     inline void setFragmentShader(std::function<Vector3f(FragmentShader)> fragShader) { m_fragmentShader = std::move(fragShader); }
 
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
     inline void setMsaaRatio(float ratio) { m_msaaRatio = ratio; }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
-    void draw(std::vector<std::shared_ptr<Triangle>>& triangleList);
+    void draw(std::vector<std::shared_ptr<Triangle>>& triangles);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
-    void drawLine(const Vector3f& begin, const Vector3f& end);
-    void ddaLine(const Vector3f& begin, const Vector3f& end);
+    void drawLine(const Vector4f& begin, const Vector4f& end);
+    void ddaLine(const Vector4f& begin, const Vector4f& end);
     void midLine(const Vector3f& begin, const Vector3f& end);
 
 private:
     void rasterizeWireframe(const Triangle& t);
-    void rasterizeTriangle(const Triangle& t);
-    void rasterizeTriangle(const std::shared_ptr<Triangle>& t, const Vector3f* viewPos);
+    void rasterizeTriangle(const Triangle& triangle);
+    void rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, const Vector4f* viewPos);
     int getIndex(int i, int j) const;
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
@@ -111,13 +111,13 @@ private:
     Matrix4f m_model;
     Matrix4f m_view;
     Matrix4f m_projection;
-    std::map<int, std::vector<Vector3f>> m_positionBuf;
+    std::map<int, std::vector<Vector4f>> m_positionBuf;
     std::map<int, std::vector<Vector3i>> m_indicesBuf;
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<float> m_depthBuffer;
     std::function<Vector3f(FragmentShader)> m_fragmentShader;
-    std::function<Vector3f(VertexShader)> m_vertexShader;
+    std::function<Vector4f(VertexShader)> m_vertexShader;
     std::optional<std::shared_ptr<Texture>> m_texture;
     float m_msaaRatio = 1.0f;
     float m_red = 0.0f;

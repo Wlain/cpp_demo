@@ -19,7 +19,7 @@ Rasterizer::Rasterizer(int w, int h) :
     resize(w, h);
 }
 
-PositionBufferHandle Rasterizer::loadPositions(const std::vector<Vector3f>& position)
+PositionBufferHandle Rasterizer::loadPositions(const std::vector<Vector4f>& position)
 {
     auto id = getNextId();
     m_positionBuf.emplace(id, position);
@@ -36,10 +36,6 @@ IndicesBufferHandle Rasterizer::loadIndices(const std::vector<Vector3i>& indices
 ColorBufferHandle Rasterizer::loadColors(std::vector<Vector4f>& colors)
 {
     auto id = getNextId();
-    for (auto& color : colors)
-    {
-        color *= 255.0f;
-    }
     m_colorBuf.emplace(id, colors);
     return { id };
 }
@@ -92,9 +88,9 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     {
         Triangle triangle;
         Vector4f position[] = {
-            mvp * toVec4(positionBuffer[i[0]], 1.0f),
-            mvp * toVec4(positionBuffer[i[1]], 1.0f),
-            mvp * toVec4(positionBuffer[i[2]], 1.0f)
+            mvp * positionBuffer[i[0]],
+            mvp * positionBuffer[i[1]],
+            mvp * positionBuffer[i[2]]
         };
         /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : position)
@@ -110,7 +106,7 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
         }
         for (int j = 0; j < 3; ++j)
         {
-            triangle.setVertex(j, position[j].head<3>());
+            triangle.setVertex(j, position[j]);
         }
         auto colA = colorBuffer[i[0]];
         auto colB = colorBuffer[i[1]];
@@ -129,27 +125,27 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     }
 }
 
-void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
+void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
 {
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
 
     auto mvp = m_projection * m_view * m_model;
-    for (auto& triangle : triangleList)
+    for (auto& triangle : triangles)
     {
-        Vector3f viewSpacePosition[] = {
-            (m_view * m_model * toVec4(triangle->vertex()[0], 1.0f)).head<3>(),
-            (m_view * m_model * toVec4(triangle->vertex()[1], 1.0f)).head<3>(),
-            (m_view * m_model * toVec4(triangle->vertex()[2], 1.0f)).head<3>()
+        Vector4f viewSpacePosition[] = {
+            m_view * m_model * triangle->vertex()[0],
+            m_view * m_model * triangle->vertex()[1],
+            m_view * m_model * triangle->vertex()[2]
         };
         /// 原始：局部坐标系
         /// 模型变换 -> 世界坐标系
         /// 视图变换 -> 观察者坐标系
         /// 投影变换 -> 裁剪坐标系
         Vector4f position[] = {
-            mvp * toVec4(triangle->vertex()[0], 1.0f),
-            mvp * toVec4(triangle->vertex()[1], 1.0f),
-            mvp * toVec4(triangle->vertex()[2], 1.0f)
+            mvp * triangle->vertex()[0],
+            mvp * triangle->vertex()[1],
+            mvp * triangle->vertex()[2]
         };
         /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : position)
@@ -173,7 +169,7 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
         for (int i = 0; i < 3; ++i)
         {
             // screen space coordinates
-            triangle->setVertex(i, position[i].head<3>());
+            triangle->setVertex(i, position[i]);
         }
 
         for (int i = 0; i < 3; ++i)
@@ -191,7 +187,7 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangleList)
 /// 点xi，yi满足直线方程yi=kxi+b，
 /// 若xi增加一个单位，则下一步点的位置（xi + 1，yi+1）满足yi+1=k（xi + 1）+ b。
 /// 即yi+1=yi+k。
-void Rasterizer::ddaLine(const Vector3f& begin, const Vector3f& end)
+void Rasterizer::ddaLine(const Vector4f& begin, const Vector4f& end)
 {
     auto x1 = begin.x();
     auto y1 = begin.y();
@@ -243,7 +239,7 @@ void Rasterizer::midLine(const Vector3f& begin, const Vector3f& end)
     /// TODO
 }
 
-void Rasterizer::drawLine(const Vector3f& begin, const Vector3f& end)
+void Rasterizer::drawLine(const Vector4f& begin, const Vector4f& end)
 {
     auto x1 = begin.x();
     auto y1 = begin.y();
@@ -345,7 +341,7 @@ void Rasterizer::rasterizeWireframe(const Triangle& t)
 }
 
 ///  面积法：计算三角形内一个点的重心坐标
-static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
+static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector4f* v)
 {
     float alpha = (x * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * y + v[1].x() * v[2].y() - v[2].x() * v[1].y()) / (v[0].x() * (v[1].y() - v[2].y()) + (v[2].x() - v[1].x()) * v[0].y() + v[1].x() * v[2].y() - v[2].x() * v[1].y());
     float beta = (x * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * y + v[2].x() * v[0].y() - v[0].x() * v[2].y()) / (v[1].x() * (v[2].y() - v[0].y()) + (v[0].x() - v[2].x()) * v[1].y() + v[2].x() * v[0].y() - v[0].x() * v[2].y());
@@ -354,7 +350,7 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
 }
 
 /// 对每个像素进行ratio x ratio采样，msaa 是对ssaa的一个改进（super sampling antiAliasing）
-static float msaa(float ratio, float x, float y, const Vector3f* _v)
+static float msaa(float ratio, float x, float y, const Vector4f* _v)
 {
     float percentage = 0;
     float samplerTimes = 1.0f / (ratio * ratio);
@@ -375,22 +371,22 @@ static float msaa(float ratio, float x, float y, const Vector3f* _v)
     return percentage;
 }
 
-void Rasterizer::rasterizeTriangle(const Triangle& t)
+void Rasterizer::rasterizeTriangle(const Triangle& triangle)
 {
-    auto v = t.toVector4();
+    auto v = triangle.toVector4();
     const auto vertexX = { v[0].x(), v[1].x(), v[2].x() };
     const auto vertexY = { v[0].y(), v[1].y(), v[2].y() };
     auto [minX, maxX] = std::minmax_element(std::begin(vertexX), std::end(vertexX));
     auto [minY, maxY] = std::minmax_element(std::begin(vertexY), std::end(vertexY));
     /// 包围盒逻辑
-    for (int y = (int)*minY; y < (int)*maxY; ++y)
+    for (int x = std::floor(*minX); x < std::ceil(*maxX); ++x)
     {
-        for (int x = (int)*minX; x < (int)*maxX; ++x)
+        for (int y = std::floor(*minY); y < std::ceil(*maxY); ++y)
         {
-            float percentage = msaa(m_msaaRatio, (float)x, (float)y, t.vertex());
+            float percentage = msaa(m_msaaRatio, (float)x, (float)y, triangle.vertex());
             if (percentage == 0) continue;
             {
-                auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, t.vertex());
+                auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, triangle.vertex());
                 /// 透视插值矫正
                 float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
                 float zInterpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
@@ -405,53 +401,48 @@ void Rasterizer::rasterizeTriangle(const Triangle& t)
                 {
                     m_depthBuffer[y * m_width + x] = zInterpolated;
                 }
-                setPixel(x, y, t.color()[0] * percentage / 255.0f);
+                setPixel(x, y, triangle.color()[0] * percentage);
             }
         }
     }
 }
 
-void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& t, const Vector3f* viewPos)
+void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, const Vector4f* viewPos)
 {
-    auto v = t->toVector4();
+    auto v = triangle->toVector4();
     const auto vertexX = { v[0].x(), v[1].x(), v[2].x() };
     const auto vertexY = { v[0].y(), v[1].y(), v[2].y() };
     auto [minX, maxX] = std::minmax_element(std::begin(vertexX), std::end(vertexX));
     auto [minY, maxY] = std::minmax_element(std::begin(vertexY), std::end(vertexY));
     /// 包围盒逻辑
-    for (int x = (int)*minX; x < (int)*maxX; ++x)
+    for (int x = std::floor(*minX); x < std::ceil(*maxX); ++x)
     {
-        for (int y = (int)*minY; y < (int)*maxY; ++y)
+        for (int y = std::floor(*minY); y < std::ceil(*maxY); ++y)
         {
-            float percentage = msaa(m_msaaRatio, (float)x, (float)y, t->vertex());
+            float percentage = msaa(m_msaaRatio, (float)x, (float)y, triangle->vertex());
             if (percentage == 0) continue;
+            auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, triangle->vertex());
+            float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+            float interpolatedZValue = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
+            interpolatedZValue *= reciprocalCorrect;
+            /// z-Buffer算法
+            if (interpolatedZValue >= m_depthBuffer[y * m_width + x])
             {
-                auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, t->vertex());
-                /// 透视插值矫正
-                float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-                float interpolatedZValue = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
-                interpolatedZValue *= reciprocalCorrect;
-                /// z-Buffer算法
-                if (interpolatedZValue >= m_depthBuffer[y * m_width + x])
-                {
-                    continue;
-                }
-                if (percentage == 1.0f)
-                {
-                    m_depthBuffer[y * m_width + x] = interpolatedZValue;
-                }
-                const auto interpolatedColor = interpolate(alpha, beta, gamma, t->color(), 1.0f);
-                const auto interpolatedNormal = interpolate(alpha, beta, gamma, t->normal(), 1.0f);
-                const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, t->texCoords(), 1.0f);
-                auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, 1.0f);
-                FragmentShader fragShader(interpolatedColor, interpolatedNormal, interpolatedTexCoords, m_texture.value_or(nullptr));
-                fragShader.viewPosition() = interpolatedViewPosition;
-                VertexShader vertexShader;
-                vertexShader.setPosition({ x, y, interpolatedZValue });
-                auto pixelColor = m_fragmentShader(fragShader);
-                auto vPosition = m_vertexShader(vertexShader);
-                setPixel(vPosition.x(), vPosition.y(), pixelColor * percentage);
+                continue;
             }
+            m_depthBuffer[y * m_width + x] = interpolatedZValue;
+            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), 1.0f);
+            auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), 1.0f);
+            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), 1.0f);
+            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, 1.0f);
+            FragmentShader fragShader(interpolatedColor, interpolatedNormal.normalized(), interpolatedTexCoords, m_texture.value_or(nullptr));
+            fragShader.viewPosition() = interpolatedViewPosition;
+            VertexShader vertexShader;
+            vertexShader.setPosition({ x, y, interpolatedZValue, 1.0f });
+            auto pixelColor = m_fragmentShader(fragShader);
+            auto vPosition = m_vertexShader(vertexShader);
+
+            setPixel(vPosition.x(), vPosition.y(), pixelColor);
         }
     }
 }

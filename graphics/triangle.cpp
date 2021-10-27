@@ -16,7 +16,7 @@ Triangle::~Triangle() = default;
 
 void Triangle::setColor(int handle, float r, float g, float b)
 {
-    if ((r < 0.0f) || (r > 255.0f) || (g < 0.0f) || (g > 255.0f) || (b < 0.0f) || (b > 255.f))
+    if ((r < 0.0f) || (r > 1.0f) || (g < 0.0f) || (g > 1.0f) || (b < 0.0f) || (b > 1.f))
     {
         throw std::runtime_error("Invalid color values");
     }

@@ -21,12 +21,12 @@ class VertexShader : public Shader
 public:
     VertexShader();
     ~VertexShader() override;
-    inline const Eigen::Vector3f& position() const { return m_position; }
-    inline Eigen::Vector3f& position() { return m_position; }
-    inline void setPosition(const Eigen::Vector3f& position) { m_position = position; }
+    inline const Eigen::Vector4f& position() const { return m_position; }
+    inline Eigen::Vector4f& position() { return m_position; }
+    inline void setPosition(const Eigen::Vector4f& position) { m_position = position; }
 
 private:
-    Eigen::Vector3f m_position;
+    Eigen::Vector4f m_position;
 };
 
 class FragmentShader : public Shader
@@ -42,7 +42,7 @@ public:
 
 public:
     std::shared_ptr<Texture> m_texture;
-    Eigen::Vector3f m_viewPosition;
+    Eigen::Vector4f m_viewPosition;
     Eigen::Vector3f m_color;
     Eigen::Vector3f m_normal;
     Eigen::Vector2f m_texCoords;

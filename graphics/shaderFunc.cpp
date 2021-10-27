@@ -7,7 +7,7 @@ using namespace Eigen;
 
 namespace graphics
 {
-Vector3f baseVertShader(const VertexShader& vertShader)
+Vector4f baseVertShader(const VertexShader& vertShader)
 {
     return vertShader.position();
 }
@@ -19,7 +19,7 @@ Vector3f baseFragShader(const FragmentShader& fragShader)
 
 Vector3f normalFragShader(const FragmentShader& fragShader)
 {
-    Vector3f returnColor = (fragShader.normal().normalized() + Eigen::Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
+    Vector3f returnColor = (fragShader.normal().normalized() + Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
     return {returnColor.x() * 255, returnColor.y() * 255, returnColor.z() * 255};
 }
 } // namespace graphics

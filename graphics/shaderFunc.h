@@ -11,7 +11,7 @@
 namespace graphics
 {
 // 基础顶点着色器
-Eigen::Vector3f baseVertShader(const VertexShader& vertShader);
+Eigen::Vector4f baseVertShader(const VertexShader& vertShader);
 
 // 基础片元着色器
 Eigen::Vector3f baseFragShader(const FragmentShader& fragShader);

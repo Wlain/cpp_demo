@@ -20,7 +20,7 @@ void assignment1()
 {
     Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
-    std::vector<Vector3f> position = { { 2.0f, 0.0f, -2.0f }, { 0.0f, 2.0f, -2.0f }, { -2.0f, 0.0f, -2.0f } };
+    std::vector<Vector4f> position = { { 2.0f, 0.0f, -2.0f, 1.0f }, { 0.0f, 2.0f, -2.0f, 1.0f }, { -2.0f, 0.0f, -2.0f, 1.0f } };
     std::vector<Vector4f> color = { { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } };
     std::vector<Eigen::Vector3i> indices = { { 0, 1, 2 } };
     auto posId = rasterizer.loadPositions(position);
@@ -43,13 +43,13 @@ void assignment2()
 {
     Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 18.0f };
-    std::vector<Eigen::Vector3f> position = {
-        { 2.0f, 0.0f, -2.0f },
-        { 0.0f, 2.0f, -2.0f },
-        { -2.0f, 0.0f, -2.0f },
-        { 3.5f, -1.0f, -5.0f },
-        { 2.5f, 1.5f, -5.0f },
-        { -1.0f, 0.5f, -5.0f }
+    std::vector<Eigen::Vector4f> position = {
+        { 2.0f, 0.0f, -2.0f, 1.0f },
+        { 0.0f, 2.0f, -2.0f, 1.0f },
+        { -2.0f, 0.0f, -2.0f, 1.0f },
+        { 3.5f, -1.0f, -5.0f, 1.0f },
+        { 2.5f, 1.5f, -5.0f, 1.0f },
+        { -1.0f, 0.5f, -5.0f, 1.0f }
     };
     std::vector<Eigen::Vector4f> colors = {
         { 217.0f / 255.0f, 238.0f / 255.0f, 185.0f / 255.0f, 1.0f },
@@ -99,7 +99,7 @@ void assignment3()
             std::shared_ptr<Triangle> t = std::make_shared<Triangle>();
             for (int j = 0; j < 3; ++j)
             {
-                t->setVertex(j, { mesh.vertices[i + j].position.x, mesh.vertices[i + j].position.y, mesh.vertices[i + j].position.z });
+                t->setVertex(j, { mesh.vertices[i + j].position.x, mesh.vertices[i + j].position.y, mesh.vertices[i + j].position.z, 1.0f });
                 t->setNormal(j, { mesh.vertices[i + j].normal.x, mesh.vertices[i + j].normal.y, mesh.vertices[i + j].normal.z });
                 t->setTexCoord(j, { mesh.vertices[i + j].texCoords.x, mesh.vertices[i + j].texCoords.y });
             }
