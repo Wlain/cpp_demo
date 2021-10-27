@@ -108,7 +108,7 @@ private:
     inline int getMsaaBufferIndex(int i, int j) const
     {
         ASSERT(i >= 0 && i < m_width * m_msaaRatio && j >= 0 && j < m_height * m_msaaRatio);
-        return (m_height * m_msaaRatio - 1 - j) * m_width * m_msaaRatio + i;
+        return (m_height * m_msaaRatio - j) * m_width * m_msaaRatio + i;
     }
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
