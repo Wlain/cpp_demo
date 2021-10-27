@@ -75,6 +75,7 @@ public:
     inline void setView(const Matrix4f& v) { m_view = v; }
     inline void setProjection(const Matrix4f& p) { m_projection = p; }
     void setPixel(int x, int y, const Vector3f& color);
+    void setPixel(int index, const Vector3f& color);
 
     inline void setTexture(std::shared_ptr<Texture> tex) { m_texture = std::move(tex); }
     inline void setVertexShader(std::function<Vector4f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
@@ -82,7 +83,12 @@ public:
 
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
-    inline void setMsaaRatio(float ratio) { m_msaaRatio = ratio; }
+    inline void setMsaaRatio(float ratio)
+    {
+        m_msaaRatio = ratio;
+        m_depthBuffer.resize(m_depthBuffer.size() * std::pow(ratio, 2));
+        m_frameBufferForMsaa.resize(m_width * m_height * std::pow(ratio, 2));
+    }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     void draw(std::vector<std::shared_ptr<Triangle>>& triangles);
     std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
@@ -94,7 +100,16 @@ private:
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& triangle);
     void rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, const Vector4f* viewPos);
-    int getIndex(int i, int j) const;
+    inline int getFrameBufferIndex(int i, int j) const
+    {
+        ASSERT(i >= 0 && i < m_width && j >= 0 && j < m_height);
+        return (m_height - j) * m_width + i;
+    }
+    inline int getMsaaBufferIndex(int i, int j) const
+    {
+        ASSERT(i >= 0 && i < m_width * m_msaaRatio && j >= 0 && j < m_height * m_msaaRatio);
+        return (m_height * m_msaaRatio - 1 - j) * m_width * m_msaaRatio + i;
+    }
     inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
     {
@@ -115,6 +130,7 @@ private:
     std::map<int, std::vector<Vector3i>> m_indicesBuf;
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
+    std::vector<Eigen::Vector3f> m_frameBufferForMsaa;
     std::vector<float> m_depthBuffer;
     std::function<Vector3f(FragmentShader)> m_fragmentShader;
     std::function<Vector4f(VertexShader)> m_vertexShader;

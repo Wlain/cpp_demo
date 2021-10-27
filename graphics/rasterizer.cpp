@@ -42,11 +42,12 @@ ColorBufferHandle Rasterizer::loadColors(std::vector<Vector4f>& colors)
 
 void Rasterizer::setPixel(int x, int y, const Vector3f& color)
 {
-    if (x < 0 || x >= m_width || y < 0 || y >= m_height)
-    {
-        return;
-    }
-    auto index = getIndex(x, y);
+    auto index = getFrameBufferIndex(x, y);
+    m_frameBuffer[index] = color;
+}
+
+void Rasterizer::setPixel(int index, const Vector3f& color)
+{
     m_frameBuffer[index] = color;
 }
 
@@ -392,16 +393,17 @@ void Rasterizer::rasterizeTriangle(const Triangle& triangle)
                 float zInterpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
 
                 zInterpolated *= reciprocalCorrect;
+                auto pixelIndex = getFrameBufferIndex(x, y);
                 // z-Buffer算法
-                if (zInterpolated >= m_depthBuffer[y * m_width + x])
+                if (zInterpolated >= m_depthBuffer[pixelIndex])
                 {
                     continue;
                 }
                 if (percentage == 1.0f)
                 {
-                    m_depthBuffer[y * m_width + x] = zInterpolated;
+                    m_depthBuffer[pixelIndex] = zInterpolated;
                 }
-                setPixel(x, y, triangle.color()[0] * percentage);
+                setPixel(pixelIndex, triangle.color()[0] * percentage);
             }
         }
     }
@@ -426,11 +428,12 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             float interpolatedZValue = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
             interpolatedZValue *= reciprocalCorrect;
             /// z-Buffer算法
-            if (interpolatedZValue >= m_depthBuffer[y * m_width + x])
+            auto pixelIndex = getFrameBufferIndex(x, y);
+            if (interpolatedZValue >= m_depthBuffer[pixelIndex])
             {
                 continue;
             }
-            m_depthBuffer[y * m_width + x] = interpolatedZValue;
+            m_depthBuffer[pixelIndex] = interpolatedZValue;
             const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), 1.0f);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), 1.0f);
             const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), 1.0f);
@@ -442,13 +445,9 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             auto pixelColor = m_fragmentShader(fragShader);
             auto vPosition = m_vertexShader(vertexShader);
 
-            setPixel(vPosition.x(), vPosition.y(), pixelColor);
+            setPixel(pixelIndex, pixelColor);
         }
     }
 }
 
-int Rasterizer::getIndex(int i, int j) const
-{
-    return (m_height - 1 - j) * m_width + i;
-}
 } // namespace graphics
