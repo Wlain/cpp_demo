@@ -17,6 +17,7 @@ public:
     Texture(const char* name);
     ~Texture();
     Eigen::Vector3f color(float u, float v);
+    Eigen::Vector3f colorBilinear(float u, float v);
     int width() const;
     int height() const;
 

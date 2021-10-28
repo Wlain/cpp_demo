@@ -433,7 +433,7 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
             const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
-            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), interpolatedNormal);
+            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), interpolatedColor);
             if (inTriangle)
             {
                 const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;

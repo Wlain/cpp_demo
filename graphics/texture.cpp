@@ -3,7 +3,7 @@
 //
 
 #include "texture.h"
-
+using namespace Eigen;
 namespace graphics
 {
 Texture::Texture(const char* name)
@@ -16,12 +16,35 @@ Texture::Texture(const char* name)
 
 Texture::~Texture() = default;
 
-Eigen::Vector3f Texture::color(float u, float v)
+Vector3f Texture::color(float u, float v)
 {
+    std::clamp(u, 0.0f, 1.0f);
+    std::clamp(v, 0.0f, 1.0f);
     auto uImg = u * m_width;
-    auto vImg = v * (1.0 - v) * m_height;
-    auto color = m_imageData.at<cv::Vec3b>(uImg, vImg);
+    auto vImg = (1.0f - v) * m_height;
+    auto color = m_imageData.at<cv::Vec3b>(vImg, uImg);
     return Eigen::Vector3f(color[0], color[1], color[2]);
+}
+
+Vector3f Texture::colorBilinear(float u, float v)
+{
+    std::clamp(u, 0.0f, 1.0f);
+    std::clamp(v, 0.0f, 1.0f);
+    auto uImg = u * m_width;
+    auto vImg = (1.0f - v) * m_height;
+    auto uMin = std::floor(uImg);
+    auto uMax = std::ceil(uImg);
+    auto vMin = std::floor(vImg);
+    auto vMax = std::ceil(vImg);
+    auto color11 = m_imageData.at<cv::Vec3b>(vMin, uMin);
+    auto color12 = m_imageData.at<cv::Vec3b>(vMin, uMax);
+    auto color21 = m_imageData.at<cv::Vec3b>(vMax, uMin);
+    auto color22 = m_imageData.at<cv::Vec3b>(vMax, uMax);
+
+    auto color1 = (uImg - uMin) * color11 + (uMax - uImg) * color12;
+    auto color2 = (uImg - uMin) * color21 + (uMax - uImg) * color22;
+    auto color = (vImg - vMin) * color1 + (vMax - vImg) * color2;
+    return {color[0], color[1], color[2]};
 }
 
 int Texture::width() const

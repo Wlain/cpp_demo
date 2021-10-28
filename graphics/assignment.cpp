@@ -106,16 +106,16 @@ void assignment3()
             triangles.emplace_back(t);
         }
     }
-    auto texturePath = objPath + "hmap.jpg";
+    auto texturePath = objPath + "spot_texture.png";
     ASSERT(isFileExist(texturePath));
     rasterizer.setVertexShader(baseVertShader);
-    rasterizer.setFragmentShader(normalFragShader);
+    rasterizer.setFragmentShader(textureFragmentShader);
     rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    rasterizer.setMsaaRatio(4.0f);
+//    rasterizer.setMsaaRatio(4.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
