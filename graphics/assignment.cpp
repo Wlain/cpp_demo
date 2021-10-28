@@ -115,7 +115,7 @@ void assignment3()
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    rasterizer.setMsaaRatio(1.0f);
+    rasterizer.setMsaaRatio(4.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());

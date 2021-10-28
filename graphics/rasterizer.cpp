@@ -158,7 +158,9 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
         /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : position)
         {
-            vec /= vec.w();
+            vec.x() /= vec.w();
+            vec.y() /= vec.w();
+            vec.z() /= vec.w();
         }
         /// 逆变换
         Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
@@ -371,6 +373,7 @@ bool Rasterizer::msaa(float x, float y, const Vector4f* v, const Vector3f& color
         {
             auto samplerX = x + (float)i * dUnit;
             auto samplerY = y + (float)j * dUnit;
+            auto pixelForMsaaIndex = getMsaaBufferIndex(x * m_msaaRatio + j, y * m_msaaRatio + i);
             if (inTriangle({ samplerX, samplerY, 1.0f }, { v[0].x(), v[0].y(), v[0].z() }, { v[1].x(), v[1].y(), v[1].z() }, { v[2].x(), v[2].y(), v[2].z() }))
             {
                 auto [alpha, beta, gamma] = computeBarycentric2D(samplerX, samplerY, v);
@@ -378,15 +381,15 @@ bool Rasterizer::msaa(float x, float y, const Vector4f* v, const Vector3f& color
                 float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
                 /// 透视插值矫正
                 zp *= z;
-                auto pixelForMsaaIndex = getMsaaBufferIndex(x * m_msaaRatio + j, y * m_msaaRatio + i);
+
                 if (zp < m_depthBuffer[pixelForMsaaIndex])
                 {
                     m_depthBuffer[pixelForMsaaIndex] = zp;
                     m_frameBufferForMsaa[pixelForMsaaIndex] = color;
                     updateDepth = true;
                 }
-                *m_resolveColor += m_frameBufferForMsaa[pixelForMsaaIndex];
             }
+            *m_resolveColor += m_frameBufferForMsaa[pixelForMsaaIndex];
         }
     }
     return updateDepth;
@@ -428,16 +431,15 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
         {
             auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, triangle->vertex());
             float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v) * reciprocalCorrect;
+            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
-            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), interpolatedNormal.normalized());
+            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), interpolatedNormal);
             if (inTriangle)
             {
                 const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
                 auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
                 auto pixelIndex = getFrameBufferIndex(x, y);
-                auto color = m_frameBuffer[pixelIndex];
-                FragmentShader fragShader(*m_resolveColor, (*m_resolveColor), interpolatedTexCoords, m_texture.value_or(nullptr));
+                FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, (*m_resolveColor) / m_squareMsaaRatio, interpolatedTexCoords, m_texture.value_or(nullptr));
                 fragShader.viewPosition() = interpolatedViewPosition;
                 VertexShader vertexShader;
                 vertexShader.setPosition({ x, y, 1.0f, 1.0f });
