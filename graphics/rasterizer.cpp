@@ -151,7 +151,9 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
         /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : position)
         {
-            vec /= vec.w();
+            vec.x() /= vec.w();
+            vec.y() /= vec.w();
+            vec.z() /= vec.w();
         }
         /// 逆变换
         Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
@@ -186,8 +188,8 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
 /// 直线扫描算法
 /// 1.DDA画线算法（数值微分法）：引进图形学中一个很重要的思想—增量思想。
 /// 点xi，yi满足直线方程yi=kxi+b，
-/// 若xi增加一个单位，则下一步点的位置（xi + 1，yi+1）满足yi+1=k（xi + 1）+ b。
-/// 即yi+1=yi+k。
+/// 若xi增加一个单位，则下一步点的位置（xi+1，yi+1）满足yi+1 = k（xi + 1）+ b。
+/// 即yi+1 = yi + k。
 void Rasterizer::ddaLine(const Vector4f& begin, const Vector4f& end)
 {
     auto x1 = begin.x();
@@ -434,10 +436,10 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
                 continue;
             }
             m_depthBuffer[pixelIndex] = interpolatedZValue;
-            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), 1.0f);
-            auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), 1.0f);
-            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), 1.0f);
-            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, 1.0f);
+            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v) * reciprocalCorrect;
+            auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
+            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
+            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
             FragmentShader fragShader(interpolatedColor, interpolatedNormal.normalized(), interpolatedTexCoords, m_texture.value_or(nullptr));
             fragShader.viewPosition() = interpolatedViewPosition;
             VertexShader vertexShader;
