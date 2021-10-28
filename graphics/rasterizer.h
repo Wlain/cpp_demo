@@ -86,8 +86,10 @@ public:
     inline void setMsaaRatio(float ratio)
     {
         m_msaaRatio = ratio;
-        m_depthBuffer.resize(m_depthBuffer.size() * std::pow(ratio, 2));
-        m_frameBufferForMsaa.resize(m_width * m_height * std::pow(ratio, 2));
+        m_squareMsaaRatio = std::pow(ratio, 2);
+        m_depthBuffer.resize(m_depthBuffer.size() * m_squareMsaaRatio);
+        std::fill(m_depthBuffer.begin(), m_depthBuffer.end(), std::numeric_limits<float>::infinity());
+        m_frameBufferForMsaa.resize(m_width * m_height * m_squareMsaaRatio);
     }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     void draw(std::vector<std::shared_ptr<Triangle>>& triangles);
@@ -100,6 +102,7 @@ private:
     void rasterizeWireframe(const Triangle& t);
     void rasterizeTriangle(const Triangle& triangle);
     void rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, const Vector4f* viewPos);
+    bool msaa(float x, float y, const Vector4f* v, const Vector3f& color = {});
     inline int getFrameBufferIndex(int i, int j) const
     {
         ASSERT(i >= 0 && i < m_width && j >= 0 && j < m_height);
@@ -131,11 +134,13 @@ private:
     std::map<int, std::vector<Vector4f>> m_colorBuf;
     std::vector<Eigen::Vector3f> m_frameBuffer;
     std::vector<Eigen::Vector3f> m_frameBufferForMsaa;
+    std::shared_ptr<Eigen::Vector3f> m_resolveColor;
     std::vector<float> m_depthBuffer;
     std::function<Vector3f(FragmentShader)> m_fragmentShader;
     std::function<Vector4f(VertexShader)> m_vertexShader;
     std::optional<std::shared_ptr<Texture>> m_texture;
     float m_msaaRatio = 1.0f;
+    float m_squareMsaaRatio = 1.0f;
     float m_red = 0.0f;
     float m_green = 0.0f;
     float m_blue = 0.0f;

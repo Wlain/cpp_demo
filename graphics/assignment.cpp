@@ -71,7 +71,7 @@ void assignment2()
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-    rasterizer.setMsaaRatio(4.0f);
+    rasterizer.setMsaaRatio(2.0f);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
     // opencv的原点位于左上角，而实际原点应该是位于左下角，需要做一次翻转
@@ -115,8 +115,8 @@ void assignment3()
     rasterizer.setView(getViewMatrix(eyePos));
     rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    rasterizer.setMsaaRatio(1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-//    rasterizer.setMsaaRatio(4.0f);
     rasterizer.draw(triangles);
     cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
     image.convertTo(image, CV_8UC3, 1.0f);
