@@ -34,4 +34,30 @@ Vector3f textureFragmentShader(const FragmentShader& fragShader)
     return fragmentColor;
 }
 
+Vector4f groundVertexShader(const VertexShader& vertShader)
+{
+    
+}
+
+Vector3f phongFragmentShader(const FragmentShader& fragShader)
+{
+
+}
+
+Vector3f bumpFragmentShader(const FragmentShader& fragShader)
+{
+
+}
+
+Vector3f displacementFragmentShader(const FragmentShader& fragShader)
+{
+
+}
+
+Vector3f normalFragmentShader(const FragmentShader& fragShader)
+{
+
+}
+
+
 } // namespace graphics

@@ -22,5 +22,21 @@ Eigen::Vector3f normalFragShader(const FragmentShader& fragShader);
 /// 绘制纹理
 Eigen::Vector3f textureFragmentShader(const FragmentShader& fragShader);
 
+/// ground shadering
+Eigen::Vector4f groundVertexShader(const VertexShader& vertShader);
+
+/// phong shadering
+Eigen::Vector3f phongFragmentShader(const FragmentShader& fragShader);
+
+/// https://zhuanlan.zhihu.com/p/137449232
+/// bump mapping shadering(凹凸贴图)
+Eigen::Vector3f bumpFragmentShader(const FragmentShader& fragShader);
+
+/// displacement mapping shadering(位移贴图)
+Eigen::Vector3f displacementFragmentShader(const FragmentShader& fragShader);
+
+/// Normal mapping shadering(法线贴图)
+Eigen::Vector3f normalFragmentShader(const FragmentShader& fragShader);
+
 } // namespace graphics
 #endif //CPP_DEMO_SHADERFUNC_H
