@@ -20,28 +20,30 @@ Vector3f Texture::color(float u, float v)
 {
     u = std::clamp(u, 0.0f, 1.0f);
     v = std::clamp(v, 0.0f, 1.0f);
-    auto uImg = u * m_width;
-    auto vImg = (1.0f - v) * m_height;
-    auto color = m_imageData.at<cv::Vec3b>(vImg, uImg);
-    return Eigen::Vector3f(color[0], color[1], color[2]);
+    v = !std::isnan(v) ? v : 1.0f;
+    u = !std::isnan(u) ? u : 1.0f;
+    auto uImg = u * (float)width();
+    auto vImg = (1.0f - v) * (float)height();
+    auto color = m_imageData.at<cv::Vec3b>((int)vImg, (int)uImg);
+    return { color[0], color[1], color[2] };
 }
 
 Vector3f Texture::colorBilinear(float u, float v)
 {
     u = std::clamp(u, 0.0f, 1.0f);
     v = std::clamp(v, 0.0f, 1.0f);
-    v = std::isnan(v) ? 1.0 : v;
-    u = std::isnan(u) ? 1.0 : u;
-    auto uImg = u * m_width;
-    auto vImg = (1.0f - v) * m_height;
+    v = !std::isnan(v) ? v : 1.0f;
+    u = !std::isnan(u) ? u : 1.0f;
+    auto uImg = u * (float)width();
+    auto vImg = (1.0f - v) * (float)height();
     auto uMin = std::floor(uImg);
     auto uMax = std::ceil(uImg);
     auto vMin = std::floor(vImg);
     auto vMax = std::ceil(vImg);
-    auto color11 = m_imageData.at<cv::Vec3b>(vMin, uMin);
-    auto color12 = m_imageData.at<cv::Vec3b>(vMin, uMax);
-    auto color21 = m_imageData.at<cv::Vec3b>(vMax, uMin);
-    auto color22 = m_imageData.at<cv::Vec3b>(vMax, uMax);
+    auto color11 = m_imageData.at<cv::Vec3b>((int)vMin, (int)uMin);
+    auto color12 = m_imageData.at<cv::Vec3b>((int)vMin, (int)uMax);
+    auto color21 = m_imageData.at<cv::Vec3b>((int)vMax, (int)uMin);
+    auto color22 = m_imageData.at<cv::Vec3b>((int)vMax, (int)uMax);
 
     auto color1 = (uImg - uMin) * color11 + (uMax - uImg) * color12;
     auto color2 = (uImg - uMin) * color21 + (uMax - uImg) * color22;
