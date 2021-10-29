@@ -31,8 +31,8 @@ Eigen::Vector3f textureFragmentShader(const FragmentShader& fragShader);
 /// ground shadering
 Eigen::Vector4f groundVertexShader(const VertexShader& vertShader);
 
-/// phong shadering
-Eigen::Vector3f phongFragmentShader(const FragmentShader& fragShader);
+/// blinn-phong shadering
+Eigen::Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader);
 
 /// https://zhuanlan.zhihu.com/p/137449232
 /// bump mapping shadering(凹凸贴图)

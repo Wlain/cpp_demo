@@ -434,7 +434,7 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
             const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
-            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, (*m_resolveColor) / m_squareMsaaRatio, interpolatedTexCoords, m_texture.value_or(nullptr));
+            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, interpolatedNormal, interpolatedTexCoords, m_texture.value_or(nullptr));
             auto pixelColor = m_fragmentShader(fragShader);
             auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), pixelColor);
             if (inTriangle)
