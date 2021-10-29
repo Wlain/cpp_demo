@@ -18,8 +18,8 @@ Texture::~Texture() = default;
 
 Vector3f Texture::color(float u, float v)
 {
-    std::clamp(u, 0.0f, 1.0f);
-    std::clamp(v, 0.0f, 1.0f);
+    u = std::clamp(u, 0.0f, 1.0f);
+    v = std::clamp(v, 0.0f, 1.0f);
     auto uImg = u * m_width;
     auto vImg = (1.0f - v) * m_height;
     auto color = m_imageData.at<cv::Vec3b>(vImg, uImg);
@@ -28,8 +28,10 @@ Vector3f Texture::color(float u, float v)
 
 Vector3f Texture::colorBilinear(float u, float v)
 {
-    std::clamp(u, 0.0f, 1.0f);
-    std::clamp(v, 0.0f, 1.0f);
+    u = std::clamp(u, 0.0f, 1.0f);
+    v = std::clamp(v, 0.0f, 1.0f);
+    v = std::isnan(v) ? 1.0 : v;
+    u = std::isnan(u) ? 1.0 : u;
     auto uImg = u * m_width;
     auto vImg = (1.0f - v) * m_height;
     auto uMin = std::floor(uImg);
@@ -44,7 +46,7 @@ Vector3f Texture::colorBilinear(float u, float v)
     auto color1 = (uImg - uMin) * color11 + (uMax - uImg) * color12;
     auto color2 = (uImg - uMin) * color21 + (uMax - uImg) * color22;
     auto color = (vImg - vMin) * color1 + (vMax - vImg) * color2;
-    return {color[0], color[1], color[2]};
+    return { color[0], color[1], color[2] };
 }
 
 int Texture::width() const

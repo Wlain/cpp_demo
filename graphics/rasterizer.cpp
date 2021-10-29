@@ -433,18 +433,19 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
             const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
-            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), interpolatedColor);
+            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
+            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, (*m_resolveColor) / m_squareMsaaRatio, interpolatedTexCoords, m_texture.value_or(nullptr));
+            auto pixelColor = m_fragmentShader(fragShader);
+            auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), pixelColor);
             if (inTriangle)
             {
-                const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
                 auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
                 auto pixelIndex = getFrameBufferIndex(x, y);
-                FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, (*m_resolveColor) / m_squareMsaaRatio, interpolatedTexCoords, m_texture.value_or(nullptr));
                 fragShader.viewPosition() = interpolatedViewPosition;
                 VertexShader vertexShader;
                 vertexShader.setPosition({ x, y, 1.0f, 1.0f });
-                auto pixelColor = m_fragmentShader(fragShader);
                 auto vPosition = m_vertexShader(vertexShader);
+                pixelColor = *m_resolveColor / m_squareMsaaRatio;
                 setPixel(pixelIndex, pixelColor);
             }
         }
