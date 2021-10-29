@@ -3,7 +3,7 @@
 //
 
 #include "shader.h"
-
+using namespace Eigen;
 namespace graphics
 {
 Shader::Shader() = default;
@@ -14,8 +14,8 @@ VertexShader::~VertexShader() = default;
 
 FragmentShader::FragmentShader() = default;
 
-FragmentShader::FragmentShader(const Eigen::Matrix<float, 3, 1> color, const Eigen::Matrix<float, 3, 1> normal, const Eigen::Vector2f texCoords, std::shared_ptr<Texture> texture) :
-    m_color(std::move(color)), m_normal(std::move(normal)), m_texCoords(std::move(texCoords)), m_texture(std::move(texture))
+FragmentShader::FragmentShader(const Vector3f colors, const Vector3f normals, const Vector2f texCoords, std::shared_ptr<Texture> texture) :
+    m_color(std::move(colors)), m_normal(std::move(normals)), m_texCoords(std::move(texCoords)), m_texture(std::move(texture))
 {
 }
 
