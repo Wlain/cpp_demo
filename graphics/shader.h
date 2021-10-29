@@ -43,6 +43,8 @@ public:
     inline auto& normal() { return m_normal; }
     inline const auto& texCoords() const { return m_texCoords; }
     inline auto& texCoords() { return m_texCoords; }
+    inline const auto& texture() const { return m_texture; }
+    inline auto& texture() { return m_texture; }
 
 public:
     std::shared_ptr<Texture> m_texture;

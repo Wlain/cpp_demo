@@ -86,7 +86,7 @@ private:
     template <typename vec>
     vec interpolate(float alpha, float beta, float gamma, const vec* vert, const std::array<Vector4f, 3>& zValue)
     {
-        return (alpha * vert[0] / zValue[0].w() + beta * vert[1] / zValue[1].w() + gamma * vert[2] / zValue[2].w());
+        return std::move((alpha * vert[0] / zValue[0].w() + beta * vert[1] / zValue[1].w() + gamma * vert[2] / zValue[2].w()));
     }
 
 private:

@@ -109,7 +109,7 @@ void assignment3()
     auto texturePath = objPath + "spot_texture.png";
     ASSERT(isFileExist(texturePath));
     rasterizer.setVertexShader(baseVertShader);
-    rasterizer.setFragmentShader(blinnPhongFragmentShader);
+    rasterizer.setFragmentShader(bumpFragmentShader);
     rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
