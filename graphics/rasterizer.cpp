@@ -103,7 +103,9 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
         /// 透视除法 -> 规范化坐标系(NDC)
         for (auto& vec : position)
         {
-            vec /= vec.w();
+            vec.x() /= vec.w();
+            vec.y() /= vec.w();
+            vec.z() /= vec.w();
         }
         /// 视口变换 -> 屏幕坐标系
         for (auto& vert : position)
@@ -135,6 +137,7 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
 
 void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
 {
+    m_timer.reset();
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
 
@@ -162,7 +165,7 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
             vec.y() /= vec.w();
             vec.z() /= vec.w();
         }
-        /// 逆变换
+        /// 逆变换！！！
         Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
         Eigen::Vector4f normal[] = {
             inverseTrans * toVec4(triangle->normal()[0], 0.0f),
@@ -184,12 +187,13 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
 
         for (int i = 0; i < 3; ++i)
         {
-            //view space normal
+            // view space normal
             triangle->setNormal(i, normal[i].head<3>());
         }
-        // Also pass view space vertice position
+        // also pass view space vertice position
         rasterizeTriangle(triangle, viewSpacePosition);
     }
+    LOG_INFO("during time: %d milliseconds per frame", m_timer.elapsedMicro());
 }
 
 /// 直线扫描算法
@@ -377,7 +381,10 @@ bool Rasterizer::msaa(float x, float y, const Vector4f* v, const Vector3f& color
             if (inTriangle({ samplerX, samplerY, 1.0f }, { v[0].x(), v[0].y(), v[0].z() }, { v[1].x(), v[1].y(), v[1].z() }, { v[2].x(), v[2].y(), v[2].z() }))
             {
                 auto [alpha, beta, gamma] = computeBarycentric2D(samplerX, samplerY, v);
+                /// v[i].w()是顶点的视图空间深度值z
+                /// z是当前像素的视图深度
                 float z = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
+                /// zp是zNear和zFar之间的深度，用于z-buffer
                 float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
                 /// 透视插值矫正
                 zp *= z;
@@ -434,14 +441,14 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
             const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
             const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
-            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, interpolatedNormal, interpolatedTexCoords, m_texture.value_or(nullptr));
+            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
+            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, interpolatedNormal.normalized(), interpolatedTexCoords, m_texture.value_or(nullptr));
+            fragShader.m_viewPosition = interpolatedViewPosition;
             auto pixelColor = m_fragmentShader(fragShader);
             auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), pixelColor);
             if (inTriangle)
             {
-                auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
                 auto pixelIndex = getFrameBufferIndex(x, y);
-                fragShader.viewPosition() = interpolatedViewPosition;
                 VertexShader vertexShader;
                 vertexShader.setPosition({ x, y, 1.0f, 1.0f });
                 auto vPosition = m_vertexShader(vertexShader);

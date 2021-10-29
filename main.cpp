@@ -68,6 +68,7 @@ extern void eigen3Test();
 extern void opencvTest();
 extern void optionalTest();
 extern void transformTest();
+extern void timerTest();
 
 namespace graphics
 {

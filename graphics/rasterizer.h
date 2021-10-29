@@ -7,6 +7,7 @@
 #include "shader.h"
 #include "triangle.h"
 #include "buffer.h"
+#include "timer.h"
 
 #include <algorithm>
 #include <optional>
@@ -102,6 +103,7 @@ private:
     std::function<Vector3f(FragmentShader)> m_fragmentShader;
     std::function<Vector4f(VertexShader)> m_vertexShader;
     std::optional<std::shared_ptr<Texture>> m_texture;
+    Timer m_timer;
     float m_msaaRatio = 1.0f;
     float m_squareMsaaRatio = 1.0f;
     float m_red = 0.0f;

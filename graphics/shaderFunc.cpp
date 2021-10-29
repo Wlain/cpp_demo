@@ -20,7 +20,7 @@ Vector3f baseFragShader(const FragmentShader& fragShader)
 
 Vector3f normalFragShader(const FragmentShader& fragShader)
 {
-    Vector3f returnColor = (fragShader.normal().normalized() + Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
+    Vector3f returnColor = (fragShader.normal() + Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
     return { returnColor.x() * 255, returnColor.y() * 255, returnColor.z() * 255 };
 }
 
@@ -52,8 +52,8 @@ Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader)
     Vector3f eyePos = { 0, 0, 10 };
     float p = 150.0f;
 
-    auto target = fragShader.viewPosition().head<3>();
-    auto normal = fragShader.normal();
+    const auto& target = fragShader.viewPosition().head<3>();
+    const auto& normal = fragShader.normal();
 
     Vector3f fragColor = { 0, 0, 0 };
     for (auto& light : lights)
@@ -62,11 +62,10 @@ Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader)
         auto lightDir = (light.position - target).normalized();
         auto viewDir = (eyePos - target).normalized();
         auto halfDir = (lightDir + viewDir).normalized();
-
         auto ambientColor = ka.cwiseProduct(ambientLightIntensity);
-        auto diffuseColor = kd.cwiseProduct(light.intensity / distanceSquared * std::max(0.0f, normal.dot(lightDir)));
-        auto specularColor = ks.cwiseProduct(light.intensity / distanceSquared * std::pow(std::max(0.0f, normal.dot(halfDir)), p));
-        fragColor = ambientColor + diffuseColor + specularColor;
+        auto diffuseColor = kd.cwiseProduct(light.intensity / distanceSquared) * std::max(0.0f, normal.dot(lightDir));
+        Vector3f specularColor = ks * std::pow(std::max(0.0f, normal.dot(halfDir)), p);
+        fragColor += (ambientColor + diffuseColor + specularColor);
     }
     return fragColor * 255.0f;
 }
