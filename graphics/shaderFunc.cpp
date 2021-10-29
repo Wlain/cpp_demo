@@ -36,28 +36,29 @@ Vector3f textureFragmentShader(const FragmentShader& fragShader)
 
 Vector4f groundVertexShader(const VertexShader& vertShader)
 {
-    
 }
 
 Vector3f phongFragmentShader(const FragmentShader& fragShader)
 {
-
+    Vector3f Ka{ 0.005f, 0.005f, 0.005f };
+    Vector3f kd = fragShader.m_texture->colorBilinear(fragShader.m_texCoords.x(), fragShader.m_texCoords.y();
+    Vector3f ks = {0.7937, 0.7937, 0.7937};
+    std::vector<Light> lights =  {
+      {{20, 20, 20}, {500, 500, 500}},
+      {{-20, 20, 0}, {500, 500, 500}}
+    };
 }
 
 Vector3f bumpFragmentShader(const FragmentShader& fragShader)
 {
-
 }
 
 Vector3f displacementFragmentShader(const FragmentShader& fragShader)
 {
-
 }
 
 Vector3f normalFragmentShader(const FragmentShader& fragShader)
 {
-
 }
-
 
 } // namespace graphics

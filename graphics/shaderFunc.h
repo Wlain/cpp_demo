@@ -10,6 +10,12 @@
 
 namespace graphics
 {
+struct Light
+{
+    Eigen::Vector3f position;
+    Eigen::Vector3f intensity;
+};
+
 /// 基础顶点着色器
 Eigen::Vector4f baseVertShader(const VertexShader& vertShader);
 
