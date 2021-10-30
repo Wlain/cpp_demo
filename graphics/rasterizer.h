@@ -4,10 +4,11 @@
 
 #ifndef CPP_DEMO_RASTERIZER_H
 #define CPP_DEMO_RASTERIZER_H
-#include "shader.h"
-#include "triangle.h"
 #include "buffer.h"
+#include "program.h"
+#include "shader.h"
 #include "timer.h"
+#include "triangle.h"
 
 #include <algorithm>
 #include <optional>
@@ -23,44 +24,33 @@ namespace graphics
 class Rasterizer
 {
 public:
-    Rasterizer();
-    Rasterizer(int w, int h);
+    Rasterizer(std::shared_ptr<BufferData> buffer);
+    Rasterizer(int w, int h, std::shared_ptr<BufferData> buffer);
     inline void resize(int w, int h)
     {
-        m_frameBuffer.resize(w * h);
-        m_depthBuffer.resize(w * h);
-        m_texture = std::nullopt;
+        m_bufferData->frameBuffer().resize(w * h);
+        m_bufferData->depthBuffer().resize(w * h);
     }
-    PositionBufferHandle loadPositions(const std::vector<Vector4f>& position);
-    IndicesBufferHandle loadIndices(const std::vector<Vector3i>& indices);
-    ColorBufferHandle loadColors(std::vector<Vector4f>& colors);
-
-    inline void setModel(const Matrix4f& m) { m_model = m; }
-    inline void setView(const Matrix4f& v) { m_view = v; }
-    inline void setProjection(const Matrix4f& p) { m_projection = p; }
     void setPixel(int x, int y, const Vector3f& color);
     void setPixel(int index, const Vector3f& color);
-
-    inline void setTexture(std::shared_ptr<Texture> tex) { m_texture = std::move(tex); }
-    inline void setVertexShader(std::function<Vector4f(VertexShader)> vertShader) { m_vertexShader = std::move(vertShader); }
-    inline void setFragmentShader(std::function<Vector3f(FragmentShader)> fragShader) { m_fragmentShader = std::move(fragShader); }
-
+    inline void setProgram(const std::shared_ptr<Program>& program) { m_program = program; }
+    inline void setBufferData(const std::shared_ptr<BufferData>& buffer) { m_bufferData = buffer; }
     void clearColor(float red, float green, float blue, float alpha);
     void clear(Buffers buff);
     inline void setMsaaRatio(float ratio)
     {
         m_msaaRatio = ratio;
         m_squareMsaaRatio = std::pow(ratio, 2);
-        m_depthBuffer.resize(m_depthBuffer.size() * m_squareMsaaRatio);
-        std::fill(m_depthBuffer.begin(), m_depthBuffer.end(), std::numeric_limits<float>::infinity());
-        m_frameBufferForMsaa.resize(m_width * m_height * m_squareMsaaRatio);
+        m_bufferData->depthBuffer().resize(m_bufferData->depthBuffer().size() * m_squareMsaaRatio);
+        std::fill(m_bufferData->depthBuffer().begin(), m_bufferData->depthBuffer().end(), std::numeric_limits<float>::infinity());
+        m_bufferData->frameBufferForMsaa().resize(m_width * m_height * m_squareMsaaRatio);
     }
     void draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuffer, ColorBufferHandle colBuffer, Primitive type);
     void draw(std::vector<std::shared_ptr<Triangle>>& triangles);
-    std::vector<Vector3f>& frameBuffer() { return m_frameBuffer; }
     void drawLine(const Vector4f& begin, const Vector4f& end);
     void ddaLine(const Vector4f& begin, const Vector4f& end);
     void midLine(const Vector3f& begin, const Vector3f& end);
+    inline std::shared_ptr<BufferData>& bufferData() { return m_bufferData; };
 
 private:
     void rasterizeWireframe(const Triangle& t);
@@ -77,12 +67,10 @@ private:
         ASSERT(i >= 0 && i < m_width * m_msaaRatio && j >= 0 && j < m_height * m_msaaRatio);
         return (m_height * m_msaaRatio - j) * m_width * m_msaaRatio + i;
     }
-    inline int getNextId() { return m_nextID++; }
     inline Vector4f toVec4(const Vector3f& v3, float w = 1.0f)
     {
         return { v3.x(), v3.y(), v3.z(), w };
     }
-
     template <typename vec>
     vec interpolate(float alpha, float beta, float gamma, const vec* vert, const std::array<Vector4f, 3>& zValue)
     {
@@ -90,19 +78,8 @@ private:
     }
 
 private:
-    Matrix4f m_model;
-    Matrix4f m_view;
-    Matrix4f m_projection;
-    std::map<int, std::vector<Vector4f>> m_positionBuf;
-    std::map<int, std::vector<Vector3i>> m_indicesBuf;
-    std::map<int, std::vector<Vector4f>> m_colorBuf;
-    std::vector<Eigen::Vector3f> m_frameBuffer;
-    std::vector<Eigen::Vector3f> m_frameBufferForMsaa;
-    std::shared_ptr<Eigen::Vector3f> m_resolveColor;
-    std::vector<float> m_depthBuffer;
-    std::function<Vector3f(FragmentShader)> m_fragmentShader;
-    std::function<Vector4f(VertexShader)> m_vertexShader;
-    std::optional<std::shared_ptr<Texture>> m_texture;
+    std::shared_ptr<BufferData> m_bufferData;
+    std::shared_ptr<Program> m_program;
     Timer m_timer;
     float m_msaaRatio = 1.0f;
     float m_squareMsaaRatio = 1.0f;
@@ -112,7 +89,6 @@ private:
     float m_alpha = 0.0f;
     int m_width = 0;
     int m_height = 0;
-    int m_nextID = 0;
 };
 } // namespace graphics
 

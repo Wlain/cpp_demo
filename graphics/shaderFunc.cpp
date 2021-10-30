@@ -20,6 +20,11 @@ Vector3f baseFragShader(const FragmentShader& fragShader)
     return { 148.0f, 121.0f, 92.0f };
 }
 
+Eigen::Vector3f baseFragTriangleShader(const FragmentShader& fragShader)
+{
+    return fragShader.color();
+}
+
 Vector3f normalFragShader(const FragmentShader& fragShader)
 {
     Vector3f returnColor = (fragShader.normal().normalized() + Vector3f(1.0f, 1.0f, 1.0f)) / 2.f;
@@ -44,14 +49,14 @@ Vector4f groundVertexShader(const VertexShader& vertShader)
 Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader)
 {
     Vector3f ka = { 0.005f, 0.005f, 0.005f };
-    Vector3f kd = fragShader.texture()->colorBilinear(fragShader.texCoords().x(), fragShader.texCoords().y()) / 255.0f;
+    Vector3f kd = fragShader.texture()->color(fragShader.texCoords().x(), fragShader.texCoords().y()) / 255.0f;
     Vector3f ks = { 0.7937, 0.7937, 0.7937 };
     std::vector<Light> lights = {
         { { 20, 20, 20 }, { 500, 500, 500 } },
         { { -20, 20, 0 }, { 500, 500, 500 } }
     };
     Vector3f ambientLightIntensity = { 10.0f, 10.0f, 10.0f };
-    Vector3f eyePos = { 0, 0, 10 };
+    Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
     float p = 150.0f;
 
     const auto& target = fragShader.viewPosition().head<3>();
@@ -69,13 +74,13 @@ Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader)
         Vector3f specularColor = ks * std::pow(std::max(0.0f, normal.dot(halfDir)), p);
         fragColor += (ambientColor + diffuseColor + specularColor);
     }
-    return fragColor * 255.0f;
+    return kd * 255.0f;
 }
 
 Vector3f bumpFragmentShader(const FragmentShader& fragShader)
 {
     Vector3f ka = { 0.005, 0.005, 0.005 };
-    Vector3f kd = fragShader.texture()->colorBilinear(fragShader.texCoords().x(), fragShader.texCoords().y()) / 255.0f;
+    Vector3f kd = fragShader.texture()->color(fragShader.texCoords().x(), fragShader.texCoords().y()) / 255.0f;
     Vector3f ks = { 0.7937, 0.7937, 0.7937 };
 
     std::vector<Light> lights = {

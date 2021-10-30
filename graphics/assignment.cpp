@@ -7,6 +7,7 @@
 #include "rasterizer.h"
 #include "shaderFunc.h"
 #include "utils.h"
+#include "program.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -18,21 +19,30 @@ namespace graphics
 /// 实现简单的直线扫描算法，绘制三角形线框
 void assignment1()
 {
-    Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
     std::vector<Vector4f> position = { { 2.0f, 0.0f, -2.0f, 1.0f }, { 0.0f, 2.0f, -2.0f, 1.0f }, { -2.0f, 0.0f, -2.0f, 1.0f } };
-    std::vector<Vector4f> color = { { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } };
+    std::vector<Vector4f> colors = { { 1.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } };
     std::vector<Eigen::Vector3i> indices = { { 0, 1, 2 } };
-    auto posId = rasterizer.loadPositions(position);
-    auto colorID = rasterizer.loadColors(color);
-    auto indicesId = rasterizer.loadIndices(indices);
-    rasterizer.setModel(getRotation({ 1.0f, 1.0f, 0.0f }, 0.0f));
-    rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.10f, 50.0f));
+    std::shared_ptr<VertexShader> vertexShader = std::make_shared<VertexShader>();
+    std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
+    std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
+    std::shared_ptr<BufferData> buffer = std::make_shared<BufferData>();
+    Rasterizer rasterizer(800, 800, buffer);
+    program->setVertexShaderFunc(baseVertShader);
+    program->setFragmentShaderFunc(blinnPhongFragmentShader);
+    auto& vertShader = *program->vertexShader();
+    auto& fragShader = *program->fragmentShader();
+    vertShader.uniformMatrix()["modelMatrix"] = getRotation({ 1.0f, 1.0f, 0.0f }, 0.0f);
+    vertShader.uniformMatrix()["viewMatrix"] = getViewMatrix(eyePos);
+    vertShader.uniformMatrix()["projectionMatrix"] = getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f);
+    auto posId  = buffer->loadPositions(position);
+    auto colorID = buffer->loadColors(colors);
+    auto indicesId = buffer->loadIndices(indices);
+    rasterizer.setProgram(program);
     rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle_Line);
-    cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    cv::Mat image(800, 800, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     cv::flip(image, image, -1);
     cv::imshow("triangle line", image);
     cv::waitKey();
@@ -41,7 +51,6 @@ void assignment1()
 /// 实现三角形深度遮挡算法
 void assignment2()
 {
-    Rasterizer rasterizer(800, 800);
     Vector3f eyePos = { 0.0f, 0.0f, 18.0f };
     std::vector<Eigen::Vector4f> position = {
         { 2.0f, 0.0f, -2.0f, 1.0f },
@@ -63,17 +72,27 @@ void assignment2()
         { 0, 1, 2 },
         { 3, 4, 5 }
     };
-    auto posId = rasterizer.loadPositions(position);
-    auto colorID = rasterizer.loadColors(colors);
-    auto indicesId = rasterizer.loadIndices(indices);
-    rasterizer.setModel(getModelMatrix(-10.0f));
-    rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
+    std::shared_ptr<VertexShader> vertexShader = std::make_shared<VertexShader>();
+    std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
+    std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
+    std::shared_ptr<BufferData> buffer = std::make_shared<BufferData>();
+    Rasterizer rasterizer(800, 800, buffer);
+    program->setVertexShaderFunc(baseVertShader);
+    program->setFragmentShaderFunc(baseFragTriangleShader);
+    auto& vertShader = *program->vertexShader();
+    auto& fragShader = *program->fragmentShader();
+    vertShader.uniformMatrix()["modelMatrix"] = getModelMatrix(0);
+    vertShader.uniformMatrix()["viewMatrix"] = getViewMatrix(eyePos);
+    vertShader.uniformMatrix()["projectionMatrix"] = getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f);
+    auto posId  = buffer->loadPositions(position);
+    auto colorID = buffer->loadColors(colors);
+    auto indicesId = buffer->loadIndices(indices);
+    rasterizer.setProgram(program);
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.setMsaaRatio(2.0f);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
-    cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    cv::Mat image(800, 800, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     // opencv的原点位于左上角，而实际原点应该是位于左下角，需要做一次翻转
     cv::flip(image, image, -1);
     cv::imshow("triangles", image);
@@ -82,8 +101,8 @@ void assignment2()
 
 void assignment3()
 {
-    Rasterizer rasterizer(800, 800);
     float angle = 140.0f;
+    int width = 800, height = 800;
     Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
     ObjLoader loader;
@@ -108,17 +127,25 @@ void assignment3()
     }
     auto texturePath = objPath + "spot_texture.png";
     ASSERT(isFileExist(texturePath));
-    rasterizer.setVertexShader(baseVertShader);
-    rasterizer.setFragmentShader(bumpFragmentShader);
-    rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
-    rasterizer.setModel(getModelMatrix(angle));
-    rasterizer.setView(getViewMatrix(eyePos));
-    rasterizer.setProjection(getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f));
+    std::shared_ptr<VertexShader> vertexShader = std::make_shared<VertexShader>();
+    std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
+    std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
+    program->fragmentShader()->texture() = std::make_shared<Texture>(texturePath.c_str());
+    program->setVertexShaderFunc(baseVertShader);
+    program->setFragmentShaderFunc(blinnPhongFragmentShader);
+    auto& vertShader = *program->vertexShader();
+    auto& fragShader = *program->fragmentShader();
+    vertShader.uniformMatrix()["modelMatrix"] = getModelMatrix(angle);
+    vertShader.uniformMatrix()["viewMatrix"] = getViewMatrix(eyePos);
+    vertShader.uniformMatrix()["projectionMatrix"] = getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f);
+    std::shared_ptr<BufferData> buffer = std::make_shared<BufferData>();
+    Rasterizer rasterizer(width, height, buffer);
+    rasterizer.setProgram(program);
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.setMsaaRatio(4.0f);
     rasterizer.draw(triangles);
-    cv::Mat image(800, 800, CV_32FC3, rasterizer.frameBuffer().data());
+    cv::Mat image(width, height, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     image.convertTo(image, CV_8UC3, 1.0f);
     cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
     cv::flip(image, image, -1);

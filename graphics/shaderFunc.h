@@ -22,6 +22,9 @@ Eigen::Vector4f baseVertShader(const VertexShader& vertShader);
 /// 基础片元着色器
 Eigen::Vector3f baseFragShader(const FragmentShader& fragShader);
 
+/// 基础片元着色器Triangle
+Eigen::Vector3f baseFragTriangleShader(const FragmentShader& fragShader);
+
 /// 绘制法线
 Eigen::Vector3f normalFragShader(const FragmentShader& fragShader);
 

@@ -11,50 +11,29 @@
 
 namespace graphics
 {
-Rasterizer::Rasterizer()
+Rasterizer::Rasterizer(std::shared_ptr<BufferData> buffer):m_bufferData(std::move(buffer))
 {
-    m_resolveColor = std::make_shared<Vector3f>();
-    m_frameBufferForMsaa.resize(m_width * m_height * m_squareMsaaRatio);
+    m_bufferData->resolveColor() = std::make_shared<Vector3f>();
+    m_bufferData->frameBufferForMsaa().resize(m_width * m_height * m_squareMsaaRatio);
 }
 
-Rasterizer::Rasterizer(int w, int h) :
-    m_width(w), m_height(h)
+Rasterizer::Rasterizer(int w, int h, std::shared_ptr<BufferData> buffer) :
+    m_width(w), m_height(h),m_bufferData(std::move(buffer))
 {
     resize(w, h);
-    m_resolveColor = std::make_shared<Vector3f>();
-    m_frameBufferForMsaa.resize(m_width * m_height * m_squareMsaaRatio);
-}
-
-PositionBufferHandle Rasterizer::loadPositions(const std::vector<Vector4f>& position)
-{
-    auto id = getNextId();
-    m_positionBuf.emplace(id, position);
-    return { id };
-}
-
-IndicesBufferHandle Rasterizer::loadIndices(const std::vector<Vector3i>& indices)
-{
-    auto id = getNextId();
-    m_indicesBuf.emplace(id, indices);
-    return { id };
-}
-
-ColorBufferHandle Rasterizer::loadColors(std::vector<Vector4f>& colors)
-{
-    auto id = getNextId();
-    m_colorBuf.emplace(id, colors);
-    return { id };
+    m_bufferData->resolveColor() = std::make_shared<Vector3f>();
+    m_bufferData->frameBufferForMsaa().resize(m_width * m_height * m_squareMsaaRatio);
 }
 
 void Rasterizer::setPixel(int x, int y, const Vector3f& color)
 {
     auto index = getFrameBufferIndex(x, y);
-    m_frameBuffer[index] = color;
+    m_bufferData->frameBuffer()[index] = color;
 }
 
 void Rasterizer::setPixel(int index, const Vector3f& color)
 {
-    m_frameBuffer[index] = color;
+    m_bufferData->frameBuffer()[index] = color;
 }
 
 void Rasterizer::clearColor(float red, float green, float blue, float alpha)
@@ -69,12 +48,12 @@ void Rasterizer::clear(Buffers buff)
 {
     if ((buff & Buffers::Color) == Buffers::Color)
     {
-        std::fill(m_frameBuffer.begin(), m_frameBuffer.end(), Vector3f(m_blue, m_green, m_red));
-        std::fill(m_frameBufferForMsaa.begin(), m_frameBufferForMsaa.end(), Vector3f(m_blue, m_green, m_red));
+        std::fill(m_bufferData->frameBuffer().begin(), m_bufferData->frameBuffer().end(), Vector3f(m_blue, m_green, m_red));
+        std::fill(m_bufferData->frameBufferForMsaa().begin(), m_bufferData->frameBufferForMsaa().end(), Vector3f(m_blue, m_green, m_red));
     }
     if ((buff & Buffers::Depth) == Buffers::Depth)
     {
-        std::fill(m_depthBuffer.begin(), m_depthBuffer.end(), std::numeric_limits<float>::infinity());
+        std::fill(m_bufferData->depthBuffer().begin(), m_bufferData->depthBuffer().end(), std::numeric_limits<float>::infinity());
     }
 }
 
@@ -84,14 +63,18 @@ void Rasterizer::draw(PositionBufferHandle posBuffer, IndicesBufferHandle indBuf
     {
         throw std::runtime_error("Drawing primitives Line is not implemented yet!");
     }
-    auto& positionBuffer = m_positionBuf[posBuffer.posHandle];
-    auto& indicesBuffer = m_indicesBuf[indBuffer.indicesHandle];
-    auto& colorBuffer = m_colorBuf[colBuffer.colorHandle];
+    auto& positionBuffer = m_bufferData->positionBuf()[posBuffer.posHandle];
+    auto& indicesBuffer = m_bufferData->indicesBuf()[indBuffer.indicesHandle];
+    auto& colorBuffer = m_bufferData->colorBuf()[colBuffer.colorHandle];
     /// 原始：局部坐标系
     /// 模型变换 -> 世界坐标系
     /// 视图变换 -> 观察者坐标系
     /// 投影变换 -> 裁剪坐标系
-    auto mvp = m_projection * m_view * m_model;
+    auto& model = m_program->vertexShader()->uniformMatrix()["modelMatrix"];
+    auto& view = m_program->vertexShader()->uniformMatrix()["viewMatrix"];
+    auto& projection = m_program->vertexShader()->uniformMatrix()["projectionMatrix"];
+
+    auto mvp = projection * view * model;
     for (auto& i : indicesBuffer)
     {
         Triangle triangle;
@@ -140,14 +123,16 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
     m_timer.reset();
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
-
-    auto mvp = m_projection * m_view * m_model;
+    auto& model = m_program->vertexShader()->uniformMatrix()["modelMatrix"];
+    auto& view = m_program->vertexShader()->uniformMatrix()["viewMatrix"];
+    auto& projection = m_program->vertexShader()->uniformMatrix()["projectionMatrix"];
+    auto mvp = projection * view * model;
     for (auto& triangle : triangles)
     {
         Vector4f viewSpacePosition[] = {
-            m_view * m_model * triangle->vertex()[0],
-            m_view * m_model * triangle->vertex()[1],
-            m_view * m_model * triangle->vertex()[2]
+            view * model * triangle->vertex()[0],
+            view * model * triangle->vertex()[1],
+            view * model * triangle->vertex()[2]
         };
         /// 原始：局部坐标系
         /// 模型变换 -> 世界坐标系
@@ -166,7 +151,7 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
             vec.z() /= vec.w();
         }
         /// 逆变换！！！
-        Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
+        Matrix4f inverseTrans = (view * model).inverse().transpose();
         Eigen::Vector4f normal[] = {
             inverseTrans * toVec4(triangle->normal()[0], 0.0f),
             inverseTrans * toVec4(triangle->normal()[1], 0.0f),
@@ -367,7 +352,7 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
 bool Rasterizer::msaa(float x, float y, const Vector4f* v, const Vector3f& color)
 {
     bool updateDepth = false;
-    m_resolveColor->setZero();
+    m_bufferData->resolveColor()->setZero();
     float dUnit = 1.0f / m_msaaRatio;
     x += dUnit / 2.0f;
     y += dUnit / 2.0f;
@@ -389,14 +374,14 @@ bool Rasterizer::msaa(float x, float y, const Vector4f* v, const Vector3f& color
                 /// 透视插值矫正
                 zp *= z;
 
-                if (zp < m_depthBuffer[pixelForMsaaIndex])
+                if (zp < m_bufferData->depthBuffer()[pixelForMsaaIndex])
                 {
-                    m_depthBuffer[pixelForMsaaIndex] = zp;
-                    m_frameBufferForMsaa[pixelForMsaaIndex] = color;
+                    m_bufferData->depthBuffer()[pixelForMsaaIndex] = zp;
+                    m_bufferData->frameBufferForMsaa()[pixelForMsaaIndex] = color;
                     updateDepth = true;
                 }
             }
-            *m_resolveColor += m_frameBufferForMsaa[pixelForMsaaIndex];
+            *(m_bufferData->resolveColor()) += m_bufferData->frameBufferForMsaa()[pixelForMsaaIndex];
         }
     }
     return updateDepth;
@@ -418,7 +403,7 @@ void Rasterizer::rasterizeTriangle(const Triangle& triangle)
             if (inTriangle)
             {
                 auto pixelIndex = getFrameBufferIndex(x, y);
-                setPixel(pixelIndex, *m_resolveColor / m_squareMsaaRatio);
+                setPixel(pixelIndex, *(m_bufferData->resolveColor()) / m_squareMsaaRatio);
             }
         }
     }
@@ -438,22 +423,24 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
         {
             auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, triangle->vertex());
             float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
+            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v) * reciprocalCorrect;
             auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
             const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
             auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
-            FragmentShader fragShader(*m_resolveColor / m_squareMsaaRatio, interpolatedNormal.normalized(), interpolatedTexCoords, m_texture.value_or(nullptr));
-            fragShader.m_viewPosition = interpolatedViewPosition;
-            auto pixelColor = m_fragmentShader(fragShader);
+            m_program->vertexShader()->setPosition({ x, y, 1.0f, 1.0f });
+            auto vPosition = m_program->processVertex();
+            m_program->fragmentShader()->viewPosition() = interpolatedViewPosition;
+            m_program->fragmentShader()->normal() = interpolatedNormal;
+            m_program->fragmentShader()->texCoords() = interpolatedTexCoords;
+            m_program->fragmentShader()->color() = interpolatedColor;
+            m_program->fragmentShader()->setVertexShader(m_program->vertexShader());
+            auto pixelColor = m_program->processFragment();
             auto inTriangle = msaa((float)x, (float)y, triangle->vertex(), pixelColor);
             if (inTriangle)
             {
-                auto pixelIndex = getFrameBufferIndex(x, y);
-                VertexShader vertexShader;
-                vertexShader.setPosition({ x, y, 1.0f, 1.0f });
-                auto vPosition = m_vertexShader(vertexShader);
-                pixelColor = *m_resolveColor / m_squareMsaaRatio;
-                setPixel(pixelIndex, pixelColor);
+                auto pixelIndex = getFrameBufferIndex((int)vPosition.x(), (int)vPosition.y());
+                pixelColor = *m_bufferData->resolveColor() / m_squareMsaaRatio;
+                setPixel( pixelIndex, pixelColor);
             }
         }
     }

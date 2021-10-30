@@ -79,6 +79,6 @@ extern void assignment3();
 
 int main()
 {
-    graphics::assignment3();
+    graphics::assignment1();
     return 0;
 }
