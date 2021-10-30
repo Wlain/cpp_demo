@@ -69,12 +69,12 @@ private:
     bool msaa(float x, float y, const Vector4f* v, const Vector3f& color = {});
     inline int getFrameBufferIndex(int i, int j) const
     {
-        ASSERT(i >= 0 && i < m_width && j >= 0 && j < m_height);
+//        ASSERT(i >= 0 && i < m_width && j >= 0 && j < m_height);
         return (m_height - j) * m_width + i;
     }
     inline int getMsaaBufferIndex(int i, int j) const
     {
-        ASSERT(i >= 0 && i < m_width * m_msaaRatio && j >= 0 && j < m_height * m_msaaRatio);
+//        ASSERT(i >= 0 && i < m_width * m_msaaRatio && j >= 0 && j < m_height * m_msaaRatio);
         return (m_height * m_msaaRatio - j) * m_width * m_msaaRatio + i;
     }
     inline int getNextId() { return m_nextID++; }

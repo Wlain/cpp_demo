@@ -165,9 +165,9 @@ void Rasterizer::draw(std::vector<std::shared_ptr<Triangle>>& triangles)
             vec.y() /= vec.w();
             vec.z() /= vec.w();
         }
-        /// 逆变换！！！
+        /// 逆变换！！！,transpose:转置
         Matrix4f inverseTrans = (m_view * m_model).inverse().transpose();
-        Eigen::Vector4f normal[] = {
+        Vector4f normal[] = {
             inverseTrans * toVec4(triangle->normal()[0], 0.0f),
             inverseTrans * toVec4(triangle->normal()[1], 0.0f),
             inverseTrans * toVec4(triangle->normal()[2], 0.0f)

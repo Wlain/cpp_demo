@@ -47,11 +47,11 @@ Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader)
     Vector3f kd = fragShader.texture()->colorBilinear(fragShader.texCoords().x(), fragShader.texCoords().y()) / 255.0f;
     Vector3f ks = { 0.7937, 0.7937, 0.7937 };
     std::vector<Light> lights = {
-        { { 20, 20, 20 }, { 500, 500, 500 } },
-        { { -20, 20, 0 }, { 500, 500, 500 } }
+        { { 20, 5, -20 }, { 500, 500, 500 } },
+        { { -20, 20, -10 }, { 500, 500, 500 } }
     };
     Vector3f ambientLightIntensity = { 10.0f, 10.0f, 10.0f };
-    Vector3f eyePos = { 0, 0, 10 };
+    Vector3f eyePos = { 0.0f, 2.0f, 10.0f };
     float p = 150.0f;
 
     const auto& target = fragShader.viewPosition().head<3>();
@@ -111,8 +111,8 @@ Vector3f bumpFragmentShader(const FragmentShader& fragShader)
     float v = fragShader.texCoords().y();
     float w = fragShader.texture()->width();
     float h = fragShader.texture()->height();
-    float uc = fragShader.texture()->colorBilinear(u + 1.0f / w, v).norm() - fragShader.texture()->colorBilinear(u, v).norm();
-    float vc = fragShader.texture()->colorBilinear(u, v + 1.0f / h).norm() - fragShader.texture()->colorBilinear(u, v).norm();
+    float uc = fragShader.texture()->color(u + 1.0f / w, v).norm() - fragShader.texture()->colorBilinear(u, v).norm();
+    float vc = fragShader.texture()->color(u, v + 1.0f / h).norm() - fragShader.texture()->colorBilinear(u, v).norm();
     float dU = kh * kn * uc;
     float dV = kh * kn * vc;
     Vector3f ln = { -dU, -dV, 1 };

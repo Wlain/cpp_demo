@@ -84,11 +84,13 @@ void assignment3()
 {
     Rasterizer rasterizer(800, 800);
     float angle = 140.0f;
-    Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
+    Vector3f eyePos = { 0.0f, 2.0f, 10.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
     ObjLoader loader;
     std::string objPath = "../resources/models/spot/";
-    auto spotPath = objPath + "spot_triangulated_good.obj";
+//    auto spotPath = objPath + "spot_triangulated_good.obj";
+
+    auto spotPath = objPath + "../Crate/Crate1.obj";
     ASSERT(isFileExist(spotPath));
     auto ret = loader.loadFile(spotPath);
     ASSERT(ret);
@@ -106,10 +108,12 @@ void assignment3()
             triangles.emplace_back(t);
         }
     }
-    auto texturePath = objPath + "spot_texture.png";
+//    auto texturePath = objPath + "spot_texture.png";
+    auto texturePath = objPath + "../Crate/crate_1.jpg";
+    auto bumpNormalPath = objPath + "hmap.jpg";
     ASSERT(isFileExist(texturePath));
     rasterizer.setVertexShader(baseVertShader);
-    rasterizer.setFragmentShader(bumpFragmentShader);
+    rasterizer.setFragmentShader(blinnPhongFragmentShader);
     rasterizer.setTexture(std::make_shared<Texture>(texturePath.c_str()));
     rasterizer.setModel(getModelMatrix(angle));
     rasterizer.setView(getViewMatrix(eyePos));
