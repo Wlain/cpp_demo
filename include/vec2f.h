@@ -13,10 +13,10 @@ public:
     Vec2f();
     virtual ~Vec2f();
     Vec2f(float x, float y);
-     Vec2f(const Vec2f&);
-    Vec2f& operator=(const Vec2f&); // 拷贝赋值函数
-    Vec2f(const Vec2f&&) = delete;           // 移动构造函数
-    Vec2f& operator=(Vec2f&&) = default;      // 移动赋值函数
+    Vec2f(const Vec2f&);
+    Vec2f& operator=(const Vec2f&);      // 拷贝赋值函数
+    Vec2f(const Vec2f&&) = delete;       // 移动构造函数
+    Vec2f& operator=(Vec2f&&) = default; // 移动赋值函数
     [[maybe_unused]] inline void setX(float x) { data[0] = x; }
     [[maybe_unused]] inline void setY(float y) { data[1] = y; }
     [[nodiscard]] inline float getX() const { return data[0]; }

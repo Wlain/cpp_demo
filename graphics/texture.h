@@ -21,7 +21,6 @@ public:
     int width() const;
     int height() const;
 
-
 private:
     cv::Mat m_imageData;
     int m_width;

@@ -4,6 +4,7 @@
 
 #include <array>
 #include <random>
+#include "assignment.h"
 
 namespace enableSharedFromThisTest
 {
@@ -74,11 +75,11 @@ namespace graphics
 {
 extern void assignment1();
 extern void assignment2();
-extern void assignment3();
+extern void assignment3(ShardingType type);
 } // namespace graphics
 
 int main()
 {
-    graphics::assignment1();
+    graphics::assignment3(ShardingType::displacementShading);
     return 0;
 }

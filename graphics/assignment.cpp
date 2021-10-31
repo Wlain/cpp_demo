@@ -8,6 +8,7 @@
 #include "shaderFunc.h"
 #include "utils.h"
 #include "program.h"
+#include "assignment.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -99,14 +100,36 @@ void assignment2()
     cv::waitKey();
 }
 
-void assignment3()
+void assignment3(ShardingType type)
 {
     float angle = 140.0f;
-    int width = 800, height = 800;
+    int width = 360, height = 360;
     Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
-    ObjLoader loader;
     std::string objPath = "../resources/models/spot/";
+    auto texturePath = objPath + "spot_texture.png";
+    std::function<Vector3f(const FragmentShader&)> fragShaderFun;
+    switch(type)
+    {
+    case ShardingType::textureSamplerShading:
+        fragShaderFun = textureFragmentShader;
+        break;
+    case ShardingType::normalTest:
+        fragShaderFun = normalFragShader;
+        break;
+    case ShardingType::blinnPhongModelShading:
+        fragShaderFun = blinnPhongFragmentShader;
+        break;
+    case ShardingType::bumpShading:
+        fragShaderFun = bumpFragmentShader;
+        texturePath = objPath + "hmap.jpg";
+        break;
+    case ShardingType::displacementShading:
+        fragShaderFun = displacementFragmentShader;
+        texturePath = objPath + "hmap.jpg";
+        break;
+    }
+    ObjLoader loader;
     auto spotPath = objPath + "spot_triangulated_good.obj";
     ASSERT(isFileExist(spotPath));
     auto ret = loader.loadFile(spotPath);
@@ -125,14 +148,13 @@ void assignment3()
             triangles.emplace_back(t);
         }
     }
-    auto texturePath = objPath + "spot_texture.png";
     ASSERT(isFileExist(texturePath));
     std::shared_ptr<VertexShader> vertexShader = std::make_shared<VertexShader>();
     std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
     std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
     program->fragmentShader()->texture() = std::make_shared<Texture>(texturePath.c_str());
     program->setVertexShaderFunc(baseVertShader);
-    program->setFragmentShaderFunc(blinnPhongFragmentShader);
+    program->setFragmentShaderFunc(fragShaderFun);
     auto& vertShader = *program->vertexShader();
     auto& fragShader = *program->fragmentShader();
     vertShader.uniformMatrix()["modelMatrix"] = getModelMatrix(angle);
@@ -143,7 +165,7 @@ void assignment3()
     rasterizer.setProgram(program);
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-    rasterizer.setMsaaRatio(4.0f);
+//    rasterizer.setMsaaRatio(4.0f);
     rasterizer.draw(triangles);
     cv::Mat image(width, height, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     image.convertTo(image, CV_8UC3, 1.0f);

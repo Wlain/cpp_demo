@@ -37,6 +37,7 @@ Eigen::Vector4f groundVertexShader(const VertexShader& vertShader);
 /// blinn-phong shadering
 Eigen::Vector3f blinnPhongFragmentShader(const FragmentShader& fragShader);
 
+/// bump 贴图和位移贴图主要的区别是位移贴图是真的改了法线，而bump是假的改变法线。
 /// https://zhuanlan.zhihu.com/p/137449232
 /// bump mapping shadering(凹凸贴图)
 Eigen::Vector3f bumpFragmentShader(const FragmentShader& fragShader);

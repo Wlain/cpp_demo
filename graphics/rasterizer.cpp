@@ -423,14 +423,14 @@ void Rasterizer::rasterizeTriangle(const std::shared_ptr<Triangle>& triangle, co
         {
             auto [alpha, beta, gamma] = computeBarycentric2D((float)x, (float)y, triangle->vertex());
             float reciprocalCorrect = 1.0f / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v) * reciprocalCorrect;
-            auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v) * reciprocalCorrect;
-            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v) * reciprocalCorrect;
-            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v) * reciprocalCorrect;
+            const auto interpolatedColor = interpolate(alpha, beta, gamma, triangle->color(), v);
+            auto interpolatedNormal = interpolate(alpha, beta, gamma, triangle->normal(), v);
+            const auto interpolatedTexCoords = interpolate(alpha, beta, gamma, triangle->texCoords(), v);
+            auto interpolatedViewPosition = interpolate(alpha, beta, gamma, viewPos, v);
             m_program->vertexShader()->setPosition({ x, y, 1.0f, 1.0f });
             auto vPosition = m_program->processVertex();
             m_program->fragmentShader()->viewPosition() = interpolatedViewPosition;
-            m_program->fragmentShader()->normal() = interpolatedNormal;
+            m_program->fragmentShader()->normal() = interpolatedNormal.normalized();
             m_program->fragmentShader()->texCoords() = interpolatedTexCoords;
             m_program->fragmentShader()->color() = interpolatedColor;
             m_program->fragmentShader()->setVertexShader(m_program->vertexShader());
