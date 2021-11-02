@@ -5,6 +5,7 @@
 #include <array>
 #include <random>
 #include "assignment.h"
+#include "base.h"
 
 namespace enableSharedFromThisTest
 {
@@ -70,6 +71,7 @@ extern void opencvTest();
 extern void optionalTest();
 extern void transformTest();
 extern void timerTest();
+extern float getUseageMemory();
 
 namespace graphics
 {
@@ -80,6 +82,10 @@ extern void assignment3(ShardingType type);
 
 int main()
 {
-    graphics::assignment3(ShardingType::displacementShading);
+    float startMemory = getUseageMemory();
+//    graphics::assignment3(ShardingType::blinnPhongModelShading);
+    std::string a;
+    a.resize(500000);
+    LOG_INFO("show memory:%.3fM", getUseageMemory() - startMemory);
     return 0;
 }
