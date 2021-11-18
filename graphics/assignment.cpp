@@ -18,6 +18,7 @@ using namespace Eigen;
 namespace graphics
 {
 /// 实现简单的直线扫描算法，绘制三角形线框
+int width = 360, height = 360;
 void assignment1()
 {
     Vector3f eyePos = { 0.0f, 0.0f, 5.0f };
@@ -28,7 +29,7 @@ void assignment1()
     std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
     std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
     std::shared_ptr<BufferData> buffer = std::make_shared<BufferData>();
-    Rasterizer rasterizer(800, 800, buffer);
+    Rasterizer rasterizer(width, height, buffer);
     program->setVertexShaderFunc(baseVertShader);
     program->setFragmentShaderFunc(blinnPhongFragmentShader);
     auto& vertShader = *program->vertexShader();
@@ -43,7 +44,7 @@ void assignment1()
     rasterizer.clearColor(1.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle_Line);
-    cv::Mat image(800, 800, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
+    cv::Mat image(width, height, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     cv::flip(image, image, -1);
     cv::imshow("triangle line", image);
     cv::waitKey();
@@ -77,7 +78,7 @@ void assignment2()
     std::shared_ptr<FragmentShader> fragmentShader = std::make_shared<FragmentShader>();
     std::shared_ptr<Program> program = std::make_shared<Program>(vertexShader, fragmentShader);
     std::shared_ptr<BufferData> buffer = std::make_shared<BufferData>();
-    Rasterizer rasterizer(800, 800, buffer);
+    Rasterizer rasterizer(width, height, buffer);
     program->setVertexShaderFunc(baseVertShader);
     program->setFragmentShaderFunc(baseFragTriangleShader);
     auto& vertShader = *program->vertexShader();
@@ -93,7 +94,7 @@ void assignment2()
     rasterizer.clear(Buffers::Color | Buffers::Depth);
     rasterizer.setMsaaRatio(2.0f);
     rasterizer.draw(posId, indicesId, colorID, Primitive::Triangle);
-    cv::Mat image(800, 800, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
+    cv::Mat image(width, height, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     // opencv的原点位于左上角，而实际原点应该是位于左下角，需要做一次翻转
     cv::flip(image, image, -1);
     cv::imshow("triangles", image);
@@ -103,7 +104,6 @@ void assignment2()
 void assignment3(ShardingType type)
 {
     float angle = 140.0f;
-    int width = 360, height = 360;
     Vector3f eyePos = { 0.0f, 0.0f, 10.0f };
     std::vector<std::shared_ptr<Triangle>> triangles;
     std::string objPath = "../resources/models/spot/";
@@ -174,4 +174,14 @@ void assignment3(ShardingType type)
     cv::imshow("mesh", image);
     cv::waitKey();
 }
+
+void assignment4()
+{
+    cv::Mat image(width, height, CV_32FC3, cv::Scalar(0));
+    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
+    cv::flip(image, image, -1);
+    cv::imshow("Bezier Curve", image);
+    cv::waitKey();
+}
+
 } // namespace graphics

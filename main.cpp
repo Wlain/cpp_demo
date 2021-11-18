@@ -78,6 +78,7 @@ namespace graphics
 extern void assignment1();
 extern void assignment2();
 extern void assignment3(ShardingType type);
+extern void assignment4();
 } // namespace graphics
 
 int main()
