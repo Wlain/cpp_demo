@@ -5,6 +5,8 @@
 #ifndef CPP_DEMO_ASSIGNMENT_H
 #define CPP_DEMO_ASSIGNMENT_H
 
+#include "base.h"
+
 enum class ShardingType : uint32_t
 {
     textureSamplerShading = 0,
