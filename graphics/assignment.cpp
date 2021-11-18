@@ -1,14 +1,15 @@
 //
 // Created by william on 2021/10/18.
 //
+#include "assignment.h"
+
+#include "../utils/utils.h"
 #include "base.h"
 #include "matrix4.h"
 #include "objLoader.h"
+#include "program.h"
 #include "rasterizer.h"
 #include "shaderFunc.h"
-#include "utils.h"
-#include "program.h"
-#include "assignment.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>

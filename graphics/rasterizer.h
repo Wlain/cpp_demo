@@ -4,10 +4,10 @@
 
 #ifndef CPP_DEMO_RASTERIZER_H
 #define CPP_DEMO_RASTERIZER_H
+#include "../utils/timer.h"
 #include "buffer.h"
 #include "program.h"
 #include "shader.h"
-#include "timer.h"
 #include "triangle.h"
 
 #include <algorithm>

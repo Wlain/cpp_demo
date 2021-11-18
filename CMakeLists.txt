@@ -16,6 +16,7 @@ include_directories(
         ${OpenCV_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/math
+        ${PROJECT_SOURCE_DIR}/utils
         ${PROJECT_SOURCE_DIR}/graphics
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
@@ -31,7 +32,7 @@ file(GLOB_RECURSE SOURCES
         cpppreference/*.cpp
         math/*.cpp
         test/*.cpp
-        *.cpp
+        utils/*.cpp
         )
 
 add_executable(cpp_demo ${SOURCES})

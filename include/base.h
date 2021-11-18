@@ -74,7 +74,7 @@
 #define CGE_ENUM_ALIAS(name, member) \
     constexpr auto name##_##member = name::member
 
-#include "logger.h"
+#include "../utils/logger.h"
 
 #define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR #__VA_ARGS__
 

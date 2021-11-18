@@ -84,7 +84,6 @@ extern void assignment4();
 int main()
 {
     float startMemory = getUseageMemory();
-//    graphics::assignment3(ShardingType::blinnPhongModelShading);
     std::string a;
     a.resize(500000);
     LOG_INFO("show memory:%.3fM", getUseageMemory() - startMemory);
