@@ -38,6 +38,7 @@
 #include <valarray>
 #include <variant>
 #include <vector>
+#include <GLFW/glfw3.h>
 
 /// assert macros
 #define ASSERT(expression) assert(expression)

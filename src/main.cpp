@@ -72,6 +72,7 @@ extern void optionalTest();
 extern void transformTest();
 extern void timerTest();
 extern float getUseageMemory();
+extern void vulkanTest();
 
 namespace graphics
 {
@@ -83,9 +84,6 @@ extern void assignment4();
 
 int main()
 {
-    float startMemory = getUseageMemory();
-    std::string a;
-    a.resize(500000);
-    LOG_INFO("show memory:%.3fM", getUseageMemory() - startMemory);
+    vulkanTest();
     return 0;
 }
