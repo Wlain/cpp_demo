@@ -16,6 +16,8 @@ find_package(OpenCV REQUIRED)
 find_package(Vulkan REQUIRED FATAL_ERROR)
 # glfw
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
+# glew
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
 # glm
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glm/glm)
 
@@ -29,13 +31,19 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic
         ${PROJECT_SOURCE_DIR}/graphic/vk
         ${PROJECT_SOURCE_DIR}/graphic/vk/test
+        ${PROJECT_SOURCE_DIR}/graphic/gl
+        ${PROJECT_SOURCE_DIR}/graphic/gl/common
+        ${PROJECT_SOURCE_DIR}/graphic/gl/test
+        ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
+        ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
         ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include)
 
 file(GLOB_RECURSE SOURCES
         3rdparty/lua-5.1.5/src/*.c
         3rdparty/tolua-master/src/lib/*c
+        3rdparty/SOIL2/*.c
         include/*.h
         src/*.cpp
         rasterizer/*.cpp
@@ -45,7 +53,7 @@ file(GLOB_RECURSE SOURCES
         utils/*.cpp
         graphic/*.cpp)
 
-add_executable(cpp_demo ${SOURCES} graphic/vk/test/vulkanTest.cpp graphic/vk/test/vulkanTest.h)
+add_executable(cpp_demo ${SOURCES} )
 
 set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 
@@ -53,5 +61,6 @@ set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
 target_link_libraries(cpp_demo
         ${OpenCV_LIBS}
         glfw
+        glew
         Vulkan::Vulkan)
 

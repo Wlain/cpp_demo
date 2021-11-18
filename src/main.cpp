@@ -73,6 +73,7 @@ extern void transformTest();
 extern void timerTest();
 extern float getUseageMemory();
 extern void vulkanTest();
+extern void glTest();
 
 namespace graphics
 {
@@ -84,6 +85,6 @@ extern void assignment4();
 
 int main()
 {
-    vulkanTest();
+    glTest();
     return 0;
 }

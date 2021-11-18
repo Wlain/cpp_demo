@@ -38,6 +38,12 @@
 #include <valarray>
 #include <variant>
 #include <vector>
+#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+#include <glm/gtc/matrix_transform.hpp>
+#include <GL/glew.h>
+#include <glfw/deps/linmath.h>
 #include <GLFW/glfw3.h>
 
 /// assert macros
@@ -75,7 +81,7 @@
 #define CGE_ENUM_ALIAS(name, member) \
     constexpr auto name##_##member = name::member
 
-#include "../utils/logger.h"
+#include "logger.h"
 
 #define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR #__VA_ARGS__
 
