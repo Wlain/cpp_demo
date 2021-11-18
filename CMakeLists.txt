@@ -18,8 +18,6 @@ find_package(Vulkan REQUIRED FATAL_ERROR)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
 # glew
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
-# glm
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glm/glm)
 
 # 头文件目录
 include_directories(
@@ -35,6 +33,8 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/3rdparty
+        ${PROJECT_SOURCE_DIR}/3rdparty/glm
+        ${PROJECT_SOURCE_DIR}/3rdparty/glew/include
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
