@@ -217,6 +217,39 @@ std::move
 - 委托构造函数
 - 
 
+## opengl 优化
+- 1，优化cpu：
+- （1）图像分块多线程；
+- （2）SIMD（neon、SSE2）；
+- （3）减少IO操作，尽量访问连续的内存地址，增加缓存命中率；
+- （4）避免内存重复创建和copy；
+- （5）循环展开；
+- （6）定点化；
+- 2，内存：
+- （1）GPU纹理压缩；
+- （2）GPU/CPU内存池。
+- （3）关注内存峰值。
+- 3，GPU（只涉及opengl）：
+- （1）异步DMA；
+- （2）减少draw call次数，减少没必要的gpu指令；
+- （3）使用纹理共享方式：graphic buffer（android）；
+- （4）vs能完成的不在fs上做；
+- （5）fs绘制区域大小影响性能较大，优化fragment shader；
+- i.小纹理采样和渲染效果做平衡；
+- ii.避免非uniform的分支语句；
+- iii.**低精度性能更优**，如果可以的话，要用高精度（美颜，美妆）
+- 4，其他：
+- 1，CPU和GPU负载均衡，结合具体算法，不依赖的计算过程并行；
+- 2，间隔帧计算，如CPU中非必要实时计算模块间隔帧计算。
+- 5.从API层面去优化，升级gles3.0,可以使用到新的扩展功能，比如：
+  - UBO，glclear-glInvalidateFramebuffer组合（使用到了vk以及metal的一些特有概念，比如vk在加载framebuffer的时候有LOP和SOP两个过程，如果使用了DontCare模式，可以降低了图像内存同步的带宽，CPU/GPU同步的效率更高，使得帧率以及cpu占用率均有提升优化，LOP和SOP，及时扔掉不想要的framebuffer数据)
+  - gles3.0对uniform的if语句具有更高的性能
+- 6.通过hook draw call 的方式，逐个分析draw call（在Xcode中对glDrawArray进行断点，看是否符合预期调用）
+- 7.采纳一种缓存池的策略，复用纹理，render target
+- 8.render target的尺寸会影响内存以及性能
+- 9.避免造成等待，提高cpu，gpu利用率，可以提升帧率
+- 10.限制帧率(根据情况限制24或者30)，避免多余的draw call 
+
 
 ## git 常用命令
 - git把多个commit合成一个
