@@ -51,16 +51,31 @@ file(GLOB_RECURSE SOURCES
         math/*.cpp
         test/*.cpp
         utils/*.cpp
-        graphic/*.cpp)
+        graphic/*.cpp
+        graphic/*.mm)
 
-add_executable(cpp_demo ${SOURCES} )
+add_executable(cpp_demo ${SOURCES})
 
-set_target_properties(cpp_demo PROPERTIES COMPILE_FLAGS " -O0")
+set_target_properties(cpp_demo PROPERTIES
+        COMPILE_FLAGS " -O0"
+        MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/graphic/metal/Info.plist
+        )
+
+target_compile_options(cpp_demo PUBLIC "-fobjc-arc")
 
 # 链接库
 target_link_libraries(cpp_demo
         ${OpenCV_LIBS}
         glfw
         glew
-        Vulkan::Vulkan)
+        Vulkan::Vulkan
+        "-framework IOSurface"
+        "-framework Metal"
+        "-framework MetalKit"
+        "-framework QuartzCore"
+        "-framework CoreMedia"
+        "-framework AVFoundation"
+        "-framework Accelerate"
+        z
+        )
 

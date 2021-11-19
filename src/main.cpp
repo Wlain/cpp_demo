@@ -74,6 +74,7 @@ extern void timerTest();
 extern float getUseageMemory();
 extern void vulkanTest();
 extern void glTest();
+extern int metalTest(int argc, const char* argv[]);
 
 namespace graphics
 {
@@ -83,8 +84,7 @@ extern void assignment3(ShardingType type);
 extern void assignment4();
 } // namespace graphics
 
-int main()
+int main(int argc, const char* argv[])
 {
-    glTest();
-    return 0;
+    return metalTest(argc, argv);
 }
