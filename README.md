@@ -218,6 +218,39 @@ std::move
 - 
 
 
+## git 常用命令
+- git把多个commit合成一个
+```shell
+git reset -q --soft 6e9a2e92676d404a859321d414cbe30808c84b55
+git add .
+git commit -m "xxx"
+git push
+```
+- git清缓存
+```shell
+git clean -fix
+rm -rf *
+git reset —hard
+git submodule update --init --recursive
+```
+- git查看当前commit ID
+```shell
+git rev-parse HEAD
+```
+- git查看当前commit ID
+```shell
+git rev-parse HEAD
+```
+- git重新修改当前commit
+```shell
+git commit --amend --no-verify
+git push -f
+```
+
+
+
+
+
 
 
 
