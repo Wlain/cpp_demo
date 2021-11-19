@@ -72,6 +72,7 @@ extern void optionalTest();
 extern void transformTest();
 extern void timerTest();
 extern float getUseageMemory();
+extern void anyTest();
 extern void vulkanTest();
 extern void glTest();
 extern int metalTest(int argc, const char* argv[]);
@@ -86,5 +87,6 @@ extern void assignment4();
 
 int main(int argc, const char* argv[])
 {
-    return metalTest(argc, argv);
+    anyTest();
+    return 0;
 }
