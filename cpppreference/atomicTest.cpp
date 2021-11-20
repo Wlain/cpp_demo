@@ -2,7 +2,9 @@
 // Created by william on 2021/7/17.
 //
 
-#include "base.h"
+#include <thread>
+#include <iostream>
+#include <vector>
 
 std::atomic<long> g_count = 0;
 long g_count1 = 0;

@@ -24,7 +24,7 @@
  * 占位符 auto 可伴随如 const 或 & 这样的修饰符，它们参与类型推导。占位符 decltype(auto) 必须是被声明类型的唯一组分。 (C++14 起)
  */
 
-#include "base.h"
+#include <iostream>
 #include <utility>
 
 template <typename T, class U>

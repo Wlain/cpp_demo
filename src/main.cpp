@@ -2,10 +2,11 @@
 // Created by william on 2020/7/1.
 //
 
-#include <array>
-#include <random>
 #include "assignment.h"
 #include "base.h"
+
+#include <array>
+#include <random>
 
 namespace enableSharedFromThisTest
 {
@@ -73,6 +74,8 @@ extern void transformTest();
 extern void timerTest();
 extern float getUseageMemory();
 extern void anyTest();
+extern void staticTest();
+
 extern void vulkanTest();
 extern void glTest();
 extern int metalTest(int argc, const char* argv[]);
@@ -87,6 +90,6 @@ extern void assignment4();
 
 int main(int argc, const char* argv[])
 {
-    anyTest();
+    staticTest();
     return 0;
 }

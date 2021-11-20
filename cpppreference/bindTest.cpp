@@ -1,7 +1,8 @@
 //
 // Created by william on 2021/6/13.
 //
-#include "base.h"
+#include <iostream>
+#include <random>
 
 void f(int n1, int n2, int n3, const int& n4, int n5)
 {

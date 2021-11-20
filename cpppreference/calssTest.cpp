@@ -1,8 +1,7 @@
 //
 // Created by william on 2021/7/17.
 //
-
-#include "base.h"
+#include <iostream>
 
 namespace classTest
 {

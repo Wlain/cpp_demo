@@ -1,14 +1,11 @@
 //
 // Created by william on 2021/9/3.
 //
-#include "base.h"
 
 class Number
 {
 public:
-    explicit Number(int m) : m_data(m)
-    {
-    }
+    explicit Number(int m) : m_data(m){}
 
     Number& operator++() /// 前置++
     {
@@ -33,5 +30,7 @@ private:
 
 void addAddTest()
 {
-
+    Number n(1);
+    n++;
+    ++n;
 }
