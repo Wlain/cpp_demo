@@ -130,6 +130,8 @@ std::reverse_copy(arr.begin(), arr.end(),
 ```
 31.头文件千万不要写using namespace xxx,源文件里面可以写
 
+32. 对vector向量设置初始容量是很重要的，可以避免数据拷贝，详细测试代码可以见仓库move.cpp
+
 
 ##C++ 编程规范 101条规则、准则与最佳实践
 001.了解哪些东西不应该标准化
