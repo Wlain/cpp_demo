@@ -17,6 +17,7 @@
  * 使用 [0,1] 中的多个不同的 t 来执行上述算法，你就能得到相应的 Bézier 曲线。
  */
 
+// 曲面的理解：曲线的曲线
 namespace graphics
 {
 class BezierCurve

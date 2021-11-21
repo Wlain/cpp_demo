@@ -68,6 +68,7 @@ void BezierCurve::fillBezier()
     for (double t = 0.0; t <= 1.0; t += 0.001)
     {
         auto point = recursiveBezier(m_controlPoints, t);
+        m_window->at<cv::Vec3b>(point.y, point.x)[1] = 255;
     }
 }
 
