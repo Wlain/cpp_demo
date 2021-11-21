@@ -57,18 +57,40 @@ cv::Point2f BezierCurve::recursiveBezier(const std::vector<cv::Point2f>& control
     return recursiveBezier(point, t);
 }
 
-static float getFinalColor(float p1x, float p1y, float p2x, float p2y)
-{
-    auto distance = sqrt(std::pow((p2x - p1y), 2)) + std::pow((p2y - p1y), 2);
-    return distance >= 1.0f ? 1.0 : (1.0f-distance);
-}
-
 void BezierCurve::fillBezier()
 {
     for (double t = 0.0; t <= 1.0; t += 0.001)
     {
         auto point = recursiveBezier(m_controlPoints, t);
         m_window->at<cv::Vec3b>(point.y, point.x)[1] = 255;
+        //anti-aliasing
+        float dx = point.x - std::floor(point.x);
+        float dy = point.y - std::floor(point.y);
+        int xFlag = dx < 0.5f ? -1 : 1;
+        int yFlag = dy < 0.5f ? -1 : 1;
+        // 距离采样点最近的4个坐标点
+        cv::Point2f p00 = cv::Point2f(std::floor(point.x) + 0.5f, std::floor(point.y) + 0.5f);
+        cv::Point2f p01 = cv::Point2f(std::floor(point.x + xFlag * 1.0f) + 0.5f, std::floor(point.y) + 0.5f);
+        cv::Point2f p10 = cv::Point2f(std::floor(point.x) + 0.5f, std::floor(point.y + yFlag * 1.0f) + 0.5f);
+        cv::Point2f p11 = cv::Point2f(std::floor(point.x + xFlag * 1.0f) + 0.5f, std::floor(point.y + yFlag * 1.0f) + 0.5f);
+        std::vector<cv::Point2f> vec;
+        vec.push_back(p01);
+        vec.push_back(p10);
+        vec.push_back(p11);
+        // 计算最近的坐标点与采样点距离
+        cv::Point2f distance = p00 - point;
+        float len = sqrt(distance.x * distance.x + distance.y * distance.y);
+        // 对边缘点进行着色
+        for (auto& p : vec)
+        {
+            // 根据距离比, 计算边缘点影响系数
+            cv::Point2f d = p - point;
+            float l = sqrt(d.x * d.x + d.y * d.y);
+            float percent = len / l;
+            cv::Vec3d color = m_window->at<cv::Vec3b>(p.y, p.x);
+            // 取最大值
+            m_window->at<cv::Vec3b>(p.y, p.x)[1] = std::max(color[1], (double)255 * percent);;
+        }
     }
 }
 
