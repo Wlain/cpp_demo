@@ -90,6 +90,6 @@ extern void assignment4();
 
 int main(int argc, const char* argv[])
 {
-    graphics::assignment4();
+    moveTest();
     return 0;
 }
