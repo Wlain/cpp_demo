@@ -3,13 +3,14 @@
 //
 #include "assignment.h"
 
-#include "../utils/utils.h"
 #include "base.h"
+#include "bezierCurve.h"
 #include "matrix4.h"
 #include "objLoader.h"
 #include "program.h"
 #include "rasterizer.h"
 #include "shaderFunc.h"
+#include "utils.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -38,7 +39,7 @@ void assignment1()
     vertShader.uniformMatrix()["modelMatrix"] = getRotation({ 1.0f, 1.0f, 0.0f }, 0.0f);
     vertShader.uniformMatrix()["viewMatrix"] = getViewMatrix(eyePos);
     vertShader.uniformMatrix()["projectionMatrix"] = getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f);
-    auto posId  = buffer->loadPositions(position);
+    auto posId = buffer->loadPositions(position);
     auto colorID = buffer->loadColors(colors);
     auto indicesId = buffer->loadIndices(indices);
     rasterizer.setProgram(program);
@@ -87,7 +88,7 @@ void assignment2()
     vertShader.uniformMatrix()["modelMatrix"] = getModelMatrix(0);
     vertShader.uniformMatrix()["viewMatrix"] = getViewMatrix(eyePos);
     vertShader.uniformMatrix()["projectionMatrix"] = getProjectionMatrix(45.0f, 1.0f, 0.1f, 50.0f);
-    auto posId  = buffer->loadPositions(position);
+    auto posId = buffer->loadPositions(position);
     auto colorID = buffer->loadColors(colors);
     auto indicesId = buffer->loadIndices(indices);
     rasterizer.setProgram(program);
@@ -110,7 +111,7 @@ void assignment3(ShardingType type)
     std::string objPath = "../resources/models/spot/";
     auto texturePath = objPath + "spot_texture.png";
     std::function<Vector3f(const FragmentShader&)> fragShaderFun;
-    switch(type)
+    switch (type)
     {
     case ShardingType::textureSamplerShading:
         fragShaderFun = textureFragmentShader;
@@ -166,7 +167,7 @@ void assignment3(ShardingType type)
     rasterizer.setProgram(program);
     rasterizer.clearColor(0.0f, 0.0f, 0.0f, 1.0f);
     rasterizer.clear(Buffers::Color | Buffers::Depth);
-//    rasterizer.setMsaaRatio(4.0f);
+    //    rasterizer.setMsaaRatio(4.0f);
     rasterizer.draw(triangles);
     cv::Mat image(width, height, CV_32FC3, rasterizer.bufferData()->frameBuffer().data());
     image.convertTo(image, CV_8UC3, 1.0f);
@@ -178,11 +179,28 @@ void assignment3(ShardingType type)
 
 void assignment4()
 {
-    cv::Mat image(width, height, CV_32FC3, cv::Scalar(0));
-    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
-    cv::flip(image, image, -1);
-    cv::imshow("Bezier Curve", image);
-    cv::waitKey();
+    BezierCurve bezierCurve(700, 700);
+    auto& controlPoints = bezierCurve.controlPoints();
+    auto& window = *bezierCurve.window();
+    int key = -1;
+    while (key != 27)
+    {
+        for (auto& point : controlPoints)
+        {
+            //在img原始图片中划圈, 圈的中心点为point，半径=3，颜色为（255，0，0），粗细=3
+            cv::circle(window, point, 3, { { 0, 0, 255 } }, 3);
+        }
+        if(controlPoints.size() == 4)
+        {
+//            bezierCurve.nativeBezier();
+            bezierCurve.fillBezier();
+            cv::imshow("Bezier Curve", window);
+            cv::imwrite("my_bezier_curve.png", window);
+            key = cv::waitKey(0);
+        }
+        cv::imshow("Bezier Curve", window);
+        cv::waitKey(1);
+    }
 }
 
 } // namespace graphics
