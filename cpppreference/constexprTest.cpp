@@ -105,7 +105,7 @@ struct constN
 };
 
 
-void constexpTest()
+void constexprTest()
 {
     std::cout << "4!=";
     constN<factorial(4)> out1; // 在编译时计算

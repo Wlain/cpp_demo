@@ -42,7 +42,7 @@ extern void staticAssertTest();
 extern void extendedFriendDeclarationsTest();
 extern void autoTest();
 extern void friendTest();
-extern void constexpTest();
+extern void constexprTest();
 extern int eraserOverlapIntervals(std::vector<std::vector<int>>& intervals);
 extern void sharePtrTest();
 extern void moveTest();
@@ -75,6 +75,7 @@ extern void timerTest();
 extern float getUseageMemory();
 extern void anyTest();
 extern void staticTest();
+extern void crashTest();
 
 extern void vulkanTest();
 extern void glTest();
@@ -90,6 +91,6 @@ extern void assignment4();
 
 int main(int argc, const char* argv[])
 {
-    moveTest();
+    crashTest();
     return 0;
 }
