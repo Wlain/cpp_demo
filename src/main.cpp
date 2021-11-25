@@ -87,10 +87,11 @@ extern void assignment1();
 extern void assignment2();
 extern void assignment3(ShardingType type);
 extern void assignment4();
+extern void assignment5();
 } // namespace graphics
 
 int main(int argc, const char* argv[])
 {
-    crashTest();
+    graphics::assignment5();
     return 0;
 }

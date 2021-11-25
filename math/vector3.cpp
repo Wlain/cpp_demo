@@ -18,6 +18,11 @@ Vector3::Vector3(float x_, float y_, float z_) :
 {
 }
 
+Vector3::Vector3(float x_) :
+    x(x_), y(x_), z(x_)
+{
+}
+
 Vector3::Vector3(const float* array)
 {
     set(array);

@@ -5,11 +5,16 @@
 
 #include "base.h"
 #include "bezierCurve.h"
+#include "light.h"
 #include "matrix4.h"
+#include "meshTriangle.h"
 #include "objLoader.h"
 #include "program.h"
 #include "rasterizer.h"
+#include "renderer.h"
+#include "scene.h"
 #include "shaderFunc.h"
+#include "sphere.h"
 #include "utils.h"
 
 #include <eigen3/Eigen/Eigen>
@@ -190,9 +195,9 @@ void assignment4()
             //在img原始图片中划圈, 圈的中心点为point，半径=3，颜色为（255，0，0），粗细=3
             cv::circle(window, point, 3, { { 0, 0, 255 } }, 3);
         }
-        if(controlPoints.size() == 4)
+        if (controlPoints.size() == 4)
         {
-//            bezierCurve.nativeBezier();
+            bezierCurve.nativeBezier();
             bezierCurve.fillBezier();
             cv::imshow("Bezier Curve", window);
             cv::imwrite("my_bezier_curve.png", window);
@@ -203,4 +208,31 @@ void assignment4()
     }
 }
 
+void assignment5()
+{
+    pathTracing::Scene scene(1280, 960);
+    auto sphere1 = std::make_unique<pathTracing::Sphere>(Vector3(-1.0f, 0.0f, -12.0f), 2.0f);
+    sphere1->m_materialType = pathTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
+    sphere1->m_diffuseColor = { 0.6f, 0.7, 0.8 };
+
+    auto sphere2 = std::make_unique<pathTracing::Sphere>(Vector3(0.5f, 0.0f, -12.0f), 2.0f);
+    sphere2->m_materialType = pathTracing::Object::MaterialType::REFLECTION_AND_REFRACTION;
+    sphere2->m_ior = 1.5f;
+    scene.add(std::move(sphere1));
+    scene.add(std::move(sphere2));
+    std::vector<Vector3> verts = { { -5.0f, -3.0f, -6.0f }, { 5.0f, -3.0f, -6.0f }, { 5.0f, -3.0f, -16.0f }, { -5.0f, -3.0f, -16.0f } };
+    std::vector<uint32_t> vertIndex = { 0, 1, 3, 1, 2, 3 };
+    std::vector<Vector2> st = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+    auto mesh = std::make_unique<pathTracing::MeshTriangle>(verts, vertIndex, 2, st);
+    mesh->m_materialType = pathTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
+    scene.add(std::move(mesh));
+    scene.add(std::make_unique<pathTracing::Light>(Vector3(-20, 70, 20), 0.5));
+    scene.add(std::make_unique<pathTracing::Light>(Vector3(30, 50, -12), 0.5));
+    pathTracing::Renderer renderer;
+    renderer.Render(scene);
+    cv::Mat image(width, height, CV_32FC3);
+    cv::flip(image, image, -1);
+    cv::imshow("path Tracing", image);
+    cv::waitKey();
+}
 } // namespace graphics
