@@ -3,7 +3,7 @@
 //
 
 #include "scene.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 Scene::Scene(int w, int h) :
     m_width(w),

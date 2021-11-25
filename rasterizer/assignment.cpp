@@ -210,25 +210,25 @@ void assignment4()
 
 void assignment5()
 {
-    pathTracing::Scene scene(1280, 960);
-    auto sphere1 = std::make_unique<pathTracing::Sphere>(Vector3(-1.0f, 0.0f, -12.0f), 2.0f);
-    sphere1->m_materialType = pathTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
+    rayTracing::Scene scene(1280, 960);
+    auto sphere1 = std::make_unique<rayTracing::Sphere>(Vector3(-1.0f, 0.0f, -12.0f), 2.0f);
+    sphere1->m_materialType = rayTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
     sphere1->m_diffuseColor = { 0.6f, 0.7, 0.8 };
 
-    auto sphere2 = std::make_unique<pathTracing::Sphere>(Vector3(0.5f, 0.0f, -12.0f), 2.0f);
-    sphere2->m_materialType = pathTracing::Object::MaterialType::REFLECTION_AND_REFRACTION;
+    auto sphere2 = std::make_unique<rayTracing::Sphere>(Vector3(0.5f, 0.0f, -12.0f), 2.0f);
+    sphere2->m_materialType = rayTracing::Object::MaterialType::REFLECTION_AND_REFRACTION;
     sphere2->m_ior = 1.5f;
     scene.add(std::move(sphere1));
     scene.add(std::move(sphere2));
     std::vector<Vector3> verts = { { -5.0f, -3.0f, -6.0f }, { 5.0f, -3.0f, -6.0f }, { 5.0f, -3.0f, -16.0f }, { -5.0f, -3.0f, -16.0f } };
     std::vector<uint32_t> vertIndex = { 0, 1, 3, 1, 2, 3 };
     std::vector<Vector2> st = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
-    auto mesh = std::make_unique<pathTracing::MeshTriangle>(verts, vertIndex, 2, st);
-    mesh->m_materialType = pathTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
+    auto mesh = std::make_unique<rayTracing::MeshTriangle>(verts, vertIndex, 2, st);
+    mesh->m_materialType = rayTracing::Object::MaterialType::DIFFUSE_AND_GLOSSY;
     scene.add(std::move(mesh));
-    scene.add(std::make_unique<pathTracing::Light>(Vector3(-20, 70, 20), 0.5));
-    scene.add(std::make_unique<pathTracing::Light>(Vector3(30, 50, -12), 0.5));
-    pathTracing::Renderer renderer;
+    scene.add(std::make_unique<rayTracing::Light>(Vector3(-20, 70, 20), 0.5));
+    scene.add(std::make_unique<rayTracing::Light>(Vector3(30, 50, -12), 0.5));
+    rayTracing::Renderer renderer;
     renderer.Render(scene);
     cv::Mat image(width, height, CV_32FC3);
     cv::flip(image, image, -1);

@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_LIGHT_H
 #define CPP_DEMO_LIGHT_H
 #include "vector3.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class Light
 {

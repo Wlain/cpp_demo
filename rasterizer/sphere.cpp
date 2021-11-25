@@ -3,7 +3,7 @@
 //
 
 #include "sphere.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 
 Sphere::Sphere(const Vector3& c, float r):

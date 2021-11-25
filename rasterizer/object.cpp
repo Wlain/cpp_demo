@@ -3,7 +3,7 @@
 //
 
 #include "object.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 Object::Object() :
     m_materialType(MaterialType::DIFFUSE_AND_GLOSSY),

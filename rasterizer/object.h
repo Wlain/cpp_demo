@@ -8,7 +8,7 @@
 #include "vector2.h"
 #include "vector3.h"
 
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class Object
 {
@@ -36,6 +36,6 @@ public:
     float m_kd, m_ks;
     float m_specularColorExponent;
 };
-} // namespace graphics::pathTracing
+} // namespace graphics::rayTracing
 
 #endif //CPP_DEMO_OBJECT_H

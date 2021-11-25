@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_MESHTRIANGLE_H
 #define CPP_DEMO_MESHTRIANGLE_H
 #include "object.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class MeshTriangle : public Object
 {

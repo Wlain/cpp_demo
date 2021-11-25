@@ -3,7 +3,7 @@
 //
 
 #include "light.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 Light::Light(const Vector3& p, const Vector3& i) :
     m_position(p), m_intensity(i)

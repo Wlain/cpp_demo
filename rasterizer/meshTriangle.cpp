@@ -3,7 +3,7 @@
 //
 
 #include "meshTriangle.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 MeshTriangle::MeshTriangle(const std::vector<Vector3>& vertexs, const std::vector<uint32_t>& vertexsIndex, uint32_t numTriangles, const std::vector<Vector2>& st)
 {

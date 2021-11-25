@@ -3,7 +3,7 @@
 //
 
 #include "renderer.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 void Renderer::Render(const Scene& scene)
 {

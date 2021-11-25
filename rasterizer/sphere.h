@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_SPHERE_H
 #define CPP_DEMO_SPHERE_H
 #include "object.h"
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class Sphere : public Object
 {
@@ -21,6 +21,6 @@ private:
     Vector3 m_center;
     float m_radius;
 };
-} // namespace graphics::pathTracing
+} // namespace graphics::rayTracing
 
 #endif //CPP_DEMO_SPHERE_H

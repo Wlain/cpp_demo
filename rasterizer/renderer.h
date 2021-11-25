@@ -4,9 +4,9 @@
 
 #ifndef CPP_DEMO_RENDERER_H
 #define CPP_DEMO_RENDERER_H
-#include "Scene.h"
+#include "scene.h"
 
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class Renderer
 {

@@ -10,7 +10,7 @@
 
 #include <memory>
 
-namespace graphics::pathTracing
+namespace graphics::rayTracing
 {
 class Scene
 {
