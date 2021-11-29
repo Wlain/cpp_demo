@@ -3,7 +3,7 @@
 //
 
 #include "scene.h"
-namespace graphics::rayTracing
+namespace graphics::pathTracing
 {
 Scene::Scene(int w, int h) :
     m_width(w),
@@ -15,7 +15,7 @@ Scene::~Scene() = default;
 void Scene::add(std::unique_ptr<Object> object)
 {
 }
-void Scene::add(std::unique_ptr<Light> light)
+void Scene::add(std::unique_ptr<Ray> light)
 {
 }
 } // namespace graphics

@@ -4,9 +4,7 @@
 
 #include "assignment.h"
 #include "base.h"
-
-#include <array>
-#include <random>
+#include "mat4.h"
 
 namespace enableSharedFromThisTest
 {
@@ -76,6 +74,7 @@ extern float getUseageMemory();
 extern void anyTest();
 extern void staticTest();
 extern void crashTest();
+extern void restrictTest();
 
 extern void vulkanTest();
 extern void glTest();
@@ -88,10 +87,15 @@ extern void assignment2();
 extern void assignment3(ShardingType type);
 extern void assignment4();
 extern void assignment5();
+extern void pathTracingTriangle();
 } // namespace graphics
 
 int main(int argc, const char* argv[])
 {
-    graphics::assignment5();
+    restrictTest();
+    Mat4f d(0.707107, 0, -0.707107, 0, -0.331295, 0.883452, -0.331295, 0, 0.624695, 0.468521, 0.624695, 0, 4.000574, 3.00043, 4.000574, 1);
+    std::cerr << d << std::endl;
+    d.invert();
+    std::cerr << d << std::endl;
     return 0;
 }

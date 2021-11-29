@@ -42,7 +42,7 @@ class FragmentShader : public Shader
 {
 public:
     FragmentShader();
-    FragmentShader(VertexShader* vertexShader, const Eigen::Vector2f texCoords);
+    FragmentShader(VertexShader* vertexShader, Eigen::Vector2f texCoords);
     ~FragmentShader() override;
     inline const auto& viewPosition() const { return m_viewPosition; }
     inline auto& viewPosition() { return m_viewPosition; }

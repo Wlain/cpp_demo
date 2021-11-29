@@ -3,7 +3,7 @@
 //
 
 #include "sphere.h"
-namespace graphics::rayTracing
+namespace graphics::pathTracing
 {
 
 Sphere::Sphere(const Vector3& c, float r):
@@ -23,8 +23,15 @@ Sphere::Sphere(const Sphere&&)
 
 Sphere::~Sphere() = default;
 
+/// u, v 是两个计算得到的重心坐标参数，
 bool Sphere::intersect(const Vector3& originPoint, const Vector3& dir, float& timeNear, uint32_t& index, Vector2& uv)
 {
+    Vector3 lightDir = originPoint - m_center;
+    float a = dir.dot(dir);
+    float b = 2.0f * dir.dot(lightDir);
+    float c = lightDir.dot(lightDir) - std::pow(m_radius, 2);
+    float t0{}, t1{};
+
     return false;
 }
 

@@ -91,7 +91,6 @@
 #define NO_REF_TYPE(t) std::remove_reference<decltype(*t)>::type
 #define MAKE_SHARED(t, ...) std::make_shared<typename NO_REF_TYPE(t)>(__VA_ARGS__)
 
-
 /// math macros
 #define MATH_PI 3.1415926f
 #define TWO_MATH_PI (MATH_PI * 2.0f)

@@ -37,7 +37,7 @@ void VertexShader::geometricProcessing()
 
 FragmentShader::FragmentShader() = default;
 
-FragmentShader::FragmentShader(VertexShader* vertexShader, const Vector2f texCoords) :
+FragmentShader::FragmentShader(VertexShader* vertexShader, Vector2f texCoords) :
     m_vertexShader(vertexShader), m_texCoords(std::move(texCoords))
 {
 }

@@ -4,13 +4,13 @@
 
 #ifndef CPP_DEMO_SCENE_H
 #define CPP_DEMO_SCENE_H
-#include "light.h"
 #include "object.h"
+#include "ray.h"
 #include "vector3.h"
 
 #include <memory>
 
-namespace graphics::rayTracing
+namespace graphics::pathTracing
 {
 class Scene
 {
@@ -19,19 +19,19 @@ public:
     ~Scene();
 
     void add(std::unique_ptr<Object> object);
-    void add(std::unique_ptr<Light> light);
+    void add(std::unique_ptr<Ray> light);
     inline const std::vector<std::unique_ptr<Object>>& getObjects() const
     {
         return m_objects;
     }
-    inline const std::vector<std::unique_ptr<Light>>& getLight() const
+    inline const std::vector<std::unique_ptr<Ray>>& getLight() const
     {
         return m_lights;
     }
 
 private:
     std::vector<std::unique_ptr<Object>> m_objects;
-    std::vector<std::unique_ptr<Light>> m_lights;
+    std::vector<std::unique_ptr<Ray>> m_lights;
     Vector3 m_backgroundColor{ 0.235294, 0.67451, 0.843137 };
     int maxDepth = 5;
     int m_width = 0;
