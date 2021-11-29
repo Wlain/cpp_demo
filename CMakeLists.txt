@@ -54,7 +54,7 @@ file(GLOB_RECURSE SOURCES
         graphic/*.cpp
         graphic/*.mm)
 
-add_executable(cpp_demo ${SOURCES} rasterizer/scene.cpp rasterizer/scene.h rasterizer/object.cpp rasterizer/object.h rasterizer/light.cpp rasterizer/light.h rasterizer/renderer.cpp rasterizer/renderer.h rasterizer/sphere.cpp rasterizer/sphere.h rasterizer/meshTriangle.cpp rasterizer/meshTriangle.h)
+add_executable(cpp_demo ${SOURCES})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
