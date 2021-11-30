@@ -102,7 +102,7 @@ public:
     }
     T norm() const
     {
-        return x * x + y * y + z * z;
+        return dotProduct(*this);
     }
     T length() const
     {

@@ -79,6 +79,10 @@ extern void restrictTest();
 extern void vulkanTest();
 extern void glTest();
 extern int metalTest(int argc, const char* argv[]);
+namespace cg
+{
+extern void phongTest();
+}
 
 namespace graphics
 {
@@ -92,10 +96,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    restrictTest();
-    Mat4f d(0.707107, 0, -0.707107, 0, -0.331295, 0.883452, -0.331295, 0, 0.624695, 0.468521, 0.624695, 0, 4.000574, 3.00043, 4.000574, 1);
-    std::cerr << d << std::endl;
-    d.invert();
-    std::cerr << d << std::endl;
+    cg::phongTest();
     return 0;
 }

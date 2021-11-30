@@ -46,6 +46,7 @@ file(GLOB_RECURSE SOURCES
         3rdparty/SOIL2/*.c
         include/*.h
         src/*.cpp
+        cg/*cpp
         rasterizer/*.cpp
         cpppreference/*.cpp
         math/*.cpp
