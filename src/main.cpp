@@ -4,7 +4,6 @@
 
 #include "assignment.h"
 #include "base.h"
-#include "mat4.h"
 
 namespace enableSharedFromThisTest
 {
@@ -73,6 +72,7 @@ extern void timerTest();
 extern float getUseageMemory();
 extern void anyTest();
 extern void staticTest();
+extern void staticTest2();
 extern void crashTest();
 extern void restrictTest();
 
@@ -94,8 +94,9 @@ extern void assignment5();
 extern void pathTracingTriangle();
 } // namespace graphics
 
+
 int main(int argc, const char* argv[])
 {
-    cg::phongTest();
+    staticTest2();
     return 0;
 }

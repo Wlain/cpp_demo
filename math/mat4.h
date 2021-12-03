@@ -173,12 +173,12 @@ public:
                 {
                     if (fabs(m[row][column]) > fabs(m[big][column])) big = row;
                 }
-                // Print this is a singular matrix, return identity ?
+                // 当前矩阵不可逆
                 if (big == column)
                 {
                     fprintf(stderr, "Singular matrix\n");
                 }
-                // Swap rows
+                // 交换行
                 else
                 {
                     for (unsigned j = 0; j < 4; ++j)
@@ -188,7 +188,7 @@ public:
                     }
                 }
             }
-            // Set each row in the column to 0
+            // 消元
             for (unsigned row = 0; row < 4; ++row)
             {
                 if (row != column)
@@ -207,7 +207,7 @@ public:
                 }
             }
         }
-        // Set each element of the diagonal to 1
+        // 归一成单位阵
         for (unsigned row = 0; row < 4; ++row)
         {
             for (unsigned column = 0; column < 4; ++column)
