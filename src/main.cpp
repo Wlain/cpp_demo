@@ -82,6 +82,8 @@ extern int metalTest(int argc, const char* argv[]);
 namespace cg
 {
 extern void phongTest();
+extern void bilinearInterpolationTest();
+extern void trilinearInterpolationTest();
 }
 
 namespace graphics
@@ -97,6 +99,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    staticTest2();
+    cg::bilinearInterpolationTest();
     return 0;
 }

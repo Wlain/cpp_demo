@@ -26,6 +26,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/math
         ${PROJECT_SOURCE_DIR}/utils
         ${PROJECT_SOURCE_DIR}/rasterizer
+        ${PROJECT_SOURCE_DIR}/cg
         ${PROJECT_SOURCE_DIR}/graphic
         ${PROJECT_SOURCE_DIR}/graphic/vk
         ${PROJECT_SOURCE_DIR}/graphic/vk/test
@@ -44,9 +45,8 @@ file(GLOB_RECURSE SOURCES
         3rdparty/lua-5.1.5/src/*.c
         3rdparty/tolua-master/src/lib/*c
         3rdparty/SOIL2/*.c
-        include/*.h
         src/*.cpp
-        cg/*cpp
+        cg/*.cpp
         rasterizer/*.cpp
         cpppreference/*.cpp
         math/*.cpp
@@ -55,7 +55,7 @@ file(GLOB_RECURSE SOURCES
         graphic/*.cpp
         graphic/*.mm)
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} cg/cgCommonDefine.h cg/color.h)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
