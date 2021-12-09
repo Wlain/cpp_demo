@@ -25,6 +25,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/math
         ${PROJECT_SOURCE_DIR}/utils
+        ${PROJECT_SOURCE_DIR}/test
         ${PROJECT_SOURCE_DIR}/rasterizer
         ${PROJECT_SOURCE_DIR}/cg
         ${PROJECT_SOURCE_DIR}/graphic
@@ -55,7 +56,7 @@ file(GLOB_RECURSE SOURCES
         graphic/*.cpp
         graphic/*.mm)
 
-add_executable(cpp_demo ${SOURCES} cg/cgCommonDefine.h cg/color.h)
+add_executable(cpp_demo ${SOURCES})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

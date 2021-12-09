@@ -75,6 +75,12 @@ extern void staticTest();
 extern void staticTest2();
 extern void crashTest();
 extern void restrictTest();
+namespace geekTimeTest
+{
+extern void stackUnwindTest();
+extern void shapeWrapTest();
+extern void smartPtrTest();
+}
 
 extern void vulkanTest();
 extern void glTest();
@@ -84,7 +90,7 @@ namespace cg
 extern void phongTest();
 extern void bilinearInterpolationTest();
 extern void trilinearInterpolationTest();
-}
+} // namespace cg
 
 namespace graphics
 {
@@ -96,9 +102,8 @@ extern void assignment5();
 extern void pathTracingTriangle();
 } // namespace graphics
 
-
 int main(int argc, const char* argv[])
 {
-    cg::bilinearInterpolationTest();
+    geekTimeTest::smartPtrTest();
     return 0;
 }
