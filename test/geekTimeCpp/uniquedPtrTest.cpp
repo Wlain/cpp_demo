@@ -11,22 +11,22 @@
 namespace geekTimeTest
 {
 template <typename T>
-class SmartPtr
+class UniquedPtr
 {
 public:
-    explicit SmartPtr(T* ptr = nullptr) :
+    explicit UniquedPtr(T* ptr = nullptr) :
         m_ptr(ptr) {}
-    ~SmartPtr()
+    ~UniquedPtr()
     {
         delete m_ptr;
     }
 
-    SmartPtr(SmartPtr&& other)
+    UniquedPtr(UniquedPtr&& other)
     {
         m_ptr = other.release();
     }
 
-    SmartPtr& operator=(SmartPtr rhs)
+    UniquedPtr& operator=(UniquedPtr rhs)
     {
         rhs.swap(*this);
         return *this;
@@ -43,7 +43,7 @@ public:
         return ptr;
     }
 
-    void swap(SmartPtr& rhs)
+    void swap(UniquedPtr& rhs)
     {
         std::swap(m_ptr, rhs.m_ptr);
     }
@@ -52,14 +52,14 @@ private:
     T* m_ptr;
 };
 
-void smartPtrTest()
+void uniquedPtrTest()
 {
-    SmartPtr<Shape> ptr1(createShape(ShapeType::Circle));
-    // SmartPtr<Shape> ptr2(ptr1);  // Cannot compile
-    SmartPtr<Shape> ptr3;
+    UniquedPtr<Shape> ptr1(createShape(ShapeType::Circle));
+    // UniquedPtr<Shape> ptr2(ptr1);  // Cannot compile
+    UniquedPtr<Shape> ptr3;
     // ptr3 = ptr1;                             // Cannot compile
     ptr3 = std::move(ptr1);                  // OK
-    SmartPtr<Shape> ptr4{ std::move(ptr3) }; // OK
+    UniquedPtr<Shape> ptr4{ std::move(ptr3) }; // OK
 }
 
 } // namespace geekTimeTest

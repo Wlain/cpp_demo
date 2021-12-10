@@ -79,7 +79,8 @@ namespace geekTimeTest
 {
 extern void stackUnwindTest();
 extern void shapeWrapTest();
-extern void smartPtrTest();
+extern void uniquedPtrTest();
+extern void sharedPtrTest();
 }
 
 extern void vulkanTest();
@@ -104,6 +105,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::smartPtrTest();
+    geekTimeTest::sharedPtrTest();
     return 0;
 }
