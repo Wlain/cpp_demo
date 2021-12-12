@@ -84,6 +84,7 @@ extern void sharedPtrTest();
 extern void lifeTimeTest();
 extern void nrvoTest();
 extern void forwardTest();
+extern void outputContainerTest();
 } // namespace geekTimeTest
 
 extern void vulkanTest();
@@ -108,6 +109,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::forwardTest();
+    geekTimeTest::outputContainerTest();
     return 0;
 }
