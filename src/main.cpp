@@ -75,6 +75,7 @@ extern void staticTest();
 extern void staticTest2();
 extern void crashTest();
 extern void restrictTest();
+
 namespace geekTimeTest
 {
 extern void stackUnwindTest();
@@ -85,6 +86,8 @@ extern void lifeTimeTest();
 extern void nrvoTest();
 extern void forwardTest();
 extern void outputContainerTest();
+extern void vectorTest();
+extern void listTest();
 } // namespace geekTimeTest
 
 extern void vulkanTest();
@@ -109,6 +112,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::outputContainerTest();
+    geekTimeTest::listTest();
     return 0;
 }
