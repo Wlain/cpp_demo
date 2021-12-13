@@ -44,6 +44,13 @@ Obj complicated(int n)
     return (n % 2 == 0) ? obj1 : obj2;
 }
 
+Obj complicated1(int n)
+{
+    Obj obj1;
+    Obj obj2;
+    return (n % 2 == 0) ? move(obj1) : move(obj2);
+}
+
 void nrvoTest()
 {
     cout << "*** 1 ***" << endl;
@@ -52,5 +59,8 @@ void nrvoTest()
     auto obj2 = simpleWithMove();
     cout << "*** 3 ***" << endl;
     auto obj3 = complicated(42);
+    cout << "*** 4 ***" << endl;
+    auto obj4 = complicated1(42);
+
 }
 } // namespace geekTimeTest
