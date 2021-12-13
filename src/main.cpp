@@ -88,6 +88,7 @@ extern void forwardTest();
 extern void outputContainerTest();
 extern void vectorTest();
 extern void listTest();
+extern void queueTest();
 } // namespace geekTimeTest
 
 extern void vulkanTest();
@@ -112,6 +113,6 @@ extern void pathTracingTriangle();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::listTest();
+    geekTimeTest::queueTest();
     return 0;
 }
