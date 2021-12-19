@@ -120,10 +120,11 @@ namespace rayTracing
 {
 extern void chapter1();
 extern void chapter3();
+extern void chapter4();
 }
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter3();
+    rayTracing::chapter4();
     return 0;
 }

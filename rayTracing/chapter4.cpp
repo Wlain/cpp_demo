@@ -2,6 +2,10 @@
 // Created by william on 2021/12/19.
 //
 
+//
+// Created by william on 2021/12/19.
+//
+
 #include "ray.h"
 
 #include <iostream>
@@ -10,8 +14,23 @@
 /// output an image
 namespace rayTracing
 {
-Vec3f color(const Ray& r)
+bool hitSphere(const Vec3f& center, float radius, const Ray& r)
 {
+    Vec3f A_C = r.origin() - center;
+    Vec3f B = r.direction();
+    float a = B.dotProduct(B);
+    float b = 2.0f * A_C.dotProduct(B);
+    float c = A_C.dotProduct(A_C) - radius * radius;
+    float discriminant = b * b - 4 * a * c;
+    return (discriminant > 0);
+}
+
+Vec3f colorHitSphere(const Ray& r)
+{
+    /// 如果 ray 击中球体的话，返回球体的颜色
+    if(hitSphere({0.0f, 0.0f, -1.0f}, 0.5, r))
+        return {1.0, 0.0, 0.0};
+    /// 否则返回背景色
     Vec3f unitDirection = r.direction().normalize();
     float t = (0.5f * unitDirection.y + 1.0f); // [0, 2]-> [-1, 1]
     auto startColor = Vec3f(1.0f, 1.0f, 1.0f);
@@ -19,9 +38,9 @@ Vec3f color(const Ray& r)
     return (1.0f - t) * startColor + t * endColor;
 }
 
-void chapter3()
+void chapter4()
 {
-    int nx = 1280, ny = 720;
+    int nx = 1280, ny = 640;
     int channels = 3;
     auto* data = new unsigned char[nx * ny * channels];
     std::memset(data, 0, nx * ny * channels * sizeof(unsigned char));
@@ -43,7 +62,7 @@ void chapter3()
             Ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
 
             /// 计算ray r返回的颜色
-            Vec3f col = color(r);
+            Vec3f col = colorHitSphere(r);
             int ir = int(255.0 * col.r());
             int ig = int(255.0 * col.g());
             int ib = int(255.0 * col.b());
@@ -57,7 +76,7 @@ void chapter3()
     }
     cv::Mat image(ny, nx, CV_8UC3, (unsigned char*)data);
     cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
-    cv::imshow("chapter3", image);
+    cv::imshow("chapter4", image);
     cv::waitKey();
     delete[] data;
 }
