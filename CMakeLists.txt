@@ -34,6 +34,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl
         ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
+        ${PROJECT_SOURCE_DIR}/rayTracing
         ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
         ${PROJECT_SOURCE_DIR}/3rdparty/glew/include
@@ -54,7 +55,8 @@ file(GLOB_RECURSE SOURCES
         test/*.cpp
         utils/*.cpp
         graphic/*.cpp
-        graphic/*.mm)
+        graphic/*.mm
+        rayTracing/*.cpp)
 
 add_executable(cpp_demo ${SOURCES})
 

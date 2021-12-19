@@ -116,8 +116,13 @@ extern void assignment5();
 extern void pathTracingTriangle();
 } // namespace graphics
 
+namespace rayTracing
+{
+extern void chapter1();
+}
+
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::nrvoTest();
+    rayTracing::chapter1();
     return 0;
 }
