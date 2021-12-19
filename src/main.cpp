@@ -119,10 +119,11 @@ extern void pathTracingTriangle();
 namespace rayTracing
 {
 extern void chapter1();
+extern void chapter3();
 }
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter1();
+    rayTracing::chapter3();
     return 0;
 }

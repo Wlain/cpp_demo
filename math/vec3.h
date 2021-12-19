@@ -21,6 +21,9 @@ public:
     Vec3(T xx, T yy, T zz) :
         x(xx), y(yy), z(zz) {}
     ~Vec3() = default;
+    T r() const { return x; }
+    T g() const { return y; }
+    T b() const { return z; }
     Vec3 operator+(const Vec3& v) const
     {
         return Vec3(x + v.x, y + v.y, z + v.z);
