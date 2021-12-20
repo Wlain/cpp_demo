@@ -32,7 +32,7 @@ public:
     {
         return Vec3(x + r, y + r, z + r);
     }
-    Vec3& operator+=(const T& v)
+    Vec3& operator+=(const Vec3& v)
     {
         x += v.x;
         y += v.y;
@@ -62,7 +62,7 @@ public:
     {
         return Vec3(x * r, y * r, z * r);
     }
-    Vec3& operator*=(const T& v)
+    Vec3& operator*=(const Vec3& v)
     {
         x *= v.x;
         y *= v.y;
@@ -77,7 +77,14 @@ public:
     {
         return Vec3(x / r, y / r, z / r);
     }
-    Vec3& operator/=(const T& v)
+    Vec3& operator/=(const T r)
+    {
+        x /= r;
+        y /= r;
+        z /= r;
+        return *this;
+    }
+    Vec3& operator/=(const Vec3& v)
     {
         x /= v.x;
         y /= v.y;

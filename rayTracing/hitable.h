@@ -8,6 +8,7 @@
 
 namespace rayTracing
 {
+// 记录交点信息
 struct HitRecord
 {
     float t;
