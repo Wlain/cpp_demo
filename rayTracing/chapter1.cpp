@@ -4,7 +4,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-/// output an image
 namespace rayTracing
 {
 void chapter1()

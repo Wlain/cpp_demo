@@ -2,16 +2,11 @@
 // Created by william on 2021/12/19.
 //
 
-//
-// Created by william on 2021/12/19.
-//
-
 #include "ray.h"
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-/// output an image
 namespace rayTracing
 {
 bool hitSphere(const Vec3f& center, float radius, const Ray& r)
