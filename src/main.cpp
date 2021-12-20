@@ -126,10 +126,11 @@ extern void chapter5_1();
 extern void chapter6();
 extern void chapter7();
 extern void chapter8();
+extern void chapter9();
 }
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter8();
+    rayTracing::chapter9();
     return 0;
 }
