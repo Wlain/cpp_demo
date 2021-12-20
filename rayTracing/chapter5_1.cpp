@@ -45,7 +45,7 @@ Vec3f color(const Ray& r, HitAble* world, int depth)
         /// 最多弹射50次
         if (depth < 50 && record.material->scatter(r, record, attenuation, scattered))
         {
-            return attenuation * color(scattered, world, depth+1);
+            return attenuation * color(scattered, world, depth + 1);
         }
         else
         {
@@ -238,7 +238,7 @@ void chapter8()
     /// 场景相关
     HitAble* list[4];
     list[0] = new Sphere({ 0.0f, 0.0f, -1.0f }, 0.5f, new Lambertian({ 0.8f, 0.3f, 0.3f }));
-    list[1] = new Sphere({ 0.0f, -100.5f, -1.0f }, 100.0f, new Lambertian({ 0.8f, 0.3f, 0.3f }));
+    list[1] = new Sphere({ 0.0f, -100.5f, -1.0f }, 100.0f, new Lambertian({ 0.8f, 0.8f, 0.3f }));
     list[2] = new Sphere({ 1.0f, 0.0f, -1.0f }, 0.5f, new Metal({ 0.8f, 0.6f, 0.2f }, 0.3f));
     list[3] = new Sphere({ -1.0f, 0.0f, -1.0f }, 0.5f, new Metal({ 0.8f, 0.8f, 0.8f }, 1.0f));
     HitAble* world = new HitAbleList(list, 4);
@@ -295,11 +295,11 @@ void chapter9()
     /// 场景相关
     HitAble* list[5];
     list[0] = new Sphere({ 0.0f, 0.0f, -1.0f }, 0.5f, new Lambertian({ 0.8f, 0.3f, 0.3f }));
-    list[1] = new Sphere({ 0.0f, -100.5f, -1.0f }, 100.0f, new Lambertian({ 0.8f, 0.3f, 0.0f }));
+    list[1] = new Sphere({ 0.0f, -100.5f, -1.0f }, 100.0f, new Lambertian({ 0.8f, 0.8f, 0.0f }));
     list[2] = new Sphere({ 1.0f, 0.0f, -1.0f }, 0.5f, new Metal({ 0.8f, 0.6f, 0.2f }, 0.3f));
     list[3] = new Sphere({ -1.0f, 0.0f, -1.0f }, 0.5f, new Dielectric(1.5f));
-    list[4] = new Sphere({-1.0f, 0.0f, -1.0f}, -0.45, new Dielectric(1.5));
-    HitAble* world = new HitAbleList(list, 5);
+    list[4] = new Sphere({ -1.0f, 0.0f, -1.0f }, -0.45, new Dielectric(1.5));
+    HitAble* world = new HitAbleList(list, 3);
     /// 遍历元素
     for (int j = ny - 1; j >= 0; --j)
     {

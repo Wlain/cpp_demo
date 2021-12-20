@@ -131,6 +131,6 @@ extern void chapter9();
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter9();
+    rayTracing::chapter8();
     return 0;
 }
