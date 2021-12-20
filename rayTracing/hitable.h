@@ -8,12 +8,15 @@
 
 namespace rayTracing
 {
+class Material;
+
 // 记录交点信息
 struct HitRecord
 {
     float t;
     Vec3f p;
     Vec3f normal;
+    Material *material;
 };
 
 class HitAble

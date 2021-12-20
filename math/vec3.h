@@ -155,6 +155,12 @@ public:
     T x, y, z;
 };
 
+template <typename T>
+Vec3<T> reflect(const Vec3<T>& v, const Vec3<T>& n)
+{
+    return v - 2 * v.dotProduct(n) * n;
+}
+
 using Vec3f = Vec3<float>;
 using Vec3i = Vec3<int>;
 #endif //CPP_DEMO_VEC3_H

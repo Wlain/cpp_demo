@@ -14,7 +14,17 @@ public:
     Sphere() = default;
     Sphere(Vec3f _center, float _radius) :
         center(_center), radius(_radius) {}
-    ~Sphere() = default;
+
+    Sphere(Vec3f _center, float _radius, Material *m) :
+        center(_center), radius(_radius), material(m) {}
+
+    ~Sphere()
+    {
+        if (material)
+        {
+            delete material;
+        }
+    }
     bool hit(const Ray& r, float timeMin, float timeMax, HitRecord& record) const override
     {
         Vec3f A_C = r.origin() - center;
@@ -31,6 +41,7 @@ public:
                 record.t = temp;
                 record.p = r.pointAtParameter(temp);
                 record.normal = (record.p - center) / radius;
+                record.material = material;
                 return true;
             }
             temp = (-b + std::sqrt(discriminant)) / (2.0f * a);
@@ -39,6 +50,7 @@ public:
                 record.t = temp;
                 record.p = r.pointAtParameter(temp);
                 record.normal = (record.p - center) / radius;
+                record.material = material;
                 return true;
             }
         }
@@ -48,6 +60,7 @@ public:
 public:
     Vec3f center;
     float radius;
+    Material *material;
 };
 } // namespace rayTracing
 
