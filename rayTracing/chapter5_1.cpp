@@ -331,7 +331,7 @@ void chapter9()
     }
     cv::Mat image(ny, nx, CV_8UC3, (unsigned char*)data);
     cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
-    cv::imshow("chapter8", image);
+    cv::imshow("chapter9", image);
     cv::waitKey();
     delete[] data;
     delete[] * list;
@@ -389,7 +389,7 @@ void chapter10()
     }
     cv::Mat image(ny, nx, CV_8UC3, (unsigned char*)data);
     cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
-    cv::imshow("chapter8", image);
+    cv::imshow("chapter10", image);
     cv::waitKey();
     delete[] data;
     delete[] * list;
