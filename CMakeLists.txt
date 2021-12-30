@@ -58,7 +58,7 @@ file(GLOB_RECURSE SOURCES
         graphic/*.mm
         rayTracing/*.cpp)
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} test/asyncTestDemo.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

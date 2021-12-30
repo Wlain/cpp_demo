@@ -282,6 +282,16 @@ git commit --amend --no-verify
 git push -f
 ```
 
+###环境安装
+
+13.vulkan 环境配置：
+下载地址：https://vulkan.lunarg.com/sdk/home#mac 直接安装即可
+
+安装opencv：
+```shell
+brew install opencv@2
+```
+配置环境变量：
 
 
 

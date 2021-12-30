@@ -75,6 +75,8 @@ extern void staticTest();
 extern void staticTest2();
 extern void crashTest();
 extern void restrictTest();
+/// 验证一个异步崩溃的demo
+extern void asyncTestDemo();
 
 namespace geekTimeTest
 {
@@ -133,6 +135,6 @@ extern void chapter11();
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter11();
+    asyncTestDemo();
     return 0;
 }
