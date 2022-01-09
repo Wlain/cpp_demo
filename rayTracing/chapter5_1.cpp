@@ -458,4 +458,94 @@ void chapter11()
     delete world;
 }
 
+HitAble* randomScene()
+{
+    int n = 500;
+    HitAble** list = new HitAble*[n + 1];
+    list[0] = new Sphere({ 0.0f, -1000.0f, 0.0f }, 1000.0f, new Lambertian({ 0.5f, 0.5f, 0.5f }));
+    int i = 1;
+    for (int a = -11; a < 11; ++a)
+    {
+        for (int b = -11; b < 11; ++b)
+        {
+            float chooseMat = (rand() %100 / 100.0f);
+            Vec3f  center(a + 0.9f * (rand() % 100 / 100.0f), 0.2f, b + 0.9f * (rand() % 100 / 100.0f));
+            if((center - Vec3f{4.0f, 0.2f, 0.0f}).length() > 0.9f)
+            {
+                if(chooseMat < 0.8f)
+                {
+                    list[i++] = new Sphere(center, 0.2f, new Lambertian({((rand() % 100 / 100.0f) * (rand() % 100 / 100.0f)),((rand() % 100 / 100.0f) * (rand() % 100 / 100.0f)), ((rand() % 100 / 100.0f) * (rand() % 100 / 100.0f))}));
+                }
+                else if(chooseMat < 0.95f)
+                {
+                    list[i++] = new Sphere(center, 0.2f, new Metal({(0.5f * (1.0f + (rand() % 100 / 100.0f))), 0.5f + (1.0f + (rand() % 100 / 100.0f)), 0.5f + (1.0f + (rand() % 100 / 100.0f))}, 0.5f * (rand() % 100 / 100.0f)));
+                }
+                else
+                {
+                    list[i++] = new Sphere(center, 0.2f, new Dielectric(1.5f));
+                }
+            }
+        }
+    }
+    list[i++] = new Sphere({0.0f, 1.0f, 0.0f}, 1.0f, new Dielectric(1.5f));
+    list[i++] = new Sphere({-4.0f, 1.0f, 0.0f}, 1.0f, new Lambertian({0.4f, 0.2f, 0.1f}));
+    list[i++] = new Sphere({4.0f, 1.0f, 0.0f}, 1.0f, new Metal({0.7f, 0.6f, 0.5f}, 0.0f));
+    return new HitAbleList(list, i);
+}
+
+/// 最终效果
+void chapter12()
+{
+    int nx = 1280, ny = 640;
+    int channels = 3;
+    int ns = 100; // sample count
+    auto* data = new unsigned char[nx * ny * channels];
+    std::memset(data, 0, nx * ny * channels * sizeof(unsigned char));
+
+    /// camera 相关
+    Vec3f lookFrom{ 13.0f, 2.0f, 3.0f };
+    Vec3f lookAt{ 0.0f, 0.0f, 0.0f };
+    float distToFocus = 10.0f;
+    float aperture = 0.1f;
+    Camera cam(lookFrom, lookAt, { 0.0f, 1.0f, 0.0f }, 20.0f, float(nx) / float(ny), aperture, distToFocus);
+
+    /// 场景相关
+    HitAble* world = randomScene();
+    /// 遍历元素
+    for (int j = ny - 1; j >= 0; --j)
+    {
+        for (int i = 0; i < nx; ++i)
+        {
+            Vec3f col(0.0f, 0.0f, 0.0f);
+            for (int k = 0; k < ns; ++k)
+            {
+                float u = float(i + (rand() % 100 / 100.0f)) / float(nx);
+                float v = float(j + (rand() % 100 / 100.0f)) / float(ny);
+                /// 确定 ray r;
+                Ray r = cam.getRay(u, v);
+                /// 累加 ray r 射入场景 world 后，返回的颜色
+                col += color(r, world, 0);
+            }
+            col /= float(ns);
+            // gammar 矫正
+            col = Vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
+            int ir = int(255.0 * col.r());
+            int ig = int(255.0 * col.g());
+            int ib = int(255.0 * col.b());
+            // data[y*width*channels + x*channels + index]
+            data[(ny - j - 1) * nx * 3 + 3 * i] = ir;
+            data[(ny - j - 1) * nx * 3 + 3 * i + 1] = ig;
+            data[(ny - j - 1) * nx * 3 + 3 * i + 2] = ib;
+        }
+        // print渲染进度
+        std::cout << (ny - j) / float(ny) * 100.0f << "%\n";
+    }
+    cv::Mat image(ny, nx, CV_8UC3, (unsigned char*)data);
+    cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
+    cv::imshow("chapter12", image);
+    cv::waitKey();
+    delete[] data;
+    delete world;
+}
+
 } // namespace rayTracing

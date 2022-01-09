@@ -131,10 +131,11 @@ extern void chapter8();
 extern void chapter9();
 extern void chapter10();
 extern void chapter11();
+extern void chapter12();
 } // namespace rayTracing
 
 int main(int argc, const char* argv[])
 {
-    asyncTestDemo();
+    rayTracing::chapter12();
     return 0;
 }
