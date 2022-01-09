@@ -15,7 +15,7 @@ void sharedPtrTest()
     printf("use count of ptr1 is %ld\n", ptr1.useCount());
     SharedPtr<Shape> ptr2(new Shape());
     printf("use count of ptr2 was %ld\n", ptr2.useCount());
-//    ptr2 = ptr1;
+    ptr2 = ptr1;
     printf("use count of ptr2 was %ld\n", ptr2.useCount());
     if (ptr1)
     {

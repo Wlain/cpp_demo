@@ -94,8 +94,11 @@ extern void queueTest();
 extern void stackTest();
 extern void hashTest();
 extern void priorityQueueTest();
-extern void unorderedTest();
+extern void unorderedTest(); /// 性能很慢，数据小于一千，慎用！！！
 extern void arrayTest();
+extern void binaryLiteralsTest();
+extern void literalsTest();
+extern void userLiteralsTest();
 } // namespace geekTimeTest
 
 extern void vulkanTest();
@@ -136,6 +139,6 @@ extern void chapter12();
 
 int main(int argc, const char* argv[])
 {
-    rayTracing::chapter12();
+    geekTimeTest::userLiteralsTest();
     return 0;
 }

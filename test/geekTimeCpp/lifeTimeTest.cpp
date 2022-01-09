@@ -5,6 +5,7 @@
 
 #include <stdio.h> // puts
 
+/// 可以做面试题
 namespace geekTimeTest
 {
 class Result
@@ -24,6 +25,7 @@ void lifeTimeTest()
 {
     puts("main()");
     auto&& result = processShape(Circle(), Triangle());
+    /// 此处等价于：const auto& result = processShape(Circle(), Triangle());
     puts("something else");
 }
 } // namespace geekTimeTest
