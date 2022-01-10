@@ -99,6 +99,7 @@ extern void arrayTest();
 extern void binaryLiteralsTest();
 extern void literalsTest();
 extern void userLiteralsTest();
+extern void utfTest();
 } // namespace geekTimeTest
 
 extern void vulkanTest();
@@ -139,6 +140,6 @@ extern void chapter12();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::userLiteralsTest();
+    geekTimeTest::utfTest();
     return 0;
 }
