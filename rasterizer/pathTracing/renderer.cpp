@@ -7,5 +7,6 @@ namespace graphics::pathTracing
 {
 void Renderer::Render(const Scene& scene)
 {
+
 }
 }

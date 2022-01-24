@@ -140,6 +140,6 @@ extern void chapter12();
 
 int main(int argc, const char* argv[])
 {
-    geekTimeTest::utfTest();
+    graphics::assignment5();
     return 0;
 }
