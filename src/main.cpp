@@ -69,7 +69,7 @@ extern void opencvTest();
 extern void optionalTest();
 extern void transformTest();
 extern void timerTest();
-extern float getUseageMemory();
+extern float getUsageMemory();
 extern void anyTest();
 extern void staticTest();
 extern void staticTest2();
@@ -140,6 +140,5 @@ extern void chapter12();
 
 int main(int argc, const char* argv[])
 {
-    graphics::assignment5();
     return 0;
 }

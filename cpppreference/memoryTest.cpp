@@ -5,7 +5,7 @@
 #include <mach/mach_host.h>
 #include <mach/processor_info.h>
 
-float getUseageMemory()
+float getUsageMemory()
 {
     float processMemory = 0;
     task_vm_info_data_t info;
