@@ -25,6 +25,7 @@ public:
     virtual void draw();
     static void processInput(GLFWwindow* window);
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+    static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
     static void errorCallback(int error, const char* description);
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 

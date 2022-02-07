@@ -3,10 +3,20 @@
 //
 
 #include "commonInterface.h"
+#include "camera.h"
 #include "utils.h"
-
 constexpr const unsigned int SCR_WIDTH = 640;
 constexpr const unsigned int SCR_HEIGHT = 480;
+
+float lastX = (float)SCR_WIDTH  / 2.0;
+float lastY = (float)SCR_HEIGHT / 2.0;
+// timing
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+bool firstMouse = true;
+// camera
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 namespace graphicEngine::gl
 {
@@ -22,12 +32,42 @@ CommonInterface::~CommonInterface()
     exit(EXIT_SUCCESS);
 }
 
+void CommonInterface::mouseCallback(GLFWwindow* window, double xPos, double yPos)
+{
+    float xpos = static_cast<float>(xPos);
+    float ypos = static_cast<float>(yPos);
+
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+    lastX = xpos;
+    lastY = ypos;
+    camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+
 void CommonInterface::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, true);
     }
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::Forward, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::Backward, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::Left, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::Right, deltaTime);
 }
 
 void CommonInterface::framebufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -62,6 +102,7 @@ void CommonInterface::initWithProperty(const char* title)
     glfwSetKeyCallback(m_window, keyCallback);
     glfwMakeContextCurrent(m_window);
     glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
+    glfwSetCursorPosCallback(m_window, mouseCallback);
     if (glewInit() != GLEW_OK)
     {
         exit(EXIT_FAILURE);
@@ -108,5 +149,4 @@ void CommonInterface::draw()
         glfwPollEvents();
     }
 }
-
 } // namespace graphicEngine
