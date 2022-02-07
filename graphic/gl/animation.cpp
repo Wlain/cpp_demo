@@ -10,7 +10,6 @@ Animation::~Animation() = default;
 void Animation::initialize()
 {
     initWithProperty(std::make_tuple("Animation", GET_CURRENT(/resources/shaders/animation.vert), GET_CURRENT(/resources/shaders/animation.frag)));
-
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
 }
@@ -27,7 +26,6 @@ void Animation::resize(int width, int height)
 
 void Animation::display()
 {
-    glClear(GL_DEPTH_BUFFER_BIT);
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     m_offsetX += m_inc;

@@ -105,6 +105,7 @@ extern void utfTest();
 extern void vulkanTest();
 extern void glTest();
 extern int metalTest(int argc, const char* argv[]);
+
 namespace cg
 {
 extern void phongTest();
@@ -140,5 +141,6 @@ extern void chapter12();
 
 int main(int argc, const char* argv[])
 {
+    glTest();
     return 0;
 }

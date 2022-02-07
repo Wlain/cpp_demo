@@ -4,15 +4,35 @@
 
 #include "commonInterface.h"
 #include "utils.h"
-namespace graphicEngine
+
+constexpr const unsigned int SCR_WIDTH = 640;
+constexpr const unsigned int SCR_HEIGHT = 480;
+
+namespace graphicEngine::gl
 {
-CommonInterface::CommonInterface() = default;
+CommonInterface::CommonInterface()
+{
+    std::cout << "CommonInterface constructor called" << std::endl;
+}
 
 CommonInterface::~CommonInterface()
 {
-    std::cout << "~CommonInterface called" << std::endl;
+    std::cout << "~CommonInterface destructor called" << std::endl;
     glfwTerminate();
     exit(EXIT_SUCCESS);
+}
+
+void CommonInterface::processInput(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    {
+        glfwSetWindowShouldClose(window, true);
+    }
+}
+
+void CommonInterface::framebufferSizeCallback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
 
 void CommonInterface::errorCallback(int error, const char* description)
@@ -38,9 +58,10 @@ void CommonInterface::initWithProperty(const char* title)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    m_window = glfwCreateWindow(640, 480, title, nullptr, nullptr);
+    m_window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, title, nullptr, nullptr);
     glfwSetKeyCallback(m_window, keyCallback);
     glfwMakeContextCurrent(m_window);
+    glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
     if (glewInit() != GLEW_OK)
     {
         exit(EXIT_FAILURE);
@@ -61,6 +82,7 @@ void CommonInterface::update(float elapseTime)
 
 void CommonInterface::resize(int width, int height)
 {
+
 }
 
 void CommonInterface::display()
@@ -79,6 +101,7 @@ void CommonInterface::draw()
     }
     while (!glfwWindowShouldClose(m_window))
     {
+        processInput(m_window);
         update((float)glfwGetTime());
         display();
         glfwSwapBuffers(m_window);

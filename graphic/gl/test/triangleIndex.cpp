@@ -2,29 +2,37 @@
 // Created by william on 2021/4/5.
 //
 
-#include "triangle.h"
+#include "triangleIndex.h"
 
 using namespace graphicEngine;
 
 namespace graphicEngine::gl
 {
-Triangle::~Triangle() = default;
+TriangleIndex::~TriangleIndex()
+{
+    glDeleteBuffers(1, &m_vbo);
+    glDeleteBuffers(1, &m_ebo);
+    glDeleteVertexArrays(1, &m_vao);
+}
 
-void Triangle::initialize()
+void TriangleIndex::initialize()
 {
     initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT(/resources/shaders/triangle.gl.vert), GET_CURRENT(/resources/shaders/triangle.gl.frag)));
     glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
+    glGenBuffers(1, &m_ebo);
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
-    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_indices), m_indices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(0 * sizeof(float)));
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 }
 
-void Triangle::update(float elapseTime)
+void TriangleIndex::update(float elapseTime)
 {
     mat4x4 m, p;
     mat4x4_identity(m);
@@ -33,20 +41,20 @@ void Triangle::update(float elapseTime)
     mat4x4_mul(m_mvpMatrix, p, m);
 }
 
-void Triangle::resize(int width, int height)
+void TriangleIndex::resize(int width, int height)
 {
     m_ratio = (float)width / (float)height;
     glViewport(0.0f, 0.0f, width, height);
 }
 
-void Triangle::display()
+void TriangleIndex::display()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glUseProgram(m_program->getProgram());
     glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, (const GLfloat*)&m_mvpMatrix);
     glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 } // namespace graphicEngine::gl

@@ -8,8 +8,9 @@
 #include "base.h"
 #include "program.h"
 
-namespace graphicEngine
+namespace graphicEngine::gl
 {
+
 class CommonInterface
 {
 public:
@@ -22,6 +23,8 @@ public:
     virtual void resize(int width, int height);
     virtual void display();
     virtual void draw();
+    static void processInput(GLFWwindow* window);
+    static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
     static void errorCallback(int error, const char* description);
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
@@ -33,10 +36,11 @@ protected:
     GLFWwindow* m_window = nullptr;
     std::unique_ptr<graphicEngine::Program> m_program;
     GLuint m_vbo = 0;
+    GLuint m_ebo = 0;
     GLuint m_vao = 0;
     int m_currentWidth = 0;
     int m_currentHeight = 0;
 };
-} // namespace graphicEngine
+} // namespace graphicEngine::gl
 
 #endif //CROSS_PLATFORM_DEMO_COMMONINTERFACE_H
