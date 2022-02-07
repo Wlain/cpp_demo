@@ -43,7 +43,7 @@ static int print(lua_State* L)
 }
 
 
-const char* getTraceback(lua_State* L)
+void printLuaTraceback(lua_State* L)
 {
     int top = lua_gettop(L);
     for (int index = 1; index < top; ++index)
@@ -84,8 +84,9 @@ const char* getTraceback(lua_State* L)
         m_traceback = lua_tostring(L, -1);
         lua_pop(L, 1);
     }
-    return m_traceback;
+    std::cout << m_traceback << std::endl;
 }
+
 
 void crashTestImp(int param1, double param2, float param3, const char* param4)
 {
