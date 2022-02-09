@@ -25,7 +25,6 @@ public:
 
 private slots:
     void helloWorld();
-    void createButtons();
 
 private:
     Ui::MainWindow * m_ui;
