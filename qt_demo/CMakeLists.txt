@@ -19,6 +19,6 @@ add_executable(qt_demo
         mainwindow.ui
         mainwindow.cpp
         main.cpp
-        )
+        viewwidget.cpp viewwidget.h viewwidget.ui)
 
 target_link_libraries(qt_demo Qt5::Widgets)
