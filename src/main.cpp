@@ -139,8 +139,10 @@ extern void chapter11();
 extern void chapter12();
 } // namespace rayTracing
 
+extern void imageProcessTest();
+
 int main(int argc, const char* argv[])
 {
-    glTest();
+    imageProcessTest();
     return 0;
 }

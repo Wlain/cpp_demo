@@ -19,6 +19,6 @@ add_executable(qt_demo
         mainwindow.ui
         mainwindow.cpp
         main.cpp
-        )
+        ../imageProcess/imageProcessTest.cpp)
 
 target_link_libraries(qt_demo Qt5::Widgets)

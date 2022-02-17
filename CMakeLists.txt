@@ -35,6 +35,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/rayTracing
+        ${PROJECT_SOURCE_DIR}/imageProcess
         ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
         ${PROJECT_SOURCE_DIR}/3rdparty/glew/include
@@ -56,9 +57,10 @@ file(GLOB_RECURSE SOURCES
         utils/*.cpp
         graphic/*.cpp
         graphic/*.mm
-        rayTracing/*.cpp)
+        rayTracing/*.cpp
+        imageProcess/*.cpp)
 
-add_executable(cpp_demo ${SOURCES} test/asyncTestDemo.cpp graphic/gl/common/camera.h)
+add_executable(cpp_demo ${SOURCES} test/asyncTestDemo.cpp graphic/gl/common/camera.h imageProcess/channelSwap.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
