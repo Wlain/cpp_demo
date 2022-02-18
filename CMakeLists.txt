@@ -18,6 +18,20 @@ find_package(Vulkan REQUIRED FATAL_ERROR)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
 # glew
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
+# qt
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+qt5_wrap_cpp(MAIN_WINDOW_SRCS
+
+        )
+
+qt5_wrap_ui(MAIN_WINDOW_UI
+#        qt/mainWindow.ui
+        )
 
 # 头文件目录
 include_directories(
@@ -36,6 +50,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/rayTracing
         ${PROJECT_SOURCE_DIR}/imageProcess
+        ${PROJECT_SOURCE_DIR}/qt
         ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
         ${PROJECT_SOURCE_DIR}/3rdparty/glew/include
@@ -58,9 +73,10 @@ file(GLOB_RECURSE SOURCES
         graphic/*.cpp
         graphic/*.mm
         rayTracing/*.cpp
-        imageProcess/*.cpp)
+        imageProcess/*.cpp
+        qt/*.cpp)
 
-add_executable(cpp_demo ${SOURCES} test/asyncTestDemo.cpp graphic/gl/common/camera.h imageProcess/channelSwap.cpp)
+add_executable(cpp_demo ${SOURCES} qt/mainWindow.h qt/mainWindow.cpp qt/mainWindow.ui)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
@@ -82,6 +98,9 @@ target_link_libraries(cpp_demo
         "-framework CoreMedia"
         "-framework AVFoundation"
         "-framework Accelerate"
+        Qt5::Core
+        Qt5::Widgets
+        Qt5::Gui
         z
         )
 

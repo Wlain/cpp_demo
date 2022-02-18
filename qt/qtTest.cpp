@@ -1,6 +1,11 @@
+//
+// Created by cwb on 2022/2/18.
+//
+
 #include <QApplication>
-#include "mainwindow.h"
-int main(int argc, char* argv[]) {
+#include "mainWindow.h"
+
+int qtTest(int argc, char* argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
     w.resize(1024, 768);

@@ -4,6 +4,7 @@
 #include "base.h"
 
 #include <opencv2/opencv.hpp>
+#include <algorithm>
 
 extern cv::Mat channelSwap(cv::Mat img);
 
