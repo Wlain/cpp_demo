@@ -19,6 +19,22 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
 # glew
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
 
+set(OPEN_QT ON)
+
+# qt
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+qt5_wrap_cpp(QT5_WRAP_CPP
+        qt/mainWindow.h
+        )
+
+qt5_wrap_ui(QT5_WRAP_UI
+        qt/mainWindow.ui
+        )
+
 # 头文件目录
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
@@ -55,17 +71,17 @@ file(GLOB_RECURSE SOURCES
         math/*.cpp
         test/*.cpp
         utils/*.cpp
-        graphic/*.cpp
-        graphic/*.mm
+        graphic/gl/*.cpp
+        graphic/mtl/*.mm
         rayTracing/*.cpp
-        imageProcess/*.cpp)
+        imageProcess/*.cpp
+        qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} test/asyncTestDemo.cpp graphic/gl/common/camera.h imageProcess/channelSwap.cpp)
+add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} ${QT5_WRAP_UI})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
-        MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/graphic/metal/Info.plist
-        )
+        MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/graphic/metal/Info.plist)
 
 target_compile_options(cpp_demo PUBLIC "-fobjc-arc")
 
@@ -74,7 +90,7 @@ target_link_libraries(cpp_demo
         ${OpenCV_LIBS}
         glfw
         glew
-        Vulkan::Vulkan
+#        Vulkan::Vulkan
         "-framework IOSurface"
         "-framework Metal"
         "-framework MetalKit"
@@ -82,6 +98,6 @@ target_link_libraries(cpp_demo
         "-framework CoreMedia"
         "-framework AVFoundation"
         "-framework Accelerate"
-        z
-        )
+        Qt5::Widgets
+        z)
 

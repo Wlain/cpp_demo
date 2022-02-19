@@ -140,9 +140,9 @@ extern void chapter12();
 } // namespace rayTracing
 
 extern void imageProcessTest();
+extern int qtTest(int argc, char* argv[]);
 
-int main(int argc, const char* argv[])
+int main(int argc, char* argv[])
 {
-    imageProcessTest();
-    return 0;
+    return qtTest(argc, argv);
 }
