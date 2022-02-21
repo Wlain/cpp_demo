@@ -140,9 +140,11 @@ extern void chapter12();
 } // namespace rayTracing
 
 extern void imageProcessTest();
+extern void colorTransferBetweenImages();
 extern int qtTest(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {
-    return qtTest(argc, argv);
+    colorTransferBetweenImages();
+    return 0;
 }
