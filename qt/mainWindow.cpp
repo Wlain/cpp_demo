@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
     createButtons();
     creatPushButtons();
+    createRadioButton();
+    creatCheckBox();
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +48,20 @@ void MainWindow::creatPushButtons()
     connect(m_pushButtonTest, &QPushButton::clicked, this, &MainWindow::clickedTest);
 }
 
+void MainWindow::createRadioButton()
+{
+    m_radioButtonTest = new QRadioButton("RadioButton", this);
+    m_radioButtonTest->move(0, 40);
+    connect(m_radioButtonTest, &QRadioButton::clicked, this, &MainWindow::radioButtonTest);
+}
+
+void MainWindow::creatCheckBox()
+{
+    m_checkBoxTest = new QCheckBox("RadioButton", this);
+    m_checkBoxTest->move(0, 60);
+    connect(m_checkBoxTest, &QCheckBox::clicked, this, &MainWindow::checkBoxTest);
+}
+
 void MainWindow::test()
 {
     std::cout << "helloWorld" << std::endl;
@@ -56,4 +72,16 @@ void MainWindow::clickedTest()
 {
     std::cout << "clickedTest" << std::endl;
     QMessageBox::about(this, tr("clickedTest"), tr("Well done! Go ahead."));
+}
+
+void MainWindow::radioButtonTest()
+{
+    std::cout << "radioButtonTest" << std::endl;
+    QMessageBox::about(this, tr("radioButtonTest"), tr("Well done! Go ahead."));
+}
+
+void MainWindow::checkBoxTest()
+{
+    std::cout << "checkBoxTest" << std::endl;
+    QMessageBox::about(this, tr("checkBoxTest"), tr("Well done! Go ahead."));
 }
