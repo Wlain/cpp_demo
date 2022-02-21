@@ -145,6 +145,6 @@ extern int qtTest(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {
-    colorTransferBetweenImages();
+    qtTest(argc, argv);
     return 0;
 }

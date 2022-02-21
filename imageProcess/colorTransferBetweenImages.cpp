@@ -74,7 +74,6 @@ cv::Vec3f computeMeans(const cv::Mat& image)
             result += image.at<cv::Vec3f>(i, j);
         }
     }
-    std::cout << "result:" << result << std::endl;
     return result / (image.rows * image.cols);
 }
 
