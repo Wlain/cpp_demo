@@ -29,7 +29,7 @@
     </property>
     <addaction name="actionnew"/>
     <addaction name="actionopen"/>
-    <addaction name="actionseve"/>
+    <addaction name="actionsave"/>
     <addaction name="actionclose"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -55,7 +55,7 @@
    </attribute>
    <addaction name="actionnew"/>
    <addaction name="actionopen"/>
-   <addaction name="actionseve"/>
+   <addaction name="actionsave"/>
    <addaction name="actionclose"/>
    <addaction name="actionundo"/>
    <addaction name="actionIDW"/>
@@ -79,7 +79,7 @@
     <string>open</string>
    </property>
   </action>
-  <action name="actionseve">
+  <action name="actionsave">
    <property name="icon">
     <iconset>
      <normaloff>../resources/icons/filesave.png</normaloff>../resources/icons/filesave.png</iconset>

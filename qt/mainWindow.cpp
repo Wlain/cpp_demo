@@ -12,7 +12,6 @@
 #include <QAction>
 #include <QMessageBox>
 #include <QPixmap>
-#include <QRandomGenerator>
 #include <QTextStream>
 #include <QToolButton>
 #include <iostream>
@@ -91,4 +90,39 @@ void MainWindow::checkBoxTest()
 {
     std::cout << "checkBoxTest" << std::endl;
     QMessageBox::about(this, tr("checkBoxTest"), tr("Well done! Go ahead."));
+}
+
+void MainWindow::on_actionnew_triggered()
+{
+    std::cout << "on_actionnew_triggered" << std::endl;
+}
+
+void MainWindow::on_actionopen_triggered()
+{
+    std::cout << "on_actionopen_triggered" << std::endl;
+}
+
+void MainWindow::on_actionsave_triggered()
+{
+    std::cout << "on_actionsave_triggered" << std::endl;
+}
+
+void MainWindow::on_actionclose_triggered()
+{
+    std::cout << "on_actionclose_triggered" << std::endl;
+}
+
+void MainWindow::on_actionundo_triggered()
+{
+    std::cout << "on_actionundo_triggered" << std::endl;
+}
+
+void MainWindow::on_actionIDW_triggered()
+{
+    std::cout << "on_actionnewIDW_triggered" << std::endl;
+}
+
+void MainWindow::on_actionRBF_triggered()
+{
+    std::cout << "on_actionnewRBF_triggered" << std::endl;
 }

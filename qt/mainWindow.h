@@ -37,6 +37,13 @@ private slots:
     void clickedTest();
     void radioButtonTest();
     void checkBoxTest();
+    void on_actionnew_triggered();
+    void on_actionopen_triggered();
+    void on_actionsave_triggered();
+    void on_actionclose_triggered();
+    void on_actionundo_triggered();
+    void on_actionIDW_triggered();
+    void on_actionRBF_triggered();
 
 private:
     QAction* m_actionTest = nullptr;
