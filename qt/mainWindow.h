@@ -7,12 +7,6 @@
 
 #include "ui_MainWindow.h"
 
-#include <QCheckBox>
-#include <QMainWindow>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QToolBar>
-
 class MainView;
 
 class MainWindow : public QMainWindow, public Ui::MainWindow
@@ -22,21 +16,10 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow() override;
-
     void paintEvent(QPaintEvent* event) override;
-
-private:
-    void createButtons();
-    void creatPushButtons();
-    void createRadioButton();
-    void creatCheckBox();
 
 private slots:
     /// 在这个区内声明的槽意味着只有类自己可以将信号与之相连接。这适用于联系非常紧密的类
-    void buttonsTest();
-    void clickedTest();
-    void radioButtonTest();
-    void checkBoxTest();
     void on_actionnew_triggered();
     void on_actionopen_triggered();
     void on_actionsave_triggered();
@@ -46,12 +29,6 @@ private slots:
     void on_actionRBF_triggered();
 
 private:
-    QAction* m_actionTest = nullptr;
-    QMenu* m_menuTest = nullptr;
-    QToolBar* m_toolbarTest = nullptr;
-    QPushButton* m_pushButtonTest = nullptr;
-    QRadioButton* m_radioButtonTest = nullptr;
-    QCheckBox* m_checkBoxTest = nullptr;
     MainView* m_mainView = nullptr;
 };
 
