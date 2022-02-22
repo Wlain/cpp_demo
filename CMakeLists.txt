@@ -25,7 +25,7 @@ set(OPEN_QT ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 qt5_wrap_cpp(QT5_WRAP_CPP
         qt/mainWindow.h
@@ -51,6 +51,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/rayTracing
+        ${PROJECT_SOURCE_DIR}/qt
         ${PROJECT_SOURCE_DIR}/imageProcess
         ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
@@ -77,7 +78,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} ${QT5_WRAP_UI} imageProcess/colorTransferBetweenImages.cpp)
+add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} ${QT5_WRAP_UI})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
@@ -99,5 +100,7 @@ target_link_libraries(cpp_demo
         "-framework AVFoundation"
         "-framework Accelerate"
         Qt5::Widgets
+        Qt5::Gui
+        Qt5::Core
         z)
 

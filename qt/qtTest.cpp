@@ -9,8 +9,6 @@ int qtTest(int argc, char* argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.resize(360, 640);
-    w.setWindowTitle("MainWindow");
     w.show();
     return a.exec();
 }
