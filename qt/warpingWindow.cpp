@@ -15,78 +15,110 @@
 WarpingWindow::WarpingWindow(QWidget* parent) :
     QMainWindow(parent)
 {
-    setupUi(this);
     setWindowTitle("imageWarping");
+    setupUi(this);
+    connect(m_actionNew, &QAction::triggered, this, &WarpingWindow::actionNew);
+    connect(m_actionOpen, &QAction::triggered, this, &WarpingWindow::actionOpen);
+    connect(m_actionSave, &QAction::triggered, this, &WarpingWindow::actionSave);
+    connect(m_actionClose, &QAction::triggered, this, &WarpingWindow::actionClose);
+    connect(m_actionIDW, &QAction::triggered, this, &WarpingWindow::actionIDW);
+    connect(m_actionRBF, &QAction::triggered, this, &WarpingWindow::actionRBF);
+    connect(m_actionUndo, &QAction::triggered, this, &WarpingWindow::actionUndo);
+    connect(m_actionRevert, &QAction::triggered, this, &WarpingWindow::actionRevert);
+    connect(m_actionGray, &QAction::triggered, this, &WarpingWindow::actionGray);
+    connect(m_actionMirrorH, &QAction::triggered, this, &WarpingWindow::actionMirrorH);
+    connect(m_actionMirrorV, &QAction::triggered, this, &WarpingWindow::actionMirrorV);
+    connect(m_actionOrigin, &QAction::triggered, this, &WarpingWindow::actionOrigin);
+
     m_mainView = std::make_unique<MainView>();
     m_scene = std::make_unique<MainScene>();
     m_mainView->setScene(m_scene.get());
     setCentralWidget(m_mainView.get());
-    m_scene->setSceneRect(0,0,width(),height());
-    m_mainView->setAlignment(Qt::AlignLeft|Qt::AlignTop);
+    m_scene->setSceneRect(0, m_toolBar->height(), width(), height() - m_toolBar->width());
+    m_mainView->setAlignment(Qt::AlignCenter);
     m_mainView->setRenderHint(QPainter::Antialiasing);
 }
 
 WarpingWindow::~WarpingWindow() = default;
 
-//void WarpingWindow::paintEvent(QPaintEvent* event)
-//{
-//    QPainter painter(this);
-//    painter.drawPixmap(0, 0, width(), height(), QPixmap("../resources/test.jpg"));
-//}
+void WarpingWindow::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Space)
+    {
+        m_scene->open();
+        m_scene->update(m_mainView->rect());
+    }
+}
 
-void WarpingWindow::on_actionnew_triggered()
+void WarpingWindow::actionNew()
 {
     m_scene->open();
     m_scene->update(m_mainView->rect());
-    std::cout << "on_actionnew_triggered" << std::endl;
+    std::cout << "actionNew" << std::endl;
 }
 
-void WarpingWindow::on_actionopen_triggered()
+void WarpingWindow::actionOpen()
 {
     m_scene->open();
     m_scene->update(m_mainView->rect());
-    std::cout << "on_actionopen_triggered" << std::endl;
+    std::cout << "actionOpen" << std::endl;
 }
 
-void WarpingWindow::on_actionsave_triggered()
+void WarpingWindow::actionSave()
 {
     m_scene->save();
-    std::cout << "on_actionsave_triggered" << std::endl;
+    std::cout << "actionSave" << std::endl;
 }
 
-void WarpingWindow::on_actionclose_triggered()
+void WarpingWindow::actionClose()
 {
-    std::cout << "on_actionclose_triggered" << std::endl;
+    std::cout << "actionClose" << std::endl;
 }
 
-void WarpingWindow::on_actionundo_triggered()
+void WarpingWindow::actionUndo()
 {
-    m_scene->restore();
-    std::cout << "on_actionundo_triggered" << std::endl;
+    m_scene->origin();
+    std::cout << "actionUndo" << std::endl;
 }
 
-void WarpingWindow::on_actionIDW_triggered()
-{
-    m_scene->setAlgorithmType(MainScene::AlgorithmType::IDW);
-    m_scene->process();
-    std::cout << "on_actionnewIDW_triggered" << std::endl;
-}
-
-void WarpingWindow::on_actionRBF_triggered()
-{
-    m_scene->setAlgorithmType(MainScene::AlgorithmType::RBF);
-    m_scene->process();
-    std::cout << "on_actionnewRBF_triggered" << std::endl;
-}
-
-void WarpingWindow::on_actionrevert_triggered()
+void WarpingWindow::actionRevert()
 {
     m_scene->invert();
-    std::cout << "on_actionrevert_triggered" << std::endl;
+    std::cout << "actionRevert" << std::endl;
 }
 
-void WarpingWindow::on_actiongray_triggered()
+void WarpingWindow::actionGray()
 {
-    m_scene->grayScale();
-    std::cout << "on_actiongray_triggered" << std::endl;
+    m_scene->gray();
+    std::cout << "actionGray" << std::endl;
+}
+
+void WarpingWindow::actionIDW()
+{
+    m_scene->setAlgorithmType(MainScene::AlgorithmType::IDW);
+    std::cout << "actionIDW" << std::endl;
+}
+
+void WarpingWindow::actionRBF()
+{
+    m_scene->setAlgorithmType(MainScene::AlgorithmType::RBF);
+    std::cout << "actionRBF" << std::endl;
+}
+
+void WarpingWindow::actionMirrorH()
+{
+    m_scene->mirrorH();
+    std::cout << "actionMirrorH" << std::endl;
+}
+
+void WarpingWindow::actionMirrorV()
+{
+    m_scene->mirrorV();
+    std::cout << "actionMirrorV" << std::endl;
+}
+
+void WarpingWindow::actionOrigin()
+{
+    m_scene->origin();
+    std::cout << "actionOrigin" << std::endl;
 }

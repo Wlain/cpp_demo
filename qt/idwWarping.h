@@ -11,6 +11,8 @@ class IdwWarping final : public BaseWarping
 public:
     IdwWarping();
     ~IdwWarping() override;
+
+    
 };
 
 #endif //CPP_DEMO_IDWWARPING_H

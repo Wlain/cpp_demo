@@ -33,20 +33,23 @@ public:
     void open();
     void save() const;
     void invert();
-    void grayScale();
-    void restore();
+    void gray();
+    void origin();
     void mirrorH();
     void mirrorV();
     void deleteAll();
-    void process();
 
 private:
+    void mirror(bool h, bool v);
+
+private:
+    QImage m_image;
+    QImage m_OriginImage;
     QPoint m_start, m_end;
     std::vector<QPoint> m_starts, m_ends;
     std::vector<std::unique_ptr<QGraphicsItem>> m_items;
     std::unique_ptr<QGraphicsPixmapItem> m_pixmapItem;
     std::unique_ptr<QGraphicsItemGroup> m_group;
-    std::unique_ptr<QImage> m_image;
     std::vector<BaseWarping> m_WarpingList;
     std::string m_path;
     AlgorithmType m_algorithmType = AlgorithmType::IDW;

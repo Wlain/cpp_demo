@@ -24,16 +24,8 @@ set(OPEN_QT ON)
 # qt
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
-
-qt5_wrap_cpp(QT5_WRAP_CPP
-        qt/warpingWindow.h
-        )
-
-qt5_wrap_ui(QT5_WRAP_UI
-        qt/mainWindow.ui
-        )
 
 # 头文件目录
 include_directories(
@@ -78,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} ${QT5_WRAP_UI} qt/imageWarping.cpp)
+add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} qt/warpingWindowUI.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
