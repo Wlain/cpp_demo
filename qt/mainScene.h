@@ -5,6 +5,8 @@
 #ifndef CPP_DEMO_MAINSCENE_H
 #define CPP_DEMO_MAINSCENE_H
 
+#include "baseWarping.h"
+
 #include <QGraphicsScene>
 #include <QMouseEvent>
 #include <vector>
@@ -12,8 +14,17 @@
 class MainScene : public QGraphicsScene
 {
 public:
+    enum class AlgorithmType
+    {
+        IDW,
+        RBF
+    };
+
+public:
     MainScene();
     ~MainScene() override;
+
+    void setAlgorithmType(AlgorithmType type);
 
     void press(QMouseEvent* event);
     void move(QMouseEvent* event);
@@ -36,8 +47,9 @@ private:
     std::unique_ptr<QGraphicsPixmapItem> m_pixmapItem;
     std::unique_ptr<QGraphicsItemGroup> m_group;
     std::unique_ptr<QImage> m_image;
+    std::vector<BaseWarping> m_WarpingList;
     std::string m_path;
-    bool editable = false;
+    AlgorithmType m_algorithmType = AlgorithmType::IDW;
 };
 
 #endif //CPP_DEMO_MAINSCENE_H

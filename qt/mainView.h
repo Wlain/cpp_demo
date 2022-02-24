@@ -10,15 +10,9 @@
 class MainView : public QGraphicsView
 {
 public:
-    enum class AlgorithmType
-    {
-        IDW,
-        RBF
-    };
-
-public:
-    explicit MainView(AlgorithmType type);
+    using QGraphicsView::QGraphicsView;
     ~MainView() override;
+    void setAlgorithmType(MainScene::AlgorithmType type);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

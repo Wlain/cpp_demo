@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>WarpingWindow</class>
+ <widget class="QMainWindow" name="WarpingWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>WarpingWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -58,6 +58,8 @@
    <addaction name="actionsave"/>
    <addaction name="actionclose"/>
    <addaction name="actionundo"/>
+   <addaction name="actionrevert"/>
+   <addaction name="actiongray"/>
    <addaction name="actionIDW"/>
    <addaction name="actionRBF"/>
   </widget>
@@ -114,6 +116,16 @@
    </property>
    <property name="text">
     <string>undo</string>
+   </property>
+  </action>
+  <action name="actionrevert">
+   <property name="text">
+    <string>revert</string>
+   </property>
+  </action>
+  <action name="actiongray">
+   <property name="text">
+    <string>gray</string>
    </property>
   </action>
  </widget>

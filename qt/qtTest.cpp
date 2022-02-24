@@ -2,13 +2,10 @@
 // Created by william on 2022/2/19.
 //
 
-#include <QApplication>
-#include "mainWindow.h"
+extern int imageWarping(int argc, char* argv[]);
+
 
 int qtTest(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    return imageWarping(argc, argv);
 }
