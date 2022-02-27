@@ -5,27 +5,25 @@
 #ifndef CPP_DEMO_MAINSCENE_H
 #define CPP_DEMO_MAINSCENE_H
 
-#include "baseWarping.h"
+#include "imageWarping/baseWarping.h"
 
 #include <QGraphicsScene>
 #include <QMouseEvent>
 #include <vector>
+class IdwWarping;
+
+namespace cv
+{
+class Mat;
+}
 
 class MainScene : public QGraphicsScene
 {
 public:
-    enum class AlgorithmType
-    {
-        IDW,
-        RBF
-    };
-
-public:
     MainScene();
     ~MainScene() override;
 
-    void setAlgorithmType(AlgorithmType type);
-
+public:
     void press(QMouseEvent* event);
     void move(QMouseEvent* event);
     void release(QMouseEvent* event);
@@ -37,22 +35,35 @@ public:
     void origin();
     void mirrorH();
     void mirrorV();
+    void colorTransform();
     void deleteAll();
+    void calcIDW();
+    void calcRBF();
+    void flushImage(const std::function<cv::Mat(const cv::Mat&)>& func);
 
 private:
     void mirror(bool h, bool v);
+    inline int getFrameBufferIndex(int i, int j) const
+    {
+        assert(i >= 0 && i < m_width && j >= 0 && j < m_height);
+//        std::clamp(i, 0, m_width);
+//        std::clamp(j, 0, m_height);
+        return j * m_width + i;
+    }
 
 private:
     QImage m_image;
-    QImage m_OriginImage;
-    QPoint m_start, m_end;
-    std::vector<QPoint> m_starts, m_ends;
-    std::vector<std::unique_ptr<QGraphicsItem>> m_items;
+    QImage m_originImage;
+    std::vector<Vector2> m_starts, m_ends;
     std::unique_ptr<QGraphicsPixmapItem> m_pixmapItem;
     std::unique_ptr<QGraphicsItemGroup> m_group;
-    std::vector<BaseWarping> m_WarpingList;
+    std::vector<std::unique_ptr<QGraphicsLineItem>> m_lines;
+    std::unique_ptr<BaseWarping> m_warping;
     std::string m_path;
-    AlgorithmType m_algorithmType = AlgorithmType::IDW;
+    int32_t m_width = 0;
+    int32_t m_height = 0;
+    std::vector<bool> m_filled;
+    bool m_editable = false;
 };
 
 #endif //CPP_DEMO_MAINSCENE_H

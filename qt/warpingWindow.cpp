@@ -15,7 +15,7 @@
 WarpingWindow::WarpingWindow(QWidget* parent) :
     QMainWindow(parent)
 {
-    setWindowTitle("imageWarping");
+    setWindowTitle("ImageProcess");
     setupUi(this);
     connect(m_actionNew, &QAction::triggered, this, &WarpingWindow::actionNew);
     connect(m_actionOpen, &QAction::triggered, this, &WarpingWindow::actionOpen);
@@ -29,12 +29,13 @@ WarpingWindow::WarpingWindow(QWidget* parent) :
     connect(m_actionMirrorH, &QAction::triggered, this, &WarpingWindow::actionMirrorH);
     connect(m_actionMirrorV, &QAction::triggered, this, &WarpingWindow::actionMirrorV);
     connect(m_actionOrigin, &QAction::triggered, this, &WarpingWindow::actionOrigin);
+    connect(m_actionColorTransform, &QAction::triggered, this, &WarpingWindow::actionColorTransform);
 
     m_mainView = std::make_unique<MainView>();
     m_scene = std::make_unique<MainScene>();
     m_mainView->setScene(m_scene.get());
     setCentralWidget(m_mainView.get());
-    m_scene->setSceneRect(0, m_toolBar->height(), width(), height() - m_toolBar->width());
+    m_scene->setSceneRect(0, 0, width(), height());
     m_mainView->setAlignment(Qt::AlignCenter);
     m_mainView->setRenderHint(QPainter::Antialiasing);
 }
@@ -72,6 +73,7 @@ void WarpingWindow::actionSave()
 
 void WarpingWindow::actionClose()
 {
+    m_scene->deleteAll();
     std::cout << "actionClose" << std::endl;
 }
 
@@ -95,13 +97,13 @@ void WarpingWindow::actionGray()
 
 void WarpingWindow::actionIDW()
 {
-    m_scene->setAlgorithmType(MainScene::AlgorithmType::IDW);
+    m_scene->calcIDW();
     std::cout << "actionIDW" << std::endl;
 }
 
 void WarpingWindow::actionRBF()
 {
-    m_scene->setAlgorithmType(MainScene::AlgorithmType::RBF);
+    m_scene->calcRBF();
     std::cout << "actionRBF" << std::endl;
 }
 
@@ -120,5 +122,11 @@ void WarpingWindow::actionMirrorV()
 void WarpingWindow::actionOrigin()
 {
     m_scene->origin();
+    std::cout << "actionOrigin" << std::endl;
+}
+
+void WarpingWindow::actionColorTransform()
+{
+    m_scene->colorTransform();
     std::cout << "actionOrigin" << std::endl;
 }

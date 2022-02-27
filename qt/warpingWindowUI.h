@@ -9,18 +9,18 @@
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_MAINWINDOW_H
-#define UI_MAINWINDOW_H
+#ifndef CPP_DEMO_WARPINGWINDOWUI_H
+#define CPP_DEMO_WARPINGWINDOWUI_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
+#include <QtWidgets/QWidget>
 #include <QtWidgets/QmenuBar>
 #include <QtWidgets/QstatusBar>
 #include <QtWidgets/QtoolBar>
-#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -50,6 +50,7 @@ public:
     QAction* m_actionMirrorH;
     QAction* m_actionMirrorV;
     QAction* m_actionOrigin;
+    QAction* m_actionColorTransform;
     QWidget* m_centralWidget;
     QMenuBar* m_menuBar;
     QMenu* m_menuFile;
@@ -62,4 +63,4 @@ public:
 
 QT_END_NAMESPACE
 
-#endif // UI_MAINWINDOW_H
+#endif // CPP_DEMO_WARPINGWINDOWUI_H

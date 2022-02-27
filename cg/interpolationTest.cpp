@@ -2,7 +2,6 @@
 // Created by william on 2021/11/30.
 //
 
-#include "base.h"
 #include "cgCommonDefine.h"
 
 #include <fstream>

@@ -4,12 +4,12 @@
 
 #ifndef CPP_DEMO_RBFWARPING_H
 #define CPP_DEMO_RBFWARPING_H
-#include "baseWarping.h"
+#include "imageWarping/baseWarping.h"
 
 class RbfWarping final : public BaseWarping
 {
 public:
-    RbfWarping();
+    using BaseWarping::BaseWarping;
     ~RbfWarping() override;
 };
 

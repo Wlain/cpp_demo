@@ -95,7 +95,7 @@ cv::Vec3f computeStandardDeviations(const cv::Mat& image, const cv::Vec3f& means
     return result;
 }
 
-void colorTransferBetweenImages()
+cv::Mat colorTransferBetweenImages()
 {
     // format off
     cv::Mat inputSrc = cv::imread(GET_CURRENT(/resources/input1.jpg));
@@ -127,10 +127,7 @@ void colorTransferBetweenImages()
         }
     }
     resultNormal = labToRGB(resultNormal);
-    auto result = resultNormal;
-    resultNormal.convertTo(result, CV_8U, 255.0f, 1.0f / 255.0f);
-    imshow("inputSrc", inputSrc);
-    imshow("inputDst", inputDst);
-    imshow("result", result);
-    cv::waitKey(0);
+    auto result = cv::Mat();
+    resultNormal.convertTo(result, CV_8UC3, 255.0f, 1.0f / 255.0f);
+    return result;
 }

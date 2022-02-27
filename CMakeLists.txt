@@ -70,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP} qt/warpingWindowUI.cpp)
+add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

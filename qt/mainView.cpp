@@ -3,28 +3,29 @@
 //
 
 #include "mainView.h"
+#include "mainScene.h"
 #include <iostream>
+
 MainView::~MainView() = default;
 
 void MainView::mousePressEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
-    m_warping->press(event);
+//    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
+    auto* s = dynamic_cast<MainScene*>(scene());
+    s->press(event);
 }
 
 void MainView::mouseMoveEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
-    m_warping->move(event);
+//    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
+    auto* s = dynamic_cast<MainScene*>(scene());
+    s->move(event);
 }
 
 void MainView::mouseReleaseEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
-    m_warping->release(event);
+//    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
+    auto* s = dynamic_cast<MainScene*>(scene());
+    s->release(event);
 }
 
-void MainView::setAlgorithmType(MainScene::AlgorithmType type)
-{
-
-}

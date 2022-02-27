@@ -5,7 +5,8 @@
 
 #include <opencv2/opencv.hpp>
 
-extern cv::Mat channelSwap(cv::Mat img);
+extern cv::Mat channelSwap(const cv::Mat& img);
+extern cv::Mat colorTransferBetweenImages();
 
 void imageProcessTest()
 {
@@ -15,7 +16,8 @@ void imageProcessTest()
         printf("No m_image data \n");
         return;
     }
-    cv::Mat out = channelSwap(image);
+//    cv::Mat out = channelSwap(image);
+    auto out = colorTransferBetweenImages();
     imshow("Display result", out);
     cv::waitKey(0);
 }

@@ -62,6 +62,8 @@ void WarpingWindow::setupUi(QMainWindow* mainWindow)
     m_actionMirrorV->setObjectName(QString::fromUtf8("m_actionMirrorV"));
     m_actionOrigin = new QAction(mainWindow);
     m_actionOrigin->setObjectName(QString::fromUtf8("m_actionOrigin"));
+    m_actionColorTransform = new QAction(mainWindow);
+    m_actionColorTransform->setObjectName(QString::fromUtf8("m_actionColorTransform"));
 
     m_centralWidget = new QWidget(mainWindow);
     m_centralWidget->setObjectName(QString::fromUtf8("m_centralWidget"));
@@ -98,6 +100,7 @@ void WarpingWindow::setupUi(QMainWindow* mainWindow)
     m_toolBar->addAction(m_actionGray);
     m_toolBar->addAction(m_actionMirrorH);
     m_toolBar->addAction(m_actionMirrorV);
+    m_toolBar->addAction(m_actionColorTransform);
     m_toolBar->addAction(m_actionIDW);
     m_toolBar->addAction(m_actionRBF);
     m_toolBar->addAction(m_actionOrigin);
@@ -120,6 +123,7 @@ void WarpingWindow::retranslateUi(QMainWindow* WarpingWindow)
     m_actionMirrorH->setText(QCoreApplication::translate("WarpingWindow", "mirrorH", nullptr));
     m_actionMirrorV->setText(QCoreApplication::translate("WarpingWindow", "mirrorV", nullptr));
     m_actionOrigin->setText(QCoreApplication::translate("WarpingWindow", "origin", nullptr));
+    m_actionColorTransform->setText(QCoreApplication::translate("WarpingWindow", "colorTransform", nullptr));
     m_actionGray->setText(QCoreApplication::translate("WarpingWindow", "gray", nullptr));
     m_menuFile->setTitle(QCoreApplication::translate("WarpingWindow", "File", nullptr));
     m_menuEdit->setTitle(QCoreApplication::translate("WarpingWindow", "Edit", nullptr));

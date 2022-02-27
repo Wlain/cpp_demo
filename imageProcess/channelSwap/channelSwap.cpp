@@ -3,7 +3,7 @@
 //
 #include <opencv2/opencv.hpp>
 
-cv::Mat channelSwap(cv::Mat img)
+cv::Mat channelSwap(const cv::Mat& img)
 {
     // get height and width
     int width = img.cols;

@@ -152,6 +152,10 @@ public:
     {
         return Vec3(r / v.x, r / v.y, r / v.z);
     }
+    bool isZero() const
+    {
+        return x == 0 && y == 0 && z == 0;
+    }
     T x, y, z;
 };
 

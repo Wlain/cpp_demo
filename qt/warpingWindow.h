@@ -17,7 +17,7 @@ public:
 public:
     explicit WarpingWindow(QWidget* parent = nullptr);
     ~WarpingWindow() override;
-    void keyPressEvent(QKeyEvent *event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
     /// 在这个区内声明的槽意味着只有类自己可以将信号与之相连接。这适用于联系非常紧密的类
@@ -33,6 +33,7 @@ private slots:
     void actionMirrorH();
     void actionMirrorV();
     void actionOrigin();
+    void actionColorTransform();
 
 private:
     std::unique_ptr<MainView> m_mainView;
