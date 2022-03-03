@@ -18,9 +18,6 @@ find_package(Vulkan REQUIRED FATAL_ERROR)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
 # glew
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
-
-set(OPEN_QT ON)
-
 # qt
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -52,7 +49,8 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
         ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include
-        ${PROJECT_SOURCE_DIR}/3rdparty/ann/include)
+        ${PROJECT_SOURCE_DIR}/3rdparty/ann/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/rapidjson/include)
 
 file(GLOB_RECURSE SOURCES
         3rdparty/lua-5.1.5/src/*.c
@@ -72,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} test/virtualFuncTest.cpp)
+add_executable(cpp_demo ${SOURCES} test/virtualFuncTest.cpp test/rapidjsonTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

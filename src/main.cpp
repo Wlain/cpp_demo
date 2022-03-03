@@ -145,10 +145,11 @@ extern int qtTest(int argc, char* argv[]);
 extern void annTest();
 extern void eigenTest();
 extern void virtualFuncTest();
+extern void rapidjsonTest();
 
 int main(int argc, char* argv[])
 {
-    qtTest(argc, argv);
+    rapidjsonTest();
     return 0;
 }
 

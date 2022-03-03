@@ -50,10 +50,10 @@ MainWindow::MainWindow(QWidget* parent) :
     fileMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/remove.png"), tr("&Close"), this);
+    action = new QAction(QIcon("../resources/icons/remove.png"), tr("&Closed"), this);
     action->setToolTip(tr("Open"));
     action->setShortcut(QKeySequence::Close);
-    action->setStatusTip(tr("Close all"));
+    action->setStatusTip(tr("Closed all"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionClose);
     fileMenu->addAction(action);
     toolBar->addAction(action);
