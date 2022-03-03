@@ -15,6 +15,7 @@
 #include <iostream>
 #include <memory>
 #include <opencv2/opencv.hpp>
+
 extern cv::Mat qImage2Mat(const QImage& image);
 extern QImage mat2Qimage(const cv::Mat& mat);
 extern cv::Mat colorTransferBetweenImages();

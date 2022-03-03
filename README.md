@@ -132,6 +132,40 @@ std::reverse_copy(arr.begin(), arr.end(),
 
 32. 对vector向量设置初始容量是很重要的，可以避免数据拷贝，详细测试代码可以见仓库move.cpp
 
+33.Default arguments on virtual or override methods are prohibited,翻译过来就是禁止在虚拟或覆盖的方法上使用默认参数，例如
+```C++
+
+class B
+{
+public:
+    B() = default;
+    virtual ~B() = default;
+    virtual void test(int a = 1)
+    {
+        std::cout << a << std::endl;
+    }
+};
+
+class D : public B
+{
+public:
+    D() = default;
+    virtual ~D() = default;
+    void test(int a = 10) override
+    {
+        std::cout << a - 1 << std::endl;
+    }
+};
+
+void virtualFuncTest()
+{
+    B* d = new D();
+    d->test();
+    /// 输出的是 0，可能用户以为的默认参数是10，所以以为输出是9，需要注意
+}
+
+```
+
 
 ##C++ 编程规范 101条规则、准则与最佳实践
 001.了解哪些东西不应该标准化

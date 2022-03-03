@@ -4,7 +4,6 @@
 
 #include "idwWarping.h"
 
-#include "base.h"
 
 #include <cmath>
 
