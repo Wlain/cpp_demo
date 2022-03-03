@@ -58,6 +58,7 @@ void BaseWarping::resetFilledStatus()
 {
     std::fill(m_filled.begin(), m_filled.end(), false);
 }
+
 void BaseWarping::fillNearPixelForBoxBlur(QImage& image)
 {
     for (int i = 1; i < m_width - 1; ++i)
@@ -101,7 +102,7 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
 {
     int nPts = 0;
     int count = 8;
-    int threshold = count;
+    int threshold = 2;
     ANNpointArray dataPts = annAllocPts(m_width * m_height, 2);
     for (int i = 0; i < m_width; i++)
     {
@@ -122,27 +123,30 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
     {
         for (int j = 0; j < m_height; ++j)
         {
-            Vec3i sum{ 0, 0, 0 };
-            ANNpoint pt = annAllocPt(2);
-            pt[0] = i;
-            pt[1] = j;
-            kdTree.annkSearch(pt, count, index.data(), dist.data(), 0);
-            int colorIndex = 0;
-            for (int m = 0; m < count; m++)
+            if (!getFilledStatusAt(i, j))
             {
-                int x = dataPts[index[m]][0];
-                int y = dataPts[index[m]][1];
-                auto color = image.pixelColor(x, y);
-                if (fabs(x - i) <= threshold && fabs(y - j) <= threshold)
+                Vec3i sum{ 0, 0, 0 };
+                ANNpoint pt = annAllocPt(2);
+                pt[0] = i;
+                pt[1] = j;
+                kdTree.annkSearch(pt, count, index.data(), dist.data(), 0);
+                int colorIndex = 0;
+                for (int m = 0; m < count; m++)
                 {
-                    sum += Vec3i(color.red(), color.green(), color.blue());
-                    colorIndex++;
+                    int x = dataPts[index[m]][0];
+                    int y = dataPts[index[m]][1];
+                    auto color = image.pixelColor(x, y);
+                    if (fabs(x - i) <= threshold && fabs(y - j) <= threshold)
+                    {
+                        sum += Vec3i(color.red(), color.green(), color.blue());
+                        colorIndex++;
+                    }
                 }
-            }
-            if (colorIndex > 0)
-            {
-                const auto& avg = sum / colorIndex;
-                image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+                if (!sum.isZero())
+                {
+                    const auto& avg = sum / colorIndex;
+                    image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+                }
             }
         }
     }

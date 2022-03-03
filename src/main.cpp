@@ -148,7 +148,7 @@ extern void virtualFuncTest();
 
 int main(int argc, char* argv[])
 {
-    virtualFuncTest();
+    qtTest(argc, argv);
     return 0;
 }
 
