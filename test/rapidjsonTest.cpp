@@ -388,7 +388,7 @@ public:
         return *this;
     }
 
-    JsonReader& SetNull()
+    JsonReader& setNull()
     {
         // This function is for JsonWriter only.
         m_error = true;
@@ -450,5 +450,8 @@ void rapidjsonTest()
         JsonReader reader(json.c_str());
         reader& s;
         std::cout << s << std::endl;
+        JsonWriter writer;
+        writer& s;
+        std::cout << writer.getString() << std::endl;
     }
 }
