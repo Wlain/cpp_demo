@@ -3,6 +3,7 @@
 //
 
 #include "baseWarping.h"
+
 #include "vec3.h"
 
 #include <ANN/ANN.h>

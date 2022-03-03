@@ -14,9 +14,9 @@ public:
     using BaseWarping::BaseWarping;
     ~RbfWarping() override;
     Vector2 targetFunction(const Vector2& input) override;
+    void render(QImage& image, const QImage& m_originImage) override;
 
 private:
-
 };
 
 #endif //CPP_DEMO_RBFWARPING_H

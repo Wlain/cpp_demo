@@ -22,6 +22,7 @@ public:
     inline void setExponent(int e) { m_exponent = e; }
     /// 平滑函数
     float smoothnessFunction(const Vector2& pointP, const Vector2& pointPi) const;
+    void render(QImage& image, const QImage& m_originImage) override;
 };
 
 #endif //CPP_DEMO_IDWWARPING_H

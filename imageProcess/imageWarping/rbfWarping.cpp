@@ -10,3 +10,7 @@ Vector2 RbfWarping::targetFunction(const Vector2& input)
 {
     return BaseWarping::targetFunction(input);
 }
+
+void RbfWarping::render(QImage& image, const QImage& m_originImage)
+{
+}

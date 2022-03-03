@@ -54,6 +54,10 @@ public slots:
     void actionHelp();
 
 private:
+    template <class Warping>
+    void renderWarping();
+
+    private:
     void destroy();
 
 private:

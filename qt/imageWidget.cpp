@@ -5,8 +5,10 @@
 #include "imageWidget.h"
 
 #include "imageWarping/idwWarping.h"
+#include "imageWarping/rbfWarping.h"
 #include "primitive/line.h"
 #include "primitive/rect.h"
+
 #include <QFileDialog>
 #include <QKeyEvent>
 #include <QPainter>
@@ -122,9 +124,9 @@ void ImageWidget::actionNew()
 void ImageWidget::actionOpen()
 {
     std::cout << "actionOpen" << std::endl;
-    //        auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
+    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
     //    QString path = "../resources/test.jpg";
-    QString path = "../resources/monaLisa.bmp";
+    //    QString path = "../resources/monaLisa.bmp";
     if (m_image == nullptr)
     {
         m_image = std::make_unique<QImage>();
@@ -191,40 +193,14 @@ void ImageWidget::actionGray()
 
 void ImageWidget::actionIDW()
 {
-    if (m_image != nullptr && !m_starts.empty() && !m_ends.empty())
-    {
-        if (m_warping == nullptr)
-        {
-            m_warping = std::make_unique<IdwWarping>(m_starts, m_ends);
-            m_warping->resize(m_width, m_height);
-        }
-        m_shapeList.clear();
-        m_warping->resetFilledStatus();
-        m_warping->setPointP(m_starts);
-        m_warping->setPointQ(m_ends);
-        m_image->fill(Qt::white);
-
-        for (int i = 0; i < m_width; ++i)
-        {
-            for (int j = 0; j < m_height; ++j)
-            {
-                Vector2 point{ (float)i, (float)j };
-                point = m_warping->targetFunction(point);
-                if (point.x >= 0.0f && point.x < (float)m_width && point.y >= 0.0f && point.y < (float)m_height)
-                {
-                    m_warping->setFilledStatusAt((int)point.x, (int)point.y, true);
-                    m_image->setPixel((int)point.x, (int)point.y, m_originImage->pixel(i, j));
-                }
-            }
-        }
-        m_warping->fillNearPixelForANNSearch(*m_image);
-        update();
-    }
+    std::cout << "actionIDW" << std::endl;
+    renderWarping<IdwWarping>();
 }
 
 void ImageWidget::actionRBF()
 {
     std::cout << "actionRBF" << std::endl;
+    renderWarping<RbfWarping>();
 }
 
 void ImageWidget::actionMirrorH()
@@ -300,4 +276,24 @@ void ImageWidget::destroy()
     m_drawStatus = false;
     m_width = 0;
     m_height = 0;
+}
+
+template <class Warping>
+void ImageWidget::renderWarping()
+{
+    if (m_image != nullptr && !m_starts.empty() && !m_ends.empty())
+    {
+        if (m_warping == nullptr)
+        {
+            m_warping = std::make_unique<Warping>(m_starts, m_ends);
+            m_warping->resize(m_width, m_height);
+        }
+        m_shapeList.clear();
+        m_warping->resetFilledStatus();
+        m_warping->setPointP(m_starts);
+        m_warping->setPointQ(m_ends);
+        m_image->fill(Qt::white);
+        m_warping->render(*m_image, *m_originImage);
+        update();
+    }
 }
