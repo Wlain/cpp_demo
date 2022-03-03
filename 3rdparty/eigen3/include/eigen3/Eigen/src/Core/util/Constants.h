@@ -508,7 +508,7 @@ struct MatrixXpr {};
 /** The type used to identify an array expression */
 struct ArrayXpr {};
 
-// An evaluator must define its shape. By default, it can be one of the following:
+// An evaluator must define its Shape. By default, it can be one of the following:
 struct DenseShape             { static std::string debugName() { return "DenseShape"; } };
 struct SolverShape            { static std::string debugName() { return "SolverShape"; } };
 struct HomogeneousShape       { static std::string debugName() { return "HomogeneousShape"; } };

@@ -24,7 +24,7 @@ struct storage_kind_to_evaluator_kind {
   typedef IndexBased Kind;
 };
 
-// This class returns the evaluator shape from the expression storage kind.
+// This class returns the evaluator Shape from the expression storage kind.
 // It can be Dense, Sparse, Triangular, Diagonal, SelfAdjoint, Band, etc.
 template<typename StorageKind> struct storage_kind_to_shape;
 
@@ -34,7 +34,7 @@ template<> struct storage_kind_to_shape<PermutationStorage>     { typedef Permut
 template<> struct storage_kind_to_shape<TranspositionsStorage>  { typedef TranspositionsShape Shape;  };
 
 // Evaluators have to be specialized with respect to various criteria such as:
-//  - storage/structure/shape
+//  - storage/structure/Shape
 //  - scalar type
 //  - etc.
 // Therefore, we need specialization of evaluator providing additional template arguments for each kind of evaluators.
@@ -69,7 +69,7 @@ template< typename T,
 template<typename T>
 struct evaluator_traits_base
 {
-  // by default, get evaluator kind and shape from storage
+  // by default, get evaluator kind and Shape from storage
   typedef typename storage_kind_to_evaluator_kind<typename traits<T>::StorageKind>::Kind Kind;
   typedef typename storage_kind_to_shape<typename traits<T>::StorageKind>::Shape Shape;
 };

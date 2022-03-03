@@ -9,4 +9,10 @@
 #include "vec2.h"
 #include "mat4.h"
 
+inline int getFrameBufferIndex(int i, int j, int width, int height)
+{
+    assert(i >= 0 && i < width && j >= 0 && j < height);
+    return j * width + i;
+}
+
 #endif //CPP_DEMO_MATHDEFINE_H

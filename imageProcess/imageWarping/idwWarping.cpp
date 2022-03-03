@@ -41,12 +41,6 @@ Vector2 IdwWarping::basicFunction(const Vector2& point, const Vector2& start, co
     return { end.x + point.x - start.x, end.y + point.y - start.y };
 }
 
-double d(Vector2 p, Vector2 p_i)
-{
-    return sqrt(pow(p.x - p_i.x, 2.0) + pow(p.y - p_i.y, 2.0));
-}
-
-
 float IdwWarping::smoothnessFunction(const Vector2& pointP, const Vector2& pointPi) const
 {
     return (float)std::pow( 1.0f / pointPi.distance(pointP), m_exponent);

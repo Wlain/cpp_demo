@@ -6,3 +6,7 @@
 
 RbfWarping::~RbfWarping() = default;
 
+Vector2 RbfWarping::targetFunction(const Vector2& input)
+{
+    return BaseWarping::targetFunction(input);
+}

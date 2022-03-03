@@ -55,7 +55,7 @@ inline Shape* createShape(ShapeType type)
     case ShapeType::Rectangle:
         return new Rectangle();
     }
-    throw std::logic_error("shape type is invalid");
+    throw std::logic_error("Shape type is invalid");
 }
 
 } // namespace geekTimeTest

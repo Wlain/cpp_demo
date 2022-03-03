@@ -22,12 +22,12 @@ public:
 
 void foo(const Shape&)
 {
-    puts("foo(const shape&)");
+    puts("foo(const Shape&)");
 }
 
 void foo(Shape&&)
 {
-    puts("foo(shape&&)");
+    puts("foo(Shape&&)");
 }
 
 // 完美转发

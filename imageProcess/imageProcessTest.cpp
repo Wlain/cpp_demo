@@ -7,6 +7,7 @@
 
 extern cv::Mat channelSwap(const cv::Mat& img);
 extern cv::Mat colorTransferBetweenImages();
+extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
 
 void imageProcessTest()
 {
@@ -17,7 +18,7 @@ void imageProcessTest()
         return;
     }
 //    cv::Mat out = channelSwap(image);
-    auto out = colorTransferBetweenImages();
+    auto out = mirrorTest(image, false, true);
     imshow("Display result", out);
     cv::waitKey(0);
 }

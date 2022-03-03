@@ -1692,7 +1692,7 @@ int _glfwPlatformCreateStandardCursor(_GLFWcursor* cursor, int shape)
     if (!cursor->ns.object)
     {
         _glfwInputError(GLFW_CURSOR_UNAVAILABLE,
-                        "Cocoa: Standard cursor shape unavailable");
+                        "Cocoa: Standard cursor Shape unavailable");
         return GLFW_FALSE;
     }
 

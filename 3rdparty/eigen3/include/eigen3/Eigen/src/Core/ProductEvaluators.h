@@ -1032,7 +1032,7 @@ struct generic_product_impl<Lhs, Inverse<Rhs>, MatrixShape, PermutationShape, Pr
 * Products with transpositions matrices
 ***************************************************************************/
 
-// FIXME could we unify Transpositions and Permutation into a single "shape"??
+// FIXME could we unify Transpositions and Permutation into a single "Shape"??
 
 /** \internal
   * \class transposition_matrix_product

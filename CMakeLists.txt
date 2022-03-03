@@ -51,12 +51,14 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
-        ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include)
+        ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/ann/include)
 
 file(GLOB_RECURSE SOURCES
         3rdparty/lua-5.1.5/src/*.c
         3rdparty/tolua-master/src/lib/*c
         3rdparty/SOIL2/*.c
+        3rdparty/ann/src/*.cpp
         src/*.cpp
         cg/*.cpp
         rasterizer/*.cpp
@@ -70,7 +72,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} ${QT5_WRAP_CPP})
+add_executable(cpp_demo ${SOURCES})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

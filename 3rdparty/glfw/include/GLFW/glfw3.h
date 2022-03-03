@@ -782,9 +782,9 @@ extern "C" {
  *  @analysis Application programmer error.  Fix the offending call.
  */
 #define GLFW_NO_WINDOW_CONTEXT      0x0001000A
-/*! @brief The specified cursor shape is not available.
+/*! @brief The specified cursor Shape is not available.
  *
- *  The specified standard cursor shape is not available, either because the
+ *  The specified standard cursor Shape is not available, either because the
  *  current system cursor theme does not provide it or because it is not
  *  available on the platform.
  *
@@ -1128,83 +1128,83 @@ extern "C" {
  *  @ingroup input
  *  @{ */
 
-/*! @brief The regular arrow cursor shape.
+/*! @brief The regular arrow cursor Shape.
  *
- *  The regular arrow cursor shape.
+ *  The regular arrow cursor Shape.
  */
 #define GLFW_ARROW_CURSOR           0x00036001
-/*! @brief The text input I-beam cursor shape.
+/*! @brief The text input I-beam cursor Shape.
  *
- *  The text input I-beam cursor shape.
+ *  The text input I-beam cursor Shape.
  */
 #define GLFW_IBEAM_CURSOR           0x00036002
-/*! @brief The crosshair cursor shape.
+/*! @brief The crosshair cursor Shape.
  *
- *  The crosshair cursor shape.
+ *  The crosshair cursor Shape.
  */
 #define GLFW_CROSSHAIR_CURSOR       0x00036003
-/*! @brief The pointing hand cursor shape.
+/*! @brief The pointing hand cursor Shape.
  *
- *  The pointing hand cursor shape.
+ *  The pointing hand cursor Shape.
  */
 #define GLFW_POINTING_HAND_CURSOR   0x00036004
-/*! @brief The horizontal resize/move arrow shape.
+/*! @brief The horizontal resize/move arrow Shape.
  *
- *  The horizontal resize/move arrow shape.  This is usually a horizontal
+ *  The horizontal resize/move arrow Shape.  This is usually a horizontal
  *  double-headed arrow.
  */
 #define GLFW_RESIZE_EW_CURSOR       0x00036005
-/*! @brief The vertical resize/move arrow shape.
+/*! @brief The vertical resize/move arrow Shape.
  *
- *  The vertical resize/move shape.  This is usually a vertical double-headed
+ *  The vertical resize/move Shape.  This is usually a vertical double-headed
  *  arrow.
  */
 #define GLFW_RESIZE_NS_CURSOR       0x00036006
-/*! @brief The top-left to bottom-right diagonal resize/move arrow shape.
+/*! @brief The top-left to bottom-right diagonal resize/move arrow Shape.
  *
- *  The top-left to bottom-right diagonal resize/move shape.  This is usually
+ *  The top-left to bottom-right diagonal resize/move Shape.  This is usually
  *  a diagonal double-headed arrow.
  *
- *  @note @macos This shape is provided by a private system API and may fail
+ *  @note @macos This Shape is provided by a private system API and may fail
  *  with @ref GLFW_CURSOR_UNAVAILABLE in the future.
  *
- *  @note @x11 This shape is provided by a newer standard not supported by all
+ *  @note @x11 This Shape is provided by a newer standard not supported by all
  *  cursor themes.
  *
- *  @note @wayland This shape is provided by a newer standard not supported by
+ *  @note @wayland This Shape is provided by a newer standard not supported by
  *  all cursor themes.
  */
 #define GLFW_RESIZE_NWSE_CURSOR     0x00036007
-/*! @brief The top-right to bottom-left diagonal resize/move arrow shape.
+/*! @brief The top-right to bottom-left diagonal resize/move arrow Shape.
  *
- *  The top-right to bottom-left diagonal resize/move shape.  This is usually
+ *  The top-right to bottom-left diagonal resize/move Shape.  This is usually
  *  a diagonal double-headed arrow.
  *
- *  @note @macos This shape is provided by a private system API and may fail
+ *  @note @macos This Shape is provided by a private system API and may fail
  *  with @ref GLFW_CURSOR_UNAVAILABLE in the future.
  *
- *  @note @x11 This shape is provided by a newer standard not supported by all
+ *  @note @x11 This Shape is provided by a newer standard not supported by all
  *  cursor themes.
  *
- *  @note @wayland This shape is provided by a newer standard not supported by
+ *  @note @wayland This Shape is provided by a newer standard not supported by
  *  all cursor themes.
  */
 #define GLFW_RESIZE_NESW_CURSOR     0x00036008
-/*! @brief The omni-directional resize/move cursor shape.
+/*! @brief The omni-directional resize/move cursor Shape.
  *
- *  The omni-directional resize cursor/move shape.  This is usually either
+ *  The omni-directional resize cursor/move Shape.  This is usually either
  *  a combined horizontal and vertical double-headed arrow or a grabbing hand.
  */
 #define GLFW_RESIZE_ALL_CURSOR      0x00036009
-/*! @brief The operation-not-allowed shape.
+/*! @brief The operation-not-allowed Shape.
  *
- *  The operation-not-allowed shape.  This is usually a circle with a diagonal
+ *  The operation-not-allowed Shape.  This is usually a circle with a diagonal
  *  line through it.
  *
- *  @note @x11 This shape is provided by a newer standard not supported by all
+ *  @note @x11 This Shape is provided by a newer standard not supported by all
  *  cursor themes.
  *
- *  @note @wayland This shape is provided by a newer standard not supported by
+ *  @note @wayland This Shape is provided by a newer standard not supported by
  *  all cursor themes.
  */
 #define GLFW_NOT_ALLOWED_CURSOR     0x0003600A
@@ -4581,16 +4581,16 @@ GLFWAPI void glfwSetCursorPos(GLFWwindow* window, double xpos, double ypos);
  */
 GLFWAPI GLFWcursor* glfwCreateCursor(const GLFWimage* image, int xhot, int yhot);
 
-/*! @brief Creates a cursor with a standard shape.
+/*! @brief Creates a cursor with a standard Shape.
  *
- *  Returns a cursor with a standard shape, that can be set for a window with
+ *  Returns a cursor with a standard Shape, that can be set for a window with
  *  @ref glfwSetCursor.  The images for these cursors come from the system
  *  cursor theme and their exact appearance will vary between platforms.
  *
  *  Most of these shapes are guaranteed to exist on every supported platform but
  *  a few may not be present.  See the table below for details.
  *
- *  Cursor shape                   | Windows | macOS | X11    | Wayland
+ *  Cursor Shape                   | Windows | macOS | X11    | Wayland
  *  ------------------------------ | ------- | ----- | ------ | -------
  *  @ref GLFW_ARROW_CURSOR         | Yes     | Yes   | Yes    | Yes
  *  @ref GLFW_IBEAM_CURSOR         | Yes     | Yes   | Yes    | Yes
@@ -4607,7 +4607,7 @@ GLFWAPI GLFWcursor* glfwCreateCursor(const GLFWimage* image, int xhot, int yhot)
  *
  *  2) This uses a newer standard that not all cursor themes support.
  *
- *  If the requested shape is not available, this function emits a @ref
+ *  If the requested Shape is not available, this function emits a @ref
  *  GLFW_CURSOR_UNAVAILABLE error and returns `NULL`.
  *
  *  @param[in] shape One of the [standard shapes](@ref shapes).

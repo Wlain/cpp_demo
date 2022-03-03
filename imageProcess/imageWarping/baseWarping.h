@@ -4,8 +4,9 @@
 
 #ifndef CPP_DEMO_BASEWARPING_H
 #define CPP_DEMO_BASEWARPING_H
-#include <vector>
 #include "vector2.h"
+#include <QImage>
+#include <vector>
 
 class BaseWarping
 {
@@ -14,13 +15,28 @@ public:
     BaseWarping(std::vector<Vector2> p, std::vector<Vector2> q);
     virtual ~BaseWarping();
     virtual Vector2 targetFunction(const Vector2& input);
-    virtual float weightFunction(const Vector2& point, const Vector2& start);
-    virtual Vector2 basicFunction(const Vector2& point, const Vector2& start, const Vector2& end);
     void setPointP(const std::vector<Vector2>& mPointP);
     void setPointQ(const std::vector<Vector2>& mPointQ);
+    void resize(uint32_t width, uint32_t height);
+    inline uint32_t width() const { return m_width; }
+    inline uint32_t height() const { return m_height; }
+    int getFrameBufferIndex(int i, int j) const;
+    bool getFilledStatusAt(int i, int j) const;
+    void setFilledStatusAt(int i, int j, bool status);
+    void resetFilledStatus();
+    /// 方案一：直接搞个boxBlur，会有边缘case
+    void fillNearPixelForBoxBlur(QImage& image);
+    /// 方案二：使用ANN进行搜索最邻近点，更优
+    void fillNearPixelForANNSearch(QImage& image);
+
+
 
 protected:
+    std::vector<bool> m_filled;
     std::vector<Vector2> m_pointP, m_pointQ;
+    int m_exponent = 2;
+    uint32_t m_width = 0;
+    uint32_t m_height = 0;
 };
 
 #endif //CPP_DEMO_BASEWARPING_H

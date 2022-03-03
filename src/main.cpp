@@ -142,6 +142,8 @@ extern void chapter12();
 extern void imageProcessTest();
 extern void colorTransferBetweenImages();
 extern int qtTest(int argc, char* argv[]);
+extern void annTest();
+extern void eigenTest();
 
 int main(int argc, char* argv[])
 {

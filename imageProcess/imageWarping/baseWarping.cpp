@@ -3,6 +3,10 @@
 //
 
 #include "baseWarping.h"
+#include "vec3.h"
+
+#include <ANN/ANN.h>
+
 BaseWarping::BaseWarping() = default;
 
 BaseWarping::~BaseWarping() = default;
@@ -17,16 +21,6 @@ Vector2 BaseWarping::targetFunction(const Vector2& input)
     return {};
 }
 
-float BaseWarping::weightFunction(const Vector2& point, const Vector2& start)
-{
-    return {};
-}
-
-Vector2 BaseWarping::basicFunction(const Vector2& point, const Vector2& start, const Vector2& end)
-{
-    return {};
-}
-
 void BaseWarping::setPointP(const std::vector<Vector2>& mPointP)
 {
     m_pointP = mPointP;
@@ -34,4 +28,121 @@ void BaseWarping::setPointP(const std::vector<Vector2>& mPointP)
 void BaseWarping::setPointQ(const std::vector<Vector2>& mPointQ)
 {
     m_pointQ = mPointQ;
+}
+
+void BaseWarping::resize(uint32_t width, uint32_t height)
+{
+    m_filled.resize(width * height);
+    m_width = width;
+    m_height = height;
+}
+
+int BaseWarping::getFrameBufferIndex(int i, int j) const
+{
+    assert(i >= 0 && i < m_width && j >= 0 && j < m_height);
+    return j * m_width + i;
+}
+
+bool BaseWarping::getFilledStatusAt(int i, int j) const
+{
+    return m_filled[getFrameBufferIndex(i, j)];
+}
+
+void BaseWarping::setFilledStatusAt(int i, int j, bool status)
+{
+    m_filled[getFrameBufferIndex(i, j)] = status;
+}
+
+void BaseWarping::resetFilledStatus()
+{
+    std::fill(m_filled.begin(), m_filled.end(), false);
+}
+void BaseWarping::fillNearPixelForBoxBlur(QImage& image)
+{
+    for (int i = 1; i < m_width - 1; ++i)
+    {
+        for (int j = 1; j < m_height - 1; ++j)
+        {
+            if (!getFilledStatusAt(i, j))
+            {
+                Vec3i sum{ 0, 0, 0 };
+                auto index = 0;
+                // 如果像素周边有像素
+                if (getFilledStatusAt(i - 1, j - 1) || getFilledStatusAt(i, j - 1) || getFilledStatusAt(i + 1, j - 1) ||
+                    getFilledStatusAt(i - 1, j) || getFilledStatusAt(i + 1, j) ||
+                    getFilledStatusAt(i - 1, j + 1) || getFilledStatusAt(i, j + 1) || getFilledStatusAt(i + 1, j + 1))
+                {
+                    for (int n = i - 1; n <= i + 1; ++n)
+                    {
+                        for (int m = j - 1; m <= j + 1; ++m)
+                        {
+                            if (n == i && m == j) break;
+                            if (getFilledStatusAt(n, m))
+                            {
+                                auto color = image.pixelColor(n, m);
+                                sum += Vec3i(color.red(), color.green(), color.blue());
+                                index++;
+                            }
+                        }
+                    }
+                }
+                if (!sum.isZero())
+                {
+                    const auto& avg = sum / index;
+                    image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+                }
+            }
+        }
+    }
+}
+
+void BaseWarping::fillNearPixelForANNSearch(QImage& image)
+{
+    int nPts = 0;
+    int count = 8;
+    int threshold = count;
+    ANNpointArray dataPts = annAllocPts(m_width * m_height, 2);
+    for (int i = 0; i < m_width; i++)
+    {
+        for (int j = 0; j < m_height; j++)
+        {
+            if (getFilledStatusAt(i, j))
+            {
+                dataPts[nPts][0] = i;
+                dataPts[nPts][1] = j;
+                nPts++;
+            }
+        }
+    }
+    auto kdTree = ANNkd_tree(dataPts, nPts, 2);
+    std::vector<ANNidx> index(count);
+    std::vector<ANNdist> dist(count);
+    for (int i = 0; i < m_width; ++i)
+    {
+        for (int j = 0; j < m_height; ++j)
+        {
+            Vec3i sum{ 0, 0, 0 };
+            ANNpoint pt = annAllocPt(2);
+            pt[0] = i;
+            pt[1] = j;
+            kdTree.annkSearch(pt, count, index.data(), dist.data(), 0);
+            int colorIndex = 0;
+            for (int m = 0; m < count; m++)
+            {
+                int x = dataPts[index[m]][0];
+                int y = dataPts[index[m]][1];
+                auto color = image.pixelColor(x, y);
+                if (fabs(x - i) <= threshold && fabs(y - j) <= threshold)
+                {
+                    sum += Vec3i(color.red(), color.green(), color.blue());
+                    colorIndex++;
+                }
+            }
+            if (colorIndex > 0)
+            {
+                const auto& avg = sum / colorIndex;
+                image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+            }
+        }
+    }
 }

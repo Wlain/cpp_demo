@@ -5,7 +5,7 @@
 
 local write=io.write
 
-ALIVE="¥"	DEAD="þ"
+ALIVE="ï¿½"	DEAD="ï¿½"
 ALIVE="O"	DEAD="-"
 
 function delay() -- NOTE: SYSTEM-DEPENDENT, adjust as necessary
@@ -26,11 +26,11 @@ end
 
 _CELLS = {}
 
--- give birth to a "shape" within the cell array
-function _CELLS:spawn(shape,left,top)
-  for y=0,shape.h-1 do
-    for x=0,shape.w-1 do
-      self[top+y][left+x] = shape[y*shape.w+x+1]
+-- give birth to a "Shape" within the cell array
+function _CELLS:spawn(Shape,left,top)
+  for y=0,Shape.h-1 do
+    for x=0,Shape.w-1 do
+      self[top+y][left+x] = Shape[y*Shape.w+x+1]
     end
   end
 end
