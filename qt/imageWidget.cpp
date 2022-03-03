@@ -50,7 +50,8 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     // render image
     if (m_image != nullptr)
     {
-        QRect rect = QRect((width() - m_image->width()) / 2, (height() - m_image->height()) / 2, m_image->width(), m_image->height());
+        m_top.set((width() - m_image->width()) / 2.0f, (height() - m_image->height()) / 2.0f);
+        QRect rect = QRect(m_top.x, m_top.y, m_image->width(), m_image->height());
         m_painter.drawImage(rect, *m_image);
     }
     m_painter.setPen(m_pen);
@@ -68,7 +69,8 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 
 void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
+    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && Qt::LeftButton == event->button())
     {
         switch (m_primitiveType)
@@ -86,7 +88,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
         {
             m_drawStatus = true;
             auto position = event->pos();
-            m_starts.emplace_back(position.x() - (width() - m_image->width()) / 2, position.y() - (height() - m_image->height()) / 2);
+            m_starts.emplace_back(m_pressPoint.x, m_pressPoint.y);
             m_shape->setStart(position);
             m_shape->setEnd(position);
         }
@@ -96,7 +98,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 
 void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() - (width() - m_image->width()) / 2 << ", y:" << event->pos().y() - (height() - m_image->height()) / 2 << std::endl;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
     if (m_drawStatus && m_shape != nullptr)
     {
         auto position = event->pos();
@@ -107,10 +109,10 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 
 void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-    std::cout << "x:" << event->pos().x() << ", y:" << event->pos().y() << std::endl;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
     if (m_drawStatus && m_shape != nullptr)
     {
-        m_ends.emplace_back(event->pos().x() - (width() - m_image->width()) / 2, event->pos().y() - (height() - m_image->height()) / 2);
+        m_ends.emplace_back(m_pressPoint.x, m_pressPoint.y);
         m_shapeList.emplace_back(std::move(m_shape));
         m_shape = nullptr;
     }

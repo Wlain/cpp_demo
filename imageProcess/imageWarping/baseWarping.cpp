@@ -101,7 +101,7 @@ void BaseWarping::fillNearPixelForBoxBlur(QImage& image)
 void BaseWarping::fillNearPixelForANNSearch(QImage& image)
 {
     int nPts = 0;
-    int count = 8;
+    int count = 4;
     int threshold = 2;
     ANNpointArray dataPts = annAllocPts(m_width * m_height, 2);
     for (int i = 0; i < m_width; i++)

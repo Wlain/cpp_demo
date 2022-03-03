@@ -69,6 +69,8 @@ private:
     std::vector<std::unique_ptr<Shape>> m_shapeList;
     Shape::Primitive m_primitiveType = Shape::Primitive::Line;
     std::vector<Vector2> m_starts, m_ends;
+    Vector2 m_top;
+    Vector2 m_pressPoint;
     QPen m_pen;
     QPainter m_painter;
     uint32_t m_width = 0;
