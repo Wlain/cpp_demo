@@ -15,6 +15,9 @@ public:
     ~RbfWarping() override;
     Vector2 targetFunction(const Vector2& input) override;
     void render(QImage& image, const QImage& m_originImage) override;
+    float getRadiusI();
+
+
 
 };
 
