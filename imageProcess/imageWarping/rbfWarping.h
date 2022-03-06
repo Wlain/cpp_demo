@@ -6,19 +6,25 @@
 #define CPP_DEMO_RBFWARPING_H
 #include "imageWarping/baseWarping.h"
 
+#include <eigen3/Eigen/Dense>
+
 /// 径向基函数插值算法（Radial Basis Functions）
 
 class RbfWarping final : public BaseWarping
 {
 public:
-    using BaseWarping::BaseWarping;
+    RbfWarping(std::vector<Vector2> p, std::vector<Vector2> q);
     ~RbfWarping() override;
     Vector2 targetFunction(const Vector2& input) override;
-    void render(QImage& image, const QImage& m_originImage) override;
-    float getRadiusI();
+    /// calc ri
+    void calcRadius();
+    /// calc gi
+    void calcWeight();
+    std::tuple<Eigen::VectorXd, Eigen::VectorXd> getAi();
 
-
-
+private:
+    std::vector<float> m_radius;
+    Eigen::VectorXd m_weightX, m_weightY;
 };
 
 #endif //CPP_DEMO_RBFWARPING_H

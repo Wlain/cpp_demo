@@ -16,7 +16,7 @@ public:
     BaseWarping(std::vector<Vector2> p, std::vector<Vector2> q);
     virtual ~BaseWarping();
     virtual Vector2 targetFunction(const Vector2& input);
-    virtual void render(QImage& image, const QImage& m_originImage) = 0;
+    void render(QImage& image, const QImage& m_originImage);
     void setPointP(const std::vector<Vector2>& mPointP);
     void setPointQ(const std::vector<Vector2>& mPointQ);
     void resize(uint32_t width, uint32_t height);
@@ -36,7 +36,8 @@ protected:
 protected:
     std::vector<bool> m_filled;
     std::vector<Vector2> m_pointP, m_pointQ;
-    int m_exponent = 2;
+    float m_exponent = 2.0f;
+    int32_t m_pointSize;
     uint32_t m_width = 0;
     uint32_t m_height = 0;
 };

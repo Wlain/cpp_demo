@@ -15,6 +15,7 @@ BaseWarping::~BaseWarping() = default;
 BaseWarping::BaseWarping(std::vector<Vector2> p, std::vector<Vector2> q) :
     m_pointP(std::move(p)), m_pointQ(std::move(q))
 {
+    m_pointSize = m_pointP.size();
 }
 
 Vector2 BaseWarping::targetFunction(const Vector2& input)
@@ -150,4 +151,22 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
             }
         }
     }
+}
+
+void BaseWarping::render(QImage& image, const QImage& m_originImage)
+{
+    for (int i = 0; i < m_width; ++i)
+    {
+        for (int j = 0; j < m_height; ++j)
+        {
+            Vector2 point{ (float)i, (float)j };
+            point = targetFunction(point);
+            if (point.x >= 0.0f && point.x < (float)m_width && point.y >= 0.0f && point.y < (float)m_height)
+            {
+                setFilledStatusAt((int)point.x, (int)point.y, true);
+                image.setPixel((int)point.x, (int)point.y, m_originImage.pixel(i, j));
+            }
+        }
+    }
+    fillNearPixelForANNSearch(image);
 }

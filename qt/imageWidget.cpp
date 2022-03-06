@@ -69,7 +69,7 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 
 void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
     std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && Qt::LeftButton == event->button())
     {
@@ -98,7 +98,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 
 void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
     if (m_drawStatus && m_shape != nullptr)
     {
         auto position = event->pos();
@@ -109,7 +109,7 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 
 void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height)) ;
+    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
     if (m_drawStatus && m_shape != nullptr)
     {
         m_ends.emplace_back(m_pressPoint.x, m_pressPoint.y);
@@ -127,9 +127,9 @@ void ImageWidget::actionNew()
 void ImageWidget::actionOpen()
 {
     std::cout << "actionOpen" << std::endl;
-    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
+    //    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
     //    QString path = "../resources/test.jpg";
-    //    QString path = "../resources/monaLisa.bmp";
+    QString path = "../resources/monaLisa.bmp";
     if (m_image == nullptr)
     {
         m_image = std::make_unique<QImage>();
@@ -286,13 +286,23 @@ void ImageWidget::renderWarping()
 {
     if (m_image != nullptr && !m_starts.empty() && !m_ends.empty())
     {
-        if (m_warping == nullptr)
+        if (m_warping == nullptr || !std::is_same<std::remove_reference<decltype(*m_warping)>::type, Warping>())
         {
             m_warping = std::make_unique<Warping>(m_starts, m_ends);
             m_warping->resize(m_width, m_height);
         }
         m_shapeList.clear();
         m_warping->resetFilledStatus();
+        std::cout << "m_starts" << std::endl;
+        std::cout << m_starts[0].x << std::endl;
+        std::cout << m_starts[0].y << std::endl;
+        std::cout << m_starts[1].x << std::endl;
+        std::cout << m_starts[1].y << std::endl;
+        std::cout << "m_ends" << std::endl;
+        std::cout << m_ends[0].x << std::endl;
+        std::cout << m_ends[0].y << std::endl;
+        std::cout << m_ends[1].x << std::endl;
+        std::cout << m_ends[1].y << std::endl;
         m_warping->setPointP(m_starts);
         m_warping->setPointQ(m_ends);
         m_image->fill(Qt::white);
