@@ -10,8 +10,8 @@ class Rect : public Shape
 {
 public:
     using Shape::Shape;
-    void Draw(QPainter& painter) override;
     ~Rect() override;
+    void draw(QPainter& painter, QPaintDevice* device) override;
 };
 
 #endif //CPP_DEMO_RECT_H

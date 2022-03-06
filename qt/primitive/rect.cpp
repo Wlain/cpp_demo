@@ -6,7 +6,9 @@
 
 Rect::~Rect() = default;
 
-void Rect::Draw(QPainter& painter)
+void Rect::draw(QPainter& painter, QPaintDevice* device)
 {
+    Shape::draw(painter, device);
     painter.drawRect(m_start.x(), m_start.y(), m_end.x() - m_start.x(), m_end.y() - m_start.y());
+    painter.end();
 }

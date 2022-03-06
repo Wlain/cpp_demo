@@ -6,7 +6,9 @@
 
 Line::~Line() = default;
 
-void Line::Draw(QPainter& painter)
+void Line::draw(QPainter& painter, QPaintDevice* device)
 {
+    Shape::draw(painter, device);
     painter.drawLine(m_start, m_end);
+    painter.end();
 }

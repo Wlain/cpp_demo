@@ -12,7 +12,7 @@ class Line : public Shape
 public:
     using Shape::Shape;
     ~Line() override;
-    void Draw(QPainter& painter) override;
+    void draw(QPainter& painter, QPaintDevice* device) override;
 };
 
 #endif //CPP_DEMO_LINE_H

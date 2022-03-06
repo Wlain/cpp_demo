@@ -8,9 +8,9 @@
 #include "vector2.h"
 
 #include <QWidget>
+#include <opencv2/opencv.hpp>
 #include <primitive/shape.h>
 #include <vector>
-#include <opencv2/opencv.hpp>
 
 QT_BEGIN_NAMESPACE
 class QImage;
@@ -50,6 +50,10 @@ public slots:
     void actionColorTransform();
     void actionLine();
     void actionRect();
+    void actionPen();
+    void actionOval();
+    void actionSetWidth();
+    void actionPalette();
     void actionAbout();
     void actionHelp();
 
@@ -57,8 +61,9 @@ private:
     template <class Warping>
     void renderWarping();
 
-    private:
+private:
     void destroy();
+    void calcPressPoint(QMouseEvent* event);
 
 private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
@@ -67,12 +72,13 @@ private:
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<BaseWarping> m_warping;
     std::vector<std::unique_ptr<Shape>> m_shapeList;
-    Shape::Primitive m_primitiveType = Shape::Primitive::Line;
+    Shape::Primitive m_primitiveType = Shape::Primitive::None;
     std::vector<Vector2> m_starts, m_ends;
     Vector2 m_top;
     Vector2 m_pressPoint;
     QPen m_pen;
     QPainter m_painter;
+    QPainter m_primitivePainter;
     uint32_t m_width = 0;
     uint32_t m_height = 0;
     bool m_drawStatus = false;

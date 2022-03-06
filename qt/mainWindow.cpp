@@ -18,10 +18,14 @@ MainWindow::MainWindow(QWidget* parent) :
     auto* editMenu = new QMenu(this);
     auto* helpMenu = new QMenu(this);
     QToolBar* toolBar = addToolBar(tr("File"));
+    toolBar->setIconSize({24, 24});
+    QToolBar* toolBarEdit = addToolBar(tr("Edit"));
+    toolBarEdit->setIconSize({20, 20});
+    addToolBar(Qt::LeftToolBarArea,toolBarEdit);
     fileMenu->setStatusTip(tr("File menu"));
     m_imageWidget = std::make_unique<ImageWidget>();
+    /// 打开touch捕获开关
     m_imageWidget->setFocusPolicy(Qt::ClickFocus);
-
     setGeometry(300, 150, 800, 720);
     setCentralWidget(m_imageWidget.get());
     setWindowTitle("MainWindow");
@@ -51,7 +55,7 @@ MainWindow::MainWindow(QWidget* parent) :
     toolBar->addAction(action);
 
     action = new QAction(QIcon("../resources/icons/remove.png"), tr("&Closed"), this);
-    action->setToolTip(tr("Open"));
+    action->setToolTip(tr("Closed"));
     action->setShortcut(QKeySequence::Close);
     action->setStatusTip(tr("Closed all"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionClose);
@@ -129,19 +133,47 @@ MainWindow::MainWindow(QWidget* parent) :
     editMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(tr("&Line"), this);
+    action = new QAction(QIcon("../resources/icons/line.png"), tr("&Line"), this);
     action->setToolTip(tr("Line"));
     action->setStatusTip(tr("Line"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionLine);
     editMenu->addAction(action);
-    toolBar->addAction(action);
+    toolBarEdit->addAction(action);
 
-    action = new QAction(tr("&Rect"), this);
+    action = new QAction(QIcon("../resources/icons/rect.png"), tr("&Rect"), this);
     action->setToolTip(tr("Rect"));
     action->setStatusTip(tr("Rect"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionRect);
     editMenu->addAction(action);
-    toolBar->addAction(action);
+    toolBarEdit->addAction(action);
+
+    action = new QAction(QIcon("../resources/icons/pen.png"), tr("&Pen"), this);
+    action->setToolTip(tr("Pen"));
+    action->setStatusTip(tr("Pen"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionPen);
+    editMenu->addAction(action);
+    toolBarEdit->addAction(action);
+
+    action = new QAction(QIcon("../resources/icons/oval.png"), tr("&Oval"), this);
+    action->setToolTip(tr("oval"));
+    action->setStatusTip(tr("oval"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOval);
+    editMenu->addAction(action);
+    toolBarEdit->addAction(action);
+
+    action = new QAction(QIcon("../resources/icons/width.png"), tr("&Width"), this);
+    action->setToolTip(tr("Width"));
+    action->setStatusTip(tr("Width"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionSetWidth);
+    editMenu->addAction(action);
+    toolBarEdit->addAction(action);
+
+    action = new QAction(QIcon("../resources/icons/palette.png"), tr("&Palette"), this);
+    action->setToolTip(tr("Palette"));
+    action->setStatusTip(tr("Palette"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionPalette);
+    editMenu->addAction(action);
+    toolBarEdit->addAction(action);
 
     action = new QAction(tr("&帮助"), this);
     action->setToolTip(tr("帮助"));
@@ -154,7 +186,6 @@ MainWindow::MainWindow(QWidget* parent) :
     action->setStatusTip(tr("about me"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionAbout);
     helpMenu->addAction(action);
-
     menuBar()->addMenu(fileMenu)->setText(tr("&File"));
     menuBar()->addMenu(editMenu)->setText(tr("&Edit"));
     menuBar()->addMenu(helpMenu)->setText(tr("&Help"));

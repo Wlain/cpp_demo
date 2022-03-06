@@ -7,9 +7,13 @@
 #include "imageWarping/idwWarping.h"
 #include "imageWarping/rbfWarping.h"
 #include "primitive/line.h"
+#include "primitive/oval.h"
+#include "primitive/pen.h"
 #include "primitive/rect.h"
 
+#include <QColorDialog>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QKeyEvent>
 #include <QPainter>
 #include <iostream>
@@ -27,7 +31,10 @@ ImageWidget::ImageWidget()
 {
     m_image = std::make_unique<QImage>();
     m_originImage = std::make_unique<QImage>();
+    m_painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
+    m_primitivePainter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
     m_pen = QPen(QColor("red"), 2);
+    m_drawStatus = true;
 }
 
 ImageWidget::~ImageWidget() = default;
@@ -54,22 +61,33 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
         QRect rect = QRect(m_top.x, m_top.y, m_image->width(), m_image->height());
         m_painter.drawImage(rect, *m_image);
     }
-    m_painter.setPen(m_pen);
     // render Primitive
     for (auto& s : m_shapeList)
     {
-        s->Draw(m_painter);
+        s->draw(m_primitivePainter, this);
     }
     if (m_shape != nullptr)
     {
-        m_shape->Draw(m_painter);
+        m_shape->draw(m_primitivePainter, this);
     }
     m_painter.end();
 }
 
+void ImageWidget::calcPressPoint(QMouseEvent* event)
+{
+    if (!m_image->isNull())
+    {
+        m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+    }
+    else
+    {
+        m_pressPoint.set(event->pos().x(), event->pos().y());
+    }
+}
+
 void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+    calcPressPoint(event);
     std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && Qt::LeftButton == event->button())
     {
@@ -81,8 +99,14 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
         case Shape::Primitive::Rect:
             m_shape = std::make_unique<Rect>();
             break;
-        default:
+        case Shape::Primitive::Oval:
+            m_shape = std::make_unique<Oval>();
             break;
+        case Shape::Primitive::Pen:
+            m_shape = std::make_unique<Pen>();
+            break;
+        default:
+            return;
         }
         if (m_shape != nullptr)
         {
@@ -91,6 +115,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
             m_starts.emplace_back(m_pressPoint.x, m_pressPoint.y);
             m_shape->setStart(position);
             m_shape->setEnd(position);
+            m_shape->setPen(m_pen);
         }
         update();
     }
@@ -98,7 +123,8 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 
 void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+    calcPressPoint(event);
+    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         auto position = event->pos();
@@ -109,7 +135,8 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 
 void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-    m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+    calcPressPoint(event);
+    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         m_ends.emplace_back(m_pressPoint.x, m_pressPoint.y);
@@ -127,9 +154,9 @@ void ImageWidget::actionNew()
 void ImageWidget::actionOpen()
 {
     std::cout << "actionOpen" << std::endl;
-    //    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
+    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
     //    QString path = "../resources/test.jpg";
-    QString path = "../resources/monaLisa.bmp";
+    //    QString path = "../resources/monaLisa.bmp";
     if (m_image == nullptr)
     {
         m_image = std::make_unique<QImage>();
@@ -248,14 +275,40 @@ void ImageWidget::actionColorTransform()
 
 void ImageWidget::actionLine()
 {
-    m_primitiveType = Shape::Primitive::Line;
     std::cout << "actionLine" << std::endl;
+    m_primitiveType = Shape::Primitive::Line;
 }
 
 void ImageWidget::actionRect()
 {
-    m_primitiveType = Shape::Primitive::Rect;
     std::cout << "actionRect" << std::endl;
+    m_primitiveType = Shape::Primitive::Rect;
+}
+
+void ImageWidget::actionPen()
+{
+    std::cout << "actionPen" << std::endl;
+    m_primitiveType = Shape::Primitive::Pen;
+}
+
+void ImageWidget::actionOval()
+{
+    std::cout << "actionOval" << std::endl;
+    m_primitiveType = Shape::Primitive::Oval;
+}
+
+void ImageWidget::actionSetWidth()
+{
+    std::cout << "actionSetWidth" << std::endl;
+    auto width = QInputDialog::getInt(this, QString("Set Width"), QString("Input width"), true, 1, 20, 1);
+    m_pen.setWidth(width);
+}
+
+void ImageWidget::actionPalette()
+{
+    std::cout << "actionPalette" << std::endl;
+    auto color = QColorDialog::getColor(Qt::white);
+    m_pen.setColor(color);
 }
 
 void ImageWidget::actionAbout()
@@ -293,16 +346,6 @@ void ImageWidget::renderWarping()
         }
         m_shapeList.clear();
         m_warping->resetFilledStatus();
-        std::cout << "m_starts" << std::endl;
-        std::cout << m_starts[0].x << std::endl;
-        std::cout << m_starts[0].y << std::endl;
-        std::cout << m_starts[1].x << std::endl;
-        std::cout << m_starts[1].y << std::endl;
-        std::cout << "m_ends" << std::endl;
-        std::cout << m_ends[0].x << std::endl;
-        std::cout << m_ends[0].y << std::endl;
-        std::cout << m_ends[1].x << std::endl;
-        std::cout << m_ends[1].y << std::endl;
         m_warping->setPointP(m_starts);
         m_warping->setPointQ(m_ends);
         m_image->fill(Qt::white);
