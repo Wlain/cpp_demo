@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_RBFWARPING_H
 #define CPP_DEMO_RBFWARPING_H
 #include "imageWarping/baseWarping.h"
-
+#include "vec2.h"
 #include <eigen3/Eigen/Dense>
 
 /// 径向基函数插值算法（Radial Basis Functions）
@@ -19,12 +19,11 @@ public:
     /// calc ri
     void calcRadius();
     /// calc gi
-    void calcWeight();
-    std::tuple<Eigen::VectorXd, Eigen::VectorXd> getAi();
+    void calcAi();
 
 private:
     std::vector<float> m_radius;
-    Eigen::VectorXd m_weightX, m_weightY;
+    Vec2<Eigen::VectorXd> m_Ai;
 };
 
 #endif //CPP_DEMO_RBFWARPING_H

@@ -10,9 +10,9 @@
 RbfWarping::RbfWarping(std::vector<Vector2> p, std::vector<Vector2> q) :
     BaseWarping(std::move(p), std::move(q))
 {
-    m_exponent = 0.5;
+    m_exponent = -1;
     calcRadius();
-    calcWeight();
+    calcAi();
 }
 
 RbfWarping::~RbfWarping() = default;
@@ -27,8 +27,9 @@ Vector2 RbfWarping::targetFunction(const Vector2& input)
     }
     for (int i = 0; i < m_pointSize; ++i)
     {
-        x += m_weightX(i) * std::pow(std::pow(m_pointP[i].distance(input), 2) + std::pow(m_radius[i], 2), m_exponent);
-        y += m_weightY(i) * std::pow(std::pow(m_pointP[i].distance(input), 2) + std::pow(m_radius[i], 2), m_exponent);
+        auto gi = std::pow(m_pointP[i].distance(input) + m_radius[i], m_exponent / 2);
+        x += m_Ai.x(i) * gi;
+        y += m_Ai.y(i) * gi;
     }
     return { x + input.x, y + input.y };
 }
@@ -41,34 +42,32 @@ void RbfWarping::calcRadius()
         float ri = INT_MAX;
         for (int j = 0; j < m_pointSize; ++j)
         {
+            if (i == j) break;
             auto distance = m_pointP[i].distance(m_pointP[j]);
             if (distance < ri)
             {
                 ri = distance;
             }
-            m_radius.emplace_back(ri);
         }
+        m_radius.emplace_back(ri);
     }
 }
 
-void RbfWarping::calcWeight()
+void RbfWarping::calcAi()
 {
     Eigen::MatrixXd A(m_pointSize, m_pointSize);
-    A.setZero();
     Eigen::VectorXd Bx(m_pointSize);
-    Bx.setZero();
     Eigen::VectorXd By(m_pointSize);
-    By.setZero();
     for (int i = 0; i < m_pointSize; ++i)
     {
         Bx[i] = m_pointQ[i].x - m_pointP[i].x;
         By[i] = m_pointQ[i].y - m_pointP[i].y;
         for (int j = 0; j < m_pointSize; ++j)
         {
-            A(i, j) = std::pow(std::pow(m_pointP[i].distance(m_pointP[j]), 2) + pow(m_radius[j], 2), m_exponent);
+            A(i, j) = std::pow(m_pointP[i].distance(m_pointP[j]) + m_radius[j], m_exponent / 2);
         }
     }
     // 解线性方程组 Ax = B；
-    m_weightX = A.colPivHouseholderQr().solve(Bx);
-    m_weightY = A.colPivHouseholderQr().solve(By);
+    m_Ai.x = A.colPivHouseholderQr().solve(Bx);
+    m_Ai.y = A.colPivHouseholderQr().solve(By);
 }
