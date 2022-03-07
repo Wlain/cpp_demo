@@ -20,6 +20,8 @@ public:
     void calcRadius();
     /// calc gi
     void calcAi();
+    /// 高斯基函数
+    double basicFunction(const Vector2& start, const Vector2& end, float ri);
 
 private:
     std::vector<float> m_radius;

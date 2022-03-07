@@ -27,7 +27,7 @@ Vector2 RbfWarping::targetFunction(const Vector2& input)
     }
     for (int i = 0; i < m_pointSize; ++i)
     {
-        auto gi = std::pow(m_pointP[i].distance(input) + m_radius[i], m_exponent / 2);
+        auto gi = basicFunction(m_pointP[i], input, m_radius[i]);
         x += m_Ai.x(i) * gi;
         y += m_Ai.y(i) * gi;
     }
@@ -64,10 +64,15 @@ void RbfWarping::calcAi()
         By[i] = m_pointQ[i].y - m_pointP[i].y;
         for (int j = 0; j < m_pointSize; ++j)
         {
-            A(i, j) = std::pow(m_pointP[i].distance(m_pointP[j]) + m_radius[j], m_exponent / 2);
+            A(i, j) = basicFunction(m_pointP[i], m_pointP[j], m_radius[j]);
         }
     }
     // 解线性方程组 Ax = B；
     m_Ai.x = A.colPivHouseholderQr().solve(Bx);
     m_Ai.y = A.colPivHouseholderQr().solve(By);
+}
+
+double RbfWarping::basicFunction(const Vector2& start, const Vector2& end, float ri)
+{
+    return std::pow(std::pow(start.distance(end), 2) + std::pow(ri, 2), m_exponent);
 }
