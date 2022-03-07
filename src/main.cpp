@@ -149,7 +149,8 @@ extern void rapidjsonTest();
 
 int main(int argc, char* argv[])
 {
-    qtTest(argc,argv);
+    transformTest();
+//    qtTest(argc,argv);
     return 0;
 }
 
