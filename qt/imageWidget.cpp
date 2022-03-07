@@ -75,13 +75,16 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 
 void ImageWidget::calcPressPoint(QMouseEvent* event)
 {
-    if (!m_image->isNull())
+    if (m_image != nullptr)
     {
-        m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
-    }
-    else
-    {
-        m_pressPoint.set(event->pos().x(), event->pos().y());
+        if (!m_image->isNull())
+        {
+            m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+        }
+        else
+        {
+            m_pressPoint.set(event->pos().x(), event->pos().y());
+        }
     }
 }
 

@@ -19,7 +19,7 @@ RbfWarping::~RbfWarping() = default;
 
 Vector2 RbfWarping::targetFunction(const Vector2& input)
 {
-    float x = 0.0f, y = 0.0f;
+    float x = input.x, y = input.y;
     if (m_pointSize <= 1)
     {
         x = m_pointQ[0].x - m_pointP[0].x;
@@ -31,7 +31,7 @@ Vector2 RbfWarping::targetFunction(const Vector2& input)
         x += m_Ai.x(i) * gi;
         y += m_Ai.y(i) * gi;
     }
-    return { x + input.x, y + input.y };
+    return { x, y };
 }
 
 void RbfWarping::calcRadius()
@@ -42,7 +42,7 @@ void RbfWarping::calcRadius()
         float ri = INT_MAX;
         for (int j = 0; j < m_pointSize; ++j)
         {
-            if (i == j) break;
+            if (i == j) continue;
             auto distance = m_pointP[i].distance(m_pointP[j]);
             if (distance < ri)
             {
