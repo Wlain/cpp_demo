@@ -4,6 +4,7 @@
 
 #include "imageWidget.h"
 
+#include "base.h"
 #include "imageWarping/idwWarping.h"
 #include "imageWarping/rbfWarping.h"
 #include "primitive/line.h"
@@ -27,10 +28,15 @@ extern cv::Mat channelSwap(const cv::Mat& img);
 extern cv::Mat grayTest(const cv::Mat& img);
 extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
 
+#define LATTICE 10      // 像素网格的单位宽度
+#define LEFT_MARGIN 10  // 左侧边界距离
+#define UPPER_MARGIN 10 // 上方边界距离
+
 ImageWidget::ImageWidget()
 {
     m_image = std::make_unique<QImage>();
     m_originImage = std::make_unique<QImage>();
+    m_textImage = std::make_unique<QImage>(100, 100, QImage::Format_RGB32);
     m_painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
     m_primitivePainter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
     m_pen = QPen(QColor("red"), 2);
@@ -51,9 +57,24 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 {
     m_painter.begin(this);
     // clear background
-    m_painter.setBrush(Qt::white);
-    QRect back_rect(0, 0, width(), height());
-    m_painter.drawRect(back_rect);
+    {
+        m_painter.setBrush(Qt::white);
+        m_painter.drawRect(0, 0, width(), height());
+    }
+
+    // 绘制网格
+    {
+        m_painter.setPen(Qt::gray);
+        m_painter.setBrush(QColor(240, 240, 240, 255));
+        for (int x = LEFT_MARGIN; x < width() - LATTICE; x += LATTICE)
+        {
+            for (int y = UPPER_MARGIN; y < height() - LATTICE; y += LATTICE)
+            {
+                m_painter.drawRect(x, y, LATTICE, LATTICE);
+            }
+        }
+    }
+
     // render image
     if (m_image != nullptr)
     {
@@ -152,14 +173,17 @@ void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 void ImageWidget::actionNew()
 {
     std::cout << "actionNew" << std::endl;
+    m_iconText = QInputDialog::getText(this, tr("william"),
+                                       tr("请输入要保存的文字:"), QLineEdit::Normal)
+                     .toStdString();
 }
 
 void ImageWidget::actionOpen()
 {
     std::cout << "actionOpen" << std::endl;
-    //    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
-    //    QString path = "../resources/test.jpg";
-    QString path = "../resources/monaLisa.bmp";
+    auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
+    //        QString path = GET_CURRENT(/resources/test.jpg);
+    //        QString path = GET_CURRENT(/resources/monaLisa.bmp);
     if (m_image == nullptr)
     {
         m_image = std::make_unique<QImage>();
@@ -183,11 +207,17 @@ void ImageWidget::actionOpen()
 void ImageWidget::actionSave()
 {
     std::cout << "actionSave" << std::endl;
-    auto filename = QFileDialog::getSaveFileName(nullptr, tr("Save As"), "untitled.png", tr("Images(*.bmp *.jpg)"));
-    if (!m_image && m_image->isNull())
-    {
-        m_image->save(filename);
-    }
+    auto filename = QFileDialog::getSaveFileName(nullptr, tr("Save As"), "icon", tr("Images(*.png *.jpg)"));
+    QImage image(QSize(100, 100), QImage::Format_RGB32);
+    QPainter painter(&image);
+    painter.setBrush(QBrush(Qt::green));
+    painter.fillRect(image.rect(), Qt::white);
+    painter.setPen(QPen(Qt::black));
+    QFont font = painter.font();
+    font.setPixelSize(24);
+    painter.setFont(font);
+    painter.drawText(image.rect(), Qt::AlignCenter, m_iconText.c_str());
+    image.save(filename);
 }
 
 void ImageWidget::actionClose()

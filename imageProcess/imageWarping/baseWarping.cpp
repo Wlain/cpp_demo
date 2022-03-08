@@ -60,7 +60,7 @@ void BaseWarping::resetFilledStatus()
     std::fill(m_filled.begin(), m_filled.end(), false);
 }
 
-void BaseWarping::fillNearPixelForBoxBlur(QImage& image)
+void BaseWarping::fillNearPixelForBoxBlur(QImage& image) const
 {
     for (int i = 1; i < m_width - 1; ++i)
     {
@@ -134,8 +134,8 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
                 int colorIndex = 0;
                 for (int m = 0; m < count; m++)
                 {
-                    int x = dataPts[index[m]][0];
-                    int y = dataPts[index[m]][1];
+                    auto x = dataPts[index[m]][0];
+                    auto y = dataPts[index[m]][1];
                     auto color = image.pixelColor(x, y);
                     if (fabs(x - i) <= threshold && fabs(y - j) <= threshold)
                     {

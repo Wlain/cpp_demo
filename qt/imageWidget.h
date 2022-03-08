@@ -69,11 +69,13 @@ private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
     std::unique_ptr<QImage> m_image;
     std::unique_ptr<QImage> m_originImage;
+    std::unique_ptr<QImage> m_textImage;
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<BaseWarping> m_warping;
     std::vector<std::unique_ptr<Shape>> m_shapeList;
     Shape::Primitive m_primitiveType = Shape::Primitive::None;
     std::vector<Vector2> m_starts, m_ends;
+    std::string m_iconText;
     Vector2 m_top;
     Vector2 m_pressPoint;
     QPen m_pen;

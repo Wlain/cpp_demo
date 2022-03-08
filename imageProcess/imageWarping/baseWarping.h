@@ -29,7 +29,7 @@ public:
 
 protected:
     /// 方案一：直接搞个boxBlur，会有边缘case
-    void fillNearPixelForBoxBlur(QImage& image);
+    void fillNearPixelForBoxBlur(QImage& image) const;
     /// 方案二：使用ANN进行搜索最邻近点，效果更好
     void fillNearPixelForANNSearch(QImage& image);
 
@@ -37,7 +37,7 @@ protected:
     std::vector<bool> m_filled;
     std::vector<Vector2> m_pointP, m_pointQ;
     float m_exponent = 2.0f;
-    int32_t m_pointSize;
+    size_t m_pointSize = 0;
     uint32_t m_width = 0;
     uint32_t m_height = 0;
 };

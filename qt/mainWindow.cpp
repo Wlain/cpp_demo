@@ -10,6 +10,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QToolBar>
+#include "base.h"
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent, {}) // QMainWindow's default flag is WType_TopLevel
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget* parent) :
     setCentralWidget(m_imageWidget.get());
     setWindowTitle("MainWindow");
 
-    auto* action = new QAction(QIcon("../resources/icons/filenew.png"), tr("&New"), this);
+    auto* action = new QAction(QIcon(GET_CURRENT(/resources/icons/filenew.png)), tr("&New"), this);
     action->setToolTip(tr("New"));
     action->setShortcut(QKeySequence::New);
     action->setStatusTip(tr("Create a new fileMenu"));
@@ -38,7 +39,7 @@ MainWindow::MainWindow(QWidget* parent) :
     fileMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/fileopen.png"), tr("&Open"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/fileopen.png)), tr("&Open"), this);
     action->setToolTip(tr("Open"));
     action->setShortcut(QKeySequence::Open);
     action->setStatusTip(tr("Open an existing image"));
@@ -46,7 +47,7 @@ MainWindow::MainWindow(QWidget* parent) :
     fileMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/filesave.png"), tr("&Save"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/filesave.png)), tr("&Save"), this);
     action->setToolTip(tr("Save"));
     action->setShortcut(QKeySequence::Save);
     action->setStatusTip(tr("Save the image to disk"));
@@ -54,7 +55,7 @@ MainWindow::MainWindow(QWidget* parent) :
     fileMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/remove.png"), tr("&Closed"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/remove.png)), tr("&Closed"), this);
     action->setToolTip(tr("Closed"));
     action->setShortcut(QKeySequence::Close);
     action->setStatusTip(tr("Closed all"));
@@ -69,7 +70,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionSave);
     fileMenu->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/undo.png"), tr("&Undo"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/undo.png)), tr("&Undo"), this);
     action->setToolTip(tr("Undo"));
     action->setShortcut(QKeySequence::Undo);
     action->setStatusTip(tr("Undo"));
@@ -133,42 +134,42 @@ MainWindow::MainWindow(QWidget* parent) :
     editMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/line.png"), tr("&Line"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/line.png)), tr("&Line"), this);
     action->setToolTip(tr("Line"));
     action->setStatusTip(tr("Line"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionLine);
     editMenu->addAction(action);
     toolBarEdit->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/rect.png"), tr("&Rect"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/rect.png)), tr("&Rect"), this);
     action->setToolTip(tr("Rect"));
     action->setStatusTip(tr("Rect"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionRect);
     editMenu->addAction(action);
     toolBarEdit->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/pen.png"), tr("&Pen"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/pen.png)), tr("&Pen"), this);
     action->setToolTip(tr("Pen"));
     action->setStatusTip(tr("Pen"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionPen);
     editMenu->addAction(action);
     toolBarEdit->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/oval.png"), tr("&Oval"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/oval.png)), tr("&Oval"), this);
     action->setToolTip(tr("oval"));
     action->setStatusTip(tr("oval"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOval);
     editMenu->addAction(action);
     toolBarEdit->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/width.png"), tr("&Width"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/width.png)), tr("&Width"), this);
     action->setToolTip(tr("Width"));
     action->setStatusTip(tr("Width"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionSetWidth);
     editMenu->addAction(action);
     toolBarEdit->addAction(action);
 
-    action = new QAction(QIcon("../resources/icons/palette.png"), tr("&Palette"), this);
+    action = new QAction(QIcon(GET_CURRENT(/resources/icons/palette.png)), tr("&Palette"), this);
     action->setToolTip(tr("Palette"));
     action->setStatusTip(tr("Palette"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionPalette);

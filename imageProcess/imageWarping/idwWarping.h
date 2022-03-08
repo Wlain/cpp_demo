@@ -17,7 +17,7 @@ public:
     Vector2 targetFunction(const Vector2& input) override;
     float weightFunction(const Vector2& point, const Vector2& start);
     /// 基函数：取线性基函数
-    Vector2 basicFunction(const Vector2& point, const Vector2& start, const Vector2& end);
+    static Vector2 basicFunction(const Vector2& point, const Vector2& start, const Vector2& end);
     /// 设置公式中的指数
     inline void setExponent(int e) { m_exponent = e; }
     /// 平滑函数
