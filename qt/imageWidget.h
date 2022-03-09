@@ -47,6 +47,10 @@ public slots:
     void actionMirrorH();
     void actionMirrorV();
     void actionOrigin();
+    void actionOpenSourceImage();
+    void actionOpenTargetImage();
+    void actionForceClone();
+    void actionPossionImageBlend();
     void actionColorTransform();
     void actionLine();
     void actionRect();
@@ -69,6 +73,11 @@ private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
     std::unique_ptr<QImage> m_image;
     std::unique_ptr<QImage> m_originImage;
+    std::unique_ptr<QImage> m_sourceImage;
+    std::unique_ptr<QImage> m_targetImage;
+    std::unique_ptr<QImage> m_colorTransFormResultImage;
+    std::unique_ptr<cv::Mat> m_matSourceImage;
+    std::unique_ptr<cv::Mat> m_matTargetImage;
     std::unique_ptr<QImage> m_textImage;
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<BaseWarping> m_warping;

@@ -65,7 +65,7 @@ file(GLOB_RECURSE SOURCES
         test/*.cpp
         utils/*.cpp
         graphic/gl/*.cpp
-        graphic/mtl/*.mm
+        graphic/metal/*.mm
         rayTracing/*.cpp
         imageProcess/*.cpp
         qt/*cpp)

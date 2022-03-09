@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget* parent) :
     m_imageWidget = std::make_unique<ImageWidget>();
     /// 打开touch捕获开关
     m_imageWidget->setFocusPolicy(Qt::ClickFocus);
-    setGeometry(300, 150, 800, 720);
+    setGeometry(300, 150, 1080, 720);
     setCentralWidget(m_imageWidget.get());
     setWindowTitle("MainWindow");
 
@@ -78,10 +78,38 @@ MainWindow::MainWindow(QWidget* parent) :
     fileMenu->addAction(action);
     toolBar->addAction(action);
 
+    action = new QAction(tr("&Open Souce Image"), this);
+    action->setToolTip(tr("Open Souce Image"));
+    action->setStatusTip(tr("Open Souce Image"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOpenSourceImage);
+    editMenu->addAction(action);
+    toolBar->addAction(action);
+
+    action = new QAction(tr("&Open Target Image"), this);
+    action->setToolTip(tr("Open Target Image"));
+    action->setStatusTip(tr("Open Target Image"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOpenTargetImage);
+    editMenu->addAction(action);
+    toolBar->addAction(action);
+
     action = new QAction(tr("&ColorTransform"), this);
     action->setToolTip(tr("ColorTransform"));
     action->setStatusTip(tr("ColorTransform"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionColorTransform);
+    editMenu->addAction(action);
+    toolBar->addAction(action);
+
+    action = new QAction(tr("&Force clone"), this);
+    action->setToolTip(tr("Force clone"));
+    action->setStatusTip(tr("Force clone"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionForceClone);
+    editMenu->addAction(action);
+    toolBar->addAction(action);
+
+    action = new QAction(tr("&Possion Image Blend"), this);
+    action->setToolTip(tr("Possion Image Blend"));
+    action->setStatusTip(tr("Possion Image Blend"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionPossionImageBlend);
     editMenu->addAction(action);
     toolBar->addAction(action);
 

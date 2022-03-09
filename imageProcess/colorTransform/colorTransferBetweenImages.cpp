@@ -95,11 +95,9 @@ cv::Vec3f computeStandardDeviations(const cv::Mat& image, const cv::Vec3f& means
     return result;
 }
 
-cv::Mat colorTransferBetweenImages()
+cv::Mat colorTransferBetweenImages(const cv::Mat& inputSrc, const cv::Mat& inputDst)
 {
     // format off
-    cv::Mat inputSrc = cv::imread(GET_CURRENT(/resources/input1.jpg));
-    cv::Mat inputDst = cv::imread(GET_CURRENT(/resources/input2.jpg));
     cv::Mat srcImg32F;
     cv::Mat targetImg32F;
     inputSrc.convertTo(srcImg32F, CV_32FC3, 1.0f / 255.0f);

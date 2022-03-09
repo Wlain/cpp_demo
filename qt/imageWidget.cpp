@@ -23,7 +23,7 @@
 
 extern cv::Mat qImage2Mat(const QImage& image);
 extern QImage mat2Qimage(const cv::Mat& mat);
-extern cv::Mat colorTransferBetweenImages();
+extern cv::Mat colorTransferBetweenImages(const cv::Mat& inputSrc, const cv::Mat& inputDst);
 extern cv::Mat channelSwap(const cv::Mat& img);
 extern cv::Mat grayTest(const cv::Mat& img);
 extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
@@ -37,8 +37,6 @@ ImageWidget::ImageWidget()
     m_image = std::make_unique<QImage>();
     m_originImage = std::make_unique<QImage>();
     m_textImage = std::make_unique<QImage>(100, 100, QImage::Format_RGB32);
-    m_painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
-    m_primitivePainter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
     m_pen = QPen(QColor("red"), 2);
     m_drawStatus = true;
 }
@@ -56,6 +54,7 @@ void ImageWidget::keyPressEvent(QKeyEvent* event)
 void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 {
     m_painter.begin(this);
+    m_painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
     // clear background
     {
         m_painter.setBrush(Qt::white);
@@ -90,6 +89,18 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     if (m_shape != nullptr)
     {
         m_shape->draw(m_primitivePainter, this);
+    }
+    if (m_sourceImage != nullptr)
+    {
+        m_painter.drawImage(106, 50, *m_sourceImage);
+    }
+    if (m_targetImage != nullptr)
+    {
+        m_painter.drawImage(618, 50, *m_targetImage);
+    }
+    if (m_colorTransFormResultImage != nullptr)
+    {
+        m_painter.drawImage(362, 720 - m_sourceImage->height() + 50, *m_colorTransFormResultImage);
     }
     m_painter.end();
 }
@@ -299,11 +310,12 @@ void ImageWidget::actionOrigin()
 void ImageWidget::actionColorTransform()
 {
     std::cout << "actionColorTransform" << std::endl;
-    if (m_image != nullptr && m_originImage != nullptr)
+    if (m_colorTransFormResultImage == nullptr)
     {
-        *m_image = mat2Qimage(colorTransferBetweenImages());
-        update();
+        m_colorTransFormResultImage = std::make_unique<QImage>();
     }
+    *m_colorTransFormResultImage = mat2Qimage(colorTransferBetweenImages(*m_matTargetImage, *m_matSourceImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+    update();
 }
 
 void ImageWidget::actionLine()
@@ -358,6 +370,11 @@ void ImageWidget::destroy()
 {
     m_image = nullptr;
     m_originImage = nullptr;
+    m_sourceImage = nullptr;
+    m_targetImage = nullptr;
+    m_colorTransFormResultImage = nullptr;
+    m_matSourceImage = nullptr;
+    m_matTargetImage = nullptr;
     m_shapeList.clear();
     m_shape = nullptr;
     m_starts.clear();
@@ -385,4 +402,35 @@ void ImageWidget::renderWarping()
         m_warping->render(*m_image, *m_originImage);
         update();
     }
+}
+
+void ImageWidget::actionOpenSourceImage()
+{
+    std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
+    m_matSourceImage = std::make_unique<cv::Mat>(cv::imread(path));
+    if (m_sourceImage == nullptr)
+    {
+        m_sourceImage = std::make_unique<QImage>();
+    }
+    *m_sourceImage = mat2Qimage(*m_matSourceImage).scaled(300, 300 * m_matSourceImage->rows / m_matSourceImage->cols);
+    update();
+}
+
+void ImageWidget::actionOpenTargetImage()
+{
+    std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
+    m_matTargetImage = std::make_unique<cv::Mat>(cv::imread(path));
+    if (m_targetImage == nullptr)
+    {
+        m_targetImage = std::make_unique<QImage>();
+    }
+    *m_targetImage = mat2Qimage(*m_matTargetImage).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+    update();
+}
+
+void ImageWidget::actionForceClone()
+{
+}
+void ImageWidget::actionPossionImageBlend()
+{
 }
