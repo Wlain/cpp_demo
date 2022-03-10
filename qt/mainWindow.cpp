@@ -106,10 +106,10 @@ MainWindow::MainWindow(QWidget* parent) :
     editMenu->addAction(action);
     toolBar->addAction(action);
 
-    action = new QAction(tr("&Force clone"), this);
-    action->setToolTip(tr("Force clone"));
-    action->setStatusTip(tr("Force clone"));
-    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionForceClone);
+    action = new QAction(tr("&Alpha Blend"), this);
+    action->setToolTip(tr("Alpha Blend"));
+    action->setStatusTip(tr("Alpha Blend"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionAlphaBlend);
     editMenu->addAction(action);
     toolBar->addAction(action);
 

@@ -26,6 +26,7 @@ extern cv::Mat colorTransferBetweenImages(const cv::Mat& inputSrc, const cv::Mat
 extern cv::Mat channelSwap(const cv::Mat& img);
 extern cv::Mat grayTest(const cv::Mat& img);
 extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
+extern cv::Mat alphaBlend(const cv::Mat& src, const cv::Mat& dst, const cv::Mat& mask);
 
 #define LATTICE 10      // 像素网格的单位宽度
 #define LEFT_MARGIN 10  // 左侧边界距离
@@ -103,9 +104,9 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
         m_painter.drawImage(106, m_maskImage->height() + 100, *m_maskImage);
     }
 
-    if (m_colorTransFormResultImage != nullptr)
+    if (m_resultImage != nullptr)
     {
-        m_painter.drawImage(618, m_colorTransFormResultImage->height() + 100, *m_colorTransFormResultImage);
+        m_painter.drawImage(618, m_resultImage->height() + 100, *m_resultImage);
     }
 
     m_painter.end();
@@ -310,12 +311,15 @@ void ImageWidget::actionOrigin()
 void ImageWidget::actionColorTransform()
 {
     std::cout << "actionColorTransform" << std::endl;
-    if (m_colorTransFormResultImage == nullptr)
+    if(m_matSourceImage != nullptr && m_matTargetImage!=nullptr && m_matMaskImage != nullptr)
     {
-        m_colorTransFormResultImage = std::make_unique<QImage>();
+        if (m_resultImage == nullptr)
+        {
+            m_resultImage = std::make_unique<QImage>();
+        }
+        *m_resultImage = mat2Qimage(colorTransferBetweenImages(*m_matTargetImage, *m_matSourceImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+        update();
     }
-    *m_colorTransFormResultImage = mat2Qimage(colorTransferBetweenImages(*m_matTargetImage, *m_matSourceImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
-    update();
 }
 
 void ImageWidget::actionLine()
@@ -372,7 +376,7 @@ void ImageWidget::destroy()
     m_originImage = nullptr;
     m_sourceImage = nullptr;
     m_targetImage = nullptr;
-    m_colorTransFormResultImage = nullptr;
+    m_resultImage = nullptr;
     m_matSourceImage = nullptr;
     m_matTargetImage = nullptr;
     m_shapeList.clear();
@@ -416,15 +420,27 @@ void ImageWidget::actionOpenTargetImage()
 
 void ImageWidget::actionOpenMask()
 {
+    std::cout << "actionOpenMask" << std::endl;
     openImage(m_matMaskImage, m_maskImage);
 }
 
-void ImageWidget::actionForceClone()
+void ImageWidget::actionAlphaBlend()
 {
+    std::cout << "actionAlphaBlend" << std::endl;
+    if(m_matSourceImage != nullptr && m_matTargetImage!=nullptr && m_matMaskImage != nullptr)
+    {
+        if (m_resultImage == nullptr)
+        {
+            m_resultImage = std::make_unique<QImage>();
+        }
+        *m_resultImage = mat2Qimage(alphaBlend(*m_matSourceImage, *m_matTargetImage, *m_matMaskImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+        update();
+    }
 }
 
 void ImageWidget::actionPossionImageBlend()
 {
+    std::cout << "actionPossionImageBlend" << std::endl;
 }
 
 void ImageWidget::cropImage(cv::Mat& image)
@@ -438,7 +454,7 @@ void ImageWidget::openImage(std::unique_ptr<cv::Mat>& image, std::unique_ptr<QIm
     std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
     if (path.empty()) return;
     image = std::make_unique<cv::Mat>(cv::imread(path));
-    if(image->rows > image->cols)
+    if (image->rows > image->cols)
     {
         cropImage(*image);
     }

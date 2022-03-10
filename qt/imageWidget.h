@@ -50,7 +50,7 @@ public slots:
     void actionOpenSourceImage();
     void actionOpenTargetImage();
     void actionOpenMask();
-    void actionForceClone();
+    void actionAlphaBlend();
     void actionPossionImageBlend();
     void actionColorTransform();
     void actionLine();
@@ -80,7 +80,7 @@ private:
     std::unique_ptr<QImage> m_sourceImage;
     std::unique_ptr<QImage> m_targetImage;
     std::unique_ptr<QImage> m_maskImage;
-    std::unique_ptr<QImage> m_colorTransFormResultImage;
+    std::unique_ptr<QImage> m_resultImage;
     std::unique_ptr<cv::Mat> m_matSourceImage;
     std::unique_ptr<cv::Mat> m_matTargetImage;
     std::unique_ptr<cv::Mat> m_matMaskImage;
