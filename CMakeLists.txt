@@ -70,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} test/recordAbug.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
