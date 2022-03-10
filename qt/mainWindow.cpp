@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget* parent) :
     m_imageWidget = std::make_unique<ImageWidget>();
     /// 打开touch捕获开关
     m_imageWidget->setFocusPolicy(Qt::ClickFocus);
-    setGeometry(300, 150, 1080, 720);
+    setGeometry(300, 150, 1080, 800);
     setCentralWidget(m_imageWidget.get());
     setWindowTitle("MainWindow");
 
@@ -89,6 +89,13 @@ MainWindow::MainWindow(QWidget* parent) :
     action->setToolTip(tr("Open Target Image"));
     action->setStatusTip(tr("Open Target Image"));
     connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOpenTargetImage);
+    editMenu->addAction(action);
+    toolBar->addAction(action);
+
+    action = new QAction(tr("&Open Mask"), this);
+    action->setToolTip(tr("Open Mask"));
+    action->setStatusTip(tr("Open Mask"));
+    connect(action, &QAction::triggered, m_imageWidget.get(), &ImageWidget::actionOpenMask);
     editMenu->addAction(action);
     toolBar->addAction(action);
 

@@ -148,10 +148,9 @@ extern void virtualFuncTest();
 extern void rapidjsonTest();
 extern void recordABug();
 
-
 int main(int argc, char* argv[])
 {
-    recordABug();
+    qtTest(argc, argv);
     return 0;
 }
 

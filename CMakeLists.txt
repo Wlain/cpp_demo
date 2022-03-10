@@ -96,4 +96,3 @@ target_link_libraries(cpp_demo
         Qt5::Core
         z
         )
-

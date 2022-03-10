@@ -4,7 +4,6 @@
 
 #include "imageWidget.h"
 
-#include "base.h"
 #include "imageWarping/idwWarping.h"
 #include "imageWarping/rbfWarping.h"
 #include "primitive/line.h"
@@ -77,8 +76,8 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     // render image
     if (m_image != nullptr)
     {
-        m_top.set((width() - m_image->width()) / 2.0f, (height() - m_image->height()) / 2.0f);
-        QRect rect = QRect(m_top.x, m_top.y, m_image->width(), m_image->height());
+        m_top.set((float)(width() - m_image->width()) / 2.0f, (float)(height() - m_image->height()) / 2.0f);
+        QRect rect = QRect((int)m_top.x, (int)m_top.y, m_image->width(), m_image->height());
         m_painter.drawImage(rect, *m_image);
     }
     // render Primitive
@@ -98,10 +97,17 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     {
         m_painter.drawImage(618, 50, *m_targetImage);
     }
+
+    if (m_maskImage != nullptr)
+    {
+        m_painter.drawImage(106, m_maskImage->height() + 100, *m_maskImage);
+    }
+
     if (m_colorTransFormResultImage != nullptr)
     {
-        m_painter.drawImage(362, 720 - m_sourceImage->height() + 50, *m_colorTransFormResultImage);
+        m_painter.drawImage(618, m_colorTransFormResultImage->height() + 100, *m_colorTransFormResultImage);
     }
+
     m_painter.end();
 }
 
@@ -111,11 +117,11 @@ void ImageWidget::calcPressPoint(QMouseEvent* event)
     {
         if (!m_image->isNull())
         {
-            m_pressPoint.set(std::clamp(event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp(event->pos().y() - m_top.y, 0.0f, (float)m_height));
+            m_pressPoint.set(std::clamp((float)event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp((float)event->pos().y() - m_top.y, 0.0f, (float)m_height));
         }
         else
         {
-            m_pressPoint.set(event->pos().x(), event->pos().y());
+            m_pressPoint.set((float)event->pos().x(), (float)event->pos().y());
         }
     }
 }
@@ -219,16 +225,10 @@ void ImageWidget::actionSave()
 {
     std::cout << "actionSave" << std::endl;
     auto filename = QFileDialog::getSaveFileName(nullptr, tr("Save As"), "icon", tr("Images(*.png *.jpg)"));
-    QImage image(QSize(100, 100), QImage::Format_RGB32);
-    QPainter painter(&image);
-    painter.setBrush(QBrush(Qt::green));
-    painter.fillRect(image.rect(), Qt::white);
-    painter.setPen(QPen(Qt::black));
-    QFont font = painter.font();
-    font.setPixelSize(24);
-    painter.setFont(font);
-    painter.drawText(image.rect(), Qt::AlignCenter, m_iconText.c_str());
-    image.save(filename);
+    if (m_image != nullptr && !m_image->isNull())
+    {
+        m_image->save(filename);
+    }
 }
 
 void ImageWidget::actionClose()
@@ -406,31 +406,46 @@ void ImageWidget::renderWarping()
 
 void ImageWidget::actionOpenSourceImage()
 {
-    std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
-    m_matSourceImage = std::make_unique<cv::Mat>(cv::imread(path));
-    if (m_sourceImage == nullptr)
-    {
-        m_sourceImage = std::make_unique<QImage>();
-    }
-    *m_sourceImage = mat2Qimage(*m_matSourceImage).scaled(300, 300 * m_matSourceImage->rows / m_matSourceImage->cols);
-    update();
+    openImage(m_matSourceImage, m_sourceImage);
 }
 
 void ImageWidget::actionOpenTargetImage()
 {
-    std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
-    m_matTargetImage = std::make_unique<cv::Mat>(cv::imread(path));
-    if (m_targetImage == nullptr)
-    {
-        m_targetImage = std::make_unique<QImage>();
-    }
-    *m_targetImage = mat2Qimage(*m_matTargetImage).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
-    update();
+    openImage(m_matTargetImage, m_targetImage);
+}
+
+void ImageWidget::actionOpenMask()
+{
+    openImage(m_matMaskImage, m_maskImage);
 }
 
 void ImageWidget::actionForceClone()
 {
 }
+
 void ImageWidget::actionPossionImageBlend()
 {
+}
+
+void ImageWidget::cropImage(cv::Mat& image)
+{
+    auto temp = image(cv::Rect(0, (image.rows - image.cols) / 2, image.cols, image.cols));
+    image = temp;
+}
+
+void ImageWidget::openImage(std::unique_ptr<cv::Mat>& image, std::unique_ptr<QImage>& qImage)
+{
+    std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
+    if (path.empty()) return;
+    image = std::make_unique<cv::Mat>(cv::imread(path));
+    if(image->rows > image->cols)
+    {
+        cropImage(*image);
+    }
+    if (qImage == nullptr)
+    {
+        qImage = std::make_unique<QImage>();
+    }
+    *qImage = mat2Qimage(*image).scaled(300, 300 * image->rows / image->cols);
+    update();
 }

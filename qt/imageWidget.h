@@ -49,6 +49,7 @@ public slots:
     void actionOrigin();
     void actionOpenSourceImage();
     void actionOpenTargetImage();
+    void actionOpenMask();
     void actionForceClone();
     void actionPossionImageBlend();
     void actionColorTransform();
@@ -68,6 +69,9 @@ private:
 private:
     void destroy();
     void calcPressPoint(QMouseEvent* event);
+    void cropImage(cv::Mat& image);
+    void openImage(std::unique_ptr<cv::Mat>& image, std::unique_ptr<QImage>& qImage);
+
 
 private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
@@ -75,9 +79,11 @@ private:
     std::unique_ptr<QImage> m_originImage;
     std::unique_ptr<QImage> m_sourceImage;
     std::unique_ptr<QImage> m_targetImage;
+    std::unique_ptr<QImage> m_maskImage;
     std::unique_ptr<QImage> m_colorTransFormResultImage;
     std::unique_ptr<cv::Mat> m_matSourceImage;
     std::unique_ptr<cv::Mat> m_matTargetImage;
+    std::unique_ptr<cv::Mat> m_matMaskImage;
     std::unique_ptr<QImage> m_textImage;
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<BaseWarping> m_warping;
