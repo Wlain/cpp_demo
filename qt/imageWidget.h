@@ -20,6 +20,15 @@ class BaseWarping;
 class ImageWidget : public QWidget
 {
 public:
+    struct ImageWrapper
+    {
+        std::unique_ptr<QImage> qImage;
+        std::unique_ptr<cv::Mat> matImage;
+        cv::Rect rect;
+        bool isReady = false;
+    };
+
+public:
     Q_OBJECT
 
 public:
@@ -69,21 +78,26 @@ private:
 private:
     void destroy();
     void calcPressPoint(QMouseEvent* event);
-    void cropImage(cv::Mat& image);
-    void openImage(std::unique_ptr<cv::Mat>& image, std::unique_ptr<QImage>& qImage);
-
+    void openImage(ImageWrapper& image);
+    inline std::unique_ptr<QImage>& editImage(int width, int height)
+    {
+        if (m_editImage == nullptr)
+        {
+            m_editImage = std::make_unique<QImage>(width, height, QImage::Format_RGB888);
+            m_editImage->fill(QColor(0, 0, 0));
+        }
+        return m_editImage;
+    }
 
 private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
     std::unique_ptr<QImage> m_image;
     std::unique_ptr<QImage> m_originImage;
-    std::unique_ptr<QImage> m_sourceImage;
-    std::unique_ptr<QImage> m_targetImage;
-    std::unique_ptr<QImage> m_maskImage;
-    std::unique_ptr<QImage> m_resultImage;
-    std::unique_ptr<cv::Mat> m_matSourceImage;
-    std::unique_ptr<cv::Mat> m_matTargetImage;
-    std::unique_ptr<cv::Mat> m_matMaskImage;
+    ImageWrapper m_sourceImage;
+    ImageWrapper m_targetImage;
+    ImageWrapper m_maskImage;
+    std::unique_ptr<QImage> m_editImage; // 边缘图
+    ImageWrapper m_resultImage;
     std::unique_ptr<QImage> m_textImage;
     std::unique_ptr<Shape> m_shape;
     std::unique_ptr<BaseWarping> m_warping;
@@ -98,7 +112,11 @@ private:
     QPainter m_primitivePainter;
     uint32_t m_width = 0;
     uint32_t m_height = 0;
+    Vector2 m_lastEditPos;
+    Vector2 m_firstEditPos;
+    bool m_isFirstDrawEditPos = true;
     bool m_drawStatus = false;
+    constexpr static float const s_imageWidth = 300;
 };
 
 #endif //CPP_DEMO_IMAGEWIDGET_H

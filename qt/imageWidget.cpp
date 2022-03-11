@@ -27,6 +27,9 @@ extern cv::Mat channelSwap(const cv::Mat& img);
 extern cv::Mat grayTest(const cv::Mat& img);
 extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
 extern cv::Mat alphaBlend(const cv::Mat& src, const cv::Mat& dst, const cv::Mat& mask);
+extern bool imageValid(std::unique_ptr<QImage>& image);
+extern void cropImage(cv::Mat& image);
+extern void ddaLine(const Vector2& begin, const Vector2& end, QImage& image);
 
 #define LATTICE 10      // 像素网格的单位宽度
 #define LEFT_MARGIN 10  // 左侧边界距离
@@ -54,7 +57,7 @@ void ImageWidget::keyPressEvent(QKeyEvent* event)
 void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 {
     m_painter.begin(this);
-    m_painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform | QPainter::Qt4CompatiblePainting);
+    m_painter.setRenderHints(QPainter::Antialiasing, true);
     // clear background
     {
         m_painter.setBrush(Qt::white);
@@ -90,23 +93,25 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     {
         m_shape->draw(m_primitivePainter, this);
     }
-    if (m_sourceImage != nullptr)
+    if (m_sourceImage.isReady)
     {
-        m_painter.drawImage(106, 50, *m_sourceImage);
+        m_painter.drawImage(106, 50, *m_sourceImage.qImage);
     }
-    if (m_targetImage != nullptr)
+    if (m_targetImage.isReady)
     {
-        m_painter.drawImage(618, 50, *m_targetImage);
+        m_painter.drawImage(618, 50, *m_targetImage.qImage);
     }
-
-    if (m_maskImage != nullptr)
+    if (m_editImage != nullptr)
     {
-        m_painter.drawImage(106, m_maskImage->height() + 100, *m_maskImage);
+        m_painter.drawImage(106, m_editImage->height() + 100, *m_editImage);
     }
-
-    if (m_resultImage != nullptr)
+    if (m_maskImage.isReady)
     {
-        m_painter.drawImage(618, m_resultImage->height() + 100, *m_resultImage);
+        m_painter.drawImage(106, m_maskImage.qImage->height() + 100, *m_maskImage.qImage);
+    }
+    if (m_resultImage.isReady)
+    {
+        m_painter.drawImage(618, m_resultImage.qImage->height() + 100, *m_resultImage.qImage);
     }
 
     m_painter.end();
@@ -114,16 +119,13 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
 
 void ImageWidget::calcPressPoint(QMouseEvent* event)
 {
-    if (m_image != nullptr)
+    if (imageValid(m_image))
     {
-        if (!m_image->isNull())
-        {
-            m_pressPoint.set(std::clamp((float)event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp((float)event->pos().y() - m_top.y, 0.0f, (float)m_height));
-        }
-        else
-        {
-            m_pressPoint.set((float)event->pos().x(), (float)event->pos().y());
-        }
+        m_pressPoint.set(std::clamp((float)event->pos().x() - m_top.x, 0.0f, (float)m_width), std::clamp((float)event->pos().y() - m_top.y, 0.0f, (float)m_height));
+    }
+    else
+    {
+        m_pressPoint.set((float)event->pos().x(), (float)event->pos().y());
     }
 }
 
@@ -172,6 +174,28 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
         auto position = event->pos();
         m_shape->setEnd(position);
     }
+    /// 绘制mask缘图
+    auto& sourceQImage = m_sourceImage.qImage;
+    if (sourceQImage != nullptr)
+    {
+        auto& edit = editImage(sourceQImage->width(), sourceQImage->height());
+        bool buttonAtSource = event->x() >= 106 && event->x() < (sourceQImage->width() + 106) &&
+            event->y() >= 50 && event->y() < (sourceQImage->height() + 50);
+        if (buttonAtSource && (event->buttons() & Qt::LeftButton))
+        {
+            auto pos = m_lastEditPos;
+            m_lastEditPos.set(event->x() - 106, event->y() - 50);
+            if (!m_isFirstDrawEditPos)
+            {
+                ddaLine(m_lastEditPos, pos, *edit);
+            }
+            else
+            {
+                m_firstEditPos = m_lastEditPos;
+            }
+            m_isFirstDrawEditPos = false;
+        }
+    }
     update();
 }
 
@@ -191,9 +215,7 @@ void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 void ImageWidget::actionNew()
 {
     std::cout << "actionNew" << std::endl;
-    m_iconText = QInputDialog::getText(this, tr("william"),
-                                       tr("请输入要保存的文字:"), QLineEdit::Normal)
-                     .toStdString();
+    m_iconText = QInputDialog::getText(this, tr("william"), tr("请输入要保存的文字:"), QLineEdit::Normal).toStdString();
 }
 
 void ImageWidget::actionOpen()
@@ -226,7 +248,7 @@ void ImageWidget::actionSave()
 {
     std::cout << "actionSave" << std::endl;
     auto filename = QFileDialog::getSaveFileName(nullptr, tr("Save As"), "icon", tr("Images(*.png *.jpg)"));
-    if (m_image != nullptr && !m_image->isNull())
+    if (imageValid(m_image))
     {
         m_image->save(filename);
     }
@@ -249,7 +271,7 @@ void ImageWidget::actionUndo()
 void ImageWidget::actionInvert()
 {
     std::cout << "actionInvert" << std::endl;
-    if (m_image != nullptr && m_matOriginImage != nullptr)
+    if (imageValid(m_image) && m_matOriginImage != nullptr)
     {
         *m_image = mat2Qimage(channelSwap(*m_matOriginImage));
         update();
@@ -259,7 +281,7 @@ void ImageWidget::actionInvert()
 void ImageWidget::actionGray()
 {
     std::cout << "actionGray" << std::endl;
-    if (m_image != nullptr && m_matOriginImage != nullptr)
+    if (imageValid(m_image) && m_matOriginImage != nullptr)
     {
         *m_image = mat2Qimage(grayTest(*m_matOriginImage));
         update();
@@ -281,7 +303,7 @@ void ImageWidget::actionRBF()
 void ImageWidget::actionMirrorH()
 {
     std::cout << "actionMirrorH" << std::endl;
-    if (m_image != nullptr && m_matOriginImage != nullptr)
+    if (imageValid(m_image) && m_matOriginImage != nullptr)
     {
         *m_image = mat2Qimage(mirrorTest(*m_matOriginImage, true, false));
         update();
@@ -291,7 +313,7 @@ void ImageWidget::actionMirrorH()
 void ImageWidget::actionMirrorV()
 {
     std::cout << "actionMirrorV" << std::endl;
-    if (m_image != nullptr && m_matOriginImage != nullptr)
+    if (imageValid(m_image) && m_matOriginImage != nullptr)
     {
         *m_image = mat2Qimage(mirrorTest(*m_matOriginImage, false, true));
         update();
@@ -301,7 +323,7 @@ void ImageWidget::actionMirrorV()
 void ImageWidget::actionOrigin()
 {
     std::cout << "actionOrigin" << std::endl;
-    if (m_image != nullptr && m_originImage != nullptr)
+    if (imageValid(m_image) && m_originImage != nullptr)
     {
         *m_image = *m_originImage;
         update();
@@ -311,13 +333,16 @@ void ImageWidget::actionOrigin()
 void ImageWidget::actionColorTransform()
 {
     std::cout << "actionColorTransform" << std::endl;
-    if(m_matSourceImage != nullptr && m_matTargetImage!=nullptr && m_matMaskImage != nullptr)
+    auto& sourceCvImage = m_sourceImage.matImage;
+    auto& targetCvImage = m_targetImage.matImage;
+    auto& maskCvImage = m_maskImage.matImage;
+    if (sourceCvImage != nullptr && targetCvImage != nullptr && maskCvImage != nullptr)
     {
-        if (m_resultImage == nullptr)
+        if (m_resultImage.qImage == nullptr)
         {
-            m_resultImage = std::make_unique<QImage>();
+            m_resultImage.qImage = std::make_unique<QImage>();
         }
-        *m_resultImage = mat2Qimage(colorTransferBetweenImages(*m_matTargetImage, *m_matSourceImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+        *m_resultImage.qImage = mat2Qimage(colorTransferBetweenImages(*targetCvImage, *sourceCvImage)).scaled(s_imageWidth, s_imageWidth * targetCvImage->rows / targetCvImage->cols);
         update();
     }
 }
@@ -374,11 +399,11 @@ void ImageWidget::destroy()
 {
     m_image = nullptr;
     m_originImage = nullptr;
-    m_sourceImage = nullptr;
-    m_targetImage = nullptr;
-    m_resultImage = nullptr;
-    m_matSourceImage = nullptr;
-    m_matTargetImage = nullptr;
+    m_sourceImage.qImage = nullptr;
+    m_sourceImage.matImage = nullptr;
+    m_targetImage.qImage = nullptr;
+    m_targetImage.matImage = nullptr;
+    m_resultImage.qImage = nullptr;
     m_shapeList.clear();
     m_shape = nullptr;
     m_starts.clear();
@@ -410,30 +435,36 @@ void ImageWidget::renderWarping()
 
 void ImageWidget::actionOpenSourceImage()
 {
-    openImage(m_matSourceImage, m_sourceImage);
+    openImage(m_sourceImage);
 }
 
 void ImageWidget::actionOpenTargetImage()
 {
-    openImage(m_matTargetImage, m_targetImage);
+    openImage(m_targetImage);
 }
 
 void ImageWidget::actionOpenMask()
 {
     std::cout << "actionOpenMask" << std::endl;
-    openImage(m_matMaskImage, m_maskImage);
+    if (!imageValid(m_maskImage.qImage))
+    {
+        openImage(m_maskImage);
+    }
 }
 
 void ImageWidget::actionAlphaBlend()
 {
     std::cout << "actionAlphaBlend" << std::endl;
-    if(m_matSourceImage != nullptr && m_matTargetImage!=nullptr && m_matMaskImage != nullptr)
+    auto& sourceCvImage = m_sourceImage.matImage;
+    auto& targetCvImage = m_targetImage.matImage;
+    auto& maskCvImage = m_maskImage.matImage;
+    if (sourceCvImage != nullptr && targetCvImage != nullptr && maskCvImage != nullptr)
     {
-        if (m_resultImage == nullptr)
+        if (m_resultImage.qImage == nullptr)
         {
-            m_resultImage = std::make_unique<QImage>();
+            m_resultImage.qImage = std::make_unique<QImage>();
         }
-        *m_resultImage = mat2Qimage(alphaBlend(*m_matSourceImage, *m_matTargetImage, *m_matMaskImage)).scaled(300, 300 * m_matTargetImage->rows / m_matTargetImage->cols);
+        *m_resultImage.qImage = mat2Qimage(alphaBlend(*sourceCvImage, *targetCvImage, *maskCvImage)).scaled(s_imageWidth, s_imageWidth * targetCvImage->rows / targetCvImage->cols);
         update();
     }
 }
@@ -443,25 +474,23 @@ void ImageWidget::actionPossionImageBlend()
     std::cout << "actionPossionImageBlend" << std::endl;
 }
 
-void ImageWidget::cropImage(cv::Mat& image)
-{
-    auto temp = image(cv::Rect(0, (image.rows - image.cols) / 2, image.cols, image.cols));
-    image = temp;
-}
-
-void ImageWidget::openImage(std::unique_ptr<cv::Mat>& image, std::unique_ptr<QImage>& qImage)
+void ImageWidget::openImage(ImageWrapper& image)
 {
     std::string path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)")).toStdString();
     if (path.empty()) return;
-    image = std::make_unique<cv::Mat>(cv::imread(path));
-    if (image->rows > image->cols)
+    image.matImage = std::make_unique<cv::Mat>(cv::imread(path));
+    auto width = image.matImage->cols;
+    auto height = image.matImage->rows;
+    if (height > width)
     {
-        cropImage(*image);
+        /// TODO：这里可以写完整一点，就不需要判断宽高了
+        cropImage(*image.matImage);
     }
-    if (qImage == nullptr)
+    if (image.qImage == nullptr)
     {
-        qImage = std::make_unique<QImage>();
+        image.qImage = std::make_unique<QImage>();
     }
-    *qImage = mat2Qimage(*image).scaled(300, 300 * image->rows / image->cols);
+    *image.qImage = mat2Qimage(*image.matImage).scaled(s_imageWidth, s_imageWidth * height / width);
+    image.isReady = true;
     update();
 }
