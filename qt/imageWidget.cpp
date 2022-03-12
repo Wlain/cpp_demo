@@ -181,7 +181,7 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
         if (m_maskImage.qImage == nullptr)
         {
             m_maskImage.qImage = std::make_unique<QImage>(w, h, QImage::Format_RGB888);
-            m_maskImage.qImage->fill(QColor(0, 0, 0));
+            m_maskImage.qImage->fill(QColor(255, 255, 255));
         }
 
         bool buttonAtSource = event->x() >= 106 && event->x() < (sourceQImage->width() + 106) &&
@@ -344,6 +344,7 @@ void ImageWidget::actionColorTransform()
             m_resultImage.qImage = std::make_unique<QImage>();
         }
         *m_resultImage.qImage = mat2Qimage(colorTransferBetweenImages(*targetCvImage, *sourceCvImage)).scaled(s_imageWidth, s_imageWidth * targetCvImage->rows / targetCvImage->cols);
+        m_resultImage.isReady = true;
         update();
     }
 }
@@ -452,7 +453,6 @@ void ImageWidget::actionOpenMask()
         /// BFS实现区域填充算法
         std::queue<Vec2i> pointQueue;
         pointQueue.push({ 0, 0 });
-        auto whiteColor = qRgb(255, 255, 255);
         auto blackColor = qRgb(0, 0, 0);
         int w = m_maskImage.qImage->width();
         int h = m_maskImage.qImage->height();
@@ -466,28 +466,14 @@ void ImageWidget::actionOpenMask()
                 int curY = p.y + m_dy[i];
                 if (curX >= 0 && curX < w &&
                     curY >= 0 && curY < h &&
-                    m_maskImage.qImage->pixel(curX, curY) != whiteColor)
+                    m_maskImage.qImage->pixel(curX, curY) != blackColor)
                 {
-                    m_maskImage.qImage->setPixel(curX, curY, whiteColor);
+                    m_maskImage.qImage->setPixel(curX, curY, blackColor);
                     pointQueue.push({ curX, curY });
                 }
             }
         }
-        for(int i = 0; i < w; ++i)
-        {
-            for(int j = 0; j < h; ++j)
-            {
-                auto curColor = m_maskImage.qImage->pixel(i, j);
-                if(curColor == whiteColor)
-                {
-                    m_maskImage.qImage->setPixel(i, j, blackColor);
-                }
-                else if(curColor == blackColor)
-                {
-                    m_maskImage.qImage->setPixel(i, j, whiteColor);
-                }
-            }
-        }
+        m_maskImage.matImage = std::make_unique<cv::Mat>(qImage2Mat(*m_maskImage.qImage));
     }
     else
     {
@@ -509,6 +495,7 @@ void ImageWidget::actionAlphaBlend()
             m_resultImage.qImage = std::make_unique<QImage>();
         }
         *m_resultImage.qImage = mat2Qimage(alphaBlend(*sourceCvImage, *targetCvImage, *maskCvImage)).scaled(s_imageWidth, s_imageWidth * targetCvImage->rows / targetCvImage->cols);
+        m_resultImage.isReady = true;
         update();
     }
 }
@@ -525,16 +512,14 @@ void ImageWidget::openImage(ImageWrapper& image)
     image.matImage = std::make_unique<cv::Mat>(cv::imread(path));
     auto width = image.matImage->cols;
     auto height = image.matImage->rows;
-    if (height > width)
-    {
-        /// TODO：这里可以写完整一点，就不需要判断宽高了
-        cropImage(*image.matImage);
-    }
+    cropImage(*image.matImage);
+    cv::resize(*image.matImage, *image.matImage, cvSize(s_imageWidth, s_imageWidth));
     if (image.qImage == nullptr)
     {
         image.qImage = std::make_unique<QImage>();
     }
-    *image.qImage = mat2Qimage(*image.matImage).scaled(s_imageWidth, s_imageWidth * height / width);
+    auto ratio = height > width ? height / width : width / height;
+    *image.qImage = mat2Qimage(*image.matImage).scaled(s_imageWidth, s_imageWidth * ratio);
     image.isReady = true;
     update();
 }

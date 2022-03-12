@@ -49,8 +49,18 @@ bool imageValid(std::unique_ptr<QImage>& image)
 
 void cropImage(cv::Mat& image)
 {
-    auto temp = image(cv::Rect(0, (image.rows - image.cols) / 2, image.cols, image.cols));
-    image = temp;
+    auto width = image.cols;
+    auto height = image.rows;
+    if (height > width)
+    {
+        auto temp = image(cv::Rect(0, (height -width) / 2, width, width));
+        image = temp;
+    }
+    else
+    {
+        auto temp = image(cv::Rect((width - height) / 2, 0, height, height));
+        image = temp;
+    }
 }
 
 /// 直线扫描算法
@@ -65,7 +75,7 @@ void ddaLine(const Vector2& begin, const Vector2& end, QImage& image)
 
     auto x2 = end.x;
     auto y2 = end.y;
-    auto color = qRgb(255, 255, 255);
+    auto color = qRgb(0, 0, 0);
     int dx = (int)x2 - (int)x1;
     int dy = (int)y2 - (int)y1;
     float k = (float)dy / (float)dx;
