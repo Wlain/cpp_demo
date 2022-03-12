@@ -2,9 +2,10 @@
 // Created by william on 2022/2/26.
 //
 
+#include "vector2.h"
+
 #include <QImage>
 #include <opencv2/opencv.hpp>
-#include "vector2.h"
 
 //Qt读入彩色图后一般为Format_RGB32格式（4通道），而OpenCV一般用3通道的，因此进行了转换。
 cv::Mat qImage2Mat(const QImage& image)
@@ -82,6 +83,11 @@ void ddaLine(const Vector2& begin, const Vector2& end, QImage& image)
         while (x1 < x2)
         {
             image.setPixel(x1, int(y1 + 0.5f), color);
+            /// 改良DDA，主要用于加粗直线
+            image.setPixel(x1 - 1, int(y1 + 0.5f), color);
+            image.setPixel(x1, int(y1 + 0.5f) - 1, color);
+            image.setPixel(x1 + 1, int(y1 + 0.5f), color);
+            image.setPixel(x1, int(y1 + 0.5f) + 1, color);
             y1 = y1 + k;
             x1 = x1 + 1;
         }
@@ -96,6 +102,11 @@ void ddaLine(const Vector2& begin, const Vector2& end, QImage& image)
         while (y1 < y2)
         {
             image.setPixel(int(x1 + 0.5f), y1, color);
+            /// 改良DDA，主要用于加粗直线
+            image.setPixel(int(x1 + 0.5f) - 1, y1, color);
+            image.setPixel(int(x1 + 0.5f), y1 - 1, color);
+            image.setPixel(int(x1 + 0.5f) + 1, y1, color);
+            image.setPixel(int(x1 + 0.5f), y1 + 1, color);
             x1 = x1 + _k;
             y1 = y1 + 1;
         }

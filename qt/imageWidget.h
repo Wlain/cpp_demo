@@ -8,6 +8,7 @@
 #include "vector2.h"
 
 #include <QWidget>
+#include <array>
 #include <opencv2/opencv.hpp>
 #include <primitive/shape.h>
 #include <vector>
@@ -79,15 +80,6 @@ private:
     void destroy();
     void calcPressPoint(QMouseEvent* event);
     void openImage(ImageWrapper& image);
-    inline std::unique_ptr<QImage>& editImage(int width, int height)
-    {
-        if (m_editImage == nullptr)
-        {
-            m_editImage = std::make_unique<QImage>(width, height, QImage::Format_RGB888);
-            m_editImage->fill(QColor(0, 0, 0));
-        }
-        return m_editImage;
-    }
 
 private:
     std::unique_ptr<cv::Mat> m_matOriginImage;
@@ -96,7 +88,6 @@ private:
     ImageWrapper m_sourceImage;
     ImageWrapper m_targetImage;
     ImageWrapper m_maskImage;
-    std::unique_ptr<QImage> m_editImage; // 边缘图
     ImageWrapper m_resultImage;
     std::unique_ptr<QImage> m_textImage;
     std::unique_ptr<Shape> m_shape;
@@ -113,10 +104,11 @@ private:
     uint32_t m_width = 0;
     uint32_t m_height = 0;
     Vector2 m_lastEditPos;
-    Vector2 m_firstEditPos;
     bool m_isFirstDrawEditPos = true;
     bool m_drawStatus = false;
     constexpr static float const s_imageWidth = 300;
+    constexpr static std::array<int, 4> m_dx = { -1, 0, 0, 1 };
+    constexpr static std::array<int, 4> m_dy = { 0, -1, 1, 0 };
 };
 
 #endif //CPP_DEMO_IMAGEWIDGET_H

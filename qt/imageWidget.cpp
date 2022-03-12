@@ -19,6 +19,7 @@
 #include <iostream>
 #include <memory>
 #include <opencv2/opencv.hpp>
+#include <queue>
 
 extern cv::Mat qImage2Mat(const QImage& image);
 extern QImage mat2Qimage(const cv::Mat& mat);
@@ -29,6 +30,7 @@ extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
 extern cv::Mat alphaBlend(const cv::Mat& src, const cv::Mat& dst, const cv::Mat& mask);
 extern bool imageValid(std::unique_ptr<QImage>& image);
 extern void cropImage(cv::Mat& image);
+extern cv::Mat ddaLine(const Vector2& begin, const Vector2& end, cv::Mat& img);
 extern void ddaLine(const Vector2& begin, const Vector2& end, QImage& image);
 
 #define LATTICE 10      // 像素网格的单位宽度
@@ -101,11 +103,7 @@ void ImageWidget::paintEvent(QPaintEvent* paintEvent)
     {
         m_painter.drawImage(618, 50, *m_targetImage.qImage);
     }
-    if (m_editImage != nullptr)
-    {
-        m_painter.drawImage(106, m_editImage->height() + 100, *m_editImage);
-    }
-    if (m_maskImage.isReady)
+    if (m_maskImage.qImage != nullptr)
     {
         m_painter.drawImage(106, m_maskImage.qImage->height() + 100, *m_maskImage.qImage);
     }
@@ -178,7 +176,14 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
     auto& sourceQImage = m_sourceImage.qImage;
     if (sourceQImage != nullptr)
     {
-        auto& edit = editImage(sourceQImage->width(), sourceQImage->height());
+        auto w = sourceQImage->width();
+        auto h = sourceQImage->height();
+        if (m_maskImage.qImage == nullptr)
+        {
+            m_maskImage.qImage = std::make_unique<QImage>(w, h, QImage::Format_RGB888);
+            m_maskImage.qImage->fill(QColor(0, 0, 0));
+        }
+
         bool buttonAtSource = event->x() >= 106 && event->x() < (sourceQImage->width() + 106) &&
             event->y() >= 50 && event->y() < (sourceQImage->height() + 50);
         if (buttonAtSource && (event->buttons() & Qt::LeftButton))
@@ -187,11 +192,7 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
             m_lastEditPos.set(event->x() - 106, event->y() - 50);
             if (!m_isFirstDrawEditPos)
             {
-                ddaLine(m_lastEditPos, pos, *edit);
-            }
-            else
-            {
-                m_firstEditPos = m_lastEditPos;
+                ddaLine(m_lastEditPos, pos, *m_maskImage.qImage);
             }
             m_isFirstDrawEditPos = false;
         }
@@ -446,10 +447,53 @@ void ImageWidget::actionOpenTargetImage()
 void ImageWidget::actionOpenMask()
 {
     std::cout << "actionOpenMask" << std::endl;
-    if (!imageValid(m_maskImage.qImage))
+    if (imageValid(m_maskImage.qImage))
+    {
+        /// BFS实现区域填充算法
+        std::queue<Vec2i> pointQueue;
+        pointQueue.push({ 0, 0 });
+        auto whiteColor = qRgb(255, 255, 255);
+        auto blackColor = qRgb(0, 0, 0);
+        int w = m_maskImage.qImage->width();
+        int h = m_maskImage.qImage->height();
+        while (!pointQueue.empty())
+        {
+            auto p = pointQueue.front();
+            pointQueue.pop();
+            for (int i = 0; i < m_dx.size(); ++i)
+            {
+                int curX = p.x + m_dx[i];
+                int curY = p.y + m_dy[i];
+                if (curX >= 0 && curX < w &&
+                    curY >= 0 && curY < h &&
+                    m_maskImage.qImage->pixel(curX, curY) != whiteColor)
+                {
+                    m_maskImage.qImage->setPixel(curX, curY, whiteColor);
+                    pointQueue.push({ curX, curY });
+                }
+            }
+        }
+        for(int i = 0; i < w; ++i)
+        {
+            for(int j = 0; j < h; ++j)
+            {
+                auto curColor = m_maskImage.qImage->pixel(i, j);
+                if(curColor == whiteColor)
+                {
+                    m_maskImage.qImage->setPixel(i, j, blackColor);
+                }
+                else if(curColor == blackColor)
+                {
+                    m_maskImage.qImage->setPixel(i, j, whiteColor);
+                }
+            }
+        }
+    }
+    else
     {
         openImage(m_maskImage);
     }
+    update();
 }
 
 void ImageWidget::actionAlphaBlend()
