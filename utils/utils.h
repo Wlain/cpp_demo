@@ -23,6 +23,6 @@ static void display(const char* title, void* data)
     cv::Mat image(height, width, CV_32FC3, data);
     cv::imshow(title, image);
     cv::waitKey();
-};
+}
 
 #endif //CPP_DEMO_UTILS_H

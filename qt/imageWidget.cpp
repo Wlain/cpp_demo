@@ -130,7 +130,7 @@ void ImageWidget::calcPressPoint(QMouseEvent* event)
 void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && Qt::LeftButton == event->button())
     {
         switch (m_primitiveType)
@@ -166,7 +166,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         auto position = event->pos();
@@ -203,7 +203,7 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         m_ends.emplace_back(m_pressPoint.x, m_pressPoint.y);
@@ -460,10 +460,10 @@ void ImageWidget::actionOpenMask()
         {
             auto p = pointQueue.front();
             pointQueue.pop();
-            for (int i = 0; i < m_dx.size(); ++i)
+            for (int i = 0; i < m_offsets.size(); ++i)
             {
-                int curX = p.x + m_dx[i];
-                int curY = p.y + m_dy[i];
+                int curX = p.x + m_offsets[i][0];
+                int curY = p.y + m_offsets[i][1];
                 if (curX >= 0 && curX < w &&
                     curY >= 0 && curY < h &&
                     m_maskImage.qImage->pixel(curX, curY) != blackColor)

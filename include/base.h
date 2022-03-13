@@ -46,6 +46,8 @@
 #include <glfw/deps/linmath.h>
 #include <GLFW/glfw3.h>
 
+#include "timer.h"
+
 /// assert macros
 #define ASSERT(expression) assert(expression)
 

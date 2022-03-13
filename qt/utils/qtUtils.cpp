@@ -63,6 +63,9 @@ void cropImage(cv::Mat& image)
     }
 }
 
+// Neighbor offsets in all directions
+static const int offsets[5][2] = { { 0, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
+
 /// 直线扫描算法
 /// 1.DDA画线算法（数值微分法）：引进图形学中一个很重要的思想—增量思想。
 /// 点xi，yi满足直线方程yi=kxi+b，
@@ -92,12 +95,11 @@ void ddaLine(const Vector2& begin, const Vector2& end, QImage& image)
         }
         while (x1 < x2)
         {
-            image.setPixel(x1, int(y1 + 0.5f), color);
             /// 改良DDA，主要用于加粗直线
-            image.setPixel(x1 - 1, int(y1 + 0.5f), color);
-            image.setPixel(x1, int(y1 + 0.5f) - 1, color);
-            image.setPixel(x1 + 1, int(y1 + 0.5f), color);
-            image.setPixel(x1, int(y1 + 0.5f) + 1, color);
+            for(auto offset : offsets)
+            {
+                image.setPixel(x1 + offset[0], int(y1 + 0.5f) + offset[1], color);
+            }
             y1 = y1 + k;
             x1 = x1 + 1;
         }
@@ -111,12 +113,11 @@ void ddaLine(const Vector2& begin, const Vector2& end, QImage& image)
         }
         while (y1 < y2)
         {
-            image.setPixel(int(x1 + 0.5f), y1, color);
             /// 改良DDA，主要用于加粗直线
-            image.setPixel(int(x1 + 0.5f) - 1, y1, color);
-            image.setPixel(int(x1 + 0.5f), y1 - 1, color);
-            image.setPixel(int(x1 + 0.5f) + 1, y1, color);
-            image.setPixel(int(x1 + 0.5f), y1 + 1, color);
+            for(auto offset : offsets)
+            {
+                image.setPixel(int(x1 + 0.5f) + offset[0], y1 + offset[1], color);
+            }
             x1 = x1 + _k;
             y1 = y1 + 1;
         }

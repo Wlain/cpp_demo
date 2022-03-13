@@ -107,8 +107,7 @@ private:
     bool m_isFirstDrawEditPos = true;
     bool m_drawStatus = false;
     constexpr static float const s_imageWidth = 300;
-    constexpr static std::array<int, 4> m_dx = { -1, 0, 0, 1 };
-    constexpr static std::array<int, 4> m_dy = { 0, -1, 1, 0 };
+    const std::vector<std::vector<int>> m_offsets = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
 };
 
 #endif //CPP_DEMO_IMAGEWIDGET_H
