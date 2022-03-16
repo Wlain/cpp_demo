@@ -1,0 +1,10 @@
+preprocessorErrorDirective
+unknownMacro
+syntaxError
+uninitMemberVar
+uninitDerivedMemberVar
+uninitMemberVarPrivate
+internalAstError
+assertWithSideEffect
+incorrectStringBooleanError
+virtualCallInConstructor
