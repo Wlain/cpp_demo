@@ -147,10 +147,11 @@ extern void eigenTest();
 extern void virtualFuncTest();
 extern void rapidjsonTest();
 extern void recordABug();
+extern void staticExternThreadCrashDemo();
 
 int main(int argc, char* argv[])
 {
-    qtTest(argc, argv);
+    staticExternThreadCrashDemo();
     return 0;
 }
 
