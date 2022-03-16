@@ -51,6 +51,15 @@
 /// assert macros
 #define ASSERT(expression) assert(expression)
 
+/// 安卓平台下导出动态库
+#ifdef __cplusplus
+    #define EXPORT extern "C" __attribute__((visibility("default")))
+#else
+    #define EXPORT extern __attribute__((visibility("default")))
+#endif
+/// __attribute__((visibility("default")))  // 默认，设置为：default之后就可以让外面的类看见了。
+/// __attribute__((visibility("hideen")))  // 隐藏
+
 /// Error macro
 #define LOG_ERROR(...)                                  \
     do                                                  \
