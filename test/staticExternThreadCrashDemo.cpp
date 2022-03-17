@@ -45,18 +45,18 @@ void test()
 void staticExternThreadCrashDemo()
 {
     /// 版本一：不崩溃
-//    std::thread t[100];
-//    for (int i = 0; i < 100; i++)
-//    {
-//        t[i] = std::thread(test);
-//    }
-//    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-//    std::cout << "exit\n";
-//    running = false;
-//    for (int i = 0; i < 100; i++)
-//    {
-//        t[i].join();
-//    }
+    //    std::thread t[100];
+    //    for (int i = 0; i < 100; i++)
+    //    {
+    //        t[i] = std::thread(test);
+    //    }
+    //    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    //    std::cout << "exit\n";
+    //    running = false;
+    //    for (int i = 0; i < 100; i++)
+    //    {
+    //        t[i].join();
+    //    }
     /// 分析一下是由于最后我们通过join函数（join函数会阻塞当前线程，直到子线程结束运行）确保子线程在主函数退出之前已经结束，从而确保在主线程析构静态变量的时候，子线程不可能会再访问静态变量了。
     /// 版本二：崩溃
     std::thread t[100];

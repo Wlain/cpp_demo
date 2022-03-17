@@ -63,7 +63,7 @@ void cropImage(cv::Mat& image)
     }
 }
 
-// Neighbor offsets in all directions
+// neighbor offsets in all directions
 static const int offsets[5][2] = { { 0, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
 
 /// 直线扫描算法

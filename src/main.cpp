@@ -151,7 +151,8 @@ extern void staticExternThreadCrashDemo();
 
 int main(int argc, char* argv[])
 {
-    staticExternThreadCrashDemo();
+    imageProcessTest();
+//    qtTest(argc, argv);
     return 0;
 }
 
