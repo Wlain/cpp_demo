@@ -427,8 +427,6 @@ void ImageWidget::renderWarping()
         }
         m_shapeList.clear();
         m_warping->resetFilledStatus();
-        m_warping->setPointP(m_starts);
-        m_warping->setPointQ(m_ends);
         m_image->fill(Qt::white);
         m_warping->render(*m_image, *m_originImage);
         update();

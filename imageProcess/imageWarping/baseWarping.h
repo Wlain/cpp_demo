@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_BASEWARPING_H
 #define CPP_DEMO_BASEWARPING_H
 #include "vector2.h"
-
+#include <opencv2/opencv.hpp>
 #include <QImage>
 #include <vector>
 
@@ -26,6 +26,8 @@ public:
     bool getFilledStatusAt(int i, int j) const;
     void setFilledStatusAt(int i, int j, bool status);
     void resetFilledStatus();
+
+    void getWarpingResult(const cv::Mat& img, cv::Mat& result);
 
 protected:
     /// 方案一：直接搞个boxBlur，会有边缘case

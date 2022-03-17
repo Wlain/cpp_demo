@@ -3,6 +3,7 @@
 //
 
 #include "idwWarping.h"
+
 #include <opencv2/opencv.hpp>
 
 static std::vector<Vector2> start = { { 155, 11.5 },
@@ -20,10 +21,9 @@ cv::Mat idwTest(const cv::Mat& img)
     int height = img.rows;
     // prepare output
     cv::Mat out = cv::Mat::zeros(height, width, CV_8UC3);
-//    IdwWarping warping(start, end);
-//    warping.resize(width, height);
-//    warping.resetFilledStatus();
-//    warping.setPointP(start);
-//    warping.setPointQ(end);
+    IdwWarping warping(start, end);
+    warping.resize(width, height);
+    warping.resetFilledStatus();
+    warping.getWarpingResult(img, out);
     return out;
 }

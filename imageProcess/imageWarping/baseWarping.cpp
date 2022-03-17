@@ -170,3 +170,22 @@ void BaseWarping::render(QImage& image, const QImage& m_originImage)
     }
     fillNearPixelForANNSearch(image);
 }
+
+void BaseWarping::getWarpingResult(const cv::Mat& img, cv::Mat& result)
+{
+    // each y, x
+    for(int y = 0; y < m_height; ++y)
+    {
+        for (int x = 0; x < m_width; ++x)
+        {
+            Vector2 point{ (float)x, (float)y };
+            point = targetFunction(point);
+            if (point.x >= 0.0f && point.x < (float)m_width && point.y >= 0.0f && point.y < (float)m_height)
+            {
+//                setFilledStatusAt((int)point.x, (int)point.y, true);
+                result.at<cv::Vec3b>((int)point.y, (int)point.x) = img.at<cv::Vec3b>(y, x);
+//                image.setPixel((int)point.x, (int)point.y, m_originImage.pixel(i, j));
+            }
+        }
+    }
+}
