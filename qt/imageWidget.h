@@ -82,9 +82,10 @@ private:
     void openImage(ImageWrapper& image);
 
 private:
-    std::unique_ptr<cv::Mat> m_matOriginImage;
     std::unique_ptr<QImage> m_image;
+    std::unique_ptr<cv::Mat> m_matImage;
     std::unique_ptr<QImage> m_originImage;
+    std::unique_ptr<cv::Mat> m_matOriginImage;
     ImageWrapper m_sourceImage;
     ImageWrapper m_targetImage;
     ImageWrapper m_maskImage;

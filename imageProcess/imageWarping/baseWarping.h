@@ -5,8 +5,9 @@
 #ifndef CPP_DEMO_BASEWARPING_H
 #define CPP_DEMO_BASEWARPING_H
 #include "vector2.h"
-#include <opencv2/opencv.hpp>
+
 #include <QImage>
+#include <opencv2/opencv.hpp>
 #include <vector>
 
 class BaseWarping
@@ -16,7 +17,6 @@ public:
     BaseWarping(std::vector<Vector2> p, std::vector<Vector2> q);
     virtual ~BaseWarping();
     virtual Vector2 targetFunction(const Vector2& input);
-    void render(QImage& image, const QImage& m_originImage);
     void setPointP(const std::vector<Vector2>& mPointP);
     void setPointQ(const std::vector<Vector2>& mPointQ);
     void resize(uint32_t width, uint32_t height);
@@ -31,9 +31,9 @@ public:
 
 protected:
     /// 方案一：直接搞个boxBlur，会有边缘case
-    void fillNearPixelForBoxBlur(QImage& image) const;
+    void fillNearPixelForBoxBlur(cv::Mat& image) const;
     /// 方案二：使用ANN进行搜索最邻近点，效果更好
-    void fillNearPixelForANNSearch(QImage& image);
+    void fillNearPixelForANNSearch(cv::Mat& image);
 
 protected:
     std::vector<bool> m_filled;

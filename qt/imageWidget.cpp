@@ -130,7 +130,7 @@ void ImageWidget::calcPressPoint(QMouseEvent* event)
 void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+    //    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && Qt::LeftButton == event->button())
     {
         switch (m_primitiveType)
@@ -166,7 +166,7 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+    //    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         auto position = event->pos();
@@ -203,7 +203,7 @@ void ImageWidget::mouseMoveEvent(QMouseEvent* event)
 void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
     calcPressPoint(event);
-//    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
+    //    std::cout << "x:" << m_pressPoint.x << ", y:" << m_pressPoint.y << std::endl;
     if (m_drawStatus && m_shape != nullptr)
     {
         m_ends.emplace_back(m_pressPoint.x, m_pressPoint.y);
@@ -238,6 +238,7 @@ void ImageWidget::actionOpen()
         m_image->load(path);
         *(m_originImage) = *(m_image);
         m_matOriginImage = std::make_unique<cv::Mat>(std::move(qImage2Mat(*m_originImage)));
+        m_matImage = std::make_unique<cv::Mat>(std::move(qImage2Mat(*m_image)));
         m_width = m_image->width();
         m_height = m_image->height();
         m_drawStatus = true;
@@ -428,7 +429,8 @@ void ImageWidget::renderWarping()
         m_shapeList.clear();
         m_warping->resetFilledStatus();
         m_image->fill(Qt::white);
-        m_warping->render(*m_image, *m_originImage);
+        m_warping->getWarpingResult(*m_matOriginImage, *m_matImage);
+        *m_image = mat2Qimage(*m_matImage);
         update();
     }
 }

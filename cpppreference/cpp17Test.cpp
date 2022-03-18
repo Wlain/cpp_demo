@@ -105,7 +105,7 @@ auto identity = [](int n) constexpr
 {
     return n;
 };
-static_assert(identity(1) == 1);
+//static_assert(identity(1) == 1);
 
 // lambda with auto argument is actually a template
 // implicit auto constexpr:

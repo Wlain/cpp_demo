@@ -11,6 +11,8 @@ extern cv::Mat mirrorTest(const cv::Mat& img, bool horizontal, bool vertical);
 extern cv::Mat alphaBlend(const cv::Mat& src, const cv::Mat& dst, const cv::Mat& mask);
 extern cv::Mat grayTest(const cv::Mat& img);
 extern cv::Mat idwTest(const cv::Mat& img);
+extern cv::Mat rbfTest(const cv::Mat& img);
+extern cv::Mat computeGradientX(const cv::Mat& image);
 
 void imageProcessTest()
 {
@@ -18,7 +20,7 @@ void imageProcessTest()
     cv::Mat targetImage = cv::imread(GET_CURRENT(/resources/1/bg.jpg));
     cv::Mat maskImage = cv::imread(GET_CURRENT(/resources/1/mask.jpg));
     cv::Mat monaLisa = cv::imread(GET_CURRENT(/resources/monaLisa.bmp));
-    if (!srcImage.data || !targetImage.data )
+    if (!srcImage.data || !targetImage.data)
     {
         printf("No srcImage data or No targetImage data \n");
         return;
@@ -28,7 +30,11 @@ void imageProcessTest()
     //    auto out = colorTransferBetweenImages(srcImage, targetImage);
     //    auto out = alphaBlend(srcImage, targetImage, maskImage);
     //    auto out = grayTest(srcImage);
-    auto out = idwTest(monaLisa);
-    imshow("Display result", out);
+    //    auto idw = idwTest(monaLisa);
+    //    auto rbf = rbfTest(monaLisa);
+    //    imshow("IDW", idw);
+    //    imshow("RBF", rbf);
+    auto out = computeGradientX(srcImage);
+    imshow("result image", out);
     cv::waitKey(0);
 }

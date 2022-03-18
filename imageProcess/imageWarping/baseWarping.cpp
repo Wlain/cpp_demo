@@ -39,20 +39,20 @@ void BaseWarping::resize(uint32_t width, uint32_t height)
     m_height = height;
 }
 
-int BaseWarping::getFrameBufferIndex(int i, int j) const
+int BaseWarping::getFrameBufferIndex(int y, int x) const
 {
-    assert(i >= 0 && i < m_width && j >= 0 && j < m_height);
-    return j * m_width + i;
+    assert(x >= 0 && x < m_width && y >= 0 && y < m_height);
+    return (m_height - y) * m_width + x;
 }
 
-bool BaseWarping::getFilledStatusAt(int i, int j) const
+bool BaseWarping::getFilledStatusAt(int y, int x) const
 {
-    return m_filled[getFrameBufferIndex(i, j)];
+    return m_filled[getFrameBufferIndex(y, x)];
 }
 
-void BaseWarping::setFilledStatusAt(int i, int j, bool status)
+void BaseWarping::setFilledStatusAt(int y, int x, bool status)
 {
-    m_filled[getFrameBufferIndex(i, j)] = status;
+    m_filled[getFrameBufferIndex(y, x)] = status;
 }
 
 void BaseWarping::resetFilledStatus()
@@ -60,11 +60,11 @@ void BaseWarping::resetFilledStatus()
     std::fill(m_filled.begin(), m_filled.end(), false);
 }
 
-void BaseWarping::fillNearPixelForBoxBlur(QImage& image) const
+void BaseWarping::fillNearPixelForBoxBlur(cv::Mat& image) const
 {
-    for (int i = 1; i < m_width - 1; ++i)
+    for (int i = 1; i < m_height - 1; ++i)
     {
-        for (int j = 1; j < m_height - 1; ++j)
+        for (int j = 1; j < m_width - 1; ++j)
         {
             if (!getFilledStatusAt(i, j))
             {
@@ -82,8 +82,8 @@ void BaseWarping::fillNearPixelForBoxBlur(QImage& image) const
                             if (n == i && m == j) break;
                             if (getFilledStatusAt(n, m))
                             {
-                                auto color = image.pixelColor(n, m);
-                                sum += Vec3i(color.red(), color.green(), color.blue());
+                                auto color = image.at<cv::Vec3b>(n, m); //image.pixelColor();
+                                sum += Vec3i(color[0], color[1], color[2]);
                                 index++;
                             }
                         }
@@ -92,22 +92,22 @@ void BaseWarping::fillNearPixelForBoxBlur(QImage& image) const
                 if (!sum.isZero())
                 {
                     const auto& avg = sum / index;
-                    image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+                    image.at<cv::Vec3b>(i, j) = { (unsigned char)avg.x, (unsigned char)avg.y, (unsigned char)avg.z };
                 }
             }
         }
     }
 }
 
-void BaseWarping::fillNearPixelForANNSearch(QImage& image)
+void BaseWarping::fillNearPixelForANNSearch(cv::Mat& image)
 {
     int nPts = 0;
     int count = 4;
     int threshold = 2;
     ANNpointArray dataPts = annAllocPts(m_width * m_height, 2);
-    for (int i = 0; i < m_width; i++)
+    for (int i = 0; i < m_height; i++)
     {
-        for (int j = 0; j < m_height; j++)
+        for (int j = 0; j < m_width; j++)
         {
             if (getFilledStatusAt(i, j))
             {
@@ -120,9 +120,9 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
     auto kdTree = ANNkd_tree(dataPts, nPts, 2);
     std::vector<ANNidx> index(count);
     std::vector<ANNdist> dist(count);
-    for (int i = 0; i < m_width; ++i)
+    for (int i = 0; i < m_height; ++i)
     {
-        for (int j = 0; j < m_height; ++j)
+        for (int j = 0; j < m_width; ++j)
         {
             if (!getFilledStatusAt(i, j))
             {
@@ -134,58 +134,43 @@ void BaseWarping::fillNearPixelForANNSearch(QImage& image)
                 int colorIndex = 0;
                 for (int m = 0; m < count; m++)
                 {
-                    auto x = dataPts[index[m]][0];
-                    auto y = dataPts[index[m]][1];
-                    auto color = image.pixelColor(x, y);
-                    if (fabs(x - i) <= threshold && fabs(y - j) <= threshold)
+                    /// 注意，此处是opencv，宽高颠倒，y是取 dataPts[index[m]][0]
+                    auto y = dataPts[index[m]][0];
+                    auto x = dataPts[index[m]][1];
+                    auto color = image.at<cv::Vec3b>(y, x);
+                    if (fabs(y - i) <= threshold && fabs(x - j) <= threshold)
                     {
-                        sum += Vec3i(color.red(), color.green(), color.blue());
+                        sum += Vec3i(color[0], color[1], color[2]);
                         colorIndex++;
                     }
                 }
                 if (!sum.isZero())
                 {
                     const auto& avg = sum / colorIndex;
-                    image.setPixel(i, j, qRgba(avg.x, avg.y, avg.z, 255));
+                    image.at<cv::Vec3b>(i, j) = { (unsigned char)avg.x, (unsigned char)avg.y, (unsigned char)avg.z };
                 }
             }
         }
     }
 }
 
-void BaseWarping::render(QImage& image, const QImage& m_originImage)
-{
-    for (int i = 0; i < m_width; ++i)
-    {
-        for (int j = 0; j < m_height; ++j)
-        {
-            Vector2 point{ (float)i, (float)j };
-            point = targetFunction(point);
-            if (point.x >= 0.0f && point.x < (float)m_width && point.y >= 0.0f && point.y < (float)m_height)
-            {
-                setFilledStatusAt((int)point.x, (int)point.y, true);
-                image.setPixel((int)point.x, (int)point.y, m_originImage.pixel(i, j));
-            }
-        }
-    }
-    fillNearPixelForANNSearch(image);
-}
-
 void BaseWarping::getWarpingResult(const cv::Mat& img, cv::Mat& result)
 {
     // each y, x
-    for(int y = 0; y < m_height; ++y)
+    for (int x = 0; x < m_height; ++x)
     {
-        for (int x = 0; x < m_width; ++x)
+        for (int y = 0; y < m_width; ++y)
         {
             Vector2 point{ (float)x, (float)y };
             point = targetFunction(point);
-            if (point.x >= 0.0f && point.x < (float)m_width && point.y >= 0.0f && point.y < (float)m_height)
+            auto resultX = (int)point.x;
+            auto resultY = (int)point.y;
+            if (resultX >= 0 && resultX < m_width && resultY >= 0 && resultY < m_height)
             {
-//                setFilledStatusAt((int)point.x, (int)point.y, true);
-                result.at<cv::Vec3b>((int)point.y, (int)point.x) = img.at<cv::Vec3b>(y, x);
-//                image.setPixel((int)point.x, (int)point.y, m_originImage.pixel(i, j));
+                setFilledStatusAt(resultY, resultX, true);
+                result.at<cv::Vec3b>(resultY, resultX) = img.at<cv::Vec3b>(y, x);
             }
         }
     }
+    fillNearPixelForANNSearch(result);
 }

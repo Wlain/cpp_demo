@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.20)
 project(cpp_demo)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -70,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} imageProcess/computeGradient/computeGradient.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
