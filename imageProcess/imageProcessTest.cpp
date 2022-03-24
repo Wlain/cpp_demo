@@ -37,7 +37,7 @@ void imageProcessTest()
     //    imshow("IDW", idw);
     //    imshow("RBF", rbf);
     //    auto out = computeGradient(srcImage);
-    auto out = computeLaplace(grayTest(srcImage));
+    auto out = possionBlend(srcImage, targetImage, maskImage);
     imshow("result image", out);
     cv::waitKey(0);
 }

@@ -3,6 +3,7 @@
 //
 
 #include "base.h"
+#include "vec2.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -11,27 +12,46 @@ static Timer timer;
 
 // neighbor offsets in all directions
 static const int offsets[4][2] = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
+extern cv::Mat computeLaplace(const cv::Mat& image);
+extern cv::Mat computeGradient(const cv::Mat& image);
 
-cv::Mat possionBlend(const cv::Mat& src, const cv::Mat& target, const cv::Mat& mask)
+cv::Mat possionBlend(cv::InputArray _src, cv::InputArray _target, cv::InputArray _mask)
 {
-
-    cv::Mat kernel = cv::Mat::zeros(1, 3, CV_8S);
-    kernel.at<char>(0,2) = 1;
-    kernel.at<char>(0,1) = -1;
-
-    timer.reset();
+    const auto src = _src.getMat();
+    auto target = _target.getMat();
+    const auto mask = _mask.getMat();
     auto width = target.cols;
     auto height = target.rows;
-    /// 计算前景区域
-    int count = 0;
-    std::vector<std::vector<int>> countNumber(width, std::vector<int>(height));
-    for (int i = 0; i < width; ++i)
+    timer.reset();
+    /// 计算原图的拉普拉斯（散度）
+    auto srcLaplace = computeLaplace(src);
+    /// 计算背景图的梯度拉普拉斯（散度）
+    auto targetLaplace = computeLaplace(target);
+    for (int i = 0; i < height; ++i)
     {
-        for (int j = 0; j < height; ++j)
+        for (int j = 0; j < width; ++j)
         {
-            if (mask.at<cv::Vec3b>(i, j)[0] == 255)
+            if (mask.at<cv::Vec3b>(i, j)[0] >= 128)
             {
-                countNumber[i][j] = count++;
+                targetLaplace.at<cv::Vec3b>(i, j) = { 0, 0, 0 };
+            }
+        }
+    }
+    LOG_INFO("possionBlend:the run time is %f seconds-1", timer.elapsedSecond());
+    timer.reset();
+    cv::Mat div = targetLaplace + srcLaplace;
+    /// 计算前景区域, 对mask内的点进行编号
+    std::vector<Vec2i> indexToCoord;
+    Eigen::MatrixXi coordToIndex(width, height);
+    int count = 0;
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            if (mask.at<cv::Vec3b>(i, j)[0] >= 128)
+            {
+                coordToIndex(j, i) = count++;
+                indexToCoord.emplace_back(j, i);
             }
         }
     }
@@ -39,58 +59,83 @@ cv::Mat possionBlend(const cv::Mat& src, const cv::Mat& target, const cv::Mat& m
     {
         return {};
     }
-    /// 求解方程 Ax = B， x: 每个点都在前景区域
-    //    Eigen::VectorXd  result[3] = {3, 3,3};
-    Eigen::VectorXd b[3] = { Eigen::VectorXd(count), Eigen::VectorXd(count), Eigen::VectorXd(count) };
-    Eigen::SparseMatrix<float> A(count, count);
-    A.setZero();
-    /// search neighbor
-    /// 在域上循环一次。系数矩阵 a 对于所有域都是相同的通道，右边是通道相关的。
-    for (int i = 0; i < width; ++i)
+    std::cout << "count: " << count << std::endl;
+    /// 构建系数阵并分解
+    Eigen::SparseMatrix<double> a(count, count);
+    std::vector<Eigen::Triplet<double>> coefficients;
+    Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> llt;
+    for (int i = 0; i < count; ++i)
     {
-        for (int j = 0; j < height; ++j)
+        auto pos = indexToCoord[i];
+        auto x = pos.x;
+        auto y = pos.y;
+        int np = 4;
+        /// 边界条件
+        if (x == 0 || width - 1 == x)
         {
-            if (mask.at<cv::Vec3b>(i, j)[0] == 255)
+            np--;
+        }
+        if (y == 0 || height - 1 == y)
+        {
+            np--;
+        }
+        coefficients.emplace_back(i, i, np);
+        if (x > 0 && mask.at<cv::Vec3b>(x - 1, y)[0] >= 128)
+        {
+            coefficients.emplace_back(i, coordToIndex(x - 1, y), -1);
+        }
+        if (x < width - 1 && mask.at<cv::Vec3b>(x + 1, y)[0] >= 128)
+        {
+            coefficients.emplace_back(i, coordToIndex(x + 1, y), -1);
+        }
+        if (y > 0 && mask.at<cv::Vec3b>(x, y - 1)[0] >= 128)
+        {
+            coefficients.emplace_back(i, coordToIndex(x, y - 1), -1);
+        }
+        if (y < height - 1 && mask.at<cv::Vec3b>(x, y + 1)[0] >= 128)
+        {
+            coefficients.emplace_back(i, coordToIndex(x, y + 1), -1);
+        }
+        a.setFromTriplets(coefficients.begin(), coefficients.end());
+        llt.compute(a);
+    }
+    LOG_INFO("possionBlend:the run time is %f seconds-2", timer.elapsedSecond());
+    timer.reset();
+    /// 求解方程 Ax = B， x: 每个点都在前景区域
+    Eigen::VectorXd b[3] = { Eigen::VectorXd(count), Eigen::VectorXd(count), Eigen::VectorXd(count) };
+    Eigen::VectorXd result[3] = { Eigen::VectorXd(count), Eigen::VectorXd(count), Eigen::VectorXd(count) };
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            if (mask.at<cv::Vec3b>(i, j)[0] >= 128)
             {
-                int neighbor = 0;
-                auto backgroundColor = target.at<cv::Vec3b>(i, j);
-                auto srcColor = src.at<cv::Vec3b>(i, j);
-
-                for (auto& k : b)
+                for (int k = 0; k < 3; ++k)
                 {
-                    k(countNumber[i][j]) = 0;
-                }
-
-                for (int k = 0; k < 4; ++k)
-                {
-                    int nx = i + offsets[k][0], ny = j + offsets[k][1];
-                    if (nx >= 0 && nx < width && ny >= 0 && ny < height)
-                    {
-                        neighbor++;
-                        backgroundColor = target.at<cv::Vec3b>(nx, ny); //background.pixel(nx+diff_x, ny+diff_y);
-                        srcColor = src.at<cv::Vec3b>(nx, ny);
-                        if (mask.at<cv::Vec3b>(nx, ny)[0] == 255)
-                        {
-                            // p, p_neighbor both in interior of omiga
-                            // Np * fp - \sigma fq = \sigma Vpq
-                            A.insert(countNumber[i][j], countNumber[nx][ny]);
-                        }
-                        else
-                        {
-                            for (int n = 0; n < 3; ++n)
-                            {
-                                b[k](countNumber[i][j]) += backgroundColor[k];
-                            }
-                        }
-                        // mixing gradients, choose max
-                        for(int n = 0; n < 3; ++n)
-                        {
-
-                        }
-                    }
+                    b[k][coordToIndex(j, i)] = div.at<cv::Vec3b>(j, i)[k];
                 }
             }
         }
     }
-    LOG_INFO("possionBlend:the run time is %f seconds", timer.elapsedSecond());
+    LOG_INFO("possionBlend:the run time is %f seconds-3", timer.elapsedSecond());
+    timer.reset();
+    Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> solver;
+    solver.compute(a);
+    for (int k = 0; k < 3; ++k)
+    {
+        result[k] = solver.solve(b[k]);
+    }
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            if (mask.at<cv::Vec3b>(i, j)[0] >= 128)
+            {
+                target.at<cv::Vec3b>(i, j) = { (unsigned char)result[0][coordToIndex(j, i)], (unsigned char)result[0][coordToIndex(j, i)], (unsigned char)result[0][coordToIndex(j, i)] };
+            }
+        }
+    }
+    LOG_INFO("possionBlend:the run time is %f seconds-5", timer.elapsedSecond());
+    timer.reset();
+    return target;
 }
