@@ -9,7 +9,7 @@ Point::~Point() = default;
 
 void Point::initialize()
 {
-    initWithProperty(std::make_tuple("point", GET_CURRENT(/resources/shaders/point.gl.vert), GET_CURRENT(/resources/shaders/point.gl.frag)));
+    initWithProperty(std::make_tuple("point", GET_CURRENT("/resources/shaders/point.gl.vert"), GET_CURRENT("/resources/shaders/point.gl.frag")));
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
 }

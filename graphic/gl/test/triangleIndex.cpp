@@ -17,7 +17,7 @@ TriangleIndex::~TriangleIndex()
 
 void TriangleIndex::initialize()
 {
-    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT(/resources/shaders/triangle.gl.vert), GET_CURRENT(/resources/shaders/triangle.gl.frag)));
+    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT("/resources/shaders/triangle.gl.vert"), GET_CURRENT("/resources/shaders/triangle.gl.frag")));
     glGenBuffers(1, &m_vbo);
     glGenBuffers(1, &m_ebo);
     glGenVertexArrays(1, &m_vao);

@@ -9,7 +9,7 @@ Animation::~Animation() = default;
 
 void Animation::initialize()
 {
-    initWithProperty(std::make_tuple("Animation", GET_CURRENT(/resources/shaders/animation.vert), GET_CURRENT(/resources/shaders/animation.frag)));
+    initWithProperty(std::make_tuple("Animation", GET_CURRENT("/resources/shaders/animation.vert"), GET_CURRENT("/resources/shaders/animation.frag")));
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
 }

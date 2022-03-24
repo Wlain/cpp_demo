@@ -12,7 +12,7 @@ Triangle::~Triangle() = default;
 
 void Triangle::initialize()
 {
-    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT(/resources/shaders/triangle.gl.vert), GET_CURRENT(/resources/shaders/triangle.gl.frag)));
+    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT("/resources/shaders/triangle.gl.vert"), GET_CURRENT("/resources/shaders/triangle.gl.frag")));
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);

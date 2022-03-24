@@ -22,7 +22,7 @@ Sharing::~Sharing() = default;
 
 void Sharing::initialize()
 {
-    initWithProperty(std::make_tuple("First", GET_CURRENT(/resources/shaders/sharing.gl.vert), GET_CURRENT(/resources/shaders/sharing.gl.frag)));
+    initWithProperty(std::make_tuple("First", GET_CURRENT("/resources/shaders/sharing.gl.vert"), GET_CURRENT("/resources/shaders/sharing.gl.frag")));
     m_window1 = glfwCreateWindow(400, 400, "Second", nullptr, m_window);
     if (!m_window1)
     {

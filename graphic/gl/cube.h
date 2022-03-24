@@ -37,7 +37,7 @@ protected:
     glm::vec3 m_camera{0.0f, 0.0f, 30.0f};
     glm::vec3 m_target{0.0f, -2.0f, 0.0f};
     glm::mat4 m_pMat, m_vMat, m_mMat, m_mvMat, m_tMat, m_rMat;
-    std::tuple<const char*, std::string, std::string> m_property{"cube", GET_CURRENT(/resources/shaders/cube.vert), GET_CURRENT(/resources/shaders/cube.frag)};
+    std::tuple<const char*, std::string, std::string> m_property{"cube", GET_CURRENT("/resources/shaders/cube.vert"), GET_CURRENT("/resources/shaders/cube.frag")};
 
     int m_displayLoopi = 0;
     float m_currentTime;

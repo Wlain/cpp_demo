@@ -6,7 +6,7 @@
 
 void opencvTest()
 {
-    cv::Mat image = cv::imread(GET_CURRENT(/resources/test.jpg));
+    cv::Mat image = cv::imread(GET_CURRENT("/resources/test.jpg"));
     if (!image.data)
     {
         printf("No m_image data \n");

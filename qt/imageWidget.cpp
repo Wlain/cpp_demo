@@ -223,8 +223,8 @@ void ImageWidget::actionOpen()
 {
     std::cout << "actionOpen" << std::endl;
     auto path = QFileDialog::getOpenFileName(nullptr, QString(), QString(), tr("Images (*.png *.xpm *.jpg *.bmp)"));
-    //        QString path = GET_CURRENT(/resources/test.jpg);
-    //        QString path = GET_CURRENT(/resources/monaLisa.bmp);
+    //        QString path = GET_CURRENT("/resources/test.jpg");
+    //        QString path = GET_CURRENT("/resources/monaLisa.bmp");
     if (m_image == nullptr)
     {
         m_image = std::make_unique<QImage>();

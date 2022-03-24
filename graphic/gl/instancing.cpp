@@ -10,7 +10,7 @@ Instancing::~Instancing() = default;
 
 void Instancing::initialize()
 {
-    m_property = {"instancing", GET_CURRENT(/resources/shaders/instancing.vert), GET_CURRENT(/resources/shaders/instancing.frag)};
+    m_property = {"instancing", GET_CURRENT("/resources/shaders/instancing.vert"), GET_CURRENT("/resources/shaders/instancing.frag")};
     Cube::initialize();
     m_camera.z = 420.0f;
 }

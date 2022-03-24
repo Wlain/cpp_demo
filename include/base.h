@@ -93,8 +93,9 @@
     constexpr auto name##_##member = name::member
 
 #include "logger.h"
+#include <string>
 
-#define GET_CURRENT(__VA_ARGS__) CURRENT_PROJECT_DIR #__VA_ARGS__
+#define GET_CURRENT(__VA_ARGS__) (std::string(CURRENT_PROJECT_DIR) + __VA_ARGS__).c_str()
 
 #define TO_STRING(s) #s
 #define CONNECTENATE(x, y) x##y
