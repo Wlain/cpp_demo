@@ -193,7 +193,7 @@ void assignment4()
         for (auto& point : controlPoints)
         {
             //在img原始图片中划圈, 圈的中心点为point，半径=3，颜色为（255，0，0），粗细=3
-            cv::circle(window, point, 3, { { 0, 0, 255 } }, 3);
+            cv::circle(window, point, 3, {0, 0, 255 }, 3);
         }
         if (controlPoints.size() == 4)
         {
