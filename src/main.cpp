@@ -151,6 +151,6 @@ extern void staticExternThreadCrashDemo();
 
 int main(int argc, char* argv[])
 {
-    imageProcessTest();
+    geekTimeTest::vectorTest();
     return 0;
 }
