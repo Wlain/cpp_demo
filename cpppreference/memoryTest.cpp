@@ -18,11 +18,11 @@ float getUsageMemory()
     {
         if (info.phys_footprint != 0 && info.phys_footprint < 0x100000000LL)
         { // iOS8
-            processMemory = static_cast<float>(info.phys_footprint / 1024.0f);
+            processMemory = static_cast<float>(info.phys_footprint);
         }
         else
         {
-            processMemory = static_cast<float>(info.internal / 1024.0f);
+            processMemory = static_cast<float>(info.internal);
         }
     }
     else

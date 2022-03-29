@@ -4,6 +4,7 @@
 #include "vector2.h"
 
 #include "base.h"
+
 #include <cfloat>
 
 Vector2::Vector2() :
@@ -14,6 +15,7 @@ Vector2::Vector2() :
 Vector2::Vector2(float x, float y) :
     x(x), y(y)
 {
+    std::cout << "Vector2::Vector2 called" << std::endl;
 }
 
 Vector2::Vector2(const Vector2& copy)

@@ -148,9 +148,10 @@ extern void virtualFuncTest();
 extern void rapidjsonTest();
 extern void recordABug();
 extern void staticExternThreadCrashDemo();
+extern void msaaSpringSystem();
 
 int main(int argc, char* argv[])
 {
-    imageProcessTest();
+    msaaSpringSystem();
     return 0;
 }
