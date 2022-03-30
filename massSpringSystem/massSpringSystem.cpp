@@ -4,7 +4,7 @@
 
 #include "application.h"
 
-void msaaSpringSystem()
+void massSpringSystem()
 {
     Application::Config config;
     Application app(config);

@@ -70,7 +70,7 @@ file(GLOB_RECURSE SOURCES
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} msaaSpringSystem/msaaSpringSystem.cpp msaaSpringSystem/application.cpp msaaSpringSystem/application.h msaaSpringSystem/rope.cpp msaaSpringSystem/rope.h msaaSpringSystem/spring.h msaaSpringSystem/mass.h)
+add_executable(cpp_demo ${SOURCES} massSpringSystem/massSpringSystem.cpp massSpringSystem/application.cpp massSpringSystem/application.h massSpringSystem/rope.cpp massSpringSystem/rope.h massSpringSystem/spring.h massSpringSystem/mass.h)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

@@ -148,10 +148,10 @@ extern void virtualFuncTest();
 extern void rapidjsonTest();
 extern void recordABug();
 extern void staticExternThreadCrashDemo();
-extern void msaaSpringSystem();
+extern void massSpringSystem();
 
 int main(int argc, char* argv[])
 {
-    msaaSpringSystem();
+    massSpringSystem();
     return 0;
 }
