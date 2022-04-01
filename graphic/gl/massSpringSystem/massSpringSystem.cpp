@@ -1,0 +1,82 @@
+//
+// Created by william on 2022/3/25.
+//
+
+#include "massSpringSystem.h"
+
+#include "mass.h"
+#include "rope.h"
+#include "spring.h"
+
+#include <utility>
+namespace graphicEngine::gl
+{
+massSpringSystem::~massSpringSystem()
+{
+    delete m_verletRope;
+    delete m_eulerRope;
+}
+
+massSpringSystem::massSpringSystem(Config config) :
+    m_config(std::move(config))
+{
+}
+
+void massSpringSystem::initialize()
+{
+    m_verletRope = new Rope({ 0, 200 }, { -400, 200 }, 10, m_config.mass,
+                            m_config.ks, { 0 });
+    m_eulerRope = new Rope({ 0, 200 }, { -400, 200 }, 10, m_config.mass,
+                           m_config.ks, { 0 });
+    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT("/resources/shaders/massSpring.gl.vert"), GET_CURRENT("/resources/shaders/massSpring.gl.frag")));
+    glGenBuffers(1, &m_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verletVertices), m_verletVertices, GL_DYNAMIC_DRAW);
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)(sizeof(vec2)));
+    glEnableVertexAttribArray(1);
+}
+
+void massSpringSystem::update(float elapseTime)
+{
+}
+
+void massSpringSystem::resize(int width, int height)
+{
+    glViewport(0.0f, 0.0f, width, height);
+}
+
+void massSpringSystem::display()
+{
+    for (int i = 0; i < m_config.stepsPerFrame; i++)
+    {
+        m_eulerRope->simulateEuler(1 / m_config.stepsPerFrame, m_config.gravity);
+        m_verletRope->simulateVerlet(1 / m_config.stepsPerFrame, m_config.gravity);
+    }
+    int index = 0;
+    for (const auto& m : m_eulerRope->m_masses)
+    {
+        const auto& p = m->position;
+        m_eulerVertices[index++] = { { p.x / 1000.0f, p.y / 1000.0f }, { 1.f, 0.f, 0.f } };
+    }
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(m_program->getProgram());
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_eulerVertices), m_eulerVertices);
+    glBindVertexArray(m_vao);
+    glPointSize(5.0f);
+    glDrawArrays(GL_POINTS, 0, 10);
+    index = 0;
+    for (const auto& m : m_verletRope->m_masses)
+    {
+        const auto& p = m->position;
+        m_verletVertices[index++] = { { p.x / 1000.0f, p.y / 1000.0f }, { 0.f, 1.f, 0.f } };
+    }
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_verletVertices), m_verletVertices);
+    glDrawArrays(GL_POINTS, 0, 10);
+}
+} // namespace graphicEngine::gl
