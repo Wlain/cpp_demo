@@ -24,11 +24,9 @@ massSpringSystem::massSpringSystem(Config config) :
 
 void massSpringSystem::initialize()
 {
-    m_verletRope = new Rope({ 0, 200 }, { -400, 200 }, 10, m_config.mass,
-                            m_config.ks, { 0 });
-    m_eulerRope = new Rope({ 0, 200 }, { -400, 200 }, 10, m_config.mass,
-                           m_config.ks, { 0 });
-    initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT("/resources/shaders/massSpring.gl.vert"), GET_CURRENT("/resources/shaders/massSpring.gl.frag")));
+    m_verletRope = new Rope({ 0, 900 }, { -1200, 900 }, 10, m_config.mass, m_config.ks, { 0 });
+    m_eulerRope = new Rope({ 0, 900 }, { -1200, 900 }, 10, m_config.mass, m_config.ks, { 0 });
+    initWithProperty(std::make_tuple("mass spring system", GET_CURRENT("/resources/shaders/massSpring.gl.vert"), GET_CURRENT("/resources/shaders/massSpring.gl.frag")));
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_verletVertices), m_verletVertices, GL_DYNAMIC_DRAW);
@@ -68,7 +66,7 @@ void massSpringSystem::display()
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_eulerVertices), m_eulerVertices);
     glBindVertexArray(m_vao);
-    glPointSize(5.0f);
+    glPointSize(3.0f);
     glDrawArrays(GL_POINTS, 0, 10);
     index = 0;
     for (const auto& m : m_verletRope->m_masses)

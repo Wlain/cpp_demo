@@ -34,10 +34,10 @@ public:
 
 private:
     Config m_config;
-    Rope* m_verletRope;
-    Rope* m_eulerRope;
-    Triangle::Vertex m_verletVertices[10];
-    Triangle::Vertex m_eulerVertices[10];
+    Rope* m_verletRope{};
+    Rope* m_eulerRope{};
+    Triangle::Vertex m_verletVertices[10]{};
+    Triangle::Vertex m_eulerVertices[10]{};
 };
 
 } // namespace graphicEngine::gl
