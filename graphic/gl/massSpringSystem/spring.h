@@ -9,7 +9,7 @@
 struct Spring
 {
     Spring(Mass* a, Mass* b, float _k) :
-        m1(a), m2(b), k(_k), restLength(a->position.distance(b->position))
+        m1(a), m2(b), k(_k), restLength((a->position - b->position).norm())
     {
     }
 

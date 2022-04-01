@@ -13,8 +13,8 @@ struct Mass
         starPosition(_position), position(_position), lastPosition(_position), mass(_mass), pinned(_pinned)
     {
     }
-    float mass;   // 质量
-    float pinned; // 是否固定
+    float mass = 0.0f;   // 质量
+    bool pinned = false; // 是否固定
 
     Vector2 starPosition;
     Vector2 position;

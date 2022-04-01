@@ -15,7 +15,6 @@ Vector2::Vector2() :
 Vector2::Vector2(float x, float y) :
     x(x), y(y)
 {
-    std::cout << "Vector2::Vector2 called" << std::endl;
 }
 
 Vector2::Vector2(const Vector2& copy)
@@ -246,4 +245,9 @@ void Vector2::smooth(const Vector2& target, float elapsedTime, float responseTim
 float Vector2::cross(const Vector2& v) const
 {
     return y * v.x - x * v.y;
+}
+
+float Vector2::norm()
+{
+    return sqrt(x * x + y * y);
 }

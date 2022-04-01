@@ -37,6 +37,7 @@ public:
     void negate();
     Vector2& normalize();
     void normalize(Vector2* dst) const;
+    float norm();
     void scale(float scalar);
     void scale(const Vector2& scale);
     void rotate(const Vector2& point, float angle);
