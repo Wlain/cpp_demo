@@ -7,14 +7,6 @@
 
 #include <opencv2/opencv.hpp>
 
-static std::vector<Vector2> start = { { 155, 180.5 },
-                                      { 196, 178.5 },
-                                      { 201, 183.5 } };
-
-static std::vector<Vector2> end = { { 141, 190.5 },
-                                    { 205, 184.5 },
-                                    { 211, 188.5 } };
-
 void fillWhite(cv::Mat& img)
 {
     int width = img.cols;
@@ -31,6 +23,13 @@ void fillWhite(cv::Mat& img)
 
 cv::Mat idwTest(const cv::Mat& img)
 {
+    std::vector<Vector2> start = { { 155, 180.5 },
+                                   { 196, 178.5 },
+                                   { 201, 183.5 } };
+
+    std::vector<Vector2> end = { { 141, 190.5 },
+                                 { 205, 184.5 },
+                                 { 211, 188.5 } };
     // get height and width
     int width = img.cols;
     int height = img.rows;
@@ -47,6 +46,13 @@ cv::Mat idwTest(const cv::Mat& img)
 cv::Mat rbfTest(const cv::Mat& img)
 {
     // get height and width
+    std::vector<Vector2> start = { { 155, 180.5 },
+                                   { 196, 178.5 },
+                                   { 201, 183.5 } };
+
+    std::vector<Vector2> end = { { 141, 190.5 },
+                                 { 205, 184.5 },
+                                 { 211, 188.5 } };
     int width = img.cols;
     int height = img.rows;
     // prepare output∂
