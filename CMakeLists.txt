@@ -52,7 +52,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/3rdparty/ann/include
         ${PROJECT_SOURCE_DIR}/3rdparty/rapidjson/include)
 
-file(GLOB_RECURSE SOURCES
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         3rdparty/lua-5.1.5/src/*.c
         3rdparty/tolua-master/src/lib/*c
         3rdparty/SOIL2/*.c
