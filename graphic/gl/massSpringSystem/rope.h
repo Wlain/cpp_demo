@@ -15,6 +15,14 @@ class Spring;
 class Rope
 {
 public:
+    enum class EulerType
+    {
+        Explicit,        // 显示
+        Implicit,        // 隐式
+        ExplicitImplicit // 半隐式
+    };
+
+public:
     Rope(std::vector<Mass*> masses, std::vector<Spring*> springs) :
         m_masses(std::move(masses)), m_springs(std::move(springs))
     {
@@ -24,7 +32,7 @@ public:
          std::vector<int> pinnedNodes);
 
     void simulateVerlet(float deltaTime, const Vector2& gravity);
-    void simulateEuler(float deltaTime, const Vector2& gravity);
+    void simulateEuler(float deltaTime, const Vector2& gravity, EulerType type);
 
     std::vector<Mass*> m_masses;
     std::vector<Spring*> m_springs;

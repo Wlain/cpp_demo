@@ -56,7 +56,7 @@ void Rope::simulateVerlet(float deltaTime, const Vector2& gravity)
 }
 
 // 欧拉求解
-void Rope::simulateEuler(float deltaTime, const Vector2& gravity)
+void Rope::simulateEuler(float deltaTime, const Vector2& gravity, EulerType type)
 {
     for (auto& s : m_springs)
     {
@@ -67,20 +67,35 @@ void Rope::simulateEuler(float deltaTime, const Vector2& gravity)
         s->m1->forces += f;
         s->m2->forces -= f;
     }
-    bool isExplicit = false;
     for (auto& m : m_masses)
     {
-        if(!m->pinned)
+        if (!m->pinned)
         {
-            m->forces += gravity * m->mass; // f = mg;
-            // 阻尼因子
             float dampFactor = 0.01;
-            m->forces += -dampFactor * m->velocity;
-            auto a = m->forces / m->mass;
+            if(type == EulerType::Explicit)
+            {
+                dampFactor = 5;
+            }
             auto v0 = m->velocity;
-            auto vt = v0 + a * deltaTime;
-            m->velocity = m->velocity + a * deltaTime;
-            m->position = m->position + vt * deltaTime;
+            auto x0 = m->position;
+            m->forces += gravity * m->mass - dampFactor * m->velocity; // f = mg - v * dampFactor;
+            auto ft = m->forces;
+            auto at = m->forces / m->mass;
+            auto vt = v0 + at * deltaTime;
+            switch (type)
+            {
+            case EulerType::Explicit:
+                m->position = x0 + 0.5 * v0 * deltaTime;
+                m->velocity = v0 + 0.5 * at * deltaTime;
+                break;
+            case EulerType::Implicit:
+                /// 隐式欧拉求解需要用到雅可比矩阵
+                break;
+            case EulerType::ExplicitImplicit:
+                m->velocity = v0 + at * deltaTime;
+                m->position = x0 + m->velocity * deltaTime;
+                break;
+            }
         }
         m->forces.set(0.0f, 0.0f);
     }
