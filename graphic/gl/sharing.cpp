@@ -18,7 +18,10 @@ auto getRandom()
 
 namespace graphicEngine::gl
 {
-Sharing::~Sharing() = default;
+Sharing::~Sharing()
+{
+    glDeleteTextures(1, &m_texture);
+}
 
 void Sharing::initialize()
 {
@@ -54,8 +57,8 @@ void Sharing::initialize()
     glUniform1i(glGetUniformLocation(m_program->getProgram(), "inputTexture"), 0);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, m_texture);
-//    glGenVertexArrays(1, &m_vao);
-//    glBindVertexArray(m_vao);
+    //    glGenVertexArrays(1, &m_vao);
+    //    glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(m_vertices[0]), (void*)0);
@@ -77,7 +80,7 @@ void Sharing::initialize()
     glBindTexture(GL_TEXTURE_2D, m_texture);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(m_vertices[0]), (void*) 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(m_vertices[0]), (void*)0);
 }
 
 void Sharing::update(float elapseTime)
@@ -99,7 +102,7 @@ void Sharing::render()
             glfwGetFramebufferSize(i == 0 ? m_window : m_window1, &width, &height);
             glViewport(0, 0, width, height);
             mat4x4_ortho(mvp, 0.f, 1.f, 0.f, 1.f, 0.f, 1.f);
-            glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, (const GLfloat*) mvp);
+            glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, (const GLfloat*)mvp);
             glUniform3fv(glGetUniformLocation(m_program->getProgram(), "color"), 1, m_colors[i]);
             glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
             glfwSwapBuffers(i == 0 ? m_window : m_window1);

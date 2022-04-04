@@ -8,8 +8,6 @@ using namespace graphicEngine;
 
 namespace graphicEngine::gl
 {
-Triangle::~Triangle() = default;
-
 void Triangle::initialize()
 {
     initWithProperty(std::make_tuple("OpenGL Triangle", GET_CURRENT("/resources/shaders/triangle.gl.vert"), GET_CURRENT("/resources/shaders/triangle.gl.frag")));
@@ -22,7 +20,6 @@ void Triangle::initialize()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vec2)));
     glEnableVertexAttribArray(1);
-
 }
 
 void Triangle::update(float elapseTime)

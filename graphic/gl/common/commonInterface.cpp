@@ -16,6 +16,12 @@ CommonInterface::CommonInterface()
 CommonInterface::~CommonInterface()
 {
     std::cout << "~CommonInterface destructor called" << std::endl;
+    if (m_vbo > 0)
+        glDeleteBuffers(1, &m_vbo);
+    if (m_ebo > 0)
+        glDeleteBuffers(1, &m_ebo);
+    if (m_vao > 0)
+        glDeleteVertexArrays(1, &m_vao);
     glfwTerminate();
     exit(EXIT_SUCCESS);
 }
@@ -73,8 +79,8 @@ void CommonInterface::run()
     resize(width, height);
     while (!glfwWindowShouldClose(m_window))
     {
-        /// input
         update((float)glfwGetTime());
+        /// 渲染
         render();
         /// swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(m_window);
