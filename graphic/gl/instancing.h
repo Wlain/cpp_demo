@@ -17,7 +17,7 @@ public:
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
-    void display() override;
+    void render() override;
 
 public:
     float m_aspect = 0.0f, m_timeFactor = 0.0f;

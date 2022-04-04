@@ -47,7 +47,7 @@ void TriangleIndex::resize(int width, int height)
     glViewport(0.0f, 0.0f, width, height);
 }
 
-void TriangleIndex::display()
+void TriangleIndex::render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

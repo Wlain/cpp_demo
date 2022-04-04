@@ -12,7 +12,7 @@ class Rope;
 
 namespace graphicEngine::gl
 {
-class massSpringSystem : public CommonInterface
+class MassSpringSystem : public CommonInterface
 {
 public:
     struct Config
@@ -24,13 +24,13 @@ public:
     };
 
 public:
-    using CommonInterface::CommonInterface;
-    explicit massSpringSystem(Config config);
-    ~massSpringSystem() override;
+    MassSpringSystem();
+    explicit MassSpringSystem(Config config);
+    ~MassSpringSystem() override;
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
-    void display() override;
+    void render() override;
 
 private:
     Config m_config;

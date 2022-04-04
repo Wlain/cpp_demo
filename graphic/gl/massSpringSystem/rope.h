@@ -28,7 +28,7 @@ public:
     {
     }
 
-    Rope(Vector2 start, Vector2 end, int numNodes, float nodeMass, float k,
+    Rope(const Vector2& start, const Vector2& end, int numNodes, float nodeMass, float k,
          std::vector<int> pinnedNodes);
 
     void simulateVerlet(float deltaTime, const Vector2& gravity);

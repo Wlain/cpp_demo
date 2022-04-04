@@ -10,7 +10,6 @@
 
 namespace graphicEngine::gl
 {
-
 class CommonInterface
 {
 public:
@@ -19,28 +18,26 @@ public:
 
 public:
     virtual void initialize() = 0;
-    virtual void update(float elapseTime);
-    virtual void resize(int width, int height);
-    virtual void display();
-    virtual void draw();
-    static void processInput(GLFWwindow* window);
-    static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-    static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
+    virtual void update(float elapseTime) = 0;
+    virtual void resize(int width, int height) = 0;
+    virtual void render() = 0;
+    virtual void touchEvent(double xPos, double yPos);
+    virtual void keyEvent(int key, int scancode, int action, int modifiers);
+    void run();
+
+protected:
     static void errorCallback(int error, const char* description);
-    static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-protected:
     void initWithProperty(const std::tuple<const char*, std::string, std::string>& property);
-    void initWithProperty(const char* title);
 
 protected:
-    GLFWwindow* m_window = nullptr;
     std::unique_ptr<graphicEngine::Program> m_program;
+    GLFWwindow* m_window = nullptr;
+    std::string m_title;
     GLuint m_vbo = 0;
     GLuint m_ebo = 0;
     GLuint m_vao = 0;
-    int m_currentWidth = 0;
-    int m_currentHeight = 0;
+    constexpr static const unsigned int s_canvasWidth = 640;
+    constexpr static const unsigned int s_canvasHeight = 480;
 };
 } // namespace graphicEngine::gl
 

@@ -6,7 +6,7 @@
 
 #include "mass.h"
 #include "spring.h"
-Rope::Rope(Vector2 start, Vector2 end, int numNodes, float nodeMass, float k, std::vector<int> pinnedNodes)
+Rope::Rope(const Vector2& start, const Vector2& end, int numNodes, float nodeMass, float k, std::vector<int> pinnedNodes)
 {
     if (numNodes <= 1)
         return;

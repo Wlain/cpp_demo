@@ -25,7 +25,7 @@ void Instancing::resize(int width, int height)
     Cube::resize(width, height);
 }
 
-void Instancing::display()
+void Instancing::render()
 {
     glClear(GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0, 0.0, 0.0, 1.0);

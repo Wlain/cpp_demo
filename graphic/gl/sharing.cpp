@@ -69,7 +69,6 @@ void Sharing::initialize()
 
         glfwSetWindowPos(m_window1, xPos + width + left + right, yPos);
     }
-    glfwSetKeyCallback(m_window1, keyCallback);
     glfwMakeContextCurrent(m_window1);
     // While objects are shared, the global context state is not and will
     // need to be set up for each context
@@ -89,7 +88,7 @@ void Sharing::resize(int width, int height)
 {
 }
 
-void Sharing::draw()
+void Sharing::render()
 {
     while (!glfwWindowShouldClose(m_window) && !glfwWindowShouldClose(m_window1))
     {

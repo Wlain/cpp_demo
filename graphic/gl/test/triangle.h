@@ -26,7 +26,7 @@ public:
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
-    void display() override;
+    void render() override;
 
 private:
     Vertex m_vertices[3] = {

@@ -16,15 +16,13 @@ void Point::initialize()
 
 void Point::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
 
 void Point::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
 
-void Point::display()
+void Point::render()
 {
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

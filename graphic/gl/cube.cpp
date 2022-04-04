@@ -28,7 +28,7 @@ void Cube::resize(int width, int height)
     m_pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
 }
 
-void Cube::display()
+void Cube::render()
 {
     glClear(GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0, 0.0, 0.0, 1.0);

@@ -148,10 +148,9 @@ extern void virtualFuncTest();
 extern void rapidjsonTest();
 extern void recordABug();
 extern void staticExternThreadCrashDemo();
-extern void massSpringSystemTest();
 
 int main(int argc, char* argv[])
 {
-    massSpringSystemTest();
+    glTest();
     return 0;
 }

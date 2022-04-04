@@ -9,18 +9,18 @@ Window::~Window() = default;
 
 void Window::initialize()
 {
-    initWithProperty("Window");
+    m_title = "Window";
 }
+
 void Window::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
+
 void Window::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
-void Window::display()
+
+void Window::render()
 {
-    CommonInterface::display();
 }
 }

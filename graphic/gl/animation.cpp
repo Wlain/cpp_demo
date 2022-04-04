@@ -16,15 +16,13 @@ void Animation::initialize()
 
 void Animation::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
 
 void Animation::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
 
-void Animation::display()
+void Animation::render()
 {
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

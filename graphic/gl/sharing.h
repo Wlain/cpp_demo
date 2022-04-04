@@ -19,7 +19,7 @@ public:
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
-    void draw() override;
+    void render() override;
 
 private:
     const vec2 m_vertices[4] = {

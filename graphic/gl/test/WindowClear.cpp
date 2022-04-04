@@ -2,7 +2,7 @@
 // Created by cwb on 2022/2/7.
 //
 
-#include "WindowClear.h"
+#include "windowClear.h"
 namespace graphicEngine::gl
 {
 WindowClear::~WindowClear() = default;
@@ -19,9 +19,9 @@ void WindowClear::resize(int width, int height)
 {
     Window::resize(width, height);
 }
-void WindowClear::display()
+void WindowClear::render()
 {
-    Window::display();
+    Window::render();
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }

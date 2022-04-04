@@ -41,16 +41,13 @@ void ShowGLInfo::initialize()
 
 void ShowGLInfo::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
 
 void ShowGLInfo::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
 
-void ShowGLInfo::display()
+void ShowGLInfo::render()
 {
-    CommonInterface::draw();
 }
-}
+} // namespace graphicEngine::gl

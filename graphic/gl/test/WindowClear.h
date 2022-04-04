@@ -16,7 +16,7 @@ public:
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
-    void display() override;
+    void render() override;
 };
 } // namespace graphicEngine::gl
 

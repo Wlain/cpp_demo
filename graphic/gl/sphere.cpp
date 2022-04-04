@@ -6,22 +6,21 @@
 
 namespace graphicEngine::gl
 {
+sphere::~sphere() = default;
+
 void sphere::initialize()
 {
 }
-sphere::~sphere()
-{
-}
+
 void sphere::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
+
 void sphere::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
-void sphere::display()
+
+void sphere::render()
 {
-    CommonInterface::display();
 }
 }

@@ -2,7 +2,7 @@
 // Created by william on 2022/3/25.
 //
 
-#include "massSpringSystem.h"
+#include "MassSpringSystem.h"
 
 #include "mass.h"
 #include "rope.h"
@@ -11,18 +11,23 @@
 #include <utility>
 namespace graphicEngine::gl
 {
-massSpringSystem::~massSpringSystem()
+MassSpringSystem::MassSpringSystem():
+    m_config(std::move(Config()))
+{
+}
+
+MassSpringSystem::~MassSpringSystem()
 {
     delete m_verletRope;
     delete m_eulerRope;
 }
 
-massSpringSystem::massSpringSystem(Config config) :
+MassSpringSystem::MassSpringSystem(Config config) :
     m_config(std::move(config))
 {
 }
 
-void massSpringSystem::initialize()
+void MassSpringSystem::initialize()
 {
     m_verletRope = new Rope({ 0, 900 }, { -1200, 900 }, 10, m_config.mass, m_config.ks, { 0 });
     m_eulerRope = new Rope({ 0, 900 }, { -1200, 900 }, 10, m_config.mass, m_config.ks, { 0 });
@@ -38,16 +43,16 @@ void massSpringSystem::initialize()
     glEnableVertexAttribArray(1);
 }
 
-void massSpringSystem::update(float elapseTime)
+void MassSpringSystem::update(float elapseTime)
 {
 }
 
-void massSpringSystem::resize(int width, int height)
+void MassSpringSystem::resize(int width, int height)
 {
     glViewport(0.0f, 0.0f, width, height);
 }
 
-void massSpringSystem::display()
+void MassSpringSystem::render()
 {
     for (int i = 0; i < m_config.stepsPerFrame; i++)
     {

@@ -3,20 +3,8 @@
 //
 
 #include "commonInterface.h"
-#include "camera.h"
+
 #include "utils.h"
-constexpr const unsigned int SCR_WIDTH = 640;
-constexpr const unsigned int SCR_HEIGHT = 480;
-
-float lastX = (float)SCR_WIDTH  / 2.0;
-float lastY = (float)SCR_HEIGHT / 2.0;
-// timing
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
-
-bool firstMouse = true;
-// camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 namespace graphicEngine::gl
 {
@@ -32,63 +20,14 @@ CommonInterface::~CommonInterface()
     exit(EXIT_SUCCESS);
 }
 
-void CommonInterface::mouseCallback(GLFWwindow* window, double xPos, double yPos)
+void CommonInterface::initWithProperty(const std::tuple<const char*, std::string, std::string>& property)
 {
-    float xpos = static_cast<float>(xPos);
-    float ypos = static_cast<float>(yPos);
-
-    if (firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastX = xpos;
-    lastY = ypos;
-    camera.ProcessMouseMovement(xoffset, yoffset);
+    m_title = std::get<0>(property);
+    // init program
+    m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property), std::get<2>(property));
 }
 
-
-void CommonInterface::processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, true);
-    }
-
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(CameraMovement::Forward, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(CameraMovement::Backward, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(CameraMovement::Left, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(CameraMovement::Right, deltaTime);
-}
-
-void CommonInterface::framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-void CommonInterface::errorCallback(int error, const char* description)
-{
-    fprintf(stderr, "Error: %s\n", description);
-}
-
-void CommonInterface::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-}
-
-void CommonInterface::initWithProperty(const char* title)
+void CommonInterface::run()
 {
     glfwSetErrorCallback(errorCallback);
     if (!glfwInit())
@@ -98,55 +37,80 @@ void CommonInterface::initWithProperty(const char* title)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    m_window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, title, nullptr, nullptr);
-    glfwSetKeyCallback(m_window, keyCallback);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+    // glfw window creation
+    m_window = glfwCreateWindow(s_canvasWidth, s_canvasHeight, m_title.c_str(), nullptr, nullptr);
+    if (m_window == nullptr)
+    {
+        LOG_ERROR("Failed to create GLFW window");
+        ASSERT(0);
+        glfwTerminate();
+        return;
+    }
+    glfwSetWindowUserPointer(m_window, this);
+    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
+        demo->keyEvent(key, scancode, action, mods);
+    });
     glfwMakeContextCurrent(m_window);
-    glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
-    glfwSetCursorPosCallback(m_window, mouseCallback);
+    glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+        auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
+        demo->resize(width, height);
+    });
+    glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xPos, double yPos) {
+        auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
+        demo->touchEvent(xPos, yPos);
+    });
     if (glewInit() != GLEW_OK)
     {
         exit(EXIT_FAILURE);
     }
-    glfwSwapInterval(1);
-}
-
-void CommonInterface::initWithProperty(const std::tuple<const char*, std::string, std::string>& property)
-{
-    initWithProperty(std::get<0>(property));
-    // init program
-    m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property), std::get<2>(property));
-}
-
-void CommonInterface::update(float elapseTime)
-{
-}
-
-void CommonInterface::resize(int width, int height)
-{
-
-}
-
-void CommonInterface::display()
-{
-}
-
-void CommonInterface::draw()
-{
-    int width, height;
+    initialize();
+    int width = 0, height = 0;
     glfwGetFramebufferSize(m_window, &width, &height);
-    if (width != m_currentWidth || height != m_currentHeight)
-    {
-        resize(width, height);
-        m_currentWidth = width;
-        m_currentHeight = height;
-    }
+    resize(width, height);
     while (!glfwWindowShouldClose(m_window))
     {
-        processInput(m_window);
+        /// input
         update((float)glfwGetTime());
-        display();
+        render();
+        /// swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(m_window);
         glfwPollEvents();
     }
 }
-} // namespace graphicEngine
+
+void CommonInterface::keyEvent(int key, int scancode, int action, int modifiers)
+{
+    if (action == GLFW_PRESS)
+    {
+        switch (key)
+        {
+        case GLFW_KEY_ESCAPE:
+            glfwSetWindowShouldClose(m_window, true);
+            break;
+        case GLFW_KEY_W:
+            break;
+        case GLFW_KEY_S:
+            break;
+        case GLFW_KEY_A:
+            break;
+        case GLFW_KEY_D:
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void CommonInterface::touchEvent(double xPos, double yPos)
+{
+}
+
+void CommonInterface::errorCallback(int error, const char* description)
+{
+    LOG_ERROR("generate type: %d, glError: %s", error, description);
+}
+} // namespace graphicEngine::gl

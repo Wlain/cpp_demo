@@ -10,20 +10,18 @@ Background::~Background() = default;
 
 void Background::initialize()
 {
-    initWithProperty(std::make_tuple("background", "", ""));
+    m_title = "Background";
 }
 
 void Background::update(float elapseTime)
 {
-    CommonInterface::update(elapseTime);
 }
 
 void Background::resize(int width, int height)
 {
-    CommonInterface::resize(width, height);
 }
 
-void Background::display()
+void Background::render()
 {
     glClearColor(1.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);

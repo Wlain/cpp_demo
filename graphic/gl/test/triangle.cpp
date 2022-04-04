@@ -40,7 +40,7 @@ void Triangle::resize(int width, int height)
     glViewport(0.0f, 0.0f, width, height);
 }
 
-void Triangle::display()
+void Triangle::render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
