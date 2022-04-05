@@ -13,7 +13,7 @@ class Program
 {
 public:
     Program() = default;
-    ~Program() = default;
+    ~Program();
     explicit Program(const Program& s) = default;
     Program(Program&& a) = default;
     Program& operator=(const Program& s) = default;

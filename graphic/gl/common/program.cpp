@@ -8,6 +8,12 @@
 
 namespace graphicEngine
 {
+
+Program::~Program()
+{
+    glDeleteProgram(mProgram);
+}
+
 GLuint Program::CreateProgram(GLuint vertShader, GLuint fragShader)
 {
     GLuint program = 0;
@@ -119,6 +125,8 @@ Program::Program(const std::string_view& vertexPath, const std::string_view& fra
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vShaderCode);
     GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fShaderCode);
     mProgram = CreateProgram(vertexShader, fragmentShader);
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 }
 
 GLuint Program::getProgram() const

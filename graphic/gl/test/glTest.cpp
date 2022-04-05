@@ -13,11 +13,18 @@
 #include "triangleIndex.h"
 #include "window.h"
 #include "windowClear.h"
+#include "learnOpenGL/helloTriangle.h"
+#include "learnOpenGL/helloTriangleIndexed.h"
+#include "learnOpenGL/helloTriangleExereise1.h"
+#include "learnOpenGL/helloTriangleExereise2.h"
+#include "learnOpenGL/helloTriangleExereise3.h"
+#include "learnOpenGL/shadersUniform.h"
+#include "learnOpenGL/shadersInterpolation.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    MassSpringSystem obj;
+    ShadersInterpolation obj;
     obj.run();
 }

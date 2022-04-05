@@ -28,7 +28,7 @@ CommonInterface::~CommonInterface()
 
 void CommonInterface::initWithProperty(const std::tuple<const char*, std::string, std::string>& property)
 {
-    m_title = std::get<0>(property);
+    glfwSetWindowTitle(m_window, std::get<0>(property));
     // init program
     m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property), std::get<2>(property));
 }
