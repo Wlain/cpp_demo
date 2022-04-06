@@ -3,16 +3,13 @@
 //
 
 #include "helloTriangleExereise1.h"
+
 #include "base.h"
 
 namespace graphicEngine::gl
 {
 
-HelloTriangleExereise1::~HelloTriangleExereise1()
-{
-    glDeleteBuffers(1, &m_vbo);
-    glDeleteVertexArrays(1, &m_vao);
-}
+HelloTriangleExereise1::~HelloTriangleExereise1() = default;
 
 void HelloTriangleExereise1::initialize()
 {
@@ -39,7 +36,7 @@ void HelloTriangleExereise1::render()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }

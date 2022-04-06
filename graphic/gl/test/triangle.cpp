@@ -41,7 +41,7 @@ void Triangle::render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, (const GLfloat*)&m_mvpMatrix);
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);

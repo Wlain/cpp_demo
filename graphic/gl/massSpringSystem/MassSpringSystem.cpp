@@ -67,7 +67,7 @@ void MassSpringSystem::render()
     }
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_vertices), m_vertices);
     glBindVertexArray(m_vao);

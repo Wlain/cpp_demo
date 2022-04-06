@@ -37,7 +37,8 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/vk
         ${PROJECT_SOURCE_DIR}/graphic/vk/test
         ${PROJECT_SOURCE_DIR}/graphic/gl
-        ${PROJECT_SOURCE_DIR}/graphic/gl/LearnOpenGL
+        ${PROJECT_SOURCE_DIR}/graphic/handle
+        ${PROJECT_SOURCE_DIR}/graphic/gl/learnOpenGL
         ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/rayTracing

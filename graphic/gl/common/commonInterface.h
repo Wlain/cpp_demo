@@ -37,7 +37,7 @@ protected:
     GLuint m_ebo = 0;
     GLuint m_vao = 0;
     constexpr static const unsigned int s_canvasWidth = 640;
-    constexpr static const unsigned int s_canvasHeight = 480;
+    constexpr static const unsigned int s_canvasHeight = 640;
 };
 } // namespace graphicEngine::gl
 

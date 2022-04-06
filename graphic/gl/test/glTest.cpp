@@ -20,11 +20,12 @@
 #include "learnOpenGL/helloTriangleExereise3.h"
 #include "learnOpenGL/shadersUniform.h"
 #include "learnOpenGL/shadersInterpolation.h"
+#include "learnOpenGL/textures.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    ShadersInterpolation obj;
+    Textures obj;
     obj.run();
 }

@@ -26,7 +26,7 @@ void Point::render()
 {
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindVertexArray(m_vao);
     glPointSize(30.0f);
     glDrawArrays(GL_POINTS, 0, 1);

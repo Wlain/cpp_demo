@@ -9,15 +9,11 @@
 namespace graphicEngine::gl
 {
 
-ShadersInterpolation::~ShadersInterpolation()
-{
-    glDeleteBuffers(1, &m_vbo);
-    glDeleteVertexArrays(1, &m_vao);
-}
+ShadersInterpolation::~ShadersInterpolation() = default;
 
 void ShadersInterpolation::initialize()
 {
-    initWithProperty(std::make_tuple("helloTriangle", GET_CURRENT("/resources/shaders/LearnOpenGL/shadersInterpolation.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/shadersInterpolation.frag")));
+    initWithProperty(std::make_tuple("ShadersInterpolation", GET_CURRENT("/resources/shaders/LearnOpenGL/shadersInterpolation.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/shadersInterpolation.frag")));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindVertexArray(m_vao);
@@ -44,7 +40,7 @@ void ShadersInterpolation::render()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

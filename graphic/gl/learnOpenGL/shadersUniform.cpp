@@ -4,17 +4,11 @@
 
 #include "shadersUniform.h"
 
-
 #include "base.h"
 
 namespace graphicEngine::gl
 {
-
-ShadersUniform::~ShadersUniform()
-{
-    glDeleteBuffers(1, &m_vbo);
-    glDeleteVertexArrays(1, &m_vao);
-}
+ShadersUniform::~ShadersUniform() = default;
 
 void ShadersUniform::initialize()
 {
@@ -31,7 +25,7 @@ void ShadersUniform::initialize()
 
 void ShadersUniform::update(float elapseTime)
 {
-    float greenValue = static_cast<float>(sin(elapseTime) / 2.0 + 0.5);
+    auto greenValue = static_cast<float>(sin(elapseTime) / 2.0 + 0.5);
     m_program->setVector4("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
 }
 
@@ -43,8 +37,8 @@ void ShadersUniform::render()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
-}
+} // namespace graphicEngine::gl

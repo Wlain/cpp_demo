@@ -6,12 +6,7 @@
 namespace graphicEngine::gl
 {
 
-HelloTriangleIndexed::~HelloTriangleIndexed()
-{
-    glDeleteBuffers(1, &m_vbo);
-    glDeleteBuffers(1, &m_ebo);
-    glDeleteVertexArrays(1, &m_vao);
-}
+HelloTriangleIndexed::~HelloTriangleIndexed() = default;
 
 void HelloTriangleIndexed::initialize()
 {
@@ -42,8 +37,8 @@ void HelloTriangleIndexed::render()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glBindVertexArray(m_vao);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 }
-}
+} // namespace graphicEngine::gl

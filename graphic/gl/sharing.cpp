@@ -53,7 +53,7 @@ void Sharing::initialize()
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
     }
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glUniform1i(glGetUniformLocation(m_program->getProgram(), "inputTexture"), 0);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, m_texture);
@@ -75,7 +75,7 @@ void Sharing::initialize()
     glfwMakeContextCurrent(m_window1);
     // While objects are shared, the global context state is not and will
     // need to be set up for each context
-    glUseProgram(m_program->getProgram());
+    m_program->use();
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, m_texture);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
