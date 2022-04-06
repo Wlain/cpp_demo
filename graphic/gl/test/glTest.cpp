@@ -21,11 +21,13 @@
 #include "learnOpenGL/shadersUniform.h"
 #include "learnOpenGL/shadersInterpolation.h"
 #include "learnOpenGL/textures.h"
+#include "learnOpenGL/texturesCombined.h"
+#include "learnOpenGL/textureExercise2.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    Textures obj;
+    TextureExercise2 obj;
     obj.run();
 }

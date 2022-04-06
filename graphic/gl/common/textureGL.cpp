@@ -4,9 +4,18 @@
 
 #include "textureGL.h"
 
-#include "base.h"
+#include "utils.h"
 
 #include <SOIL2/stb_image.h>
+
+TextureGL::~TextureGL()
+{
+    if (m_id != 0)
+    {
+        glDeleteTextures(1, &m_id);
+        m_id = 0;
+    }
+}
 
 bool TextureGL::createByData(void* data, uint32_t width, uint32_t height, TextureHandle::PixelFormat format)
 {
@@ -19,17 +28,28 @@ bool TextureGL::createByFile(std::string_view filePath)
     glGenTextures(1, &m_id);
     glBindTexture(GL_TEXTURE_2D, m_id); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrappingType);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrappingType);
     // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filteringType);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filteringType);
     stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load(filePath.data(), &m_info.width, &m_info.height, &m_info.channels, 0);
-
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_info.width, m_info.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        auto type = GL_RGBA;
+        switch (m_info.channels)
+        {
+        case 3:
+            type = GL_RGB;
+            break;
+        case 4:
+            type = GL_RGBA;
+            break;
+        default:
+            ASSERT(0);
+        }
+        glTexImage2D(GL_TEXTURE_2D, 0, type, m_info.width, m_info.height, 0, type, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
@@ -38,6 +58,7 @@ bool TextureGL::createByFile(std::string_view filePath)
         return false;
     }
     stbi_image_free(data);
+    GL_CHECK();
     return true;
 }
 
