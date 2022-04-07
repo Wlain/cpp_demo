@@ -34,6 +34,8 @@ protected:
     };
     std::unique_ptr<TextureGL> m_texture;
     std::unique_ptr<TextureGL> m_texture1;
+private:
+    float m_elapseTime = 0.0f;
 };
 } // namespace graphicEngine::gl
 

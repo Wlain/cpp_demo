@@ -25,11 +25,15 @@
 #include "learnOpenGL/textureExercise2.h"
 #include "learnOpenGL/textureExercise3.h"
 #include "learnOpenGL/transformations.h"
+#include "learnOpenGL/transformationsExercise2.h"
+#include "learnOpenGL/coordinateSystems.h"
+#include "learnOpenGL/coordinateSystemsDepth.h"
+#include "learnOpenGL/coordinateSystemsMultiple.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    Transformations obj;
+    CoordinateSystemsMultiple obj;
     obj.run();
 }
