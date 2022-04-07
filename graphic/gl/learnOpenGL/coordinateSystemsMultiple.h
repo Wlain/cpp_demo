@@ -16,6 +16,8 @@ public:
     void initialize() override;
     void update(float elapseTime) override;
     void resize(int width, int height) override;
+    void touchEvent(double xPos, double yPos) override;
+    void scrollEvent(double xOffset, double yOffset) override;
 
 protected:
     void processInput();
@@ -85,6 +87,12 @@ private:
     float m_lastElapseTime = 0.0f;
     float m_deltaTime = 0.0f;
     float m_cameraSpeed = 0.0f;
+    float m_fovY = 45.0f;
+    float m_yaw = -90.0f;
+    float m_pitch = 0.0f;
+    float m_lastX = 0.0f;
+    float m_lastY = 0.0f;
+    bool m_firstMouse = true;
 };
 } // namespace graphicEngine::gl
 

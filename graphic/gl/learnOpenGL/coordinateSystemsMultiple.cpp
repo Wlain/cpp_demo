@@ -40,7 +40,7 @@ void CoordinateSystemsMultiple::update(float elapseTime)
     m_cameraSpeed = static_cast<float>(2.5 * m_deltaTime);
     auto projection = glm::mat4(1.0f);
     auto view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
-    projection = glm::perspective(glm::radians(45.0f), (float)m_width / (float)m_height, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(m_fovY), (float)m_width / (float)m_height, 0.1f, 100.0f);
     m_program->use();
     m_program->setMatrix4("view", view);
     m_program->setMatrix4("projection", projection);
@@ -90,5 +90,51 @@ void CoordinateSystemsMultiple::processInput()
         m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
     if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
         m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
+}
+
+void CoordinateSystemsMultiple::touchEvent(double xPos, double yPos)
+{
+    float xpos = static_cast<float>(xPos);
+    float ypos = static_cast<float>(yPos);
+
+    if (m_firstMouse)
+    {
+        m_lastX = xpos;
+        m_lastY = ypos;
+        m_firstMouse = false;
+    }
+
+    float xOffset = xpos - m_lastX;
+    float yOffset = m_lastY - ypos; // reversed since y-coordinates go from bottom to top
+    m_lastX = xpos;
+    m_lastY = ypos;
+
+    float sensitivity = 0.1f; // change this value to your liking
+    xOffset *= sensitivity;
+    yOffset *= sensitivity;
+
+    m_yaw += xOffset;
+    m_pitch += yOffset;
+
+    // make sure that when pitch is out of bounds, screen doesn't get flipped
+    if (m_pitch > 89.0f)
+        m_pitch = 89.0f;
+    if (m_pitch < -89.0f)
+        m_pitch = -89.0f;
+
+    glm::vec3 front;
+    front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    front.y = sin(glm::radians(m_pitch));
+    front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    m_cameraFront = glm::normalize(front);
+}
+
+void CoordinateSystemsMultiple::scrollEvent(double xOffset, double yOffset)
+{
+    m_fovY -= (float)yOffset;
+    if (m_fovY < 1.0f)
+        m_fovY = 1.0f;
+    if (m_fovY > 45.0f)
+        m_fovY = 45.0f;
 }
 } // namespace graphicEngine::gl

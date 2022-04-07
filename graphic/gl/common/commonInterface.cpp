@@ -72,6 +72,10 @@ void CommonInterface::run()
         auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
         demo->touchEvent(xPos, yPos);
     });
+    glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xOffset, double yOffset) {
+        auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
+        demo->scrollEvent(xOffset, yOffset);
+    });
     if (glewInit() != GLEW_OK)
     {
         exit(EXIT_FAILURE);
@@ -98,5 +102,9 @@ void CommonInterface::touchEvent(double xPos, double yPos)
 void CommonInterface::errorCallback(int error, const char* description)
 {
     LOG_ERROR("generate type: %d, glError: %s", error, description);
+}
+
+void CommonInterface::scrollEvent(double xOffset, double yOffset)
+{
 }
 } // namespace graphicEngine::gl

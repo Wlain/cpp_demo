@@ -22,6 +22,7 @@ public:
     virtual void resize(int width, int height) = 0;
     virtual void render() = 0;
     virtual void touchEvent(double xPos, double yPos);
+    virtual void scrollEvent(double xOffset, double yOffset);
     void run();
 
 protected:
