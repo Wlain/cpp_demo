@@ -30,11 +30,11 @@ public:
     void processMouseMovement(float xOffset, float yOffset, GLboolean constrainPitch = true);
     void processKeyboard(CameraMovement direction, float deltaTime);
     void processMouseScroll(float yOffset);
+    glm::mat4 calcViewMatrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp);
     inline glm::mat4 viewMatrix()
     {
         return glm::lookAt(m_position, m_position + m_front, m_up);
     }
-
     inline glm::mat4 projectionMatrix(int width, int height, float near, float far)
     {
         return glm::perspective(glm::radians(m_fovY), (float)width / (float)height, near, far);
@@ -45,11 +45,11 @@ private:
 
 public:
     // camera Attributes
-    glm::vec3 m_position;
+    glm::vec3 m_position{};
     glm::vec3 m_front;
-    glm::vec3 m_up;
-    glm::vec3 m_right;
-    glm::vec3 m_worldUp;
+    glm::vec3 m_up{};
+    glm::vec3 m_right{};
+    glm::vec3 m_worldUp{};
     // euler Angles
     float m_yaw{};
     float m_pitch{};
