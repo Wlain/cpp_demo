@@ -17,6 +17,9 @@ public:
     void update(float elapseTime) override;
     void resize(int width, int height) override;
 
+protected:
+    void processInput();
+
 private:
     std::array<float, 180> m_verticesCube = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
@@ -73,9 +76,15 @@ private:
         glm::vec3(1.5f, 0.2f, -1.5f),
         glm::vec3(-1.3f, 1.0f, -1.5f)
     };
+    glm::vec3 m_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+    glm::vec3 m_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
     int m_width = 0;
     int m_height = 0;
     float m_elapseTime = 0.0f;
+    float m_lastElapseTime = 0.0f;
+    float m_deltaTime = 0.0f;
+    float m_cameraSpeed = 0.0f;
 };
 } // namespace graphicEngine::gl
 

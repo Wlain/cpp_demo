@@ -22,7 +22,6 @@ public:
     virtual void resize(int width, int height) = 0;
     virtual void render() = 0;
     virtual void touchEvent(double xPos, double yPos);
-    virtual void keyEvent(int key, int scancode, int action, int modifiers);
     void run();
 
 protected:

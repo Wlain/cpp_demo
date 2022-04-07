@@ -63,10 +63,6 @@ void CommonInterface::run()
         return;
     }
     glfwSetWindowUserPointer(m_window, this);
-    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-        auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
-        demo->keyEvent(key, scancode, action, mods);
-    });
     glfwMakeContextCurrent(m_window);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
         auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
@@ -92,29 +88,6 @@ void CommonInterface::run()
         /// swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(m_window);
         glfwPollEvents();
-    }
-}
-
-void CommonInterface::keyEvent(int key, int scancode, int action, int modifiers)
-{
-    if (action == GLFW_PRESS)
-    {
-        switch (key)
-        {
-        case GLFW_KEY_ESCAPE:
-            glfwSetWindowShouldClose(m_window, true);
-            break;
-        case GLFW_KEY_W:
-            break;
-        case GLFW_KEY_S:
-            break;
-        case GLFW_KEY_A:
-            break;
-        case GLFW_KEY_D:
-            break;
-        default:
-            break;
-        }
     }
 }
 

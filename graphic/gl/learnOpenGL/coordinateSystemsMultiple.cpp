@@ -35,13 +35,16 @@ void CoordinateSystemsMultiple::initialize()
 void CoordinateSystemsMultiple::update(float elapseTime)
 {
     m_elapseTime = elapseTime;
-    auto view = glm::mat4(1.0f);
+    m_deltaTime = m_elapseTime - m_lastElapseTime;
+    m_lastElapseTime = m_elapseTime;
+    m_cameraSpeed = static_cast<float>(2.5 * m_deltaTime);
     auto projection = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    auto view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
     projection = glm::perspective(glm::radians(45.0f), (float)m_width / (float)m_height, 0.1f, 100.0f);
     m_program->use();
     m_program->setMatrix4("view", view);
     m_program->setMatrix4("projection", projection);
+    processInput();
 }
 
 void CoordinateSystemsMultiple::resize(int width, int height)
@@ -73,5 +76,19 @@ void CoordinateSystemsMultiple::render()
         m_program->setMatrix4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
+}
+
+void CoordinateSystemsMultiple::processInput()
+{
+    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(m_window, true);
+    if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
+        m_cameraPos += m_cameraSpeed * m_cameraFront;
+    if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)
+        m_cameraPos -= m_cameraSpeed * m_cameraFront;
+    if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
+        m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
+    if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
+        m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
 }
 } // namespace graphicEngine::gl
