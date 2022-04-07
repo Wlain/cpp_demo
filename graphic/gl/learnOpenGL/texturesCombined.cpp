@@ -11,6 +11,9 @@ TexturesCombined::TexturesCombined()
 {
     m_texture = std::make_unique<TextureGL>();
     m_texture1 = std::make_unique<TextureGL>();
+    m_title = "TexturesCombined";
+    m_vertPath = GET_CURRENT("/resources/shaders/LearnOpenGL/textures.vert");
+    m_fragPath = GET_CURRENT("/resources/shaders/LearnOpenGL/texturesCombined.frag");
 }
 
 TexturesCombined::~TexturesCombined() = default;
@@ -19,7 +22,7 @@ void TexturesCombined::initialize()
 {
     m_texture->createByFile(GET_CURRENT("/resources/textures/container.jpg"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/awesomeface.png"));
-    initWithProperty(std::make_tuple("Textures", GET_CURRENT("/resources/shaders/LearnOpenGL/textures.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/texturesCombined.frag")));
+    initWithProperty();
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glGenBuffers(1, &m_ebo);
@@ -37,6 +40,7 @@ void TexturesCombined::initialize()
     m_program->use();
     m_program->setInt("inputTexture", 0);
     m_program->setInt("inputTexture1", 1);
+    m_program->setFloat("mixValue", 0.2f);
 }
 
 void TexturesCombined::update(float elapseTime)

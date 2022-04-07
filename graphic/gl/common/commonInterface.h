@@ -28,11 +28,14 @@ public:
 protected:
     static void errorCallback(int error, const char* description);
     void initWithProperty(const std::tuple<const char*, std::string, std::string>& property);
+    void initWithProperty();
 
 protected:
     std::unique_ptr<graphicEngine::Program> m_program;
     GLFWwindow* m_window = nullptr;
     std::string m_title;
+    std::string m_vertPath;
+    std::string m_fragPath;
     GLuint m_vbo = 0;
     GLuint m_ebo = 0;
     GLuint m_vao = 0;

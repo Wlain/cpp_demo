@@ -17,6 +17,7 @@ void TextureExercise2::initialize()
         -0.5f,  0.5f, 0.0f,  0.0f, 2.0f  // top left
     };
     m_texture1->setWarpingType(GL_NEAREST);
+    m_title = "TextureExercise2";
     TexturesCombined::initialize();
 }
 void TextureExercise2::update(float elapseTime)

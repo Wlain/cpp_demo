@@ -23,11 +23,13 @@
 #include "learnOpenGL/textures.h"
 #include "learnOpenGL/texturesCombined.h"
 #include "learnOpenGL/textureExercise2.h"
+#include "learnOpenGL/textureExercise3.h"
+#include "learnOpenGL/transformations.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    TextureExercise2 obj;
+    Transformations obj;
     obj.run();
 }

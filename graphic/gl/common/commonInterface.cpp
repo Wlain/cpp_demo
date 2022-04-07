@@ -33,6 +33,13 @@ void CommonInterface::initWithProperty(const std::tuple<const char*, std::string
     m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property), std::get<2>(property));
 }
 
+void CommonInterface::initWithProperty()
+{
+    glfwSetWindowTitle(m_window, m_title.c_str());
+    // init program
+    m_program = std::make_unique<graphicEngine::Program>(m_vertPath, m_fragPath);
+}
+
 void CommonInterface::run()
 {
     glfwSetErrorCallback(errorCallback);
