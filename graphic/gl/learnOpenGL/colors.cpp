@@ -5,11 +5,9 @@
 #include "colors.h"
 
 #include "camera.h"
-#include "textureGL.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 namespace graphicEngine::gl
 {
 Colors::Colors()
@@ -27,25 +25,8 @@ void Colors::initialize()
 {
     m_title = "Colors";
     glfwSetWindowTitle(m_window, m_title.c_str());
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/colors.frag"));
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube), &m_verticesCube, GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    m_lightingProgram->use();
-    m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
-    m_lightingProgram->setVector3("lightColor",  1.0f, 1.0f, 1.0f);
+    initCube();
+    initLighting();
 }
 
 void Colors::update(float elapseTime)
@@ -123,6 +104,33 @@ void Colors::touchEvent(double xPos, double yPos)
 void Colors::scrollEvent(double xOffset, double yOffset)
 {
     m_camera->processMouseScroll((float)yOffset);
+}
+
+void Colors::initLighting()
+{
+    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"),
+                                                  GET_CURRENT("/resources/shaders/LearnOpenGL/colors.frag"));
+    m_lightingProgram->use();
+    m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
+    m_lightingProgram->setVector3("lightColor", 1.0f, 1.0f, 1.0f);
+    glGenVertexArrays(1, &m_lightVao);
+    glBindVertexArray(m_lightVao);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+}
+
+void Colors::initCube()
+{
+    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    glGenVertexArrays(1, &m_vao);
+    glGenBuffers(1, &m_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
+    glBindVertexArray(m_vao);
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 }
 
 } // namespace graphicEngine::gl

@@ -19,15 +19,16 @@ public:
     void resize(int width, int height) override;
     void touchEvent(double xPos, double yPos) override;
     void scrollEvent(double xOffset, double yOffset) override;
-
+    virtual void initLighting();
+    virtual void initCube();
 protected:
     void processInput();
 
-private:
+protected:
     std::unique_ptr<graphicEngine::Program> m_lightingProgram;
     std::unique_ptr<graphicEngine::Program> m_lightCubeProgram;
     std::unique_ptr<Camera> m_camera;
-    std::array<float, 108> m_verticesCube = {
+    std::vector<float> m_verticesCube = {
         -0.5f, -0.5f, -0.5f,
         0.5f, -0.5f, -0.5f,
         0.5f,  0.5f, -0.5f,

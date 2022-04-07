@@ -30,11 +30,12 @@
 #include "learnOpenGL/coordinateSystemsDepth.h"
 #include "learnOpenGL/coordinateSystemsMultiple.h"
 #include "learnOpenGL/colors.h"
+#include "learnOpenGL/basicLightingDiffuse.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    Colors obj;
+    BasicLightingDiffuse obj;
     obj.run();
 }
