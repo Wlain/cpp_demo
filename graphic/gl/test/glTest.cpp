@@ -29,11 +29,12 @@
 #include "learnOpenGL/coordinateSystems.h"
 #include "learnOpenGL/coordinateSystemsDepth.h"
 #include "learnOpenGL/coordinateSystemsMultiple.h"
+#include "learnOpenGL/colors.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    CoordinateSystemsMultiple obj;
+    Colors obj;
     obj.run();
 }

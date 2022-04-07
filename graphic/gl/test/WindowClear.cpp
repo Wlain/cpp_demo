@@ -3,6 +3,7 @@
 //
 
 #include "windowClear.h"
+
 namespace graphicEngine::gl
 {
 WindowClear::~WindowClear() = default;
@@ -25,4 +26,4 @@ void WindowClear::render()
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
-}
+} // namespace graphicEngine::gl

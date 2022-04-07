@@ -2,7 +2,7 @@
 // Created by william on 2022/3/25.
 //
 
-#include "MassSpringSystem.h"
+#include "massSpringSystem.h"
 
 #include "mass.h"
 #include "rope.h"
