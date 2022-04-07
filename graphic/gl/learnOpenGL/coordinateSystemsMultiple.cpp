@@ -4,9 +4,15 @@
 
 #include "coordinateSystemsMultiple.h"
 
+#include "camera.h"
 #include "textureGL.h"
 namespace graphicEngine::gl
 {
+CoordinateSystemsMultiple::CoordinateSystemsMultiple()
+{
+    m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
+}
+
 CoordinateSystemsMultiple::~CoordinateSystemsMultiple() = default;
 
 void CoordinateSystemsMultiple::initialize()
@@ -38,12 +44,9 @@ void CoordinateSystemsMultiple::update(float elapseTime)
     m_deltaTime = m_elapseTime - m_lastElapseTime;
     m_lastElapseTime = m_elapseTime;
     m_cameraSpeed = static_cast<float>(2.5 * m_deltaTime);
-    auto projection = glm::mat4(1.0f);
-    auto view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
-    projection = glm::perspective(glm::radians(m_fovY), (float)m_width / (float)m_height, 0.1f, 100.0f);
     m_program->use();
-    m_program->setMatrix4("view", view);
-    m_program->setMatrix4("projection", projection);
+    m_program->setMatrix4("view", m_camera->viewMatrix());
+    m_program->setMatrix4("projection", m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f));
     processInput();
 }
 
@@ -55,7 +58,7 @@ void CoordinateSystemsMultiple::resize(int width, int height)
 
 void CoordinateSystemsMultiple::render()
 {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glActiveTexture(GL_TEXTURE0);
@@ -83,13 +86,13 @@ void CoordinateSystemsMultiple::processInput()
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_window, true);
     if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
-        m_cameraPos += m_cameraSpeed * m_cameraFront;
+        m_camera->processKeyboard(CameraMovement::Forward, m_deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)
-        m_cameraPos -= m_cameraSpeed * m_cameraFront;
+        m_camera->processKeyboard(CameraMovement::Backward, m_deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
-        m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
+        m_camera->processKeyboard(CameraMovement::Left, m_deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
-        m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * m_cameraSpeed;
+        m_camera->processKeyboard(CameraMovement::Right, m_deltaTime);
 }
 
 void CoordinateSystemsMultiple::touchEvent(double xPos, double yPos)
@@ -108,33 +111,11 @@ void CoordinateSystemsMultiple::touchEvent(double xPos, double yPos)
     float yOffset = m_lastY - ypos; // reversed since y-coordinates go from bottom to top
     m_lastX = xpos;
     m_lastY = ypos;
-
-    float sensitivity = 0.1f; // change this value to your liking
-    xOffset *= sensitivity;
-    yOffset *= sensitivity;
-
-    m_yaw += xOffset;
-    m_pitch += yOffset;
-
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (m_pitch > 89.0f)
-        m_pitch = 89.0f;
-    if (m_pitch < -89.0f)
-        m_pitch = -89.0f;
-
-    glm::vec3 front;
-    front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-    front.y = sin(glm::radians(m_pitch));
-    front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-    m_cameraFront = glm::normalize(front);
+    m_camera->processMouseMovement(xOffset, yOffset);
 }
 
 void CoordinateSystemsMultiple::scrollEvent(double xOffset, double yOffset)
 {
-    m_fovY -= (float)yOffset;
-    if (m_fovY < 1.0f)
-        m_fovY = 1.0f;
-    if (m_fovY > 45.0f)
-        m_fovY = 45.0f;
+    m_camera->processMouseScroll((float)yOffset);
 }
 } // namespace graphicEngine::gl

@@ -5,12 +5,14 @@
 #ifndef CPP_DEMO_COORDINATESYSTEMSMULTIPLE_H
 #define CPP_DEMO_COORDINATESYSTEMSMULTIPLE_H
 #include "texturesCombined.h"
+class Camera;
+
 namespace graphicEngine::gl
 {
 class CoordinateSystemsMultiple : public TexturesCombined
 {
 public:
-    using TexturesCombined::TexturesCombined;
+    CoordinateSystemsMultiple();
     ~CoordinateSystemsMultiple() override;
     void render() override;
     void initialize() override;
@@ -78,20 +80,17 @@ private:
         glm::vec3(1.5f, 0.2f, -1.5f),
         glm::vec3(-1.3f, 1.0f, -1.5f)
     };
-    glm::vec3 m_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-    glm::vec3 m_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
     int m_width = 0;
     int m_height = 0;
     float m_elapseTime = 0.0f;
+    // timing
     float m_lastElapseTime = 0.0f;
     float m_deltaTime = 0.0f;
     float m_cameraSpeed = 0.0f;
-    float m_fovY = 45.0f;
-    float m_yaw = -90.0f;
-    float m_pitch = 0.0f;
-    float m_lastX = 0.0f;
-    float m_lastY = 0.0f;
+    // camera
+    std::unique_ptr<Camera> m_camera;
+    float m_lastX = s_canvasWidth / 2.0f;
+    float m_lastY = s_canvasHeight / 2.0f;
     bool m_firstMouse = true;
 };
 } // namespace graphicEngine::gl
