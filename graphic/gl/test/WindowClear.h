@@ -12,6 +12,7 @@ namespace graphicEngine::gl
 class WindowClear : public Window
 {
 public:
+    using Window::Window;
     ~WindowClear() override;
     void initialize() override;
     void update(float elapseTime) override;

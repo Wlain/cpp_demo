@@ -24,7 +24,7 @@ public:
 protected:
     void processInput();
 
-private:
+protected:
     std::array<float, 180> m_verticesCube = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
