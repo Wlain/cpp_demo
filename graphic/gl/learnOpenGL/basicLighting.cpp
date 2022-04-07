@@ -2,17 +2,18 @@
 // Created by william on 2022/4/7.
 //
 
-#include "basicLightingDiffuse.h"
+#include "basicLighting.h"
+#include "camera.h"
 namespace graphicEngine::gl
 {
 
-BasicLightingDiffuse::~BasicLightingDiffuse() = default;
+BasicLighting::~BasicLighting() = default;
 
-void BasicLightingDiffuse::render()
+void BasicLighting::render()
 {
     Colors::render();
 }
-void BasicLightingDiffuse::initialize()
+void BasicLighting::initialize()
 {
     m_verticesCube = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
@@ -59,16 +60,18 @@ void BasicLightingDiffuse::initialize()
     };
     Colors::initialize();
 }
-void BasicLightingDiffuse::update(float elapseTime)
+void BasicLighting::update(float elapseTime)
 {
     Colors::update(elapseTime);
+    m_lightingProgram->use();
+    m_lightingProgram->setVector3("viewPos", m_camera->m_position);
 }
-void BasicLightingDiffuse::resize(int width, int height)
+void BasicLighting::resize(int width, int height)
 {
     Colors::resize(width, height);
 }
 
-void BasicLightingDiffuse::initLighting()
+void BasicLighting::initLighting()
 {
     m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.frag"));
@@ -81,9 +84,11 @@ void BasicLightingDiffuse::initLighting()
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 }
 
-void BasicLightingDiffuse::initCube()
+void BasicLighting::initCube()
 {
     m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
@@ -94,8 +99,5 @@ void BasicLightingDiffuse::initCube()
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
 }
 } // namespace graphicEngine::gl

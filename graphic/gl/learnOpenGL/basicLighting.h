@@ -2,15 +2,15 @@
 // Created by william on 2022/4/7.
 //
 
-#ifndef CPP_DEMO_BASICLIGHTINGDIFFUSE_H
-#define CPP_DEMO_BASICLIGHTINGDIFFUSE_H
+#ifndef CPP_DEMO_BASICLIGHTING_H
+#define CPP_DEMO_BASICLIGHTING_H
 #include "colors.h"
 namespace graphicEngine::gl
 {
-class BasicLightingDiffuse : public Colors
+class BasicLighting : public Colors
 {
 public:
-    ~BasicLightingDiffuse() override;
+    ~BasicLighting() override;
     void render() override;
     void initialize() override;
     void update(float elapseTime) override;
@@ -20,4 +20,4 @@ public:
 };
 } // namespace graphicEngine::gl
 
-#endif //CPP_DEMO_BASICLIGHTINGDIFFUSE_H
+#endif //CPP_DEMO_BASICLIGHTING_H
