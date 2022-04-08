@@ -32,11 +32,12 @@
 #include "learnOpenGL/colors.h"
 #include "learnOpenGL/basicLighting.h"
 #include "learnOpenGL/materials.h"
+#include "learnOpenGL/materialsMapTexture.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    Materials obj;
+    MaterialsMapTexture obj;
     obj.run();
 }

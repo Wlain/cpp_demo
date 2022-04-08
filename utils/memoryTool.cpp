@@ -58,7 +58,7 @@ static int32_t readProcessMemory(int pid) {
     return procMemSize;
 }
 
-float getUsageMemory() {
+float getUsageMemoryForAndroid() {
     pid_t pid = getpid();
     int32_t size = readProcessMemory(pid);
     uint32_t processMemorySizeKb = 0;
