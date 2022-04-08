@@ -34,11 +34,12 @@
 #include "learnOpenGL/materials.h"
 #include "learnOpenGL/materialsMapTexture.h"
 #include "learnOpenGL/depthTest.h"
+#include "learnOpenGL/stencilTest.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    DepthTest obj;
+    StencilTest obj;
     obj.run();
 }

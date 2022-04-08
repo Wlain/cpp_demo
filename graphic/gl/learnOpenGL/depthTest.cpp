@@ -109,6 +109,8 @@ void DepthTest::initialize()
     glBindVertexArray(0);
     m_program->use();
     m_program->setInt("inputTexture", 0);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
 }
 
 void DepthTest::update(float elapseTime)
@@ -130,8 +132,6 @@ void DepthTest::resize(int width, int height)
 
 void DepthTest::render()
 {
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
     glClearColor(0.f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // cubes
