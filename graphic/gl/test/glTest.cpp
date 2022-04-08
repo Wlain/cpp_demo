@@ -36,11 +36,12 @@
 #include "learnOpenGL/depthTest.h"
 #include "learnOpenGL/stencilTest.h"
 #include "learnOpenGL/blendingDiscard.h"
+#include "learnOpenGL/blendingSort.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    BlendingDiscard obj;
+    BlendingSort obj;
     obj.run();
 }

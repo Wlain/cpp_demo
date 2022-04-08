@@ -2,13 +2,14 @@
 // Created by cwb on 2022/4/8.
 //
 
-#include "blendingDiscard.h"
+#include "blendingSort.h"
 
+#include "camera.h"
 #include "textureGL.h"
 namespace graphicEngine::gl
 {
 
-BlendingDiscard::~BlendingDiscard()
+BlendingSort::~BlendingSort()
 {
     if (m_transparentVao != 0)
         glDeleteVertexArrays(1, &m_transparentVao);
@@ -16,7 +17,7 @@ BlendingDiscard::~BlendingDiscard()
         glDeleteBuffers(1, &m_transparentVbo);
 }
 
-void BlendingDiscard::initialize()
+void BlendingSort::initialize()
 {
     m_transparentVertices = {
         // positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
@@ -47,26 +48,34 @@ void BlendingDiscard::initialize()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
     m_texture2 = std::make_unique<TextureGL>();
-    m_texture2->createByFile(GET_CURRENT("/resources/textures/grass.png"));
+    m_texture2->createByFile(GET_CURRENT("/resources/textures/window.png"));
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
-void BlendingDiscard::update(float elapseTime)
+void BlendingSort::update(float elapseTime)
 {
     DepthTest::update(elapseTime);
+    // sort the transparent windows before rendering
+    for (const auto& window : m_vegetation)
+    {
+        float distance = glm::length(m_camera->m_position - window);
+        m_sorted[distance] = window;
+    }
 }
-void BlendingDiscard::resize(int width, int height)
+void BlendingSort::resize(int width, int height)
 {
     DepthTest::resize(width, height);
 }
-void BlendingDiscard::render()
+void BlendingSort::render()
 {
     DepthTest::render();
     // vegetation
     glBindVertexArray(m_transparentVao);
     glBindTexture(GL_TEXTURE_2D, m_transparentVbo);
-    for (auto & i : m_vegetation)
+    for (auto it = m_sorted.rbegin(); it != m_sorted.rend(); ++it)
     {
         auto model = glm::mat4(1.0f);
-        model = glm::translate(model, i);
+        model = glm::translate(model, it->second);
         m_program->setMatrix4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
