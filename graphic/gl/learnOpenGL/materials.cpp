@@ -2,15 +2,15 @@
 // Created by william on 2022/4/7.
 //
 
-#include "basicLighting.h"
+#include "materials.h"
 
 #include "camera.h"
 namespace graphicEngine::gl
 {
 
-BasicLighting::~BasicLighting() = default;
+Materials::~Materials() = default;
 
-void BasicLighting::initialize()
+void Materials::initialize()
 {
     m_verticesCube = {
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
@@ -56,32 +56,43 @@ void BasicLighting::initialize()
         -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
     };
     Colors::initialize();
+    glfwSetWindowTitle(m_window, "Materials");
+    m_lightingProgram->use();
+    // material properties
+    m_lightingProgram->setVector3("material.ambient", 1.0f, 0.5f, 0.31f);
+    m_lightingProgram->setVector3("material.diffuse", 1.0f, 0.5f, 0.31f);
+    m_lightingProgram->setVector3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+    m_lightingProgram->setFloat("material.shininess", 32.0f);
 }
-void BasicLighting::update(float elapseTime)
+void Materials::update(float elapseTime)
 {
+    // light properties
+    glm::vec3 lightColor;
+    lightColor.x = static_cast<float>(sin(elapseTime * 2.0));
+    lightColor.y = static_cast<float>(sin(elapseTime * 0.7));
+    lightColor.z = static_cast<float>(sin(elapseTime * 1.3));
+    auto diffuseColor = lightColor   * glm::vec3(0.5f); // decrease the influence
+    auto ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+
     m_lightPos.x = 1.0f + sin(elapseTime) * 2.0f;
     m_lightPos.y = sin(elapseTime / 2.0f) * 1.0f;
     Colors::update(elapseTime);
     m_lightingProgram->use();
     m_lightingProgram->setVector3("viewPos", m_camera->m_position);
-    m_lightingProgram->setVector3("lightPos", m_lightPos);
+    m_lightingProgram->setVector3("light.position", m_lightPos);
+    m_lightingProgram->setVector3("light.ambient", ambientColor);
+    m_lightingProgram->setVector3("light.diffuse", diffuseColor);
+    m_lightingProgram->setVector3("light.specular", 1.0f, 1.0f, 1.0f);
 }
-void BasicLighting::resize(int width, int height)
+void Materials::resize(int width, int height)
 {
     Colors::resize(width, height);
 }
 
-void BasicLighting::initLighting()
+void Materials::initLighting()
 {
-    /// 根据不同的shader切换不同的光照
-    /// basicLighting:在世界空间计算phongs光照
-    /// basicLighting:在观察空间中计算phongs光照
-    /// basicLighting:在观察空间中计算gruraud光照
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.vert"),
-                                                  GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.frag"));
-    m_lightingProgram->use();
-    m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
-    m_lightingProgram->setVector3("lightColor", 1.0f, 1.0f, 1.0f);
+    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/materials.vert"),
+                                                  GET_CURRENT("/resources/shaders/LearnOpenGL/materials.frag"));
     glGenVertexArrays(1, &m_lightVao);
     glBindVertexArray(m_lightVao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -91,7 +102,7 @@ void BasicLighting::initLighting()
     glEnableVertexAttribArray(1);
 }
 
-void BasicLighting::initCube()
+void Materials::initCube()
 {
     m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
@@ -104,7 +115,7 @@ void BasicLighting::initCube()
     glEnableVertexAttribArray(0);
 }
 
-void BasicLighting::render()
+void Materials::render()
 {
     Colors::render();
 }

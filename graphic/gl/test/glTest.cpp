@@ -31,11 +31,12 @@
 #include "learnOpenGL/coordinateSystemsMultiple.h"
 #include "learnOpenGL/colors.h"
 #include "learnOpenGL/basicLighting.h"
+#include "learnOpenGL/materials.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    BasicLighting obj;
+    Materials obj;
     obj.run();
 }

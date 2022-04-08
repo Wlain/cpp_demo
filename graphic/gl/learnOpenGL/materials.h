@@ -2,16 +2,17 @@
 // Created by william on 2022/4/7.
 //
 
-#ifndef CPP_DEMO_BASICLIGHTING_H
-#define CPP_DEMO_BASICLIGHTING_H
+#ifndef CPP_DEMO_MATERIALS_H
+#define CPP_DEMO_MATERIALS_H
+
 #include "colors.h"
 namespace graphicEngine::gl
 {
-class BasicLighting : public Colors
+class Materials : public Colors
 {
 public:
     using Colors::Colors;
-    ~BasicLighting() override;
+    ~Materials() override;
     void render() override;
     void initialize() override;
     void update(float elapseTime) override;
@@ -21,4 +22,4 @@ public:
 };
 } // namespace graphicEngine::gl
 
-#endif //CPP_DEMO_BASICLIGHTING_H
+#endif //CPP_DEMO_MATERIALS_H
