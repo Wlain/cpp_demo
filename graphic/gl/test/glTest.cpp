@@ -35,11 +35,12 @@
 #include "learnOpenGL/materialsMapTexture.h"
 #include "learnOpenGL/depthTest.h"
 #include "learnOpenGL/stencilTest.h"
+#include "learnOpenGL/blendingDiscard.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    StencilTest obj;
+    BlendingDiscard obj;
     obj.run();
 }
