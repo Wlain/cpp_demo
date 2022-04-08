@@ -3,16 +3,13 @@
 //
 
 #include "basicLighting.h"
+
 #include "camera.h"
 namespace graphicEngine::gl
 {
 
 BasicLighting::~BasicLighting() = default;
 
-void BasicLighting::render()
-{
-    Colors::render();
-}
 void BasicLighting::initialize()
 {
     m_verticesCube = {
@@ -62,9 +59,12 @@ void BasicLighting::initialize()
 }
 void BasicLighting::update(float elapseTime)
 {
+    m_lightPos.x = 1.0f + sin(elapseTime) * 2.0f;
+    m_lightPos.y = sin(elapseTime / 2.0f) * 1.0f;
     Colors::update(elapseTime);
     m_lightingProgram->use();
     m_lightingProgram->setVector3("viewPos", m_camera->m_position);
+    m_lightingProgram->setVector3("lightPos", m_lightPos);
 }
 void BasicLighting::resize(int width, int height)
 {
@@ -78,7 +78,6 @@ void BasicLighting::initLighting()
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
     m_lightingProgram->setVector3("lightColor", 1.0f, 1.0f, 1.0f);
-    m_lightingProgram->setVector3("lightPos", m_lightPos);
     glGenVertexArrays(1, &m_lightVao);
     glBindVertexArray(m_lightVao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -100,4 +99,10 @@ void BasicLighting::initCube()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 }
+
+void BasicLighting::render()
+{
+    Colors::render();
+}
+
 } // namespace graphicEngine::gl
