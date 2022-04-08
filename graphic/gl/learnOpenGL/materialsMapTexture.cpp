@@ -61,8 +61,10 @@ void MaterialsMapTexture::initialize()
     glfwSetWindowTitle(m_window, "MaterialsMapTexture");
     m_texture = std::make_unique<TextureGL>();
     m_texture1 = std::make_unique<TextureGL>();
+    m_texture2 = std::make_unique<TextureGL>();
     m_texture->createByFile(GET_CURRENT("/resources/textures/container2.png"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/container2_specular.png"));
+    m_texture1->createByFile(GET_CURRENT("/resources/textures/matrix.jpg")); // 自发光
     m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
@@ -81,6 +83,7 @@ void MaterialsMapTexture::initialize()
     m_lightingProgram->setFloat("material.shininess", 32.0f);
     m_lightingProgram->setInt("material.diffuse", 0);
     m_lightingProgram->setInt("material.specular", 1);
+    m_lightingProgram->setInt("material.emission", 1);
     m_lightingProgram->setVector3("light.ambient", 0.2f, 0.2f, 0.2f);
     m_lightingProgram->setVector3("light.diffuse", 0.5f, 0.5f, 0.5f);
     m_lightingProgram->setVector3("light.specular", 1.0f, 1.0f, 1.0f);
@@ -151,6 +154,8 @@ void MaterialsMapTexture::render()
     // bind specular map
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_texture1->handle());
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, m_texture2->handle());
     glBindVertexArray(m_lightVao);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }

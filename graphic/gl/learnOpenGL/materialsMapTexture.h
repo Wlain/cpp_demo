@@ -24,6 +24,7 @@ public:
 private:
     std::unique_ptr<TextureGL> m_texture;
     std::unique_ptr<TextureGL> m_texture1;
+    std::unique_ptr<TextureGL> m_texture2;
 };
 } // namespace graphicEngine::gl
 
