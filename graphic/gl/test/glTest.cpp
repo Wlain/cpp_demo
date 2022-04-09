@@ -38,11 +38,13 @@
 #include "learnOpenGL/blendingDiscard.h"
 #include "learnOpenGL/blendingSort.h"
 #include "learnOpenGL/frameBuffers.h"
+#include "learnOpenGL/frameBuffersExercise1.h"
+
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    FrameBuffers obj;
+    FrameBuffersExercise1 obj;
     obj.run();
 }

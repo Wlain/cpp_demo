@@ -24,10 +24,9 @@ protected:
     void initTextures() override;
     void initPrograms() override;
     void initVertexAttrib() override;
-protected:
     void drawFrameBuffersScreen();
 
-private:
+protected:
     std::unique_ptr<graphicEngine::Program> m_quadProgram;
     std::vector<float> m_quadVertices;
     GLuint m_quadVao;
