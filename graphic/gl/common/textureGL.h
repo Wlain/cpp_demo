@@ -12,6 +12,7 @@ class TextureGL : public TextureHandle
 {
 public:
     ~TextureGL() override;
+    void destroy() override;
     bool createByData(void* data, uint32_t width, uint32_t height, PixelFormat format) override;
     bool createByFile(std::string_view filePath) override;
     void resize(uint32_t width, uint32_t height, const void* data) override;

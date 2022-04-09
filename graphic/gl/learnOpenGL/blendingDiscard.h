@@ -15,6 +15,10 @@ public:
     void update(float elapseTime) override;
     void resize(int width, int height) override;
     void render() override;
+protected:
+    void initVertices() override;
+    void initVertexAttrib() override;
+    void initTextures() override;
 
 private:
     std::vector<float> m_transparentVertices;

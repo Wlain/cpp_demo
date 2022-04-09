@@ -17,6 +17,9 @@ public:
     void update(float elapseTime) override;
     void resize(int width, int height) override;
     void render() override;
+protected:
+    void initPrograms() override;
+    void initGLStatus() override;
 
 private:
     std::unique_ptr<Program> m_singleColorProgram;

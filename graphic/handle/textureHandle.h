@@ -28,6 +28,7 @@ public:
 public:
     TextureHandle() = default;
     virtual ~TextureHandle() = default;
+    virtual void destroy() = 0;
     virtual bool createByData(void* data, uint32_t width, uint32_t height, PixelFormat format) = 0;
     virtual bool createByFile(std::string_view filePath) = 0;
     virtual void resize(uint32_t width, uint32_t height, const void* data) = 0;

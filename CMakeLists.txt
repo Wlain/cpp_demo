@@ -72,7 +72,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES} graphic/gl/learnOpenGL/basicLighting.cpp graphic/gl/learnOpenGL/basicLighting.h)
+add_executable(cpp_demo ${SOURCES} graphic/gl/learnOpenGL/basicLighting.cpp graphic/gl/learnOpenGL/basicLighting.h graphic/gl/learnOpenGL/frameBuffers.cpp graphic/gl/learnOpenGL/frameBuffers.h)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

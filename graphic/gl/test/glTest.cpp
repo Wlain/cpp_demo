@@ -37,11 +37,12 @@
 #include "learnOpenGL/stencilTest.h"
 #include "learnOpenGL/blendingDiscard.h"
 #include "learnOpenGL/blendingSort.h"
+#include "learnOpenGL/frameBuffers.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    BlendingSort obj;
+    FrameBuffers obj;
     obj.run();
 }

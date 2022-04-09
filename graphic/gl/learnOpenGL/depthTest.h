@@ -21,8 +21,16 @@ public:
     void render() override;
     void touchEvent(double xPos, double yPos) override;
     void scrollEvent(double xOffset, double yOffset) override;
+
 protected:
     void processInput();
+    virtual void initTextures();
+    virtual void initPrograms();
+    virtual void initVertices();
+    virtual void initVertexAttrib();
+    virtual void initGLStatus();
+    void drawCubes();
+    void drawFloor();
 
 protected:
     std::unique_ptr<TextureGL> m_texture;

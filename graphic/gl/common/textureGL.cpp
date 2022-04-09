@@ -10,6 +10,11 @@
 
 TextureGL::~TextureGL()
 {
+    destroy();
+}
+
+void TextureGL::destroy()
+{
     if (m_id != 0)
     {
         glDeleteTextures(1, &m_id);
