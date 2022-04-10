@@ -76,6 +76,8 @@ void CommonInterface::run()
         auto* demo = reinterpret_cast<CommonInterface*>(glfwGetWindowUserPointer(window));
         demo->scrollEvent(xOffset, yOffset);
     });
+    // tell GLFW to capture our mouse
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     if (glewInit() != GLEW_OK)
     {
         exit(EXIT_FAILURE);

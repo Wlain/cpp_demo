@@ -33,8 +33,8 @@ protected:
     void drawFloor();
 
 protected:
-    std::unique_ptr<TextureGL> m_texture;
-    std::unique_ptr<TextureGL> m_texture1;
+    std::unique_ptr<TextureGL> m_cubeTexture;
+    std::unique_ptr<TextureGL> m_floorTexture;
     std::unique_ptr<Camera> m_camera;
     std::vector<float> m_cubeVertices;
     std::vector<float> m_planeVertices;

@@ -39,12 +39,13 @@
 #include "learnOpenGL/blendingSort.h"
 #include "learnOpenGL/frameBuffers.h"
 #include "learnOpenGL/frameBuffersExercise1.h"
+#include "learnOpenGL/skybox.h"
 
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    FrameBuffersExercise1 obj;
+    Skybox obj;
     obj.run();
 }

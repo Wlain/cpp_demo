@@ -8,21 +8,6 @@ namespace graphicEngine::gl
 
 FrameBuffersExercise1::~FrameBuffersExercise1() = default;
 
-void FrameBuffersExercise1::initialize()
-{
-    FrameBuffers::initialize();
-}
-
-void FrameBuffersExercise1::update(float elapseTime)
-{
-    FrameBuffers::update(elapseTime);
-}
-
-void FrameBuffersExercise1::resize(int width, int height)
-{
-    FrameBuffers::resize(width, height);
-}
-
 void FrameBuffersExercise1::render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);

@@ -42,19 +42,22 @@ bool TextureGL::createByFile(std::string_view filePath)
     unsigned char* data = stbi_load(filePath.data(), &m_info.width, &m_info.height, &m_info.channels, 0);
     if (data)
     {
-        auto type = GL_RGBA;
+        auto format = GL_RGBA;
         switch (m_info.channels)
         {
+        case 1:
+            format = GL_RED;
+            break;
         case 3:
-            type = GL_RGB;
+            format = GL_RGB;
             break;
         case 4:
-            type = GL_RGBA;
+            format = GL_RGBA;
             break;
         default:
             ASSERT(0);
         }
-        glTexImage2D(GL_TEXTURE_2D, 0, type, m_info.width, m_info.height, 0, type, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, m_info.width, m_info.height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
@@ -63,7 +66,7 @@ bool TextureGL::createByFile(std::string_view filePath)
         return false;
     }
     stbi_image_free(data);
-    GL_CHECK();
+    stbi_set_flip_vertically_on_load(false);
     return true;
 }
 

@@ -14,8 +14,6 @@ class FrameBuffers : public DepthTest
 public:
     ~FrameBuffers() override;
     void initialize() override;
-    void update(float elapseTime) override;
-    void resize(int width, int height) override;
     void render() override;
 
 protected:

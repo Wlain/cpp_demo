@@ -28,8 +28,8 @@ public:
 
 public:
     uint32_t m_id = 0;
-    int32_t m_wrappingType = GL_CLAMP_TO_EDGE;
-    int32_t m_filteringType = GL_LINEAR;
+    GLenum m_wrappingType = GL_CLAMP_TO_EDGE;
+    GLenum m_filteringType = GL_LINEAR;
 };
 
 #endif //CPP_DEMO_TEXTUREGL_H

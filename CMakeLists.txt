@@ -72,7 +72,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES})
+add_executable(cpp_demo ${SOURCES} graphic/gl/learnOpenGL/skybox.cpp graphic/gl/learnOpenGL/skybox.h)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

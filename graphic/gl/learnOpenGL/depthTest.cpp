@@ -12,11 +12,12 @@ namespace graphicEngine::gl
 DepthTest::DepthTest()
 {
     m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
-    m_texture = std::make_unique<TextureGL>();
-    m_texture1 = std::make_unique<TextureGL>();
-    m_texture->setWarpingType(GL_REPEAT);
-    m_texture1->setWarpingType(GL_REPEAT);
+    m_cubeTexture = std::make_unique<TextureGL>();
+    m_floorTexture = std::make_unique<TextureGL>();
+    m_cubeTexture->setWarpingType(GL_REPEAT);
+    m_floorTexture->setWarpingType(GL_REPEAT);
 }
+
 DepthTest::~DepthTest()
 {
     if (m_planeVao != 0)
@@ -102,12 +103,8 @@ void DepthTest::processInput()
 
 void DepthTest::initTextures()
 {
-    m_texture = std::make_unique<TextureGL>();
-    m_texture1 = std::make_unique<TextureGL>();
-    m_texture->setWarpingType(GL_REPEAT);
-    m_texture1->setWarpingType(GL_REPEAT);
-    m_texture->createByFile(GET_CURRENT("/resources/textures/marble.jpg"));
-    m_texture1->createByFile(GET_CURRENT("/resources/textures/metal.png"));
+    m_cubeTexture->createByFile(GET_CURRENT("/resources/textures/marble.jpg"));
+    m_floorTexture->createByFile(GET_CURRENT("/resources/textures/metal.png"));
 }
 
 void DepthTest::initPrograms()
@@ -211,7 +208,7 @@ void DepthTest::drawCubes()
 {
     glBindVertexArray(m_vao);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_texture->handle());
+    glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle());
     auto model = glm::mat4(1.0);
     model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
     m_program->use();
@@ -227,7 +224,7 @@ void DepthTest::drawFloor()
 {
     m_program->use();
     glBindVertexArray(m_planeVao);
-    glBindTexture(GL_TEXTURE_2D, m_texture1->handle());
+    glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle());
     m_program->setMatrix4("model", glm::mat4(1.0f));
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }

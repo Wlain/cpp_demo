@@ -27,16 +27,6 @@ void FrameBuffers::initialize()
     initFramebuffer();
 }
 
-void FrameBuffers::update(float elapseTime)
-{
-    DepthTest::update(elapseTime);
-}
-
-void FrameBuffers::resize(int width, int height)
-{
-    DepthTest::resize(width, height);
-}
-
 void FrameBuffers::render()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
@@ -75,8 +65,8 @@ void FrameBuffers::initFramebuffer()
 
 void FrameBuffers::initTextures()
 {
-    m_texture->createByFile(GET_CURRENT("/resources/textures/container.jpg"));
-    m_texture1->createByFile(GET_CURRENT("/resources/textures/metal.png"));
+    m_cubeTexture->createByFile(GET_CURRENT("/resources/textures/container.jpg"));
+    m_floorTexture->createByFile(GET_CURRENT("/resources/textures/metal.png"));
 }
 
 void FrameBuffers::initPrograms()

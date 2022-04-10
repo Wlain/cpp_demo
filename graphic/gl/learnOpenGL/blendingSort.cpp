@@ -17,10 +17,6 @@ BlendingSort::~BlendingSort()
         glDeleteBuffers(1, &m_transparentVbo);
 }
 
-void BlendingSort::initialize()
-{
-    DepthTest::initialize();
-}
 void BlendingSort::update(float elapseTime)
 {
     DepthTest::update(elapseTime);
@@ -31,10 +27,7 @@ void BlendingSort::update(float elapseTime)
         m_sorted[distance] = window;
     }
 }
-void BlendingSort::resize(int width, int height)
-{
-    DepthTest::resize(width, height);
-}
+
 void BlendingSort::render()
 {
     DepthTest::render();

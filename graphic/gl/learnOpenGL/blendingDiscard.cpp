@@ -20,14 +20,7 @@ void BlendingDiscard::initialize()
 {
     DepthTest::initialize();
 }
-void BlendingDiscard::update(float elapseTime)
-{
-    DepthTest::update(elapseTime);
-}
-void BlendingDiscard::resize(int width, int height)
-{
-    DepthTest::resize(width, height);
-}
+
 void BlendingDiscard::render()
 {
     DepthTest::render();

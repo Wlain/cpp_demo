@@ -14,9 +14,6 @@ class FrameBuffersExercise1 : public FrameBuffers
 public:
     using FrameBuffers::FrameBuffers;
     ~FrameBuffersExercise1() override;
-    void initialize() override;
-    void update(float elapseTime) override;
-    void resize(int width, int height) override;
     void render() override;
 protected:
     void initVertices() override;
