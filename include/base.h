@@ -64,21 +64,21 @@
 #define LOG_ERROR(...)                                  \
     do                                                  \
     {                                                   \
-        Logger::log(Logger::Level::Error, __VA_ARGS__); \
+        Logger::getInstance().log(Logger::Level::Error, __VA_ARGS__); \
     } while (0)
 
 /// Info macro
 #define LOG_INFO(...)                                  \
     do                                                 \
     {                                                  \
-        Logger::log(Logger::Level::Info, __VA_ARGS__); \
+        Logger::getInstance().log(Logger::Level::Info, __VA_ARGS__); \
     } while (0)
 
 /// Warn macro
 #define LOG_WARN(...)                                  \
     do                                                 \
     {                                                  \
-        Logger::log(Logger::Level::Warn, __VA_ARGS__); \
+        Logger::getInstance().log(Logger::Level::Warn, __VA_ARGS__); \
     } while (0)
 
 #if defined(NDEBUG) && defined(__GNUC__)

@@ -29,7 +29,7 @@ protected:
     virtual void initVertices();
     virtual void initVertexAttrib();
     virtual void initGLStatus();
-    void drawCubes();
+    virtual void drawCubes();
     void drawFloor();
 
 protected:

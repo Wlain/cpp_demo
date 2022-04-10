@@ -7,8 +7,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include "publicSingleton.h"
 
-class Logger
+class Logger final : public PublicSingleton<Logger>
 {
 public:
     enum class Level : uint32_t
@@ -18,8 +19,7 @@ public:
         Error
     };
 
-public:
-    static void log(Level level, const char* message, ...);
+    void log(Level level, const char* message, ...);
 };
 
 #endif //FM_BACKEND_WASM_LOGGER_H

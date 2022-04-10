@@ -48,3 +48,4 @@ void Logger::log(Logger::Level level, const char* message, ...)
     }
     printf("\n");
 }
+
