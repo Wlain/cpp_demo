@@ -41,12 +41,12 @@
 #include "learnOpenGL/frameBuffersExercise1.h"
 #include "learnOpenGL/skybox.h"
 #include "learnOpenGL/skyboxEnvironmentMap.h"
-
+#include "learnOpenGL/advancedUbo.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    SkyboxEnvironmentMap obj;
+    AdvancedUbo obj;
     obj.run();
 }

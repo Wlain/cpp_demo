@@ -117,7 +117,7 @@ Program::Program(const std::string_view& vertexPath, const std::string_view& fra
     }
     catch (std::ifstream::failure& e)
     {
-        std::cout << "ERROR::Program::file not successfully read" << std::endl;
+        LOG_ERROR("ERROR::Program::file not successfully read");
     }
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
