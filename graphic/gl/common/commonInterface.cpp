@@ -30,14 +30,14 @@ void CommonInterface::initWithProperty(const std::tuple<const char*, std::string
 {
     glfwSetWindowTitle(m_window, std::get<0>(property));
     // init program
-    m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property), std::get<2>(property));
+    m_program = std::make_unique<graphicEngine::Program>(std::get<1>(property).c_str(), std::get<2>(property).c_str());
 }
 
 void CommonInterface::initWithProperty()
 {
     glfwSetWindowTitle(m_window, m_title.c_str());
     // init program
-    m_program = std::make_unique<graphicEngine::Program>(m_vertPath, m_fragPath);
+    m_program = std::make_unique<graphicEngine::Program>(m_vertPath.c_str(), m_fragPath.c_str());
 }
 
 void CommonInterface::run()
@@ -89,6 +89,8 @@ void CommonInterface::run()
     while (!glfwWindowShouldClose(m_window))
     {
         update((float)glfwGetTime());
+        if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(m_window, true);
         /// 渲染
         render();
         /// swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

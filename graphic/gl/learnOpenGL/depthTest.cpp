@@ -89,8 +89,6 @@ void DepthTest::scrollEvent(double xOffset, double yOffset)
 
 void DepthTest::processInput()
 {
-    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(m_window, true);
     if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
         m_camera->processKeyboard(CameraMovement::Forward, m_deltaTime);
     if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)

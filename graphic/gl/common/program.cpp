@@ -3,6 +3,7 @@
 //
 
 #include "program.h"
+
 #include <fstream>
 #include <sstream>
 
@@ -14,7 +15,7 @@ Program::~Program()
     glDeleteProgram(mProgram);
 }
 
-GLuint Program::CreateProgram(GLuint vertShader, GLuint fragShader)
+GLuint Program::CreateProgram(GLuint vertShader, GLuint fragShader, GLuint geometryShader, GLuint tessShader)
 {
     GLuint program = 0;
     GLint linked = GL_FALSE;
@@ -26,11 +27,18 @@ GLuint Program::CreateProgram(GLuint vertShader, GLuint fragShader)
     // 绑定
     glAttachShader(program, vertShader);
     glAttachShader(program, fragShader);
+    if (geometryShader != 0)
+        glAttachShader(program, geometryShader);
+    if (tessShader != 0)
+        glAttachShader(program, tessShader);
     glLinkProgram(program);
     // 解绑定
     glDetachShader(program, vertShader);
     glDetachShader(program, fragShader);
-
+    if (geometryShader != 0)
+        glDetachShader(program, geometryShader);
+    if (tessShader != 0)
+        glDetachShader(program, tessShader);
     glGetProgramiv(program, GL_LINK_STATUS, &linked);
     if (linked == GL_FALSE)
     {
@@ -89,16 +97,22 @@ GLuint Program::CompileShader(GLenum shaderType, const GLchar* src)
     return shader;
 }
 
-Program::Program(const std::string_view& vertexPath, const std::string_view& fragmentPath)
+Program::Program(const char* vertexPath, const char* fragmentPath, const char* geometryPath, const char* tessellationPath)
 {
     // 1. 从文件中读取顶点和片元的文本文件
     std::string vertexCode;
     std::string fragmentCode;
+    std::string geometryCode;
+    std::string tessellationCode;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
+    std::ifstream gShaderFile;
+    std::ifstream tShaderFile;
     // 确保ifstream objects会抛出异常
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    gShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    tShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try
     {
         // open files
@@ -114,6 +128,22 @@ Program::Program(const std::string_view& vertexPath, const std::string_view& fra
         // convert stream into string
         vertexCode = vShaderStream.str();
         fragmentCode = fShaderStream.str();
+        if (geometryPath != nullptr)
+        {
+            gShaderFile.open(geometryPath);
+            std::stringstream gShaderStream;
+            gShaderStream << gShaderFile.rdbuf();
+            gShaderFile.close();
+            geometryCode = gShaderStream.str();
+        }
+        if (tessellationPath != nullptr)
+        {
+            gShaderFile.open(tessellationPath);
+            std::stringstream tShaderStream;
+            tShaderStream << gShaderFile.rdbuf();
+            gShaderFile.close();
+            tessellationCode = tShaderStream.str();
+        }
     }
     catch (std::ifstream::failure& e)
     {
@@ -124,7 +154,19 @@ Program::Program(const std::string_view& vertexPath, const std::string_view& fra
     // 2. compile shaders
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vShaderCode);
     GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fShaderCode);
-    mProgram = CreateProgram(vertexShader, fragmentShader);
+    GLuint geometricShader = 0;
+    GLuint tessellationShader = 0;
+    if (geometryPath != nullptr)
+    {
+        const char* gShaderCode = geometryCode.c_str();
+        geometricShader = CompileShader(GL_GEOMETRY_SHADER, gShaderCode);
+    }
+    if (tessellationPath != nullptr)
+    {
+        const char* tShaderCode = tessellationCode.c_str();
+        tessellationShader = CompileShader(GL_TESS_CONTROL_SHADER, tShaderCode);
+    }
+    mProgram = CreateProgram(vertexShader, fragmentShader, geometricShader, tessellationShader);
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }

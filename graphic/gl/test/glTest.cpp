@@ -42,11 +42,12 @@
 #include "learnOpenGL/skybox.h"
 #include "learnOpenGL/skyboxEnvironmentMap.h"
 #include "learnOpenGL/advancedUbo.h"
+#include "learnOpenGL/geometryShaderHouse.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    AdvancedUbo obj;
+    GeometryShaderHouse obj;
     obj.run();
 }

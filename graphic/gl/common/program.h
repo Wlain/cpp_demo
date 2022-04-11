@@ -14,13 +14,13 @@ class Program
 public:
     Program() = default;
     ~Program();
-    explicit Program(const Program& s) = default;
+    Program(const Program& s) = default;
     Program(Program&& a) = default;
     Program& operator=(const Program& s) = default;
     Program& operator=(Program&& s) = default;
     GLuint getProgram() const;
-    Program(const std::string_view& vertexPath, const std::string_view& fragmentPath);
-    static GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
+    Program(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr, const char* tessellationPath = nullptr);
+    static GLuint CreateProgram(GLuint vertShader, GLuint fragShader, GLuint geometryShader = 0, GLuint tessShader = 0);
     static GLuint CompileShader(GLenum shaderType, const GLchar* src);
     void use() const;
     void setBool(const std::string& name, bool value) const;
