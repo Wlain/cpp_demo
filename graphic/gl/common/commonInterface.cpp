@@ -4,12 +4,16 @@
 
 #include "commonInterface.h"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 #include "utils.h"
 
 namespace graphicEngine::gl
 {
 CommonInterface::CommonInterface()
 {
+    m_glslVersion = "#version 330";
     std::cout << "CommonInterface constructor called" << std::endl;
 }
 
@@ -83,6 +87,7 @@ void CommonInterface::run()
         exit(EXIT_FAILURE);
     }
     initialize();
+    initImageUi();
     int width = 0, height = 0;
     glfwGetFramebufferSize(m_window, &width, &height);
     resize(width, height);
@@ -93,6 +98,7 @@ void CommonInterface::run()
             glfwSetWindowShouldClose(m_window, true);
         /// 渲染
         render();
+        renderImageUi();
         /// swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         glfwSwapBuffers(m_window);
         glfwPollEvents();
@@ -110,5 +116,27 @@ void CommonInterface::errorCallback(int error, const char* description)
 
 void CommonInterface::scrollEvent(double xOffset, double yOffset)
 {
+}
+
+void CommonInterface::initImageUi()
+{
+    ImGui::CreateContext();
+    // 设置样式
+    ImGui::StyleColorsDark();
+    // 设置平台和渲染器
+    ImGui_ImplGlfw_InitForOpenGL(m_window, true);
+    ImGui_ImplOpenGL3_Init(m_glslVersion);
+}
+
+void CommonInterface::renderImageUi()
+{
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    ImGui::Begin("imgui_window");
+    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 } // namespace graphicEngine::gl

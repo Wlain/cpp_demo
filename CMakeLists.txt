@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 add_compile_options(-fno-elide-constructors)    #关闭编译器优化
 set(CMAKE_CXX_FLAGS "-fno-elide-constructors ${CMAKE_CXX_FLAGS}")
 
-add_definitions(-DCURRENT_PROJECT_DIR="${PROJECT_SOURCE_DIR}")
+add_definitions(-DCURRENT_PROJECT_DIR="${PROJECT_SOURCE_DIR}" -DIMGUI_IMPL_OPENGL_LOADER_GL3W)
 
 # opencv
 find_package(OpenCV REQUIRED)
@@ -52,7 +52,10 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
         ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include
         ${PROJECT_SOURCE_DIR}/3rdparty/ann/include
-        ${PROJECT_SOURCE_DIR}/3rdparty/rapidjson/include)
+        ${PROJECT_SOURCE_DIR}/3rdparty/rapidjson/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/imgui
+        ${PROJECT_SOURCE_DIR}/3rdparty/imgui/backends
+)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         3rdparty/lua-5.1.5/src/*.c
@@ -72,7 +75,14 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         imageProcess/*.cpp
         qt/*cpp)
 
-add_executable(cpp_demo ${SOURCES})
+# imageui
+file(GLOB IMAGE_UI_SRC
+        3rdparty/imgui/backends/imgui_impl_glfw.*
+        3rdparty/imgui/backends/imgui_impl_opengl3.*
+        3rdparty/imgui/*.cpp
+        )
+
+add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

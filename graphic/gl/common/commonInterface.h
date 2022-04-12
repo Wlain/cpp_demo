@@ -23,6 +23,8 @@ public:
     virtual void render() = 0;
     virtual void touchEvent(double xPos, double yPos);
     virtual void scrollEvent(double xOffset, double yOffset);
+    virtual void initImageUi();
+    virtual void renderImageUi();
     void run();
 
 protected:
@@ -33,6 +35,7 @@ protected:
 protected:
     std::unique_ptr<graphicEngine::Program> m_program;
     GLFWwindow* m_window = nullptr;
+    const char* m_glslVersion = nullptr;
     std::string m_title;
     std::string m_vertPath;
     std::string m_fragPath;

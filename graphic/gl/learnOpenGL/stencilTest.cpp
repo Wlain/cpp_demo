@@ -10,9 +10,7 @@
 namespace graphicEngine::gl
 {
 
-StencilTest::~StencilTest()
-{
-}
+StencilTest::~StencilTest() = default;
 
 void StencilTest::initialize()
 {

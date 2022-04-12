@@ -74,14 +74,14 @@ protected:
     };
     glm::vec3 m_lightPos{ 1.2f, 1.0f, 2.0f };
     GLuint m_lightVao = 0;
+    int32_t m_width{};
+    int32_t m_height{};
     float m_lastX = s_canvasWidth / 2.0f;
     float m_lastY = s_canvasHeight / 2.0f;
     // timing
     float m_deltaTime = 0.0f;
     float m_lastTime = 0.0f;
     float m_cameraSpeed = 0.0f;
-    int32_t m_width{};
-    int32_t m_height{};
     bool m_firstMouse = true;
 };
 } // namespace graphicEngine::gl

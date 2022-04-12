@@ -48,6 +48,6 @@ using namespace graphicEngine::gl;
 
 void glTest()
 {
-    GeometryShaderHouse obj;
+    Colors obj;
     obj.run();
 }
