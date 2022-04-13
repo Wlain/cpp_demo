@@ -30,6 +30,7 @@ protected:
     virtual void initVertexAttrib();
     virtual void initGLStatus();
     virtual void drawCubes();
+    virtual void initModel();
     void drawFloor();
 
 protected:

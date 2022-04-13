@@ -12,12 +12,15 @@ class LoadingModel : public DepthTest
 {
 public:
     ~LoadingModel() override;
-    void initialize() override;
-    void update(float elapseTime) override;
+
+protected:
+    void initModel() override;
+    void initPrograms() override;
+
+public:
     void render() override;
 
 private:
-    std::shared_ptr<graphicEngine::Program> m_modelProgram;
     std::unique_ptr<Model> m_model;
 };
 } // namespace graphicEngine::gl

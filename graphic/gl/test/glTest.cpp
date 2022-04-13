@@ -44,11 +44,12 @@
 #include "learnOpenGL/advancedUbo.h"
 #include "learnOpenGL/geometryShaderHouse.h"
 #include "learnOpenGL/loadingModel.h"
+#include "learnOpenGL/geometryShaderExploding.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    LoadingModel obj;
+    GeometryShaderExploding obj;
     obj.run();
 }

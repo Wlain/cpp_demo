@@ -5,12 +5,12 @@
 #ifndef CPP_DEMO_MESH_H
 #define CPP_DEMO_MESH_H
 #include "program.h"
+#include "textureGL.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
-#include "textureGL.h"
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -39,7 +39,7 @@ public:
     };
     struct Texture
     {
-        TextureGL tex;
+        TextureGL* tex;
         std::string type;
         std::string path;
     };
@@ -48,7 +48,7 @@ public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     ~Mesh();
     void destroy();
-    void render(std::shared_ptr<graphicEngine::Program>& program);
+    void render(const std::unique_ptr<graphicEngine::Program>& program);
     void setupMesh();
 
 private:

@@ -11,30 +11,27 @@ namespace graphicEngine::gl
 
 LoadingModel::~LoadingModel() = default;
 
-void LoadingModel::initialize()
+
+void LoadingModel::initModel()
 {
-    DepthTest::initialize();
-    m_modelProgram = std::make_shared<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
-                                               GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
     m_model = std::make_unique<Model>(GET_CURRENT("/resources/objects/backpack/backpack.obj"));
 }
 
-void LoadingModel::update(float elapseTime)
+void LoadingModel::initPrograms()
 {
-    DepthTest::update(elapseTime);
-    m_modelProgram->use();
-    m_modelProgram->setMatrix4("view", m_camera->viewMatrix());
-    m_modelProgram->setMatrix4("projection", m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f));
+    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
+                                          GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
+    m_program->use();
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
     model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));     // it's a bit too big for our scene, so scale it down
-    m_modelProgram->setMatrix4("model", model);
+    m_program->setMatrix4("model", model);
 }
 
 void LoadingModel::render()
 {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    m_model->render(m_modelProgram);
+    m_model->render(m_program);
 }
 } // namespace graphicEngine::gl

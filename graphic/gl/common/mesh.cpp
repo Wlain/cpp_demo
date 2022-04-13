@@ -30,6 +30,10 @@ void Mesh::destroy()
         glDeleteBuffers(1, &m_ebo);
     if (m_vao > 0)
         glDeleteVertexArrays(1, &m_vao);
+    for (auto& tex : m_textures)
+    {
+        delete tex.tex;
+    }
 }
 
 void Mesh::setupMesh()
@@ -70,7 +74,7 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::render(std::shared_ptr<graphicEngine::Program>& program)
+void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;
@@ -93,12 +97,12 @@ void Mesh::render(std::shared_ptr<graphicEngine::Program>& program)
                                                  // now set the sampler to the correct texture unit
         program->setInt(name + number, i);
         // and finally bind the texture
-        glBindTexture(GL_TEXTURE_2D, m_textures[i].tex.handle());
-        glBindVertexArray(m_vao);
-        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_textures[i].tex->handle());
     }
     // draw mesh
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+    glActiveTexture(GL_TEXTURE0);
 }
 } // namespace graphicEngine

@@ -31,6 +31,7 @@ void DepthTest::initialize()
     initVertices();
     initVertexAttrib();
     initTextures();
+    initModel();
     initPrograms();
     initGLStatus();
 }
@@ -40,6 +41,7 @@ void DepthTest::update(float elapseTime)
     float currentTime = elapseTime;
     m_deltaTime = currentTime - m_lastTime;
     m_lastTime = currentTime;
+    m_elapseTime = elapseTime;
     m_program->use();
     m_program->setMatrix4("view", m_camera->viewMatrix());
     m_program->setMatrix4("projection", m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f));
@@ -225,6 +227,10 @@ void DepthTest::drawFloor()
     glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle());
     m_program->setMatrix4("model", glm::mat4(1.0f));
     glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void DepthTest::initModel()
+{
 }
 
 } // namespace graphicEngine::gl

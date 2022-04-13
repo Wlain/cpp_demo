@@ -20,7 +20,7 @@ class Model
 public:
     explicit Model(std::string const& path);
     ~Model();
-    void render(std::shared_ptr<graphicEngine::Program> program);
+    void render(const std::unique_ptr<graphicEngine::Program>& program);
 
 private:
     void loadModel(const std::string& path);

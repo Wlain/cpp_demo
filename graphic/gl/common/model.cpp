@@ -18,7 +18,7 @@ Model::~Model()
     }
 }
 
-void Model::render(std::shared_ptr<graphicEngine::Program> program)
+void Model::render(const std::unique_ptr<graphicEngine::Program>& program)
 {
     for (auto& mesh : m_meshes)
     {
@@ -118,7 +118,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures);
+    return Mesh(std::move(vertices), std::move(indices), std::move(textures));
 }
 
 std::vector<Mesh::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
@@ -143,10 +143,13 @@ std::vector<Mesh::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextur
         if (!skip)
         {
             // if texture hasn't been loaded already, load it
-            m_textures.push_back({}); // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
-            m_textures.back().type = typeName;
-            m_textures.back().path = str.C_Str();
-            m_textures.back().tex.createByFile(m_directory + '/' + str.C_Str());
+            Mesh::Texture texture;
+            texture.type = typeName;
+            texture.path = str.C_Str();
+            texture.tex = new TextureGL();
+            texture.tex->createByFile(m_directory + '/' + str.C_Str());
+            textures.push_back(texture);
+            m_textures.push_back(std::move(texture)); // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
         }
     }
     return textures;
