@@ -27,9 +27,8 @@ void Instancing::resize(int width, int height)
 
 void Instancing::render()
 {
-    glClear(GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     m_program->use();
     m_vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-m_camera.x, -m_camera.y, -m_camera.z));
     m_program->setMatrix4("v_matrix", m_vMat);

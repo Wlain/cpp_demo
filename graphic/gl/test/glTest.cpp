@@ -46,11 +46,12 @@
 #include "learnOpenGL/loadingModel.h"
 #include "learnOpenGL/geometryShaderExploding.h"
 #include "learnOpenGL/geometryShaderNormals.h"
+#include "learnOpenGL/instanceQuads.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    GeometryShaderNormals obj;
+    InstanceQuads obj;
     obj.run();
 }
