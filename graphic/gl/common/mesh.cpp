@@ -30,10 +30,6 @@ void Mesh::destroy()
         glDeleteBuffers(1, &m_ebo);
     if (m_vao > 0)
         glDeleteVertexArrays(1, &m_vao);
-    for (auto& tex : m_textures)
-    {
-        delete tex.tex;
-    }
 }
 
 void Mesh::setupMesh()

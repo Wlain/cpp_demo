@@ -146,7 +146,7 @@ std::vector<Mesh::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextur
             Mesh::Texture texture;
             texture.type = typeName;
             texture.path = str.C_Str();
-            texture.tex = new TextureGL();
+            texture.tex = std::make_shared<TextureGL>();
             texture.tex->createByFile(m_directory + '/' + str.C_Str());
             textures.push_back(texture);
             m_textures.push_back(std::move(texture)); // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.

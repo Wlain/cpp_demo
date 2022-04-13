@@ -39,7 +39,7 @@ public:
     };
     struct Texture
     {
-        TextureGL* tex;
+        std::shared_ptr<TextureGL> tex;
         std::string type;
         std::string path;
     };
