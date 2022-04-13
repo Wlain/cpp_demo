@@ -124,6 +124,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 std::vector<Mesh::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<Mesh::Texture> textures;
+    auto size = mat->GetTextureCount(type);
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
@@ -140,13 +141,12 @@ std::vector<Mesh::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextur
             }
         }
         if (!skip)
-        { // if texture hasn't been loaded already, load it
-            Mesh::Texture texture;
-            texture.tex.createByFile(m_directory + '/' + str.C_Str());
-            texture.type = typeName;
-            texture.path = str.C_Str();
-            textures.push_back(texture);
-            m_textures.push_back(std::move(texture)); // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+        {
+            // if texture hasn't been loaded already, load it
+            m_textures.push_back({}); // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+            m_textures.back().type = typeName;
+            m_textures.back().path = str.C_Str();
+            m_textures.back().tex.createByFile(m_directory + '/' + str.C_Str());
         }
     }
     return textures;
