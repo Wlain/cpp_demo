@@ -43,11 +43,12 @@
 #include "learnOpenGL/skyboxEnvironmentMap.h"
 #include "learnOpenGL/advancedUbo.h"
 #include "learnOpenGL/geometryShaderHouse.h"
+#include "learnOpenGL/loadingModel.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    Colors obj;
+    LoadingModel obj;
     obj.run();
 }

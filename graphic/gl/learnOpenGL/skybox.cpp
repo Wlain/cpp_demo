@@ -161,13 +161,14 @@ void Skybox::initTextures()
     m_cubeTexture->createByFile(GET_CURRENT("/resources/textures/container.jpg"));
     m_floorTexture->createByFile(GET_CURRENT("/resources/textures/metal.png"));
     std::vector<std::string> skyboxFace = {
-        GET_CURRENT("/resources/textures/skybox/right.jpg"),
-        GET_CURRENT("/resources/textures/skybox/left.jpg"),
-        GET_CURRENT("/resources/textures/skybox/top.jpg"),
-        GET_CURRENT("/resources/textures/skybox/bottom.jpg"),
-        GET_CURRENT("/resources/textures/skybox/front.jpg"),
-        GET_CURRENT("/resources/textures/skybox/back.jpg")
+        GET_CURRENT("/resources/textures/Park3Med/px.jpg"),
+        GET_CURRENT("/resources/textures/Park3Med/nx.jpg"),
+        GET_CURRENT("/resources/textures/Park3Med/py.jpg"),
+        GET_CURRENT("/resources/textures/Park3Med/ny.jpg"),
+        GET_CURRENT("/resources/textures/Park3Med/pz.jpg"),
+        GET_CURRENT("/resources/textures/Park3Med/nz.jpg")
     };
+
     m_cubeMapTexture = loadCubeMaps(skyboxFace);
 }
 } // namespace graphicEngine::gl

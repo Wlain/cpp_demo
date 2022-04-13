@@ -23,6 +23,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+# assimp
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/assimp)
 
 # 头文件目录
 include_directories(
@@ -106,5 +108,6 @@ target_link_libraries(cpp_demo
         Qt5::Widgets
         Qt5::Gui
         Qt5::Core
+        assimp
         z
         )

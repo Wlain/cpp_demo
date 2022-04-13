@@ -10,7 +10,7 @@
 
 TextureGL::~TextureGL()
 {
-    destroy();
+//    destroy();
 }
 
 void TextureGL::destroy()

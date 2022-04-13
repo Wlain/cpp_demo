@@ -34,7 +34,7 @@ void MassSpringSystem::initialize()
     initWithProperty(std::make_tuple("mass spring system", GET_CURRENT("/resources/shaders/massSpring.gl.vert"), GET_CURRENT("/resources/shaders/massSpring.gl.frag")));
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), nullptr, GL_DYNAMIC_DRAW);
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)0);
