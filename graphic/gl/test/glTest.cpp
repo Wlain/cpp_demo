@@ -45,11 +45,12 @@
 #include "learnOpenGL/geometryShaderHouse.h"
 #include "learnOpenGL/loadingModel.h"
 #include "learnOpenGL/geometryShaderExploding.h"
+#include "learnOpenGL/geometryShaderNormals.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    GeometryShaderExploding obj;
+    GeometryShaderNormals obj;
     obj.run();
 }
