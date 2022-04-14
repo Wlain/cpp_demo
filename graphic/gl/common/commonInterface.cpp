@@ -54,6 +54,10 @@ void CommonInterface::run()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    if (m_openMsaa)
+    {
+        glfwWindowHint(GLFW_SAMPLES, 4);
+    }
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
@@ -88,6 +92,10 @@ void CommonInterface::run()
     }
     initialize();
     initImageUi();
+    if (m_openMsaa)
+    {
+        glEnable(GL_MULTISAMPLE); // enabled by default on some drivers, but not all so always enable to make sure
+    }
     int width = 0, height = 0;
     glfwGetFramebufferSize(m_window, &width, &height);
     resize(width, height);

@@ -49,11 +49,12 @@
 #include "learnOpenGL/instanceQuads.h"
 #include "learnOpenGL/asteroids.h"
 #include "learnOpenGL/asteroidsInstanced.h"
+#include "learnOpenGL/msaaTest.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    AsteroidsInstanced obj;
+    MsaaTest obj;
     obj.run();
 }

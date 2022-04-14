@@ -18,9 +18,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     setupMesh();
 }
 
-Mesh::~Mesh()
-{
-}
+Mesh::~Mesh() = default;
 
 void Mesh::destroy()
 {
@@ -97,13 +95,13 @@ void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program, uint32
     }
     // draw mesh
     glBindVertexArray(m_vao);
-    if(mount == 0)
+    if (mount == 0)
     {
-        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, 0);
     }
     else
     {
-        glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0, mount);
+        glDrawElementsInstanced(GL_TRIANGLES, static_cast<GLsizei>(m_indices.size()), GL_UNSIGNED_INT, 0, mount);
     }
     glBindVertexArray(0);
     glActiveTexture(GL_TEXTURE0);

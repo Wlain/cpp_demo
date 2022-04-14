@@ -9,12 +9,10 @@ namespace graphicEngine::gl
 {
 class AsteroidsInstanced : public Asteroids
 {
-public:
-    void render() override;
-
 protected:
     void initPrograms() override;
     void initVertexAttrib() override;
+    void drawRocks() override;
 
 private:
     uint32_t m_rockVbo = 0;

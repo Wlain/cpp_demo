@@ -5,7 +5,7 @@
 #include "asteroidsInstanced.h"
 
 #include "model.h"
-/// 100000个rock:fps:
+/// 100000个rock:fps:8.2
 
 namespace graphicEngine::gl
 {
@@ -49,19 +49,9 @@ void AsteroidsInstanced::initPrograms()
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
 }
 
-void AsteroidsInstanced::render()
+void AsteroidsInstanced::drawRocks()
 {
-    Asteroids::render();
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    m_program->use();
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, -3.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-    m_program->setMatrix4("model", model);
-    m_model->render(m_program);
     m_rockProgram->use();
     m_rockModel->render(m_rockProgram, m_rockAmount);
 }
-
 } // namespace graphicEngine::gl

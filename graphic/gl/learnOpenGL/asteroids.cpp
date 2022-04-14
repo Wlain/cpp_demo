@@ -72,12 +72,18 @@ void Asteroids::render()
 {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    m_rockProgram->use();
+    m_program->use();
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, -3.0f, 0.0f));
     model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-    m_rockProgram->setMatrix4("model", model);
-    m_model->render(m_rockProgram);
+    m_program->setMatrix4("model", model);
+    m_model->render(m_program);
+    drawRocks();
+}
+
+void Asteroids::drawRocks()
+{
+    m_rockProgram->use();
     // draw meteorites
     for (unsigned int i = 0; i < m_rockAmount; i++)
     {
@@ -85,5 +91,4 @@ void Asteroids::render()
         m_rockModel->render(m_rockProgram);
     }
 }
-
 } // namespace graphicEngine::gl

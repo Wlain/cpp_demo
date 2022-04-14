@@ -42,6 +42,7 @@ protected:
     GLuint m_vbo = 0;
     GLuint m_ebo = 0;
     GLuint m_vao = 0;
+    bool m_openMsaa = false;
     constexpr static const unsigned int s_canvasWidth = 640;
     constexpr static const unsigned int s_canvasHeight = 640;
 };
