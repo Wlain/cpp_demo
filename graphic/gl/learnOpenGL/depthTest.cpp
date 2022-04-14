@@ -29,10 +29,10 @@ DepthTest::~DepthTest()
 void DepthTest::initialize()
 {
     initVertices();
-    initVertexAttrib();
-    initTextures();
     initModel();
     initPrograms();
+    initVertexAttrib();
+    initTextures();
     initGLStatus();
 }
 
@@ -42,9 +42,9 @@ void DepthTest::update(float elapseTime)
     m_deltaTime = currentTime - m_lastTime;
     m_lastTime = currentTime;
     m_elapseTime = elapseTime;
+    m_viewMatrix = m_camera->viewMatrix();
     m_program->use();
-    m_program->setMatrix4("view", m_camera->viewMatrix());
-    m_program->setMatrix4("projection", m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f));
+    m_program->setMatrix4("view", m_viewMatrix);
     processInput();
 }
 
@@ -52,6 +52,9 @@ void DepthTest::resize(int width, int height)
 {
     m_width = width;
     m_height = height;
+    m_projectionMatrix =  m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f);
+    m_program->use();
+    m_program->setMatrix4("projection", m_projectionMatrix);
 }
 
 void DepthTest::render()
@@ -209,14 +212,14 @@ void DepthTest::drawCubes()
     glBindVertexArray(m_vao);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle());
-    auto model = glm::mat4(1.0);
-    model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
+    m_modelMatrix = glm::mat4(1.0);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(-1.0f, 0.0f, -1.0f));
     m_program->use();
-    m_program->setMatrix4("model", model);
+    m_program->setMatrix4("model", m_modelMatrix);
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-    m_program->setMatrix4("model", model);
+    m_modelMatrix = glm::mat4(1.0f);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(2.0f, 0.0f, 0.0f));
+    m_program->setMatrix4("model", m_modelMatrix);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 

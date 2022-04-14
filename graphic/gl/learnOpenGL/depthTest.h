@@ -39,6 +39,9 @@ protected:
     std::unique_ptr<Camera> m_camera;
     std::vector<float> m_cubeVertices;
     std::vector<float> m_planeVertices;
+    glm::mat4 m_modelMatrix;
+    glm::mat4 m_viewMatrix;
+    glm::mat4 m_projectionMatrix;
     GLuint m_planeVao = 0;
     GLuint m_planeVbo = 0;
     int m_width = 0;

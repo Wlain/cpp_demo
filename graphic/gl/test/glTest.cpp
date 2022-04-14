@@ -47,11 +47,13 @@
 #include "learnOpenGL/geometryShaderExploding.h"
 #include "learnOpenGL/geometryShaderNormals.h"
 #include "learnOpenGL/instanceQuads.h"
+#include "learnOpenGL/asteroids.h"
+#include "learnOpenGL/asteroidsInstanced.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    InstanceQuads obj;
+    AsteroidsInstanced obj;
     obj.run();
 }

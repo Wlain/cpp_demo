@@ -10,12 +10,13 @@ namespace graphicEngine::gl
 {
 class GeometryShaderNormals : public LoadingModel
 {
-protected:
-    void initPrograms() override;
-
 public:
     void update(float elapseTime) override;
+    void resize(int width, int height) override;
     void render() override;
+
+protected:
+    void initPrograms() override;
 
 private:
     std::unique_ptr<graphicEngine::Program> m_normalsProgram;

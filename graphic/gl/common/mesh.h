@@ -48,10 +48,10 @@ public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     ~Mesh();
     void destroy();
-    void render(const std::unique_ptr<graphicEngine::Program>& program);
+    void render(const std::unique_ptr<graphicEngine::Program>& program, uint32_t mount = 0);
     void setupMesh();
 
-private:
+public:
     // mesh data
     std::vector<Vertex> m_vertices;
     std::vector<unsigned int> m_indices;

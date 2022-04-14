@@ -70,7 +70,7 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program)
+void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program, uint32_t mount)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;
@@ -97,7 +97,14 @@ void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program)
     }
     // draw mesh
     glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0);
+    if(mount == 0)
+    {
+        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0);
+    }
+    else
+    {
+        glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(m_indices.size()), GL_UNSIGNED_INT, 0, mount);
+    }
     glBindVertexArray(0);
     glActiveTexture(GL_TEXTURE0);
 }

@@ -22,10 +22,10 @@ void LoadingModel::initPrograms()
     m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
     m_program->use();
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));     // it's a bit too big for our scene, so scale it down
-    m_program->setMatrix4("model", model);
+    m_modelMatrix = glm::mat4(1.0f);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
+    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.5f, 0.5f, 0.5f));     // it's a bit too big for our scene, so scale it down
+    m_program->setMatrix4("model", m_modelMatrix);
 }
 
 void LoadingModel::render()
