@@ -45,6 +45,8 @@ void DepthTest::update(float elapseTime)
     m_viewMatrix = m_camera->viewMatrix();
     m_program->use();
     m_program->setMatrix4("view", m_viewMatrix);
+    m_projectionMatrix =  m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f);
+    m_program->setMatrix4("projection", m_projectionMatrix);
     processInput();
 }
 
@@ -52,9 +54,6 @@ void DepthTest::resize(int width, int height)
 {
     m_width = width;
     m_height = height;
-    m_projectionMatrix =  m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f);
-    m_program->use();
-    m_program->setMatrix4("projection", m_projectionMatrix);
 }
 
 void DepthTest::render()
@@ -177,28 +176,8 @@ void DepthTest::initVertices()
 }
 void DepthTest::initVertexAttrib()
 {
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
-
-    // plane VAO
-    glGenVertexArrays(1, &m_planeVao);
-    glGenBuffers(1, &m_planeVbo);
-    glBindVertexArray(m_planeVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
+    initCubesVertexAttrib();
+    initPlaneVertexAttrib();
 }
 
 void DepthTest::initGLStatus()
@@ -234,6 +213,35 @@ void DepthTest::drawFloor()
 
 void DepthTest::initModel()
 {
+}
+
+void DepthTest::initPlaneVertexAttrib()
+{
+    // plane VAO
+    glGenVertexArrays(1, &m_planeVao);
+    glGenBuffers(1, &m_planeVbo);
+    glBindVertexArray(m_planeVao);
+    glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glBindVertexArray(0);
+}
+
+void DepthTest::initCubesVertexAttrib()
+{
+    glGenVertexArrays(1, &m_vao);
+    glGenBuffers(1, &m_vbo);
+    glBindVertexArray(m_vao);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glBindVertexArray(0);
 }
 
 } // namespace graphicEngine::gl

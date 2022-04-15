@@ -53,7 +53,7 @@ void Camera::processKeyboard(CameraMovement direction, float deltaTime)
         m_position -= m_right * velocity;
     if (direction == CameraMovement::Right)
         m_position += m_right * velocity;
-    m_position.y = 0.0f; // <-- this one-liner keeps the user at the ground level (xz plane)
+//    m_position.y = 0.0f; // <-- this one-liner keeps the user at the ground level (xz plane)
 }
 
 glm::mat4 Camera::calcViewMatrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp)

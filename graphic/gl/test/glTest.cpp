@@ -51,11 +51,12 @@
 #include "learnOpenGL/asteroidsInstanced.h"
 #include "learnOpenGL/msaaTest.h"
 #include "learnOpenGL/msaaTestOffscreen.h"
+#include "learnOpenGL/advancedLighting.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    MsaaOffscreen obj;
+    AdvancedLighting obj;
     obj.run();
 }

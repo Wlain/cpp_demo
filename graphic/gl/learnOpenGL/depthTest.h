@@ -23,7 +23,7 @@ public:
     void scrollEvent(double xOffset, double yOffset) override;
 
 protected:
-    void processInput();
+    virtual void processInput();
     virtual void initTextures();
     virtual void initPrograms();
     virtual void initVertices();
@@ -32,6 +32,8 @@ protected:
     virtual void drawCubes();
     virtual void initModel();
     void drawFloor();
+    virtual void initPlaneVertexAttrib();
+    virtual void initCubesVertexAttrib();
 
 protected:
     std::unique_ptr<TextureGL> m_cubeTexture;

@@ -23,7 +23,6 @@ public:
     virtual void initCube();
 protected:
     void processInput();
-    void setTitle();
 
 protected:
     std::unique_ptr<graphicEngine::Program> m_lightingProgram;
