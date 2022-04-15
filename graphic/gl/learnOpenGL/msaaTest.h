@@ -11,13 +11,12 @@ class MsaaTest : public DepthTest
 {
 public:
     MsaaTest();
+    void render() override;
 
 protected:
     void drawCubes() override;
     void initPrograms() override;
 
-public:
-    void render() override;
 };
 } // namespace graphicEngine::gl
 

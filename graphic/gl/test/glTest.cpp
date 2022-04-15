@@ -50,11 +50,12 @@
 #include "learnOpenGL/asteroids.h"
 #include "learnOpenGL/asteroidsInstanced.h"
 #include "learnOpenGL/msaaTest.h"
+#include "learnOpenGL/msaaTestOffscreen.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    MsaaTest obj;
+    MsaaOffscreen obj;
     obj.run();
 }
