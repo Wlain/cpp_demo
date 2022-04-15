@@ -240,4 +240,9 @@ void Program::setMatrix4(const std::string& name, const glm::mat4& mat) const
 {
     glUniformMatrix4fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
+
+void Program::setVector3Arrays(const std::string& name, const std::vector<glm::vec3>& value) const
+{
+    glUniform3fv(glGetUniformLocation(mProgram, name.c_str()), value.size(), &value[0][0]);
+}
 } // namespace graphicEngine

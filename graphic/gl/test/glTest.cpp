@@ -52,11 +52,12 @@
 #include "learnOpenGL/msaaTest.h"
 #include "learnOpenGL/msaaTestOffscreen.h"
 #include "learnOpenGL/advancedLighting.h"
+#include "learnOpenGL/gammaCorrection.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    AdvancedLighting obj;
+    GammaCorrection obj;
     obj.run();
 }

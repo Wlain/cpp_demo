@@ -29,6 +29,7 @@ public:
     void setVector2(const std::string& name, const glm::vec2& value) const;
     void setVector2(const std::string& name, float x, float y) const;
     void setVector3(const std::string& name, const glm::vec3& value) const;
+    void setVector3Arrays(const std::string& name, const std::vector<glm::vec3>& value) const;
     void setVector3(const std::string& name, float x, float y, float z) const;
     void setVector4(const std::string& name, const glm::vec4& value) const;
     void setVector4(const std::string& name, float x, float y, float z, float w) const;
