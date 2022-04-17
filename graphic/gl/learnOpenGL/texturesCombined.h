@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_TEXTURESCOMBINED_H
 #define CPP_DEMO_TEXTURESCOMBINED_H
 
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 class TextureGL;
 

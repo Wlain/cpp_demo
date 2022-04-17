@@ -19,7 +19,7 @@ protected:
     void initPrograms() override;
 
 private:
-    std::unique_ptr<graphicEngine::Program> m_normalsProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_normalsProgram;
 };
 } // namespace graphicEngine::gl
 

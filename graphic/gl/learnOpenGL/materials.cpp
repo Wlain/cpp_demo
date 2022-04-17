@@ -4,7 +4,7 @@
 
 #include "materials.h"
 
-#include "camera.h"
+#include "common/camera.h"
 namespace graphicEngine::gl
 {
 
@@ -91,7 +91,7 @@ void Materials::resize(int width, int height)
 
 void Materials::initLighting()
 {
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/materials.vert"),
+    m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/materials.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/materials.frag"));
     glGenVertexArrays(1, &m_lightVao);
     glBindVertexArray(m_lightVao);
@@ -104,7 +104,7 @@ void Materials::initLighting()
 
 void Materials::initCube()
 {
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

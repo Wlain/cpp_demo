@@ -24,7 +24,7 @@ private:
     void initFbo();
 
 private:
-    std::unique_ptr<Program> m_quadProgram;
+    std::unique_ptr<ProgramGL> m_quadProgram;
     std::vector<float> m_quadVertices;
     GLuint m_quadVao = 0;
     GLuint m_quadVbo = 0;

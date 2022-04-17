@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_GEOMETRYSHADEREXPLODING_H
 #define CPP_DEMO_GEOMETRYSHADEREXPLODING_H
 #include "depthTest.h"
-#include "model.h"
+#include "common/model.h"
 namespace graphicEngine::gl
 {
 class GeometryShaderExploding : public DepthTest

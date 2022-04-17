@@ -3,7 +3,7 @@
 //
 
 #include "skyboxEnvironmentMap.h"
-#include "camera.h"
+#include "common/camera.h"
 
 namespace graphicEngine::gl
 {
@@ -74,7 +74,7 @@ void SkyboxEnvironmentMap::initPrograms()
     Skybox::initPrograms();
     /// cubeMaps.frag:反射
     /// cubeMaps2.frag:折射
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/cubeMaps.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/cubeMaps.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/cubeMaps.frag"));
     m_program->setInt("skybox", 0);
 }

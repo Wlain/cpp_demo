@@ -3,7 +3,7 @@
 //
 
 #include "texturesCombined.h"
-#include "textureGL.h"
+#include "gl/common/textureGL.h"
 
 namespace graphicEngine::gl
 {

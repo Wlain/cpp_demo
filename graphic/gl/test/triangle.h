@@ -5,7 +5,7 @@
 #ifndef CROSS_PLATFORM_DEMO_TRIANGLE_H
 #define CROSS_PLATFORM_DEMO_TRIANGLE_H
 
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 #include "mathDefine.h"
 
 namespace graphicEngine::gl

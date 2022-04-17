@@ -4,8 +4,8 @@
 
 #include "asteroids.h"
 
-#include "model.h"
-#include "camera.h"
+#include "common/model.h"
+#include "common/camera.h"
 
 /// 100000个rock，fps是:6.7
 
@@ -23,7 +23,7 @@ void Asteroids::initModel()
 void Asteroids::initPrograms()
 {
     LoadingModel::initPrograms();
-    m_rockProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
+    m_rockProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
     m_rockModelMatrices = new glm::mat4[m_rockAmount];
     srand(static_cast<unsigned int>(glfwGetTime())); // initialize random seed

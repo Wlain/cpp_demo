@@ -4,7 +4,7 @@
 
 #include "colors.h"
 
-#include "camera.h"
+#include "common/camera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -106,7 +106,7 @@ void Colors::scrollEvent(double xOffset, double yOffset)
 
 void Colors::initLighting()
 {
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"),
+    m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/colors.frag"));
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
@@ -120,7 +120,7 @@ void Colors::initLighting()
 
 void Colors::initCube()
 {
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

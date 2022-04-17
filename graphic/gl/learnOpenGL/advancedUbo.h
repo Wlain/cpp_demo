@@ -22,10 +22,10 @@ protected:
     void initUbo();
 
 private:
-    std::unique_ptr<graphicEngine::Program> m_redProgram;
-    std::unique_ptr<graphicEngine::Program> m_blueProgram;
-    std::unique_ptr<graphicEngine::Program> m_greenProgram;
-    std::unique_ptr<graphicEngine::Program> m_yellowProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_redProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_blueProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_greenProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_yellowProgram;
     GLuint m_uboMatrices = 0;
 };
 } // namespace graphicEngine::gl

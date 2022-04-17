@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_ShadersInterpolation_H
 #define CPP_DEMO_ShadersInterpolation_H
 
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 #include <array>
 

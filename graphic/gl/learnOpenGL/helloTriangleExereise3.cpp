@@ -18,7 +18,7 @@ void HelloTriangleExereise3::initialize()
 {
     initWithProperty(std::make_tuple("HelloTriangleExereise3", GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle.frag")));
     // init program
-    m_program2 = std::make_unique<graphicEngine::Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle2.frag"));
+    m_program2 = std::make_unique<graphicEngine::ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/helloTriangle2.frag"));
     glGenVertexArrays(2, m_vbos);
     glGenBuffers(2, m_vaos);
     glBindVertexArray(m_vaos[0]);

@@ -2,7 +2,7 @@
 // Created by william on 2020/11/16.
 //
 
-#include "program.h"
+#include "programGL.h"
 
 #include "commonMacro.h"
 
@@ -12,12 +12,12 @@
 namespace graphicEngine
 {
 
-Program::~Program()
+ProgramGL::~ProgramGL()
 {
     glDeleteProgram(mProgram);
 }
 
-GLuint Program::CreateProgram(GLuint vertShader, GLuint fragShader, GLuint geometryShader, GLuint tessShader)
+GLuint ProgramGL::CreateProgram(GLuint vertShader, GLuint fragShader, GLuint geometryShader, GLuint tessShader)
 {
     GLuint program = 0;
     GLint linked = GL_FALSE;
@@ -67,7 +67,7 @@ exit:
     return program;
 }
 
-GLuint Program::CompileShader(GLenum shaderType, const GLchar* src)
+GLuint ProgramGL::CompileShader(GLenum shaderType, const GLchar* src)
 {
     GLuint shader = glCreateShader(shaderType);
     if (!shader)
@@ -99,7 +99,7 @@ GLuint Program::CompileShader(GLenum shaderType, const GLchar* src)
     return shader;
 }
 
-Program::Program(const char* vertexPath, const char* fragmentPath, const char* geometryPath, const char* tessellationPath)
+ProgramGL::ProgramGL(const char* vertexPath, const char* fragmentPath, const char* geometryPath, const char* tessellationPath)
 {
     // 1. 从文件中读取顶点和片元的文本文件
     std::string vertexCode;
@@ -173,77 +173,77 @@ Program::Program(const char* vertexPath, const char* fragmentPath, const char* g
     glDeleteShader(fragmentShader);
 }
 
-GLuint Program::getProgram() const
+GLuint ProgramGL::getProgram() const
 {
     return mProgram;
 }
 
-void Program::use() const
+void ProgramGL::use() const
 {
     glUseProgram(mProgram);
 }
 
-void Program::setBool(const std::string& name, bool value) const
+void ProgramGL::setBool(const std::string& name, bool value) const
 {
     glUniform1i(glGetUniformLocation(mProgram, name.c_str()), (int)value);
 }
 
-void Program::setInt(const std::string& name, int value) const
+void ProgramGL::setInt(const std::string& name, int value) const
 {
     glUniform1i(glGetUniformLocation(mProgram, name.c_str()), value);
 }
 
-void Program::setFloat(const std::string& name, float value) const
+void ProgramGL::setFloat(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(mProgram, name.c_str()), value);
 }
 
-void Program::setVector2(const std::string& name, const glm::vec2& value) const
+void ProgramGL::setVector2(const std::string& name, const glm::vec2& value) const
 {
     glUniform2fv(glGetUniformLocation(mProgram, name.c_str()), 1, &value[0]);
 }
 
-void Program::setVector2(const std::string& name, float x, float y) const
+void ProgramGL::setVector2(const std::string& name, float x, float y) const
 {
     glUniform2f(glGetUniformLocation(mProgram, name.c_str()), x, y);
 }
 
-void Program::setVector3(const std::string& name, const glm::vec3& value) const
+void ProgramGL::setVector3(const std::string& name, const glm::vec3& value) const
 {
     glUniform3fv(glGetUniformLocation(mProgram, name.c_str()), 1, &value[0]);
 }
 
-void Program::setVector3(const std::string& name, float x, float y, float z) const
+void ProgramGL::setVector3(const std::string& name, float x, float y, float z) const
 {
     glUniform3f(glGetUniformLocation(mProgram, name.c_str()), x, y, z);
 }
 
-void Program::setVector4(const std::string& name, const glm::vec4& value) const
+void ProgramGL::setVector4(const std::string& name, const glm::vec4& value) const
 {
     glUniform4fv(glGetUniformLocation(mProgram, name.c_str()), 1, &value[0]);
 }
 
-void Program::setVector4(const std::string& name, float x, float y, float z, float w) const
+void ProgramGL::setVector4(const std::string& name, float x, float y, float z, float w) const
 {
     glUniform4f(glGetUniformLocation(mProgram, name.c_str()), x, y, z, w);
 }
 
-void Program::setMatrix2(const std::string& name, const glm::mat2& mat) const
+void ProgramGL::setMatrix2(const std::string& name, const glm::mat2& mat) const
 {
     glUniformMatrix2fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Program::setMatrix3(const std::string& name, const glm::mat3& mat) const
+void ProgramGL::setMatrix3(const std::string& name, const glm::mat3& mat) const
 {
     glUniformMatrix3fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Program::setMatrix4(const std::string& name, const glm::mat4& mat) const
+void ProgramGL::setMatrix4(const std::string& name, const glm::mat4& mat) const
 {
     glUniformMatrix4fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Program::setVector3Arrays(const std::string& name, const std::vector<glm::vec3>& value) const
+void ProgramGL::setVector3Arrays(const std::string& name, const std::vector<glm::vec3>& value) const
 {
     glUniform3fv(glGetUniformLocation(mProgram, name.c_str()), value.size(), &value[0][0]);
 }

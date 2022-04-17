@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_COLORS_H
 #define CPP_DEMO_COLORS_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 class Camera;
 namespace graphicEngine::gl
 {
@@ -25,8 +25,8 @@ protected:
     void processInput();
 
 protected:
-    std::unique_ptr<graphicEngine::Program> m_lightingProgram;
-    std::unique_ptr<graphicEngine::Program> m_lightCubeProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_lightingProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_lightCubeProgram;
     std::unique_ptr<Camera> m_camera;
     std::vector<float> m_verticesCube = {
         -0.5f, -0.5f, -0.5f,

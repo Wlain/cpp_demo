@@ -4,14 +4,14 @@
 
 #include "geometryShaderNormals.h"
 
-#include "camera.h"
+#include "common/camera.h"
 
 namespace graphicEngine::gl
 {
 void GeometryShaderNormals::initPrograms()
 {
     LoadingModel::initPrograms();
-    m_normalsProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometryNormal.vert"),
+    m_normalsProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometryNormal.vert"),
                                                  GET_CURRENT("/resources/shaders/LearnOpenGL/geometryNormal.frag"),
                                                  GET_CURRENT("/resources/shaders/LearnOpenGL/geometryNormal.gs.glsl"));
     m_normalsProgram->use();

@@ -3,8 +3,10 @@
 //
 
 #include "utils.h"
-#include "base.h"
 
+#include "base.h"
+namespace graphicEngine::gl
+{
 std::string getGLExtensions()
 {
     int NumberOfExtensions;
@@ -51,3 +53,4 @@ void checkGlError(const char* glFunc)
         LOG_ERROR("`{} generated error!`: msg:{}", glFunc, msg);
     }
 }
+} // namespace graphicEngine::gl

@@ -3,7 +3,7 @@
 //
 
 #include "msaaTest.h"
-#include "textureGL.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 MsaaTest::MsaaTest()
@@ -31,7 +31,7 @@ void MsaaTest::drawCubes()
 
 void MsaaTest::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/msaa.frag"));
 }
 

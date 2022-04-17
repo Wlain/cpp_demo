@@ -4,7 +4,7 @@
 
 #ifndef CROSS_PLATFORM_DEMO_BACKGROUND_H
 #define CROSS_PLATFORM_DEMO_BACKGROUND_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 namespace graphicEngine::gl
 {
 class Background : public CommonInterface

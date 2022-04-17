@@ -4,7 +4,7 @@
 
 #include "frameBuffers.h"
 
-#include "textureGL.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 
@@ -72,7 +72,7 @@ void FrameBuffers::initTextures()
 void FrameBuffers::initPrograms()
 {
     DepthTest::initPrograms();
-    m_quadProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/textures.vert"),
+    m_quadProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/textures.vert"),
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/textures.frag"));
     m_quadProgram->use();
     m_quadProgram->setInt("inputTexture", 0);

@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_INSTANCEQUADS_H
 #define CPP_DEMO_INSTANCEQUADS_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 namespace graphicEngine::gl
 {
 class InstanceQuads : public CommonInterface

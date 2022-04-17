@@ -10,7 +10,7 @@ GeometryShaderExploding::~GeometryShaderExploding() = default;
 
 void GeometryShaderExploding::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometry2.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometry2.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/geometry2.frag"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/geometry2.gs.glsl"));
     m_program->use();

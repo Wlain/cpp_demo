@@ -21,7 +21,7 @@ protected:
     virtual void drawRocks();
 
 protected:
-    std::unique_ptr<Program> m_rockProgram;
+    std::unique_ptr<ProgramGL> m_rockProgram;
     std::unique_ptr<Model> m_rockModel;
     glm::mat4* m_rockModelMatrices = nullptr;
     uint32_t m_rockAmount = 1000;

@@ -5,8 +5,8 @@
 #ifndef CPP_DEMO_TEXTURES_H
 #define CPP_DEMO_TEXTURES_H
 
-#include "commonInterface.h"
-#include "textureGL.h"
+#include "gl/common/commonInterface.h"
+#include "gl/common/textureGL.h"
 #include <array>
 
 namespace graphicEngine::gl

@@ -18,7 +18,7 @@ Model::~Model()
     }
 }
 
-void Model::render(const std::unique_ptr<graphicEngine::Program>& program, uint32_t mount)
+void Model::render(const std::unique_ptr<ProgramGL>& program, uint32_t mount)
 {
     for (auto& mesh : m_meshes)
     {

@@ -17,7 +17,7 @@ InstanceQuads::~InstanceQuads()
 
 void InstanceQuads::initialize()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/instancing.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/instancing.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/instancing.frag"));
     glm::vec2 translations[100];
     int index = 0;

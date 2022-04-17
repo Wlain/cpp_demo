@@ -16,7 +16,7 @@ void GeometryShaderHouse::initialize()
         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // bottom-right
         -0.5f, -0.5f, 1.0f, 1.0f, 0.0f // bottom-left
     };
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometry.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/geometry.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/geometry.frag"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/geometry.gs.glsl"));
     glGenVertexArrays(1, &m_vao);

@@ -12,5 +12,5 @@ void main(void)
     {
         discard;
     }
-    fragColor = vec4(gl_FragCoord.z);
+    fragColor = color;
 }

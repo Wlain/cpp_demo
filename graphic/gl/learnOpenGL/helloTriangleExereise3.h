@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_HELLOTRIANGLEEXEREISE3_H
 #define CPP_DEMO_HELLOTRIANGLEEXEREISE3_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 #include <array>
 
@@ -22,7 +22,7 @@ public:
     void render() override;
 
 private:
-    std::unique_ptr<graphicEngine::Program> m_program2;
+    std::unique_ptr<graphicEngine::ProgramGL> m_program2;
     std::array<float, 9> m_verticesTriangle1 = {
         // first triangle
         -0.9f, -0.5f, 0.0f, // left

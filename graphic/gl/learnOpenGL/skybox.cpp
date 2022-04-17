@@ -4,8 +4,8 @@
 
 #include "skybox.h"
 
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "gl/common/textureGL.h"
 
 #include <SOIL2/stb_image.h>
 namespace graphicEngine::gl
@@ -136,7 +136,7 @@ GLuint Skybox::loadCubeMaps(std::vector<std::string> faces)
 void Skybox::initPrograms()
 {
     DepthTest::initPrograms();
-    m_skyboxProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/skybox.vert"),
+    m_skyboxProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/skybox.vert"),
                                                 GET_CURRENT("/resources/shaders/LearnOpenGL/skybox.frag"));
     m_skyboxProgram->use();
     m_skyboxProgram->setInt("skybox", 0);

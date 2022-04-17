@@ -22,7 +22,7 @@ protected:
     void initGLStatus() override;
 
 private:
-    std::unique_ptr<Program> m_singleColorProgram;
+    std::unique_ptr<ProgramGL> m_singleColorProgram;
 };
 } // namespace graphicEngine::gl
 

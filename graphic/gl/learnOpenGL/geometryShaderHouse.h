@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_GEOMETRYSHADERHOUSE_H
 #define CPP_DEMO_GEOMETRYSHADERHOUSE_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 namespace graphicEngine::gl
 {
 

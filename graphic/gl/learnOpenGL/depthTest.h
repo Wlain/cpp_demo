@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_DEPTHTEST_H
 #define CPP_DEMO_DEPTHTEST_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 class Camera;
 class TextureGL;
 

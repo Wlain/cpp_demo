@@ -5,8 +5,8 @@
 #include "stencilTest.h"
 
 #include "base.h"
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 
@@ -75,7 +75,7 @@ void StencilTest::render()
 void StencilTest::initPrograms()
 {
     DepthTest::initPrograms();
-    m_singleColorProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/stencilTestSingleColor.frag"));
+    m_singleColorProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/stencilTestSingleColor.frag"));
 }
 
 void StencilTest::initGLStatus()

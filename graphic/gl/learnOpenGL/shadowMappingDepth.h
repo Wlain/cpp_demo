@@ -4,12 +4,13 @@
 
 #ifndef CPP_DEMO_SHADOWMAPPINGDEPTH_H
 #define CPP_DEMO_SHADOWMAPPINGDEPTH_H
-
+#include "depthTest.h"
 namespace graphicEngine::gl
 {
-class ShadowMappingDepth
+class ShadowMappingDepth : public DepthTest
 {
-
+//protected:
+//    void initPrograms() override;
 };
 } // namespace graphicEngine::gl
 

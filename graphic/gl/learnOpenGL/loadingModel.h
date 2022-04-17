@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_LOADINGMODEL_H
 #define CPP_DEMO_LOADINGMODEL_H
 #include "depthTest.h"
-#include "model.h"
+#include "common/model.h"
 namespace graphicEngine::gl
 {
 class LoadingModel : public DepthTest

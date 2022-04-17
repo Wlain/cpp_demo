@@ -4,7 +4,7 @@
 
 #ifndef CROSS_PLATFORM_DEMO_ANIMATION_H
 #define CROSS_PLATFORM_DEMO_ANIMATION_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 #include "utils.h"
 
 namespace graphicEngine::gl

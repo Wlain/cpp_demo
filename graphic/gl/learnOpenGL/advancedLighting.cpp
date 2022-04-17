@@ -4,8 +4,8 @@
 
 #include "advancedLighting.h"
 
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 void AdvancedLighting::render()
@@ -38,7 +38,7 @@ void AdvancedLighting::processInput()
 
 void AdvancedLighting::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLighting.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLighting.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLighting.frag"));
     m_program->use();
     m_program->setInt("inputTexture", 0);

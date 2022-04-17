@@ -6,7 +6,7 @@
 #define CPP_DEMO_SHADERSUNIFORM_H
 
 
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 #include <array>
 

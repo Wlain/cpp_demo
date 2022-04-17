@@ -4,7 +4,7 @@
 
 #include "basicLighting.h"
 
-#include "camera.h"
+#include "common/camera.h"
 namespace graphicEngine::gl
 {
 
@@ -77,7 +77,7 @@ void BasicLighting::initLighting()
     /// basicLighting:在世界空间计算phongs光照
     /// basicLighting:在观察空间中计算phongs光照
     /// basicLighting:在观察空间中计算gruraud光照
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.vert"),
+    m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/basicLighting.frag"));
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
@@ -93,7 +93,7 @@ void BasicLighting::initLighting()
 
 void BasicLighting::initCube()
 {
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

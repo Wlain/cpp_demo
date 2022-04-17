@@ -4,11 +4,11 @@
 
 #ifndef CPP_DEMO_MESH_H
 #define CPP_DEMO_MESH_H
-#include "program.h"
-#include "textureGL.h"
+#include "gl/common/programGL.h"
+#include "gl/common/textureGL.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
 
@@ -48,7 +48,7 @@ public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     ~Mesh();
     void destroy();
-    void render(const std::unique_ptr<graphicEngine::Program>& program, uint32_t mount = 0);
+    void render(const std::unique_ptr<ProgramGL>& program, uint32_t mount = 0);
     void setupMesh();
 
 public:

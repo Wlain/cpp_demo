@@ -11,6 +11,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+namespace graphicEngine::gl
+{
 // GL_CHECK
 #define GL_CHECK()                                                                                                        \
     do                                                                                                                    \
@@ -22,14 +24,21 @@
         }                                                                                                                 \
     } while (0)
 
-#define CHECK_GL(x)                    \
-    do                                 \
-    {                                  \
-        (x);                           \
-            checkGlError(TO_STRING(x); \
+#define CHECK_GL(x)                 \
+    do                              \
+    {                               \
+        (x);                        \
+        checkGlError(TO_STRING(x)); \
     } while (0)
 
-std::string getGLExtensions();
+#define CHECK_GL_CALLED(x)           \
+    do                                             \
+    {                                              \
+        CHECK_GL(x);                               \
+        LOG_ERROR("func {} called", TO_STRING(x)); \
+    } while (0)
+
 static const char* getGLErrorMsg(GLenum err);
 extern void checkGlError(const char* glFunc);
+} // namespace graphicEngine::gl
 #endif //CPP_DEMO_UTILS_H

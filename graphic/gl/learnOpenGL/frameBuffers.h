@@ -25,7 +25,7 @@ protected:
     void drawFrameBuffersScreen();
 
 protected:
-    std::unique_ptr<graphicEngine::Program> m_quadProgram;
+    std::unique_ptr<graphicEngine::ProgramGL> m_quadProgram;
     std::vector<float> m_quadVertices;
     GLuint m_quadVao;
     GLuint m_quadVbo;

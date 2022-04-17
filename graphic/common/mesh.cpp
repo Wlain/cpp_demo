@@ -68,7 +68,7 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::render(const std::unique_ptr<graphicEngine::Program>& program, uint32_t mount)
+void Mesh::render(const std::unique_ptr<ProgramGL>& program, uint32_t mount)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;

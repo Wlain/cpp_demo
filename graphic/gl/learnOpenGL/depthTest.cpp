@@ -5,8 +5,9 @@
 #include "depthTest.h"
 
 #include "base.h"
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "common/utils.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 DepthTest::DepthTest()
@@ -45,7 +46,7 @@ void DepthTest::update(float elapseTime)
     m_viewMatrix = m_camera->viewMatrix();
     m_program->use();
     m_program->setMatrix4("view", m_viewMatrix);
-    m_projectionMatrix =  m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f);
+    m_projectionMatrix = m_camera->projectionMatrix(m_width, m_height, 0.1f, 100.0f);
     m_program->setMatrix4("projection", m_projectionMatrix);
     processInput();
 }
@@ -111,8 +112,8 @@ void DepthTest::initTextures()
 
 void DepthTest::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"),
-                                          GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.frag"));
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.vert"),
+                                            GET_CURRENT("/resources/shaders/LearnOpenGL/depthTest.frag"));
     m_program->use();
     m_program->setInt("inputTexture", 0);
 }

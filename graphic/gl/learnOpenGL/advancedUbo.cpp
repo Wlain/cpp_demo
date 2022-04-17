@@ -4,7 +4,7 @@
 
 #include "advancedUbo.h"
 
-#include "camera.h"
+#include "common/camera.h"
 #include "common/utils.h"
 
 namespace graphicEngine::gl
@@ -18,13 +18,13 @@ AdvancedUbo::~AdvancedUbo()
 void AdvancedUbo::initPrograms()
 {
     DepthTest::initPrograms();
-    m_redProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
+    m_redProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
                                              GET_CURRENT("/resources/shaders/LearnOpenGL/uboRed.frag"));
-    m_blueProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
+    m_blueProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/uboBlue.frag"));
-    m_greenProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
+    m_greenProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
                                                GET_CURRENT("/resources/shaders/LearnOpenGL/uboGreen.frag"));
-    m_yellowProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
+    m_yellowProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedUbo.vert"),
                                                 GET_CURRENT("/resources/shaders/LearnOpenGL/uboYellow.frag"));
 }
 

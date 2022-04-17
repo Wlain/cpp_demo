@@ -4,8 +4,8 @@
 
 #include "materialsMapTexture.h"
 
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "gl/common/textureGL.h"
 
 namespace graphicEngine::gl
 {
@@ -65,7 +65,7 @@ void MaterialsMapTexture::initialize()
     m_texture->createByFile(GET_CURRENT("/resources/textures/container2.png"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/container2_specular.png"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/matrix.jpg")); // 自发光
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -75,7 +75,7 @@ void MaterialsMapTexture::initialize()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/materialsMapDiffuseSpecular.vert"),
+    m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/materialsMapDiffuseSpecular.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/materialsMapDiffuseSpecular.frag"));
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
@@ -115,7 +115,7 @@ void MaterialsMapTexture::resize(int width, int height)
 
 void MaterialsMapTexture::initLighting()
 {
-    m_lightingProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/MaterialsMapTexture.vert"),
+    m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/MaterialsMapTexture.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/MaterialsMapTexture.frag"));
     glGenVertexArrays(1, &m_lightVao);
     glBindVertexArray(m_lightVao);
@@ -128,7 +128,7 @@ void MaterialsMapTexture::initLighting()
 
 void MaterialsMapTexture::initCube()
 {
-    m_lightCubeProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
+    m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

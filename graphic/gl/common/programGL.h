@@ -13,17 +13,17 @@
 
 namespace graphicEngine
 {
-class Program
+class ProgramGL
 {
 public:
-    Program() = default;
-    ~Program();
-    Program(const Program& s) = default;
-    Program(Program&& a) = default;
-    Program& operator=(const Program& s) = default;
-    Program& operator=(Program&& s) = default;
+    ProgramGL() = default;
+    ~ProgramGL();
+    ProgramGL(const ProgramGL& s) = default;
+    ProgramGL(ProgramGL&& a) = default;
+    ProgramGL& operator=(const ProgramGL& s) = default;
+    ProgramGL& operator=(ProgramGL&& s) = default;
     GLuint getProgram() const;
-    Program(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr, const char* tessellationPath = nullptr);
+    ProgramGL(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr, const char* tessellationPath = nullptr);
     static GLuint CreateProgram(GLuint vertShader, GLuint fragShader, GLuint geometryShader = 0, GLuint tessShader = 0);
     static GLuint CompileShader(GLenum shaderType, const GLchar* src);
     void use() const;

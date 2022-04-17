@@ -4,7 +4,7 @@
 
 #include "loadingModel.h"
 
-#include "camera.h"
+#include "common/camera.h"
 
 namespace graphicEngine::gl
 {
@@ -19,7 +19,7 @@ void LoadingModel::initModel()
 
 void LoadingModel::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
     m_program->use();
     m_modelMatrix = glm::mat4(1.0f);

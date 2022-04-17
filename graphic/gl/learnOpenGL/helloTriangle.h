@@ -5,7 +5,7 @@
 #ifndef CPP_DEMO_HELLOTRIANGLE_H
 #define CPP_DEMO_HELLOTRIANGLE_H
 
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 #include <array>
 

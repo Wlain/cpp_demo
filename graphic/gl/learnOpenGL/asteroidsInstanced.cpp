@@ -4,7 +4,7 @@
 
 #include "asteroidsInstanced.h"
 
-#include "model.h"
+#include "common/model.h"
 /// 100000个rock:fps:8.2
 
 namespace graphicEngine::gl
@@ -45,7 +45,7 @@ void AsteroidsInstanced::initVertexAttrib()
 void AsteroidsInstanced::initPrograms()
 {
     Asteroids::initPrograms();
-    m_rockProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/instancing2.vert"),
+    m_rockProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/instancing2.vert"),
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/modelLoading.frag"));
 }
 

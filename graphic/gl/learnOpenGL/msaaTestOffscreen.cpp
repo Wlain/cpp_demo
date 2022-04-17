@@ -4,7 +4,7 @@
 
 #include "msaaTestOffscreen.h"
 #include "commonMacro.h"
-#include "textureGL.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 MsaaOffscreen::~MsaaOffscreen()
@@ -138,7 +138,7 @@ void MsaaOffscreen::initVertexAttrib()
 void MsaaOffscreen::initPrograms()
 {
     MsaaTest::initPrograms();
-    m_quadProgram = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/quad.vert"),
+    m_quadProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/quad.vert"),
                                               GET_CURRENT("/resources/shaders/LearnOpenGL/quad.frag"));
     m_quadProgram->use();
     m_quadProgram->setInt("inputTexture", 0);

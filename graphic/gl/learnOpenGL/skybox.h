@@ -25,7 +25,7 @@ private:
     GLuint loadCubeMaps(std::vector<std::string> faces);
 
 protected:
-    std::unique_ptr<Program> m_skyboxProgram;
+    std::unique_ptr<ProgramGL> m_skyboxProgram;
     std::vector<float> m_skyboxVertices;
     GLuint m_cubeMapTexture = 0;
     GLuint m_skyboxVao = 0;

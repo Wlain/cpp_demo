@@ -6,10 +6,10 @@
 #define CPP_DEMO_CAMERA_H
 
 #include "base.h"
-#include <GL/glew.h>
-#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/glm.hpp>
+#include "glew/include/GL/glew.h"
+#include "glm/glm/gtc/type_ptr.hpp" // glm::value_ptr
+#include "glm/glm/gtc/matrix_transform.hpp"
+#include "glm/glm/glm.hpp"
 
 enum class CameraMovement
 {

@@ -4,7 +4,7 @@
 
 #ifndef CPP_DEMO_HELLOTRIANGLEEXEREISE2_H
 #define CPP_DEMO_HELLOTRIANGLEEXEREISE2_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 #include <array>
 

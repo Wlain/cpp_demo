@@ -3,7 +3,7 @@
 //
 
 #include "textureExercise2.h"
-#include "textureGL.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 TextureExercise2::~TextureExercise2() = default;

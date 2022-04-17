@@ -53,7 +53,6 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/graphic/gl
         ${PROJECT_SOURCE_DIR}/graphic/handle
         ${PROJECT_SOURCE_DIR}/graphic/gl/learnOpenGL
-        ${PROJECT_SOURCE_DIR}/graphic/gl/common
         ${PROJECT_SOURCE_DIR}/graphic/gl/test
         ${PROJECT_SOURCE_DIR}/rayTracing
         ${PROJECT_SOURCE_DIR}/qt
@@ -83,6 +82,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         math/*.cpp
         test/*.cpp
         utils/*.cpp
+        graphic/common/*.cpp
         graphic/gl/*.cpp
         graphic/metal/*.mm
         rayTracing/*.cpp

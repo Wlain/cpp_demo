@@ -4,8 +4,8 @@
 
 #include "blendingSort.h"
 
-#include "camera.h"
-#include "textureGL.h"
+#include "common/camera.h"
+#include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
 

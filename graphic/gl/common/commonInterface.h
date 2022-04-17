@@ -7,7 +7,7 @@
 
 #include "base.h"
 #include "commonMacro.h"
-#include "program.h"
+#include "programGL.h"
 
 namespace graphicEngine::gl
 {
@@ -34,7 +34,7 @@ protected:
     void initWithProperty();
 
 protected:
-    std::unique_ptr<graphicEngine::Program> m_program;
+    std::unique_ptr<graphicEngine::ProgramGL> m_program;
     GLFWwindow* m_window = nullptr;
     const char* m_glslVersion = nullptr;
     std::string m_title;

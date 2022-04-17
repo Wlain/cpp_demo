@@ -4,13 +4,13 @@
 
 #include "gammaCorrection.h"
 
-#include "camera.h"
+#include "common/camera.h"
 namespace graphicEngine::gl
 {
 
 void GammaCorrection::initPrograms()
 {
-    m_program = std::make_unique<Program>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLightingGammaCorrect.vert"),
+    m_program = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLightingGammaCorrect.vert"),
                                           GET_CURRENT("/resources/shaders/LearnOpenGL/advancedLightingGammaCorrect.frag"));
     m_program->use();
     m_program->setInt("inputTexture", 0);

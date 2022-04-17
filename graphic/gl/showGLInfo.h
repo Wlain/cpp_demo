@@ -4,7 +4,7 @@
 
 #ifndef CROSS_PLATFORM_DEMO_SHOWGLINFO_H
 #define CROSS_PLATFORM_DEMO_SHOWGLINFO_H
-#include "commonInterface.h"
+#include "gl/common/commonInterface.h"
 
 namespace graphicEngine::gl
 {
