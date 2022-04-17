@@ -24,7 +24,6 @@ std::string getGLExtensions()
 
 const char* getGLErrorMsg(GLenum err)
 {
-    const char* msg;
     switch (err)
     {
     case GL_INVALID_ENUM:

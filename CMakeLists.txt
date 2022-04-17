@@ -26,7 +26,7 @@ find_package(Vulkan REQUIRED FATAL_ERROR)
 # glfw
 add_subdirectory(3rdparty/glfw)
 # glew
-add_subdirectory(3rdparty/glew/build/cmake)
+add_subdirectory(3rdparty/glew-2.2.0/build/cmake)
 # spdlog
 add_subdirectory(3rdparty/spdlog)
 # assimp
@@ -59,7 +59,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/imageProcess
         ${PROJECT_SOURCE_DIR}/3rdparty
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
-        ${PROJECT_SOURCE_DIR}/3rdparty/glew/include
+        ${PROJECT_SOURCE_DIR}/3rdparty/glew-2.2.0/include
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
         ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include

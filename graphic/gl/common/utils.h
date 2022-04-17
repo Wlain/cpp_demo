@@ -31,7 +31,7 @@ namespace graphicEngine::gl
         checkGlError(TO_STRING(x)); \
     } while (0)
 
-#define CHECK_GL_CALLED(x)           \
+#define CHECK_GL_CALLED(x)                         \
     do                                             \
     {                                              \
         CHECK_GL(x);                               \

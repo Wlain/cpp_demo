@@ -339,9 +339,8 @@ int lento(int a = 0)
 {
     this_thread::yield();
     this_thread::sleep_for(chrono::milliseconds(20));
-    return a+1;
+    return a + 1;
 }
-
 
 void threads11()
 {
@@ -351,10 +350,10 @@ void threads11()
     promise<int> p;
     future<int> f = p.get_future();
     int v = 0;
-    thread t([&p, &v]{
-      lento();
-      p.set_value(2);
-      v = 3;
+    thread t([&p, &v] {
+        lento();
+        p.set_value(2);
+        v = 3;
     });
     assert(v == 0);
     assert(f.get() == 2);
@@ -365,17 +364,20 @@ void threads11()
     assert(!t.joinable());
     assert(t2.joinable());
     t2.join();
-    try {
+    try
+    {
         t2.join();
         t2.detach();
-    } catch(const std::system_error& e) {
+    }
+    catch (const std::system_error& e)
+    {
         assert(e.code().value() == 22);
     }
     assert(!t2.joinable());
     // detach demo
     {
-        thread t3([&p, &v]{
-          v = 4;
+        thread t3([&p, &v] {
+            v = 4;
         });
         t3.detach();
     }
@@ -388,17 +390,17 @@ void mutex11()
     int unguarded = 0, guarded = 0;
     mutex m;
 
-    thread t1([&unguarded, &guarded, &m]{
-      unguarded = lento(unguarded) + 1;
-      lock_guard<mutex> guard(m);
-      guarded = lento(guarded) + 1;
+    thread t1([&unguarded, &guarded, &m] {
+        unguarded = lento(unguarded) + 1;
+        lock_guard<mutex> guard(m);
+        guarded = lento(guarded) + 1;
     });
 
-    thread t2([&unguarded, &guarded, &m]{
-      unguarded = lento(unguarded) + 1;
+    thread t2([&unguarded, &guarded, &m] {
+        unguarded = lento(unguarded) + 1;
 
-      lock_guard<mutex> guard(m);
-      guarded = lento(guarded) + 1;
+        lock_guard<mutex> guard(m);
+        guarded = lento(guarded) + 1;
     });
     assert(unguarded == 0);
     assert(guarded == 0);
@@ -408,10 +410,6 @@ void mutex11()
     assert(guarded == 2);
 }
 
-
-
-
-
 void cpp11Test()
 {
     init11();
@@ -419,7 +417,7 @@ void cpp11Test()
     references11();
     init11();
     auto r = trailingReturnType(1);
-    (void) r;
+    (void)r;
     lambdaBasics();
     lambdaCapture();
     lambdaComplex();
