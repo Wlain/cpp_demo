@@ -41,7 +41,7 @@ void TransformationsExercise2::render()
     auto scale = std::sin(m_elapseTime);
     transform = glm::scale(transform, glm::vec3(scale, scale, scale));
     m_program->setMatrix4("transform", transform);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    CHECK_GL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 }
 
 } // namespace graphicEngine::gl

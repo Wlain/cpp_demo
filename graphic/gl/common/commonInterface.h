@@ -7,6 +7,7 @@
 
 #include "base.h"
 #include "commonMacro.h"
+#include "gl/common/utils.h"
 #include "programGL.h"
 
 namespace graphicEngine::gl

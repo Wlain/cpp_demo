@@ -59,14 +59,14 @@ void SkyboxEnvironmentMap::initVertices()
 void SkyboxEnvironmentMap::initVertexAttrib()
 {
     Skybox::initVertexAttrib();
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
 }
 
 void SkyboxEnvironmentMap::initPrograms()
@@ -88,17 +88,17 @@ void SkyboxEnvironmentMap::update(float elapseTime)
 
 void SkyboxEnvironmentMap::drawCubes()
 {
-    glBindVertexArray(m_vao);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTexture);
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubeMapTexture));
     auto model = glm::mat4(1.0);
     model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
     m_program->use();
     m_program->setMatrix4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
     m_program->setMatrix4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 } // namespace graphicEngine::gl

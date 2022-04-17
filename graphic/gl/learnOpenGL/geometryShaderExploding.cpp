@@ -34,8 +34,8 @@ void GeometryShaderExploding::update(float elapseTime)
 
 void GeometryShaderExploding::render()
 {
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     m_model->render(m_program);
 }
 

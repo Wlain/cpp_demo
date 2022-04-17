@@ -10,11 +10,11 @@ namespace graphicEngine::gl
 {
 void AdvancedLighting::render()
 {
-    glClearColor(0.f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // floor
     drawFloor();
-    glBindVertexArray(0);
+    CHECK_GL(glBindVertexArray(0));
 }
 
 void AdvancedLighting::initTextures()
@@ -74,17 +74,17 @@ void AdvancedLighting::initVertexAttrib()
 void AdvancedLighting::initPlaneVertexAttrib()
 {
     // plane VAO
-    glGenVertexArrays(1, &m_planeVao);
-    glGenBuffers(1, &m_planeVbo);
-    glBindVertexArray(m_planeVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glBindVertexArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_planeVao));
+    CHECK_GL(glGenBuffers(1, &m_planeVbo));
+    CHECK_GL(glBindVertexArray(m_planeVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(2));
+    CHECK_GL(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
 }
 } // namespace graphicEngine::gl

@@ -22,9 +22,9 @@ DepthTest::DepthTest()
 DepthTest::~DepthTest()
 {
     if (m_planeVao != 0)
-        glDeleteVertexArrays(1, &m_planeVao);
+        CHECK_GL(glDeleteVertexArrays(1, &m_planeVao));
     if (m_planeVbo != 0)
-        glDeleteBuffers(1, &m_planeVbo);
+        CHECK_GL(glDeleteBuffers(1, &m_planeVbo));
 }
 
 void DepthTest::initialize()
@@ -59,13 +59,13 @@ void DepthTest::resize(int width, int height)
 
 void DepthTest::render()
 {
-    glClearColor(0.f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // cubes
     drawCubes();
     // floor
     drawFloor();
-    glBindVertexArray(0);
+    CHECK_GL(glBindVertexArray(0));
 }
 
 void DepthTest::touchEvent(double xPos, double yPos)
@@ -183,33 +183,33 @@ void DepthTest::initVertexAttrib()
 
 void DepthTest::initGLStatus()
 {
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
+    CHECK_GL(glDepthFunc(GL_LESS)); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
 }
 
 void DepthTest::drawCubes()
 {
-    glBindVertexArray(m_vao);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle());
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
     m_modelMatrix = glm::mat4(1.0);
     m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(-1.0f, 0.0f, -1.0f));
     m_program->use();
     m_program->setMatrix4("model", m_modelMatrix);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     m_modelMatrix = glm::mat4(1.0f);
     m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(2.0f, 0.0f, 0.0f));
     m_program->setMatrix4("model", m_modelMatrix);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 
 void DepthTest::drawFloor()
 {
     m_program->use();
-    glBindVertexArray(m_planeVao);
-    glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle());
+    CHECK_GL(glBindVertexArray(m_planeVao));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle()));
     m_program->setMatrix4("model", glm::mat4(1.0f));
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 6));
 }
 
 void DepthTest::initModel()
@@ -219,30 +219,30 @@ void DepthTest::initModel()
 void DepthTest::initPlaneVertexAttrib()
 {
     // plane VAO
-    glGenVertexArrays(1, &m_planeVao);
-    glGenBuffers(1, &m_planeVbo);
-    glBindVertexArray(m_planeVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_planeVao));
+    CHECK_GL(glGenBuffers(1, &m_planeVbo));
+    CHECK_GL(glBindVertexArray(m_planeVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_planeVbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_planeVertices[0]) * m_planeVertices.size(), m_planeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
 }
 
 void DepthTest::initCubesVertexAttrib()
 {
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
 }
 
 } // namespace graphicEngine::gl

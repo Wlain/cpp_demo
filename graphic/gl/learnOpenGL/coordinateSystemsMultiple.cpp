@@ -22,16 +22,16 @@ void CoordinateSystemsMultiple::initialize()
     m_texture->createByFile(GET_CURRENT("/resources/textures/container.jpg"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/awesomeface.png"));
     initWithProperty();
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube), &m_verticesCube, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    glBindVertexArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube), &m_verticesCube, GL_STATIC_DRAW));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glBindVertexArray(0));
     m_program->use();
     m_program->setInt("inputTexture", 0);
     m_program->setInt("inputTexture1", 1);
@@ -58,15 +58,15 @@ void CoordinateSystemsMultiple::resize(int width, int height)
 
 void CoordinateSystemsMultiple::render()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_texture->handle());
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_texture1->handle());
+    CHECK_GL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_texture->handle()));
+    CHECK_GL(glActiveTexture(GL_TEXTURE1));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_texture1->handle()));
     m_program->use();
-    glBindVertexArray(m_vao);
+    CHECK_GL(glBindVertexArray(m_vao));
     auto model = glm::mat4(1.0f);
     for (int i = 0; i < 10; ++i)
     {
@@ -77,7 +77,7 @@ void CoordinateSystemsMultiple::render()
             angle = m_elapseTime * 25.0f;
         model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
         m_program->setMatrix4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     }
 }
 

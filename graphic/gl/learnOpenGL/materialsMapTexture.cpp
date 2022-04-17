@@ -58,7 +58,7 @@ void MaterialsMapTexture::initialize()
         -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
         -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
     };
-    glfwSetWindowTitle(m_window, "MaterialsMapTexture");
+    CHECK_GL(glfwSetWindowTitle(m_window, "MaterialsMapTexture"));
     m_texture = std::make_unique<TextureGL>();
     m_texture1 = std::make_unique<TextureGL>();
     m_texture2 = std::make_unique<TextureGL>();
@@ -66,14 +66,14 @@ void MaterialsMapTexture::initialize()
     m_texture1->createByFile(GET_CURRENT("/resources/textures/container2_specular.png"));
     m_texture1->createByFile(GET_CURRENT("/resources/textures/matrix.jpg")); // 自发光
     m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW));
+    CHECK_GL(glBindVertexArray(m_vao));
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 
     m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/materialsMapDiffuseSpecular.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/materialsMapDiffuseSpecular.frag"));
@@ -87,15 +87,15 @@ void MaterialsMapTexture::initialize()
     m_lightingProgram->setVector3("light.ambient", 0.2f, 0.2f, 0.2f);
     m_lightingProgram->setVector3("light.diffuse", 0.5f, 0.5f, 0.5f);
     m_lightingProgram->setVector3("light.specular", 1.0f, 1.0f, 1.0f);
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(2));
 }
 void MaterialsMapTexture::update(float elapseTime)
 {
@@ -117,47 +117,47 @@ void MaterialsMapTexture::initLighting()
 {
     m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/MaterialsMapTexture.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/MaterialsMapTexture.frag"));
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(1));
 }
 
 void MaterialsMapTexture::initCube()
 {
     m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW));
+    CHECK_GL(glBindVertexArray(m_vao));
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 }
 
 void MaterialsMapTexture::render()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     m_lightCubeProgram->use();
-    glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     m_lightingProgram->use();
     // bind diffuse map
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_texture->handle());
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_texture->handle()));
     // bind specular map
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_texture1->handle());
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, m_texture2->handle());
-    glBindVertexArray(m_lightVao);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glActiveTexture(GL_TEXTURE1));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_texture1->handle()));
+    CHECK_GL(glActiveTexture(GL_TEXTURE2));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_texture2->handle()));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 
 } // namespace graphicEngine::gl

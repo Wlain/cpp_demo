@@ -11,9 +11,9 @@ namespace graphicEngine::gl
 BlendingDiscard::~BlendingDiscard()
 {
     if (m_transparentVao != 0)
-        glDeleteVertexArrays(1, &m_transparentVao);
+        CHECK_GL(glDeleteVertexArrays(1, &m_transparentVao));
     if (m_transparentVbo != 0)
-        glDeleteBuffers(1, &m_transparentVbo);
+        CHECK_GL(glDeleteBuffers(1, &m_transparentVbo));
 }
 
 void BlendingDiscard::initialize()
@@ -25,14 +25,14 @@ void BlendingDiscard::render()
 {
     DepthTest::render();
     // vegetation
-    glBindVertexArray(m_transparentVao);
-    glBindTexture(GL_TEXTURE_2D, m_transparentVbo);
+    CHECK_GL(glBindVertexArray(m_transparentVao));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_transparentVbo));
     for (auto & i : m_vegetation)
     {
         auto model = glm::mat4(1.0f);
         model = glm::translate(model, i);
         m_program->setMatrix4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 6));
     }
 }
 void BlendingDiscard::initVertices()
@@ -59,16 +59,16 @@ void BlendingDiscard::initVertices()
 void BlendingDiscard::initVertexAttrib()
 {
     DepthTest::initVertexAttrib();
-    glGenVertexArrays(1, &m_transparentVao);
-    glGenBuffers(1, &m_transparentVbo);
-    glBindVertexArray(m_transparentVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_transparentVbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_transparentVertices[0]) * m_transparentVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)nullptr);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glBindVertexArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_transparentVao));
+    CHECK_GL(glGenBuffers(1, &m_transparentVbo));
+    CHECK_GL(glBindVertexArray(m_transparentVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_transparentVbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_transparentVertices[0]) * m_transparentVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)nullptr));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
 }
 void BlendingDiscard::initTextures()
 {

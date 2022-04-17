@@ -10,15 +10,15 @@ FrameBuffersExercise1::~FrameBuffersExercise1() = default;
 
 void FrameBuffersExercise1::render()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-    glEnable(GL_DEPTH_TEST);
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, m_fbo));
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
     DepthTest::render();
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+    CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     drawCubes();
     drawFloor();
-    glDisable(GL_DEPTH_TEST);
+    CHECK_GL(glDisable(GL_DEPTH_TEST));
     drawFrameBuffersScreen();
 }
 

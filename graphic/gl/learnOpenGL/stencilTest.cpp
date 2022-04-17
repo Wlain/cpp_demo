@@ -31,16 +31,16 @@ void StencilTest::resize(int width, int height)
 }
 void StencilTest::render()
 {
-    glClearColor(0.f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
     // draw floor as normal, but don't write the floor to the stencil buffer, we only care about the containers. We set its mask to 0x00 to not write to the stencil buffer.
-    glStencilMask(0x00); // 每一位在写入模板缓冲时都会变成0（禁用写入）
+    CHECK_GL(glStencilMask(0x00)); // 每一位在写入模板缓冲时都会变成0（禁用写入）
     // floor
     drawFloor();
 
     // 1st. render pass, draw objects as normal, writing to the stencil buffer
-    glStencilFunc(GL_ALWAYS, 1, 0xFF);
-    glStencilMask(0xFF); // 每一位写入模板缓冲时都保持原样
+    CHECK_GL(glStencilFunc(GL_ALWAYS, 1, 0xFF));
+    CHECK_GL(glStencilMask(0xFF)); // 每一位写入模板缓冲时都保持原样
     // cubes
     drawCubes();
 
@@ -48,28 +48,28 @@ void StencilTest::render()
     // Because the stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are not drawn, thus only drawing
     // the objects' size differences, making it look like borders.
     // -----------------------------------------------------------------------------------------------------------------------------
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-    glStencilMask(0x00);
-    glDisable(GL_DEPTH_TEST);
+    CHECK_GL(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
+    CHECK_GL(glStencilMask(0x00));
+    CHECK_GL(glDisable(GL_DEPTH_TEST));
     m_singleColorProgram->use();
     float scale = 1.1f;
     // cubes
-    glBindVertexArray(m_vao);
-    glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle());
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
     auto model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
     model = glm::scale(model, glm::vec3(scale, scale, scale));
     m_singleColorProgram->setMatrix4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
     model = glm::scale(model, glm::vec3(scale, scale, scale));
     m_singleColorProgram->setMatrix4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
-    glStencilMask(0xFF); // 每一位写入模板缓冲时都保持原样
-    glStencilFunc(GL_ALWAYS, 0, 0xFF);
-    glEnable(GL_DEPTH_TEST);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
+    CHECK_GL(glBindVertexArray(0));
+    CHECK_GL(glStencilMask(0xFF)); // 每一位写入模板缓冲时都保持原样
+    CHECK_GL(glStencilFunc(GL_ALWAYS, 0, 0xFF));
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
 }
 
 void StencilTest::initPrograms()
@@ -81,10 +81,10 @@ void StencilTest::initPrograms()
 void StencilTest::initGLStatus()
 {
     DepthTest::initGLStatus();
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glEnable(GL_STENCIL_TEST);
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
+    CHECK_GL(glDepthFunc(GL_LESS));
+    CHECK_GL(glEnable(GL_STENCIL_TEST));
+    CHECK_GL(glStencilFunc(GL_NOTEQUAL, 1, 0xFF));
+    CHECK_GL(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 }
 } // namespace graphicEngine::gl

@@ -56,7 +56,7 @@ void Materials::initialize()
         -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
     };
     Colors::initialize();
-    glfwSetWindowTitle(m_window, "Materials");
+    CHECK_GL(glfwSetWindowTitle(m_window, "Materials"));
     m_lightingProgram->use();
     // material properties
     m_lightingProgram->setVector3("material.ambient", 1.0f, 0.5f, 0.31f);
@@ -93,26 +93,26 @@ void Materials::initLighting()
 {
     m_lightingProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/materials.vert"),
                                                   GET_CURRENT("/resources/shaders/LearnOpenGL/materials.frag"));
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(1));
 }
 
 void Materials::initCube()
 {
     m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW));
+    CHECK_GL(glBindVertexArray(m_vao));
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 }
 
 void Materials::render()

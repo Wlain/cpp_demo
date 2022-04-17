@@ -82,26 +82,26 @@ void BasicLighting::initLighting()
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
     m_lightingProgram->setVector3("lightColor", 1.0f, 1.0f, 1.0f);
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(1));
 }
 
 void BasicLighting::initCube()
 {
     m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW));
+    CHECK_GL(glBindVertexArray(m_vao));
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 }
 
 void BasicLighting::render()

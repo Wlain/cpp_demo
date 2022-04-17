@@ -18,13 +18,13 @@ Colors::Colors()
 Colors::~Colors()
 {
     if (m_lightVao != 0)
-        glDeleteVertexArrays(1, &m_lightVao);
+        CHECK_GL(glDeleteVertexArrays(1, &m_lightVao));
 }
 
 void Colors::initialize()
 {
     m_title = "Colors";
-    glfwSetWindowTitle(m_window, m_title.c_str());
+    CHECK_GL(glfwSetWindowTitle(m_window, m_title.c_str()));
     initCube();
     initLighting();
 }
@@ -57,15 +57,15 @@ void Colors::resize(int width, int height)
 
 void Colors::render()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    CHECK_GL(glEnable(GL_DEPTH_TEST));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     m_lightCubeProgram->use();
-    glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     m_lightingProgram->use();
-    glBindVertexArray(m_lightVao);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 
 void Colors::processInput()
@@ -111,24 +111,24 @@ void Colors::initLighting()
     m_lightingProgram->use();
     m_lightingProgram->setVector3("objectColor", 1.0f, 0.5f, 0.3f);
     m_lightingProgram->setVector3("lightColor", 1.0f, 1.0f, 1.0f);
-    glGenVertexArrays(1, &m_lightVao);
-    glBindVertexArray(m_lightVao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 }
 
 void Colors::initCube()
 {
     m_lightCubeProgram = std::make_unique<ProgramGL>(GET_CURRENT("/resources/shaders/LearnOpenGL/coordinateSystemsMultiple.vert"), GET_CURRENT("/resources/shaders/LearnOpenGL/cube.frag"));
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW);
-    glBindVertexArray(m_vao);
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_verticesCube[0]) * m_verticesCube.size(), m_verticesCube.data(), GL_STATIC_DRAW));
+    CHECK_GL(glBindVertexArray(m_vao));
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(0));
 }
 
 } // namespace graphicEngine::gl
