@@ -3,7 +3,7 @@
 //
 
 #include "msaaTestOffscreen.h"
-
+#include "commonMacro.h"
 #include "textureGL.h"
 namespace graphicEngine::gl
 {

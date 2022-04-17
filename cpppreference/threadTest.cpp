@@ -3,6 +3,7 @@
 //
 
 #include "base.h"
+#include "commonMacro.h"
 namespace threadTest
 {
 /// 此demo用于解决在多线程下，因为悬垂指针导致的崩溃问题

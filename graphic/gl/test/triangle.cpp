@@ -3,6 +3,7 @@
 //
 
 #include "triangle.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace graphicEngine;
 
@@ -18,17 +19,16 @@ void Triangle::initialize()
     glBindVertexArray(m_vao);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vec2)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 2));
     glEnableVertexAttribArray(1);
 }
 
 void Triangle::update(float elapseTime)
 {
-    mat4x4 m, p;
-    mat4x4_identity(m);
-    mat4x4_rotate_Z(m, m, elapseTime);
-    mat4x4_ortho(p, -m_ratio, m_ratio, -1.0f, 1.0f, 1.0f, -1.0f);
-    mat4x4_mul(m_mvpMatrix, p, m);
+    glm::mat4 m = glm::mat4(1.0), p;
+    glm::translate(m, glm::vec3(elapseTime));
+    p = glm::ortho(-m_ratio, m_ratio, -1.0f, 1.0f, 1.0f, -1.0f);
+    m_mvpMatrix = p * m;
 }
 
 void Triangle::resize(int width, int height)
@@ -46,5 +46,7 @@ void Triangle::render()
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
+
+Triangle::~Triangle() = default;
 
 } // namespace graphicEngine::gl

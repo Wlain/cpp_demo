@@ -2,7 +2,8 @@
 // Created by cwb on 2022/3/17.
 //
 
-#include "base.h"
+#include "commonMacro.h"
+#include "timer.h"
 
 #include <eigen3/Eigen/Eigen>
 #include <opencv2/opencv.hpp>
@@ -14,10 +15,9 @@ static const int offsets[4][2] = { { 0, -1 }, { 1, 0 }, { 0, 1 }, { -1, 0 } };
 
 cv::Mat possionBlend(const cv::Mat& src, const cv::Mat& target, const cv::Mat& mask)
 {
-
     cv::Mat kernel = cv::Mat::zeros(1, 3, CV_8S);
-    kernel.at<char>(0,2) = 1;
-    kernel.at<char>(0,1) = -1;
+    kernel.at<char>(0, 2) = 1;
+    kernel.at<char>(0, 1) = -1;
 
     timer.reset();
     auto width = target.cols;
@@ -83,9 +83,8 @@ cv::Mat possionBlend(const cv::Mat& src, const cv::Mat& target, const cv::Mat& m
                             }
                         }
                         // mixing gradients, choose max
-                        for(int n = 0; n < 3; ++n)
+                        for (int n = 0; n < 3; ++n)
                         {
-
                         }
                     }
                 }

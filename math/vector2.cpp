@@ -2,7 +2,7 @@
 // Created by william on 2021/5/3.
 //
 #include "vector2.h"
-
+#include "commonMacro.h"
 #include "base.h"
 
 #include <cfloat>

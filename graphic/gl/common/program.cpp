@@ -4,6 +4,8 @@
 
 #include "program.h"
 
+#include "commonMacro.h"
+
 #include <fstream>
 #include <sstream>
 

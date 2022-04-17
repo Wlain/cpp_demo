@@ -4,13 +4,13 @@
 
 #include "mainWindow.h"
 
+#include "commonMacro.h"
 #include "imageWidget.h"
 
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
 #include <QToolBar>
-#include "base.h"
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent, {}) // QMainWindow's default flag is WType_TopLevel
@@ -19,10 +19,10 @@ MainWindow::MainWindow(QWidget* parent) :
     auto* editMenu = new QMenu(this);
     auto* helpMenu = new QMenu(this);
     QToolBar* toolBar = addToolBar(tr("File"));
-    toolBar->setIconSize({24, 24});
+    toolBar->setIconSize({ 24, 24 });
     QToolBar* toolBarEdit = addToolBar(tr("Edit"));
-    toolBarEdit->setIconSize({20, 20});
-    addToolBar(Qt::LeftToolBarArea,toolBarEdit);
+    toolBarEdit->setIconSize({ 20, 20 });
+    addToolBar(Qt::LeftToolBarArea, toolBarEdit);
     fileMenu->setStatusTip(tr("File menu"));
     m_imageWidget = std::make_unique<ImageWidget>();
     /// 打开touch捕获开关

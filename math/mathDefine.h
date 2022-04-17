@@ -8,7 +8,8 @@
 #include "vec3.h"
 #include "vec2.h"
 #include "mat4.h"
-
+#include "vector2.h"
+#include "vector3.h"
 inline int getFrameBufferIndex(int i, int j, int width, int height)
 {
     assert(i >= 0 && i < width && j >= 0 && j < height);

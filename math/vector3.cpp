@@ -5,6 +5,7 @@
 #include "vector3.h"
 
 #include "base.h"
+#include "commonMacro.h"
 
 #include <cfloat>
 

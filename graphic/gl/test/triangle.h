@@ -6,6 +6,7 @@
 #define CROSS_PLATFORM_DEMO_TRIANGLE_H
 
 #include "commonInterface.h"
+#include "mathDefine.h"
 
 namespace graphicEngine::gl
 {
@@ -14,8 +15,8 @@ class Triangle : public CommonInterface
 public:
     typedef struct Vertex
     {
-        vec2 pos;
-        vec3 col;
+        Vector2 pos;
+        Vector3 col;
     } Vertex;
 
 public:
@@ -34,7 +35,7 @@ private:
         { { 0.6f, -0.4f }, { 0.f, 1.f, 0.f } },
         { { 0.0f, 0.6f }, { 0.f, 0.f, 1.f } }
     };
-    mat4x4 m_mvpMatrix;
+    glm::mat4 m_mvpMatrix;
     float m_ratio = 0.0f;
 };
 

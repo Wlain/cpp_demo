@@ -3,7 +3,7 @@
 //
 
 #include "sharing.h"
-
+#include <glm/gtc/matrix_transform.hpp>
 #include <random>
 
 static std::random_device r;
@@ -98,12 +98,12 @@ void Sharing::render()
         for (int i = 0; i < 2; ++i)
         {
             int width, height;
-            mat4x4 mvp;
+            glm::mat4 mvp;
             glfwGetFramebufferSize(i == 0 ? m_window : m_window1, &width, &height);
             glViewport(0, 0, width, height);
-            mat4x4_ortho(mvp, 0.f, 1.f, 0.f, 1.f, 0.f, 1.f);
-            glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, (const GLfloat*)mvp);
-            glUniform3fv(glGetUniformLocation(m_program->getProgram(), "color"), 1, m_colors[i]);
+            mvp = glm::ortho(0.f, 1.f, 0.f, 1.f, 0.f, 1.f);
+            glUniformMatrix4fv(glGetUniformLocation(m_program->getProgram(), "MVP"), 1, GL_FALSE, &mvp[0][0]);
+            glUniform3fv(glGetUniformLocation(m_program->getProgram(), "color"), 1, &m_colors[i][0]);
             glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
             glfwSwapBuffers(i == 0 ? m_window : m_window1);
         }

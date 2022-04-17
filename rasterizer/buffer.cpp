@@ -4,7 +4,7 @@
 
 #include "buffer.h"
 
-#include "base.h"
+#include "commonMacro.h"
 
 using namespace Eigen;
 namespace graphics

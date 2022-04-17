@@ -4,7 +4,7 @@
 
 #include "matrix4.h"
 
-#include "base.h"
+#include "commonMacro.h"
 
 /// 计算视图矩阵
 Matrix4f getViewMatrix(const Vector3f& eyePos)

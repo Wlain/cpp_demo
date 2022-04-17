@@ -9,7 +9,7 @@ public:
     F() = default;
     ~F() = default;
     F(const F&) { std::cout << "new" << std::endl; }
-    F(const F&&) = default;
+    explicit F(const F&&) = default;
 };
 
 class F2
@@ -18,7 +18,7 @@ public:
     F2() = default;
     ~F2() = default;
     F2(const F2&) = default;
-    F2(const F2&&) noexcept = default;
+    explicit F2(const F2&&) noexcept = default;
     F2& operator=(const F2& f) = default;
 
 public:

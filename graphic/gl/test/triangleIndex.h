@@ -14,8 +14,8 @@ class TriangleIndex : public CommonInterface
 public:
     typedef struct Vertex
     {
-        vec2 pos;
-        vec3 col;
+        glm::vec2 pos;
+        glm::vec3 col;
     } Vertex;
 
 public:
@@ -30,16 +30,16 @@ public:
 
 private:
     Vertex m_vertices[4] = {
-        0.5f, 0.5f, 1.f, 0.f, 0.f,
-        0.5f, -0.5f, 0.f, 1.f, 0.f,
-        -0.5f, -0.5f, 0.f, 0.f, 1.f,
-        -0.5f, 0.5f, 1.f, 1.f, 1.f
+        { { 0.5f, 0.5f }, { 1.f, 0.f, 0.f } },
+        { { 0.5f, -0.5f }, { 0.f, 1.f, 0.f } },
+        { { -0.5f, -0.5f }, { 0.f, 0.f, 1.f } },
+        { { -0.5f, 0.5f }, { 1.f, 1.f, 1.f } }
     };
     unsigned int m_indices[6] = {
         0, 1, 3, // first Triangle
         1, 2, 3  // second Triangle
     };
-    mat4x4 m_mvpMatrix;
+    glm::mat4 m_mvpMatrix;
     float m_ratio = 0.0f;
 };
 

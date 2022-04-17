@@ -3,6 +3,7 @@
 //
 
 #include "program.h"
+#include "commonMacro.h"
 
 namespace graphics
 {

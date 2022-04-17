@@ -3,6 +3,7 @@
 //
 
 #include "triangleIndex.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace graphicEngine;
 
@@ -34,11 +35,10 @@ void TriangleIndex::initialize()
 
 void TriangleIndex::update(float elapseTime)
 {
-    mat4x4 m, p;
-    mat4x4_identity(m);
-    mat4x4_rotate_Z(m, m, elapseTime);
-    mat4x4_ortho(p, -m_ratio, m_ratio, -1.0f, 1.0f, 1.0f, -1.0f);
-    mat4x4_mul(m_mvpMatrix, p, m);
+    glm::mat4 m =glm::mat4(1.0f), p;
+    glm::rotate(m, elapseTime, glm::vec3(0.0f));
+    p = glm::ortho(-m_ratio, m_ratio, -1.0f, 1.0f, 1.0f, -1.0f);
+    m_mvpMatrix = p * m;
 }
 
 void TriangleIndex::resize(int width, int height)

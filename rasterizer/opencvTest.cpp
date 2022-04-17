@@ -1,7 +1,8 @@
 //
 // Created by william on 2021/10/15.
 //
-#include "base.h"
+#include "commonMacro.h"
+
 #include <opencv2/opencv.hpp>
 
 void opencvTest()
@@ -15,5 +16,3 @@ void opencvTest()
     imshow("Display Image", image);
     cv::waitKey(0);
 }
-
-

@@ -53,11 +53,12 @@
 #include "learnOpenGL/msaaTestOffscreen.h"
 #include "learnOpenGL/advancedLighting.h"
 #include "learnOpenGL/gammaCorrection.h"
+#include "learnOpenGL/shadowMappingDepth.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    GammaCorrection obj;
+    ShadowMappingDepth obj;
     obj.run();
 }

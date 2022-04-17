@@ -5,6 +5,7 @@
 #include "textureGL.h"
 
 #include "utils.h"
+#include "commonMacro.h"
 
 #include <SOIL2/stb_image.h>
 

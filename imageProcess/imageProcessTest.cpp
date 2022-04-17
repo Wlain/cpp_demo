@@ -1,7 +1,7 @@
 //
 // Created by cwb on 2022/2/17.
 //
-#include "base.h"
+#include "commonMacro.h"
 
 #include <opencv2/opencv.hpp>
 

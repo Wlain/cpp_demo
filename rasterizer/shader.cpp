@@ -3,6 +3,7 @@
 //
 
 #include "shader.h"
+#include "commonMacro.h"
 using namespace Eigen;
 namespace graphics
 {
@@ -32,7 +33,6 @@ VertexShader::~VertexShader() = default;
 
 void VertexShader::geometricProcessing()
 {
-
 }
 
 FragmentShader::FragmentShader() = default;

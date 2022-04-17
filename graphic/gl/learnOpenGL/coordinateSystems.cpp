@@ -3,17 +3,16 @@
 //
 
 #include "coordinateSystems.h"
+
+#include <glm/gtc/matrix_transform.hpp>
 namespace graphicEngine::gl
 {
-
 void CoordinateSystems::render()
 {
     TexturesCombined::render();
 }
 
-CoordinateSystems::~CoordinateSystems()
-{
-}
+CoordinateSystems::~CoordinateSystems() = default;
 
 void CoordinateSystems::initialize()
 {
@@ -34,7 +33,7 @@ void CoordinateSystems::resize(int width, int height)
     auto view = glm::mat4(1.0f);
     auto projection = glm::mat4(1.0f);
     model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
     projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
     m_program->use();
     m_program->setMatrix4("transform", projection * view * model);

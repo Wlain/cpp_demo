@@ -3,7 +3,7 @@
 //
 
 #include "helloTriangleExereise1.h"
-
+#include "commonMacro.h"
 #include "base.h"
 
 namespace graphicEngine::gl

@@ -6,6 +6,7 @@
 #define CROSS_PLATFORM_DEMO_COMMONINTERFACE_H
 
 #include "base.h"
+#include "commonMacro.h"
 #include "program.h"
 
 namespace graphicEngine::gl

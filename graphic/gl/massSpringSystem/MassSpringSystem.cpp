@@ -37,9 +37,9 @@ void MassSpringSystem::initialize()
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), nullptr, GL_DYNAMIC_DRAW);
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)nullptr);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)(sizeof(vec2)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Triangle::Vertex), (void*)(sizeof(float) * 2));
     glEnableVertexAttribArray(1);
 }
 

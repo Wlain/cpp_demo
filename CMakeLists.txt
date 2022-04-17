@@ -5,6 +5,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
+# 设置编译缓存
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    message(STATUS "Set up ccache ...")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+    message(STATUS "found CCache: ${CCACHE_PROGRAM}")
+endif()
+
 add_compile_options(-fno-elide-constructors)    #关闭编译器优化
 set(CMAKE_CXX_FLAGS "-fno-elide-constructors ${CMAKE_CXX_FLAGS}")
 
@@ -15,16 +24,19 @@ find_package(OpenCV REQUIRED)
 # vulkan
 find_package(Vulkan REQUIRED FATAL_ERROR)
 # glfw
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw)
+add_subdirectory(3rdparty/glfw)
 # glew
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glew/build/cmake)
+add_subdirectory(3rdparty/glew/build/cmake)
+# spdlog
+add_subdirectory(3rdparty/spdlog)
+# assimp
+add_subdirectory(3rdparty/assimp)
+
 # qt
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
-# assimp
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/assimp)
 
 # 头文件目录
 include_directories(
@@ -77,14 +89,14 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         imageProcess/*.cpp
         qt/*cpp)
 
-# imageui
+# imgui
 file(GLOB IMAGE_UI_SRC
         3rdparty/imgui/backends/imgui_impl_glfw.*
         3rdparty/imgui/backends/imgui_impl_opengl3.*
         3rdparty/imgui/*.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC})
+add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/spdlogTest.cpp include/commonMacro.h)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
@@ -97,6 +109,8 @@ target_link_libraries(cpp_demo
         ${OpenCV_LIBS}
         glfw
         glew
+        spdlog
+        assimp
 #        Vulkan::Vulkan
         "-framework IOSurface"
         "-framework Metal"
@@ -108,6 +122,5 @@ target_link_libraries(cpp_demo
         Qt5::Widgets
         Qt5::Gui
         Qt5::Core
-        assimp
         z
         )

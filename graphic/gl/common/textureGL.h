@@ -7,6 +7,8 @@
 
 #include "base.h"
 #include "textureHandle.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 class TextureGL : public TextureHandle
 {

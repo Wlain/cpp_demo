@@ -4,7 +4,7 @@
 
 #include "objLoader.h"
 
-#include "base.h"
+#include "commonMacro.h"
 
 namespace graphics
 {

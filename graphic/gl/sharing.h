@@ -22,13 +22,13 @@ public:
     void render() override;
 
 private:
-    const vec2 m_vertices[4] = {
+    const glm::vec2 m_vertices[4] = {
         { 0.0f, 0.0f },
         { 1.0f, 0.0f },
         { 1.0f, 1.0f },
         { 0.0f, 1.0f }
     };
-    const vec3 m_colors[2] = {
+    const glm::vec3 m_colors[2] = {
         { 0.8f, 0.4f, 1.f },
         { 0.3f, 0.4f, 1.f }
     };
