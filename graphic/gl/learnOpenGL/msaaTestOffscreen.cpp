@@ -33,7 +33,7 @@ MsaaOffscreen::~MsaaOffscreen()
     {
         CHECK_GL(glDeleteVertexArrays(1, &m_quadVao));
     }
-    if (m_quadVao != 0)
+    if (m_quadVbo != 0)
     {
         CHECK_GL(glDeleteBuffers(1, &m_quadVbo));
     }

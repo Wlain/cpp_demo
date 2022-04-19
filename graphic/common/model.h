@@ -4,14 +4,15 @@
 
 #ifndef CPP_DEMO_MODEL_H
 #define CPP_DEMO_MODEL_H
-#include "assimp/Importer.hpp"
-#include "assimp/postprocess.h"
-#include "assimp/scene.h"
 #include "gl/common/programGL.h"
 #include "gl/common/textureGL.h"
-#include "glm/glm/glm.hpp"
-#include "glm/glm/gtc/matrix_transform.hpp"
 #include "mesh.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 namespace graphicEngine
 {
 class Model
