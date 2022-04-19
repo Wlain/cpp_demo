@@ -62,9 +62,9 @@ void DepthTest::render()
     CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // cubes
-    drawCubes();
+    drawCubes(m_program);
     // floor
-    drawFloor();
+    drawFloor(m_program);
     CHECK_GL(glBindVertexArray(0));
 }
 
@@ -187,28 +187,27 @@ void DepthTest::initGLStatus()
     CHECK_GL(glDepthFunc(GL_LESS)); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
 }
 
-void DepthTest::drawCubes()
+void DepthTest::drawCubes(const std::unique_ptr<ProgramGL>& program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
-    CHECK_GL(glActiveTexture(GL_TEXTURE0));
-    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
+    initCubeTexture();
     m_modelMatrix = glm::mat4(1.0);
     m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(-1.0f, 0.0f, -1.0f));
-    m_program->use();
-    m_program->setMatrix4("model", m_modelMatrix);
+    program->use();
+    program->setMatrix4("model", m_modelMatrix);
     CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     m_modelMatrix = glm::mat4(1.0f);
     m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(2.0f, 0.0f, 0.0f));
-    m_program->setMatrix4("model", m_modelMatrix);
+    program->setMatrix4("model", m_modelMatrix);
     CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 
-void DepthTest::drawFloor()
+void DepthTest::drawFloor(const std::unique_ptr<ProgramGL>& program)
 {
-    m_program->use();
+    program->use();
+    initFloorTexture();
     CHECK_GL(glBindVertexArray(m_planeVao));
-    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle()));
-    m_program->setMatrix4("model", glm::mat4(1.0f));
+    program->setMatrix4("model", glm::mat4(1.0f));
     CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 6));
 }
 
@@ -243,6 +242,18 @@ void DepthTest::initCubesVertexAttrib()
     CHECK_GL(glEnableVertexAttribArray(1));
     CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
     CHECK_GL(glBindVertexArray(0));
+}
+
+void DepthTest::initCubeTexture()
+{
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
+}
+
+void DepthTest::initFloorTexture()
+{
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_floorTexture->handle()));
 }
 
 } // namespace graphicEngine::gl

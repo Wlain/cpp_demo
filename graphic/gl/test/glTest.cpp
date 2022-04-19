@@ -54,11 +54,12 @@
 #include "learnOpenGL/advancedLighting.h"
 #include "learnOpenGL/gammaCorrection.h"
 #include "learnOpenGL/shadowMappingDepth.h"
+#include "learnOpenGL/shadowMappingBase.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    ShadowMappingDepth obj;
+    ShadowMappingBase obj;
     obj.run();
 }

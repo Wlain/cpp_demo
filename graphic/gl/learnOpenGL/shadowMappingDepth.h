@@ -19,10 +19,13 @@ protected:
     void initPrograms() override;
     void initVertices() override;
     void initPlaneVertexAttrib() override;
-    void drawCubes() override;
-    void initFbo();
+    void initCubesVertexAttrib() override;
+    void drawCubes(const std::unique_ptr<ProgramGL>& program) override;
+    virtual void initFbo();
+    virtual void renderDebugQuad();
+    virtual void renderDepthImage(const std::unique_ptr<ProgramGL>& program);
 
-private:
+protected:
     std::unique_ptr<ProgramGL> m_quadProgram;
     std::vector<float> m_quadVertices;
     const static unsigned int s_shadowWidth = 1024;

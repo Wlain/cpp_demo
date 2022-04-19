@@ -41,6 +41,8 @@ void ShadowMappingDepth::initPrograms()
     m_quadProgram = MAKE_UNIQUE(m_quadProgram,
                                 GET_CURRENT("/resources/shaders/LearnOpenGL/debugQuadDepth.vert"),
                                 GET_CURRENT("/resources/shaders/LearnOpenGL/debugQuadDepth.frag"));
+    m_quadProgram->use();
+    m_quadProgram->setInt("depthMap", 0);
 }
 
 void ShadowMappingDepth::initVertices()
@@ -56,29 +58,56 @@ void ShadowMappingDepth::initVertices()
         -25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
         25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 25.0f
     };
+    m_cubeVertices = {
+        // back face
+        -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+        1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // top-right
+        1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,  // bottom-right
+        1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // top-right
+        -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+        -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,  // top-left
+        // front face
+        -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+        1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,  // bottom-right
+        1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,   // top-right
+        1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,   // top-right
+        -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // top-left
+        -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+        // left face
+        -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,   // top-right
+        -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,  // top-left
+        -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+        -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+        -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  // bottom-right
+        -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,   // top-right
+                                                            // right face
+        1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,     // top-left
+        1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   // bottom-right
+        1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,    // top-right
+        1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   // bottom-right
+        1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,     // top-left
+        1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,    // bottom-left
+        // bottom face
+        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+        1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,  // top-left
+        1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // bottom-left
+        1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // bottom-left
+        -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,  // bottom-right
+        -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+        // top face
+        -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+        1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // bottom-right
+        1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,  // top-right
+        1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // bottom-right
+        -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+        -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f   // bottom-left
+    };
     m_quadVertices = {
         // positions        // texture Coords
-        -1.0f,
-        1.0f,
-        0.0f,
-        0.0f,
-        1.0f,
-        -1.0f,
-        -1.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-
-        1.0f,
-        1.0f,
-        0.0f,
-        1.0f,
-        1.0f,
-        1.0f,
-        -1.0f,
-        0.0f,
-        1.0f,
-        0.0f,
+        -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+        -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        1.0f, -1.0f, 0.0f, 1.0f, 0.0f
     };
 }
 
@@ -135,6 +164,7 @@ void ShadowMappingDepth::initialize()
 
 void ShadowMappingDepth::update(float elapseTime)
 {
+    DepthTest::update(elapseTime);
     m_lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, m_nearPlane, m_farPlane);
     m_lightView = glm::lookAt(m_lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
     m_lightSpaceMatrix = m_lightProjection * m_lightView;
@@ -144,18 +174,40 @@ void ShadowMappingDepth::update(float elapseTime)
 
 void ShadowMappingDepth::render()
 {
-    CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
-    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    CHECK_GL(glViewport(0, 0, s_shadowHeight, s_shadowHeight));
-    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFbo));
-    CHECK_GL(glClear(GL_DEPTH_BUFFER_BIT));
-    drawFloor();
-    drawCubes();
-    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-
+    renderDepthImage(m_program);
+    // reset viewport
     CHECK_GL(glViewport(0, 0, m_width, m_height));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // render Depth map to quad for visual debugging
+    renderDebugQuad();
+}
+
+void ShadowMappingDepth::drawCubes(const std::unique_ptr<ProgramGL>& program)
+{
+    CHECK_GL(glBindVertexArray(m_vao));
+    CHECK_GL(glActiveTexture(GL_TEXTURE0));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
+    m_modelMatrix = glm::mat4(1.0);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(0.0f, 1.5f, 0.0));
+    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.5f));
+    program->use();
+    program->setMatrix4("model", m_modelMatrix);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
+    m_modelMatrix = glm::mat4(1.0);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(2.0f, 0.0f, 1.0));
+    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.5f));
+    program->setMatrix4("model", m_modelMatrix);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
+    m_modelMatrix = glm::mat4(1.0);
+    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(-1.0f, 0.0f, 2.0));
+    m_modelMatrix = glm::rotate(m_modelMatrix, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
+    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.25f));
+    program->setMatrix4("model", m_modelMatrix);
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
+}
+
+void ShadowMappingDepth::renderDebugQuad()
+{
     m_quadProgram->use();
     m_quadProgram->setFloat("nearPlane", m_nearPlane);
     m_quadProgram->setFloat("farPlane", m_farPlane);
@@ -167,28 +219,33 @@ void ShadowMappingDepth::render()
     CHECK_GL(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 }
 
-void ShadowMappingDepth::drawCubes()
+void ShadowMappingDepth::renderDepthImage(const std::unique_ptr<ProgramGL>& program)
 {
+    CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
+    CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    CHECK_GL(glViewport(0, 0, s_shadowHeight, s_shadowHeight));
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFbo));
+    CHECK_GL(glClear(GL_DEPTH_BUFFER_BIT));
+    drawFloor(program);
+    drawCubes(program);
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+}
+
+void ShadowMappingDepth::initCubesVertexAttrib()
+{
+    CHECK_GL(glGenVertexArrays(1, &m_vao));
+    CHECK_GL(glGenBuffers(1, &m_vbo));
     CHECK_GL(glBindVertexArray(m_vao));
-    CHECK_GL(glActiveTexture(GL_TEXTURE0));
-    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_cubeTexture->handle()));
-    m_modelMatrix = glm::mat4(1.0);
-    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(0.0f, 1.5f, 0.0));
-    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.5f));
-    m_program->use();
-    m_program->setMatrix4("model", m_modelMatrix);
-    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
-    m_modelMatrix = glm::mat4(1.0);
-    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(2.0f, 0.0f, 1.0));
-    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.5f));
-    m_program->setMatrix4("model", m_modelMatrix);
-    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
-    m_modelMatrix = glm::mat4(1.0);
-    m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(-1.0f, 0.0f, 2.0));
-    m_modelMatrix = glm::rotate(m_modelMatrix, glm::radians(60.0f), glm::normalize(glm::vec3(1.0, 0.0, 1.0)));
-    m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.25f));
-    m_program->setMatrix4("model", m_modelMatrix);
-    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_cubeVertices[0]) * m_cubeVertices.size(), m_cubeVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glEnableVertexAttribArray(2));
+    CHECK_GL(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
+
 }
 
 } // namespace graphicEngine::gl

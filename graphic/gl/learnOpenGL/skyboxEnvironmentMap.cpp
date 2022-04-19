@@ -86,7 +86,7 @@ void SkyboxEnvironmentMap::update(float elapseTime)
     m_program->setVector3("cameraPos", m_camera->m_position);
 }
 
-void SkyboxEnvironmentMap::drawCubes()
+void SkyboxEnvironmentMap::drawCubes(const std::unique_ptr<ProgramGL>& program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     CHECK_GL(glActiveTexture(GL_TEXTURE0));

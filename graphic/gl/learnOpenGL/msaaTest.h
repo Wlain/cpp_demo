@@ -14,7 +14,7 @@ public:
     void render() override;
 
 protected:
-    void drawCubes() override;
+    void drawCubes(const std::unique_ptr<ProgramGL>& program) override;
     void initPrograms() override;
 
 };

@@ -15,11 +15,11 @@ void MsaaTest::render()
 {
     CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    drawCubes();
+    drawCubes(m_program);
     CHECK_GL(glBindVertexArray(0));
 }
 
-void MsaaTest::drawCubes()
+void MsaaTest::drawCubes(const std::unique_ptr<ProgramGL>& program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     CHECK_GL(glActiveTexture(GL_TEXTURE0));

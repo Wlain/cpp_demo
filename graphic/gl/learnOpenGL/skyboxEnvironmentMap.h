@@ -17,7 +17,7 @@ protected:
     void initPrograms() override;
     void initVertices() override;
     void initVertexAttrib() override;
-    void drawCubes() override;
+    void drawCubes(const std::unique_ptr<ProgramGL>& program) override;
 };
 } // namespace graphicEngine::gl
 

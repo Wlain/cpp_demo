@@ -16,8 +16,8 @@ void FrameBuffersExercise1::render()
     CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
     CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    drawCubes();
-    drawFloor();
+    drawCubes(m_program);
+    drawFloor(m_program);
     CHECK_GL(glDisable(GL_DEPTH_TEST));
     drawFrameBuffersScreen();
 }
