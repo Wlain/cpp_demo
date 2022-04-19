@@ -24,8 +24,29 @@ float calcShadow(vec4 fragPoseLightSpace)
     float closestDepth = texture(shadowMap, projCoords.xy).r;
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
-    // check whether current frag pos is in shadow：1：代表在阴影内，0:代表在引用外
-    return currentDepth > closestDepth  ? 1.0 : 0.0;
+    // calculate bias (based on depth map resolution and slope)
+    vec3 normal = fsIn.normal;
+    vec3 lightDir = normalize(lightPos - fsIn.fragPos);
+    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
+    // PCF
+    float shadow = 0.0;
+    /// textureSize返回一个给定采样器纹理的0级mipmap的vec2类型的宽和高
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    for (int x = -1; x <= 1; ++x)
+    {
+        for (int y = -1; y <= 1; ++y)
+        {
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
+            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+        }
+    }
+    shadow /= 9.0;
+    if (projCoords.z > 1.0)
+    {
+        shadow = 0.0;
+    }
+    // 1：代表在阴影内，0:代表在引用外
+    return shadow;
 }
 
 void main() {
