@@ -9,9 +9,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
     message(STATUS "Set up ccache ...")
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
-    message(STATUS "found CCache: ${CCACHE_PROGRAM}")
+#    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+#    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
 endif()
 
 add_compile_options(-fno-elide-constructors)    #关闭编译器优化
@@ -36,6 +35,7 @@ add_subdirectory(3rdparty/assimp)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
+set(Qt5_DIR /Users/cwb/qt_dev/Qt5.15.2/clang_64/lib/cmake/Qt5)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 # 头文件目录

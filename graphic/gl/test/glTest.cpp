@@ -55,11 +55,12 @@
 #include "learnOpenGL/gammaCorrection.h"
 #include "learnOpenGL/shadowMappingDepth.h"
 #include "learnOpenGL/shadowMappingBase.h"
+#include "learnOpenGL/pointShadowMapping.h"
 
 using namespace graphicEngine::gl;
 
 void glTest()
 {
-    ShadowMappingBase obj;
+    PointShadowMapping obj;
     obj.run();
 }

@@ -29,7 +29,7 @@ protected:
     std::unique_ptr<ProgramGL> m_programShadowBase;
     std::unique_ptr<ProgramGL> m_lightingProgram;
     std::vector<float> m_lightCubeVertices;
-    glm::vec3 m_lightColor{0.3f, 0.3f, 0.0f};
+    glm::vec3 m_lightColor{0.0f, 0.3f, 0.3f};
     GLuint m_lightVao = 0;
     GLuint m_lightVbo = 0;
 };
