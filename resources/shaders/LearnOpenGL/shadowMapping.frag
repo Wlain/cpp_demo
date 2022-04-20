@@ -11,22 +11,24 @@ in VsOut {
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
 
+uniform vec3 lightColor;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
 float calcShadow(vec4 fragPoseLightSpace)
 {
-    // perform perspective divide
+    // 透视除法
     vec3 projCoords = fragPoseLightSpace.xyz / fragPoseLightSpace.w;
-    // transform to [0,1] range
+    // [-1, 1] -> [0,1]
     projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    // 取得最近点的深度，使用[0,1]范围下的fragPosLight当坐标
     float closestDepth = texture(shadowMap, projCoords.xy).r;
-    // get depth of current fragment from light's perspective
+    // 取得当前片段在光源视角下的深度
     float currentDepth = projCoords.z;
     // calculate bias (based on depth map resolution and slope)
     vec3 normal = fsIn.normal;
     vec3 lightDir = normalize(lightPos - fsIn.fragPos);
+    // 纹理偏移
     float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
     // PCF
     float shadow = 0.0;
@@ -41,18 +43,19 @@ float calcShadow(vec4 fragPoseLightSpace)
         }
     }
     shadow /= 9.0;
+
+    // 解决clamp_to_border不起作用问题
     if (projCoords.z > 1.0)
     {
         shadow = 0.0;
     }
-    // 1：代表在阴影内，0:代表在引用外
+    // 1：代表在阴影内，0:代表在阴影外
     return shadow;
 }
 
 void main() {
     vec3 color = texture(diffuseTexture, fsIn.texCoords).rgb;
     vec3 normal = fsIn.normal;
-    vec3 lightColor = vec3(0.3);
     // ambient
     vec3 ambient = 0.3 * lightColor;
     // diffuse

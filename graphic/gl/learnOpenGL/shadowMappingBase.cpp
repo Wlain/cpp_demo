@@ -8,6 +8,17 @@
 #include "gl/common/textureGL.h"
 namespace graphicEngine::gl
 {
+ShadowMappingBase::~ShadowMappingBase()
+{
+    if (m_lightVao != 0)
+    {
+        CHECK_GL(glDeleteVertexArrays(1, &m_lightVao));
+    }
+    if (m_lightVbo != 0)
+    {
+        CHECK_GL(glDeleteBuffers(1, &m_lightVbo));
+    }
+}
 
 void ShadowMappingBase::initPrograms()
 {
@@ -18,6 +29,13 @@ void ShadowMappingBase::initPrograms()
     m_programShadowBase->use();
     m_programShadowBase->setInt("diffuseTexture", 0);
     m_programShadowBase->setInt("shadowMap", 1);
+    m_programShadowBase->setVector3("lightColor", m_lightColor);
+
+    m_lightingProgram = MAKE_UNIQUE(m_lightingProgram,
+                                    GET_CURRENT("/resources/shaders/LearnOpenGL/singleLight.vert"),
+                                    GET_CURRENT("/resources/shaders/LearnOpenGL/singleLight.frag"));
+    m_lightingProgram->use();
+    m_lightingProgram->setVector3("lightColor", m_lightColor);
 }
 
 void ShadowMappingBase::update(float elapseTime)
@@ -30,6 +48,17 @@ void ShadowMappingBase::update(float elapseTime)
     m_programShadowBase->setMatrix4("view", m_viewMatrix);
     m_programShadowBase->setMatrix4("projection", m_projectionMatrix);
     m_programShadowBase->setMatrix4("lightSpaceMatrix", m_lightSpaceMatrix);
+
+    m_lightPos.x = 1.0f + sin(elapseTime) * 2.0f;
+    m_lightPos.y = 3.0 + sin(elapseTime / 2.0f) * 1.0f;
+    m_lightingProgram->use();
+    auto model = glm::mat4(1.0f);
+    model = glm::translate(model, m_lightPos);
+    model = glm::scale(model, glm::vec3(0.1f)); // a smaller cube
+    m_lightingProgram->setMatrix4("view",m_viewMatrix);
+    m_lightingProgram->setMatrix4("projection", m_projectionMatrix);
+    m_lightingProgram->setMatrix4("model", model);
+    m_lightingProgram->setVector3("lightPos", m_lightPos);
 }
 
 void ShadowMappingBase::render()
@@ -40,8 +69,9 @@ void ShadowMappingBase::render()
     CHECK_GL(glViewport(0, 0, m_width, m_height));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     renderScene(m_programShadowBase);
+    drawLight();
     // render Depth map to quad for visual debugging
-//    renderDebugQuad();
+    //    renderDebugQuad();
 }
 
 void ShadowMappingBase::initTextures()
@@ -60,7 +90,6 @@ void ShadowMappingBase::renderScene(const std::unique_ptr<ProgramGL>& program)
     glBindTexture(GL_TEXTURE_2D, m_woodTexture->handle());
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_depthMapTexture);
-
     /// floor
     program->use();
     CHECK_GL(glBindVertexArray(m_planeVao));
@@ -86,5 +115,73 @@ void ShadowMappingBase::renderScene(const std::unique_ptr<ProgramGL>& program)
     program->setMatrix4("model", m_modelMatrix);
     CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
     CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+}
+
+void ShadowMappingBase::initVertices()
+{
+    ShadowMappingDepth::initVertices();
+    m_lightCubeVertices = {
+        -0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, 0.5f, -0.5f,
+        0.5f, 0.5f, -0.5f,
+        -0.5f, 0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f, -0.5f, 0.5f,
+        0.5f, -0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, 0.5f,
+        -0.5f, 0.5f, 0.5f,
+
+        0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+
+        -0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, 0.5f,
+        0.5f, -0.5f, 0.5f,
+        -0.5f, -0.5f, 0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f, 0.5f, -0.5f,
+        0.5f, 0.5f, -0.5f,
+        0.5f, 0.5f, 0.5f,
+        0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, 0.5f,
+        -0.5f, 0.5f, -0.5f
+    };
+}
+
+void ShadowMappingBase::initPlaneVertexAttrib()
+{
+    ShadowMappingDepth::initPlaneVertexAttrib();
+    CHECK_GL(glGenVertexArrays(1, &m_lightVao));
+    CHECK_GL(glGenBuffers(1, &m_lightVbo));
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_lightVbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_lightCubeVertices[0]) * m_lightCubeVertices.size(), m_lightCubeVertices.data(), GL_STATIC_DRAW));
+    // position attribute
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+}
+
+void ShadowMappingBase::drawLight()
+{
+    m_lightingProgram->use();
+    CHECK_GL(glBindVertexArray(m_lightVao));
+    CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 } // namespace graphicEngine::gl
