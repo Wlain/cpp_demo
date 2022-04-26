@@ -150,8 +150,6 @@ extern void recordABug();
 extern void staticExternThreadCrashDemo();
 extern void spdlogTest();
 
-#include "commonMacro.h"
-
 int main(int argc, char* argv[])
 {
     glTest();

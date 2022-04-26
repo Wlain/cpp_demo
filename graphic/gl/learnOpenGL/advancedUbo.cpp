@@ -33,11 +33,11 @@ void AdvancedUbo::render()
     CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // cubes
-    drawCubes(m_program);
+    drawCubes(m_program.get());
     CHECK_GL(glBindVertexArray(0));
 }
 
-void AdvancedUbo::drawCubes(const std::unique_ptr<ProgramGL>& program)
+void AdvancedUbo::drawCubes(const ProgramGL* program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     // red

@@ -31,9 +31,9 @@ protected:
     virtual void initGLStatus();
     virtual void initModel();
     virtual void initCubeTexture();
-    virtual void drawCubes(const std::unique_ptr<ProgramGL>& program);
+    virtual void drawCubes(const ProgramGL* program);
     virtual void initFloorTexture();
-    virtual void drawFloor(const std::unique_ptr<ProgramGL>& program);
+    virtual void drawFloor(const ProgramGL* program);
     virtual void initPlaneVertexAttrib();
     virtual void initCubesVertexAttrib();
 

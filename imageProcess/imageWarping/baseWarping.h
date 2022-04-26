@@ -6,7 +6,6 @@
 #define CPP_DEMO_BASEWARPING_H
 #include "vector2.h"
 
-#include <QImage>
 #include <opencv2/opencv.hpp>
 #include <vector>
 

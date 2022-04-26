@@ -49,8 +49,7 @@ void ShadowMappingBase::update(float elapseTime)
     m_programShadowBase->setMatrix4("projection", m_projectionMatrix);
     m_programShadowBase->setMatrix4("lightSpaceMatrix", m_lightSpaceMatrix);
 
-    m_lightPos.x = 1.0f + sin(elapseTime) * 2.0f;
-    m_lightPos.y = 3.0 + sin(elapseTime / 2.0f) * 1.0f;
+    m_lightPos.z = static_cast<float>(sin(elapseTime * 0.5) * 3.0);
     m_lightingProgram->use();
     auto model = glm::mat4(1.0f);
     model = glm::translate(model, m_lightPos);
@@ -64,14 +63,14 @@ void ShadowMappingBase::update(float elapseTime)
 void ShadowMappingBase::render()
 {
     // 1. render depth of scene to texture (from light's perspective)
-    renderDepthImage(m_program);
+    renderDepthImage(m_program.get());
     // 2. render scene as normal using the generated depth/shadow map
     CHECK_GL(glViewport(0, 0, m_width, m_height));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     renderScene(m_programShadowBase);
     drawLight();
     // render Depth map to quad for visual debugging
-    //    renderDebugQuad();
+//        renderDebugQuad();
 }
 
 void ShadowMappingBase::initTextures()

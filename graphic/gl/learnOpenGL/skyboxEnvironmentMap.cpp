@@ -2,7 +2,7 @@
 // Created by william on 2022/4/10.
 //
 
-#include "skyboxEnvironmentMap.h"
+#include "skyboxEnvironmentMap.h" const graphicEngine::ProgramGL *
 #include "common/camera.h"
 
 namespace graphicEngine::gl
@@ -86,7 +86,7 @@ void SkyboxEnvironmentMap::update(float elapseTime)
     m_program->setVector3("cameraPos", m_camera->m_position);
 }
 
-void SkyboxEnvironmentMap::drawCubes(const std::unique_ptr<ProgramGL>& program)
+void SkyboxEnvironmentMap::drawCubes(const ProgramGL* program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     CHECK_GL(glActiveTexture(GL_TEXTURE0));

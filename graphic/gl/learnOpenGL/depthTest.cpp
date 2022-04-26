@@ -62,9 +62,9 @@ void DepthTest::render()
     CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // cubes
-    drawCubes(m_program);
+    drawCubes(m_program.get());
     // floor
-    drawFloor(m_program);
+    drawFloor(m_program.get());
     CHECK_GL(glBindVertexArray(0));
 }
 
@@ -187,7 +187,7 @@ void DepthTest::initGLStatus()
     CHECK_GL(glDepthFunc(GL_LESS)); // always pass the depth test (same effect as glDisable(GL_DEPTH_TEST))
 }
 
-void DepthTest::drawCubes(const std::unique_ptr<ProgramGL>& program)
+void DepthTest::drawCubes(const ProgramGL* program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     initCubeTexture();
@@ -202,7 +202,7 @@ void DepthTest::drawCubes(const std::unique_ptr<ProgramGL>& program)
     CHECK_GL(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 
-void DepthTest::drawFloor(const std::unique_ptr<ProgramGL>& program)
+void DepthTest::drawFloor(const ProgramGL* program)
 {
     program->use();
     initFloorTexture();

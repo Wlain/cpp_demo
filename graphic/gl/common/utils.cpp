@@ -3,7 +3,7 @@
 //
 
 #include "utils.h"
-
+#include "logger.h"
 #include "base.h"
 namespace graphicEngine::gl
 {
@@ -43,13 +43,13 @@ const char* getGLErrorMsg(GLenum err)
     }
 }
 
-void checkGlError(const char* glFunc)
+void checkGlError(const char* glFunc, const char* file, int line)
 {
     auto err = glGetError();
     if (err != GL_NO_ERROR)
     {
         auto msg = getGLErrorMsg(err);
-        LOG_ERROR("`{} generated error!`: msg:{}", glFunc, msg);
+        Logger::getInstance().log(Logger::Level::Error, "`{} generated glError!`: msg:{} in file:{}:{}", glFunc, msg, file, line);
     }
 }
 } // namespace graphicEngine::gl

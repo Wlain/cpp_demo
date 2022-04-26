@@ -18,7 +18,7 @@ public:
 
 protected:
     void initPrograms() override;
-    void drawCubes(const std::unique_ptr<ProgramGL>& program) override;
+    void drawCubes(const ProgramGL* program) override;
     void initUbo();
 
 private:

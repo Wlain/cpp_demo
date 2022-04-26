@@ -24,11 +24,11 @@ namespace graphicEngine::gl
         }                                                                                                                 \
     } while (0)
 
-#define CHECK_GL(x)                 \
-    do                              \
-    {                               \
-        (x);                        \
-        checkGlError(TO_STRING(x)); \
+#define CHECK_GL(x)                                     \
+    do                                                  \
+    {                                                   \
+        (x);                                            \
+        checkGlError(TO_STRING(x), __FILE__, __LINE__); \
     } while (0)
 
 #define CHECK_GL_CALLED(x)                         \
@@ -39,6 +39,6 @@ namespace graphicEngine::gl
     } while (0)
 
 static const char* getGLErrorMsg(GLenum err);
-extern void checkGlError(const char* glFunc);
+extern void checkGlError(const char* glFunc, const char* file, int line);
 } // namespace graphicEngine::gl
 #endif //CPP_DEMO_UTILS_H

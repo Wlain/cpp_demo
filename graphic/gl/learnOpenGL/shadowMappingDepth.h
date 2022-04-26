@@ -20,10 +20,12 @@ protected:
     void initVertices() override;
     void initPlaneVertexAttrib() override;
     void initCubesVertexAttrib() override;
-    void drawCubes(const std::unique_ptr<ProgramGL>& program) override;
+    void drawCubes(const ProgramGL* program) override;
     virtual void initFbo();
+    virtual void initQuadFBO();
+    virtual void initDepthFbo();
     virtual void renderDebugQuad();
-    virtual void renderDepthImage(const std::unique_ptr<ProgramGL>& program);
+    virtual void renderDepthImage(const ProgramGL* program);
 
 protected:
     std::unique_ptr<ProgramGL> m_quadProgram;

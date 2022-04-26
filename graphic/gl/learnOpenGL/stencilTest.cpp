@@ -36,13 +36,13 @@ void StencilTest::render()
     // draw floor as normal, but don't write the floor to the stencil buffer, we only care about the containers. We set its mask to 0x00 to not write to the stencil buffer.
     CHECK_GL(glStencilMask(0x00)); // 每一位在写入模板缓冲时都会变成0（禁用写入）
     // floor
-    drawFloor(m_program);
+    drawFloor(m_program.get());
 
     // 1st. render pass, draw objects as normal, writing to the stencil buffer
     CHECK_GL(glStencilFunc(GL_ALWAYS, 1, 0xFF));
     CHECK_GL(glStencilMask(0xFF)); // 每一位写入模板缓冲时都保持原样
     // cubes
-    drawCubes(m_program);
+    drawCubes(m_program.get());
 
     // 2nd. render pass: now draw slightly scaled versions of the objects, this time disabling stencil writing.
     // Because the stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are not drawn, thus only drawing

@@ -13,7 +13,7 @@ void AdvancedLighting::render()
     CHECK_GL(glClearColor(0.f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     // floor
-    drawFloor(m_program);
+    drawFloor(m_program.get());
     CHECK_GL(glBindVertexArray(0));
 }
 

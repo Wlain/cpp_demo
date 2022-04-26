@@ -5,7 +5,6 @@ in VsOut {
     vec3 fragPos;
     vec3 normal;
     vec2 texCoords;
-    vec4 fragPosLightSpace;
 } fsIn;
 
 uniform sampler2D diffuseTexture;
@@ -27,7 +26,6 @@ vec3(1, 1, 0), vec3(1, -1, 0), vec3(-1, -1, 0), vec3(-1, 1, 0),
 vec3(1, 0, 1), vec3(-1, 0, 1), vec3(1, 0, -1), vec3(-1, 0, -1),
 vec3(0, 1, 1), vec3(0, -1, 1), vec3(0, -1, -1), vec3(0, 1, -1)
 );
-
 
 float calcShadow(vec3 fragPos)
 {
@@ -68,7 +66,7 @@ void main()
     spec = pow(max(dot(normal, halfwayDir), 0.0), 64.0);
     vec3 specular = spec * lightColor;
     // calculate shadow
-    float shadow = calcShadow(fsIn.fragPosLightSpace);
+    float shadow = calcShadow(fsIn.fragPos);
     vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;
     fragColor = vec4(lighting, 1.0);
 }

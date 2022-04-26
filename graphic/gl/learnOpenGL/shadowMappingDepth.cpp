@@ -129,33 +129,8 @@ void ShadowMappingDepth::initPlaneVertexAttrib()
 
 void ShadowMappingDepth::initFbo()
 {
-    CHECK_GL(glGenFramebuffers(1, &m_depthMapFbo));
-    CHECK_GL(glGenTextures(1, &m_depthMapTexture));
-    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_depthMapTexture));
-    CHECK_GL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, s_shadowWidth, s_shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr));
-    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER));
-    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER));
-    GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-    // attach depth texture as FBO's depth buffer
-    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFbo));
-    CHECK_GL(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthMapTexture, 0));
-    CHECK_GL(glDrawBuffer(GL_NONE));
-    CHECK_GL(glReadBuffer(GL_NONE));
-    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-
-    CHECK_GL(glGenVertexArrays(1, &m_quadVao));
-    CHECK_GL(glGenBuffers(1, &m_quadVbo));
-    CHECK_GL(glBindVertexArray(m_quadVao));
-    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_quadVbo));
-    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_quadVertices[0]) * m_quadVertices.size(), m_quadVertices.data(), GL_STATIC_DRAW));
-    CHECK_GL(glEnableVertexAttribArray(0));
-    CHECK_GL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0));
-    CHECK_GL(glEnableVertexAttribArray(1));
-    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
-    CHECK_GL(glBindVertexArray(0));
+    initDepthFbo();
+    initQuadFBO();
 }
 
 void ShadowMappingDepth::initialize()
@@ -176,7 +151,7 @@ void ShadowMappingDepth::update(float elapseTime)
 
 void ShadowMappingDepth::render()
 {
-    renderDepthImage(m_program);
+    renderDepthImage(m_program.get());
     // reset viewport
     CHECK_GL(glViewport(0, 0, m_width, m_height));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -184,7 +159,7 @@ void ShadowMappingDepth::render()
     renderDebugQuad();
 }
 
-void ShadowMappingDepth::drawCubes(const std::unique_ptr<ProgramGL>& program)
+void ShadowMappingDepth::drawCubes(const ProgramGL* program)
 {
     CHECK_GL(glBindVertexArray(m_vao));
     CHECK_GL(glActiveTexture(GL_TEXTURE0));
@@ -221,7 +196,7 @@ void ShadowMappingDepth::renderDebugQuad()
     CHECK_GL(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 }
 
-void ShadowMappingDepth::renderDepthImage(const std::unique_ptr<ProgramGL>& program)
+void ShadowMappingDepth::renderDepthImage(const ProgramGL* program)
 {
     CHECK_GL(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
     CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -247,7 +222,40 @@ void ShadowMappingDepth::initCubesVertexAttrib()
     CHECK_GL(glEnableVertexAttribArray(2));
     CHECK_GL(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
     CHECK_GL(glBindVertexArray(0));
+}
 
+void ShadowMappingDepth::initQuadFBO()
+{
+    CHECK_GL(glGenVertexArrays(1, &m_quadVao));
+    CHECK_GL(glGenBuffers(1, &m_quadVbo));
+    CHECK_GL(glBindVertexArray(m_quadVao));
+    CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER, m_quadVbo));
+    CHECK_GL(glBufferData(GL_ARRAY_BUFFER, sizeof(m_quadVertices[0]) * m_quadVertices.size(), m_quadVertices.data(), GL_STATIC_DRAW));
+    CHECK_GL(glEnableVertexAttribArray(0));
+    CHECK_GL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0));
+    CHECK_GL(glEnableVertexAttribArray(1));
+    CHECK_GL(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
+    CHECK_GL(glBindVertexArray(0));
+}
+
+void ShadowMappingDepth::initDepthFbo()
+{
+    CHECK_GL(glGenFramebuffers(1, &m_depthMapFbo));
+    CHECK_GL(glGenTextures(1, &m_depthMapTexture));
+    CHECK_GL(glBindTexture(GL_TEXTURE_2D, m_depthMapTexture));
+    CHECK_GL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, s_shadowWidth, s_shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr));
+    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER));
+    CHECK_GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER));
+    GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+    // attach depth texture as FBO's depth buffer
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFbo));
+    CHECK_GL(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_depthMapTexture, 0));
+    CHECK_GL(glDrawBuffer(GL_NONE));
+    CHECK_GL(glReadBuffer(GL_NONE));
+    CHECK_GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
 } // namespace graphicEngine::gl
