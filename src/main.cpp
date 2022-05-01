@@ -150,11 +150,10 @@ extern void recordABug();
 extern void staticExternThreadCrashDemo();
 extern void spdlogTest();
 extern void setCallback();
-
-#include "commonMacro.h"
+extern void charTest();
 
 int main(int argc, char* argv[])
 {
-    setCallback();
+    charTest();
     return 0;
 }

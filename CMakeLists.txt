@@ -96,7 +96,7 @@ file(GLOB IMAGE_UI_SRC
         3rdparty/imgui/*.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp)
+add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp test/charTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

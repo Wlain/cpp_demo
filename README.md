@@ -320,12 +320,16 @@ git push -f
 
 13.vulkan 环境配置：
 下载地址：https://vulkan.lunarg.com/sdk/home#mac 直接安装即可
-
-安装opencv：
+1.安装homebrew
+```shell
+/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
+```
+2.安装opencv：
 ```shell
 brew install opencv@2
 ```
-配置环境变量：
+3.安装qt
+
 
 
 
