@@ -164,6 +164,134 @@ void virtualFuncTest()
     /// 输出的是 0，可能用户以为的默认参数是10，所以以为输出是9，需要注意
 }
 
+``` 
+34.避免边界错误
+``` C++
+// bad
+void f()
+{
+    array<int, 10> a, b;
+    memset(a.data(), 0, 10);         // BAD, and contains a length error (length = 10 * sizeof(int))
+    memcmp(a.data(), b.data(), 10);  // BAD, and contains a length error (length = 10 * sizeof(int))
+}
+
+// good
+void f()
+{
+    array<int, 10> a, b, c{};       // c is initialized to zero
+    a.fill(0);
+    fill(b.begin(), b.end(), 0);    // std::fill()
+    fill(b, 0);                     // std::ranges::fill()
+
+    if ( a == b ) {
+      // ...
+    }
+}
+
+void f(std::vector<int>& v, std::array<int, 12> a, int i)
+{
+    v[0] = a[0];        // BAD
+    v.at(0) = a[0];     // OK (alternative 1)
+    at(v, 0) = a[0];    // OK (alternative 2)
+
+    v.at(0) = a[i];     // BAD
+    v.at(0) = a.at(i);  // OK (alternative 1)
+    v.at(0) = at(a, i); // OK (alternative 2)
+}
+```
+35.不要将memset或者memcpy, memmove, memcmp用于不可复制的参数,这样做会弄乱对象的语义
+```C++
+struct base {
+    virtual void update() = 0;
+};
+
+struct derived : public base {
+    void update() override {}
+};
+
+// bad
+void f(derived& a, derived& b) // goodbye v-tables
+{
+    memset(&a, 0, sizeof(derived));
+    memcpy(&a, &b, sizeof(derived));
+    memcmp(&a, &b, sizeof(derived));
+}
+
+// good
+void g(derived& a, derived& b)
+{
+    a = {};    // default initialize
+    b = a;     // copy
+    if (a == b) do_something(a, b);
+}
+```
+36.std::string用于拥有字符序列
+``` C++
+
+vector<string> readUntil(const string& terminator)
+{
+    vector<string> res;
+    for (string s; cin >> s && s != terminator; ) // read a word
+        res.push_back(s);
+    return res;
+}
+
+// C++17: good
+// std::string_view或gsl::span<char>提供对字符序列的简单且（可能）安全的访问，而与这些序列的分配和存储方式无关
+// note: std::string_view(C++17) 是只读的
+
+vector<string> readUntil(string_view terminator)
+{
+    vector<string> res;
+    for (string s; cin >> s && s != terminator; ) // read a word
+        res.push_back(s);
+    return res;
+}
+
+void user(zstring p, const string& s, string_view ss)
+{
+    auto v1 = read_until(p);
+    auto v2 = read_until(s);
+    auto v3 = read_until(ss);
+    // ...
+}
+```
+
+37.避免endl
+endl机械手大多等价于'\n'and "\n"; flush()作为最常用的，它只是通过执行冗余s来减慢输出。printf与 -C风格的输出相比，这种放缓可能是显着的
+}
+```C++
+cout << "Hello, World!" << endl;    // two output operations and a flush
+cout << "Hello, World!\n";          // one output operation and no flush
+}
+```
+38.不要坚持return在函数中只有一个语句
+```C++
+// bad 
+int index2(const char* p)
+{
+    int i;
+    if (!p)
+        i = -1;  // error indicator
+    else {
+        // ... do a lookup to find the index for p
+    }
+    return i;
+}
+// good 
+template<class T>
+//  requires Number<T>
+string sign(T x)        // bad
+{
+    string res;
+    if (x < 0)
+        res = "negative";
+    else if (x > 0)
+        res = "positive";
+    else
+        res = "zero";
+    return res;
+}
 ```
 
 
