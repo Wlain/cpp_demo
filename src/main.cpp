@@ -151,9 +151,10 @@ extern void staticExternThreadCrashDemo();
 extern void spdlogTest();
 extern void setCallback();
 extern void charTest();
+extern void replaceTest();
 
 int main(int argc, char* argv[])
 {
-    charTest();
+    replaceTest();
     return 0;
 }
