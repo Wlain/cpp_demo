@@ -257,8 +257,8 @@ void user(zstring p, const string& s, string_view ss)
 }
 ```
 
-37.避免endl
-endl机械手大多等价于'\n'and "\n"; flush()作为最常用的，它只是通过执行冗余s来减慢输出。printf与 -C风格的输出相比，这种放缓可能是显着的
+37.避免std::endl,
+std::endl大多等价于'\n'或者 "\n"; flush()作为最常用的，它只是通过执行冗余s来减慢输出。printf与C++风格的输出相比，这种放缓可能是显着的
 }
 ```C++
 cout << "Hello, World!" << endl;    // two output operations and a flush

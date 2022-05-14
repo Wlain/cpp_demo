@@ -4,6 +4,7 @@
 
 #include "assignment.h"
 #include "base.h"
+#include <any>
 
 namespace enableSharedFromThisTest
 {
@@ -155,6 +156,6 @@ extern void replaceTest();
 
 int main(int argc, char* argv[])
 {
-    replaceTest();
+    anyTest();
     return 0;
 }
