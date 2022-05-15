@@ -293,7 +293,86 @@ string sign(T x)        // bad
     return res;
 }
 ```
+39.写代码需要表明意图,保证可读性
+```C++
+// bad
+void f(vector<string>& v)
+{
+    string val;
+    cin >> val;
+    // ...
+    int index = -1;  // bad, plus should use gsl::index
+    for (int i = 0; i < v.size(); ++i) {
+        if (v[i] == val) {
+            index = i;
+            break;
+        }
+    }
+}
 
+void f(vector<string>& v)
+{
+    string val;
+    cin >> val;
+    // ...
+    auto p = find(begin(v), end(v), val);  // better
+    // ...
+}
+```
+40.返回值优化rvo
+```
+vector<int> f5(int n)    // OK: move
+{
+vector<int> v(n);
+// ... initialize v ...
+return v;
+}
+unique_ptr<int[]> f6(int n)    // bad: loses n
+{
+    auto p = make_unique<int[]>(n);
+    // ... initialize *p ...
+    return p;
+}
+
+owner<int*> f7(int n)    // bad: loses n and we might forget to delete
+{
+    owner<int*> p = new int[n];
+    // ... initialize *p ...
+    return p;
+}
+```
+41.不要泄露任何资源
+```C++
+// bad
+void f(char* name)
+{
+FILE* input = fopen(name, "r");
+// ...
+if (something) return;   // bad: if something == true, a file handle is leaked
+// ...
+fclose(input);
+}
+// good
+void f(char* name)
+{
+    ifstream input {name};
+    // ...
+    if (something) return;   // OK: no leak
+    // ...
+}
+```
+42.状态后置条件
+```C++
+// bad
+int area(int height, int width) { return height * width; }  // bad
+// good
+int area(int height, int width)
+{
+    auto res = height * width;
+    assert(res > 0);
+    return res;
+}
+```
 
 ##C++ 编程规范 101条规则、准则与最佳实践
 001.了解哪些东西不应该标准化
