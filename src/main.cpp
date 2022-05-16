@@ -153,9 +153,10 @@ extern void spdlogTest();
 extern void setCallback();
 extern void charTest();
 extern void replaceTest();
+extern void myAllocTest();
 
 int main(int argc, char* argv[])
 {
-    anyTest();
+    myAllocTest();
     return 0;
 }
