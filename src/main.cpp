@@ -155,9 +155,10 @@ extern void charTest();
 extern void replaceTest();
 extern void myAllocTest();
 extern void algorithmTest();
+extern void filesystemTest();
 
 int main(int argc, char* argv[])
 {
-    algorithmTest();
+    filesystemTest();
     return 0;
 }
