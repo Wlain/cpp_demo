@@ -154,9 +154,10 @@ extern void setCallback();
 extern void charTest();
 extern void replaceTest();
 extern void myAllocTest();
+extern void algorithmTest();
 
 int main(int argc, char* argv[])
 {
-    myAllocTest();
+    algorithmTest();
     return 0;
 }

@@ -60,4 +60,15 @@ void stringViewTest()
     std::cout << data.substr(pos = 4, count = 42) << '\n'; // EF
     // count -> 2 == size() - pos == 6 - 4
 
+    const std::string_view str1("hello world");
+    std::string_view::const_reference refStr2 = str1.at(8);
+    std::cout << refStr2 << "\n";
+
+    char c[] = "Help";
+    using std::cout;
+    using std::endl;
+    cout << std::boolalpha;
+    std::string_view sv{c};
+    std::cout << sv.size() << std::endl;
+    cout << sv.back() << endl; // p
 }
