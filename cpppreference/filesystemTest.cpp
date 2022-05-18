@@ -1,6 +1,7 @@
 //
 // Created by william on 2022/5/17.
 //
+#include "commonMacro.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -9,11 +10,12 @@
 #include <vector>
 #include <random>
 
+
 std::wstring DisplayPathInfo()
 {
     using namespace std::filesystem;
     using std::endl;
-    path pathToDisplay("/Users/william/git/sample/cpp_demo/cpppreference/fileIOTest.cpp");
+    path pathToDisplay(GET_CURRENT("cpppreference/fileIOTest.cpp"));
     std::wostringstream wos;
     int i = 0;
     wos << L"Displaying path info for: " << pathToDisplay << std::endl;
@@ -98,7 +100,6 @@ void filesystemTest()
     std::random_device rd;
     std::mt19937 engine(rd());
     std::uniform_int_distribution<int> dist(0, 255);
-    // Call generate_n, using a lambda for the third parameter
     std::generate(image.begin(), image.end(), [&]() { return dist(engine); });
     saveToPPM("/Users/william/git/sample/cpp_demo/resources/save.ppm", image, width, height);
 }

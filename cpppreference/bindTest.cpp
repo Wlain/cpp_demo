@@ -23,6 +23,16 @@ struct Foo
     int data = 10;
 };
 
+void square(double x)
+{
+    std::cout << x << "^2 == " << x * x << std::endl;
+}
+
+void product(double x, double y)
+{
+    std::cout << x << "*" << y << " == " << x * y << std::endl;
+}
+
 void bindTest()
 {
     using namespace std::placeholders; // 对于_1, _2, _3...
@@ -52,4 +62,11 @@ void bindTest()
     // 智能指针亦能用于调用被引用对象的成员
     std::cout << f4(std::make_shared<Foo>(foo)) << '\n'
               << f4(std::make_unique<Foo>(foo)) << '\n';
+
+    double arg[] = { 1, 2, 3 };
+    std::for_each(&arg[0], arg + 3, square);
+    std::cout << std::endl;
+    std::for_each(&arg[0], arg + 3, std::bind(product, _1, 2));
+    std::cout << std::endl;
+    std::for_each(&arg[0], arg + 3, std::bind(square, _1));
 }
