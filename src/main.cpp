@@ -4,6 +4,7 @@
 
 #include "assignment.h"
 #include "base.h"
+
 #include <any>
 
 namespace enableSharedFromThisTest
@@ -156,9 +157,15 @@ extern void replaceTest();
 extern void myAllocTest();
 extern void algorithmTest();
 extern void filesystemTest();
+/// cpu渲染器
+extern void sampleTriangleTest();
+extern void sampleTextureTest();
+extern void sampleBoxTest();
+extern void sampleGouraundTest();
+extern void sampleModelTest();
 
 int main(int argc, char* argv[])
 {
-    filesystemTest();
+    sampleModelTest();
     return 0;
 }

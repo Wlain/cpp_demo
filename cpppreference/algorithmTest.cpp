@@ -243,7 +243,7 @@ void algorithmTest()
     // to the right
     std::copy_backward(v3.begin() + 4, v3.begin() + 7, v3.begin() + 9);
     cout << "v2 with shifted insert = " << v3 << std::endl;
-    /// transform:
+    /// transform:这个方法虽然很好，但是效率不是很高
     /// 将指定的函数对象应用于源范围中的每个元素或两个源范围中的一对元素，并将函数对象的返回值复制到目标范围中
     printLine("transform");
     v1.clear();
@@ -345,7 +345,7 @@ void algorithmTest()
     }
     cout << "Vector v1 =" << v1 << endl;
     // Fill the last 5 positions with a value of 2
-    fill(v1.begin() + 5, v1.end(), 2);
+    std::fill(v1.begin() + 5, v1.end(), 2);
     cout << "Modified v1 =" << v1 << endl;
     /// generate:将函数对象生成的值分配给范围内的每个元素.
     v1.resize(5);
