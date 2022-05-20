@@ -4,6 +4,7 @@
 
 #ifndef CPP_DEMO_RENDERHELP_H
 #define CPP_DEMO_RENDERHELP_H
+/// 软光栅渲染器：基于D3D
 
 #include "timer.h"
 

@@ -163,9 +163,11 @@ extern void sampleTextureTest();
 extern void sampleBoxTest();
 extern void sampleGouraundTest();
 extern void sampleModelTest();
+extern void sampleNormalTest();
+extern void sampleSpecularTest();
 
 int main(int argc, char* argv[])
 {
-    sampleModelTest();
+    sampleSpecularTest();
     return 0;
 }

@@ -51,7 +51,7 @@ public:
         return color.xyz();
     }
 
-    inline float Specular(Vec2f uv)
+    inline float specular(Vec2f uv)
     {
         Vec4f color = m_specularMap->sample2D(uv);
         return color.b;
