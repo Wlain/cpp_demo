@@ -32,7 +32,7 @@ public:
         switch (level)
         {
         case Level::Info:
-            m_logger->debug(std::forward<T>(args)...);
+            m_logger->info(std::forward<T>(args)...);
             break;
         case Level::Warn:
             m_logger->warn(std::forward<T>(args)...);
