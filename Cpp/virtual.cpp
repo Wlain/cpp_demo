@@ -256,5 +256,160 @@ void virtualSimulation()
     animals.push_back(std::make_unique<Parrot>("party"));
     for (const auto& a : animals)
         a->sound();
+
+    // 当然，我们也可以手动调用虚函数表，示例如下
+    class Base
+    {
+    public:
+        virtual ~Base()
+        {
+            std::cout << "Base::Base called" << std::endl;
+        }
+        virtual void func1()
+        {
+            std::cout << "Base::func1 called" << std::endl;
+        }
+        virtual void func2()
+        {
+            std::cout << "Base::func2 called" << std::endl;
+        }
+    };
+
+    class Base2
+    {
+    public:
+        virtual ~Base2()
+        {
+            std::cout << "Base2::Base called" << std::endl;
+        }
+        virtual void func3()
+        {
+            std::cout << "Base2::func3 called" << std::endl;
+        }
+        virtual void func4()
+        {
+            std::cout << "Base2::func4 called" << std::endl;
+        }
+    };
+
+    class Derived : public Base2, public Base
+    {
+    public:
+        ~Derived() override
+        {
+            std::cout << "~Derived::Derived called" << std::endl;
+        }
+        void func1() override
+        {
+            std::cout << "Derived::func1 called" << std::endl;
+        }
+        void func2() override
+        {
+            std::cout << "Derived::func2 called" << std::endl;
+        }
+        void func3() override
+        {
+            std::cout << "Derived::func3 called" << std::endl;
+        }
+        void func4() override
+        {
+            std::cout << "Derived::func4 called" << std::endl;
+        }
+    };
+
+    class Derived2 : public Base
+    {
+    public:
+        ~Derived2() override
+        {
+            std::cout << "~Derived2::Derived2 called" << std::endl;
+        }
+        void func1() override
+        {
+            std::cout << "Derived2::func1 called" << std::endl;
+        }
+        void func2() override
+        {
+            std::cout << "Derived2::func2 called" << std::endl;
+        }
+    };
+
+    Derived* d = new Derived();
+    // 虚表指针
+    std::cout << "vatable addr:" << (int64_t*)d << std::endl;
+    using Func = void (*)();
+    std::cout << "Base::~Base:" << (int64_t*)(*(int64_t*)(d)) << std::endl;
+    std::cout << "Base2::~Base2:" << (int64_t*)(*(int64_t*)d + 1) << std::endl;
+    std::cout << "Derived::func1 addr:" << (*((int64_t*)(*(int64_t*)d) + 2)) << std::endl;
+    std::cout << "Derived::func2 addr:" << (*((int64_t*)(*(int64_t*)d) + 3)) << std::endl;
+    std::cout << "Derived::func3 addr:" << (*((int64_t*)(*(int64_t*)d) + 4)) << std::endl;
+    std::cout << "Derived::func4 addr:" << (*((int64_t*)(*(int64_t*)d) + 5)) << std::endl;
+    std::cout << "=================================" << std::endl;
+    for (int i = 2; i <= 5; ++i)
+    {
+        Func func = (Func)(*((int64_t*)(*(int64_t*)d) + i));
+        func();
+    }
+    Base* b = d;
+    // 虚表指针
+    std::cout << "vatable addr:" << (int64_t*)b << std::endl;
+
+    std::cout << "Base::~Base:" << (int64_t*)(*(int64_t*)(b)) << std::endl;
+    std::cout << "Base2::~Base2:" << (int64_t*)(*(int64_t*)b + 1) << std::endl;
+    std::cout << "Derived::func1 addr:" << (*((int64_t*)(*(int64_t*)b) + 2)) << std::endl;
+    std::cout << "Derived::func2 addr:" << (*((int64_t*)(*(int64_t*)b) + 3)) << std::endl;
+    std::cout << "Derived::func3 addr:" << (*((int64_t*)(*(int64_t*)b) + 4)) << std::endl;
+    std::cout << "Derived::func4 addr:" << (*((int64_t*)(*(int64_t*)b) + 5)) << std::endl;
+    for (int i = 2; i <= 3; ++i)
+    {
+        Func func = (Func)(*((int64_t*)(*(int64_t*)b) + i));
+        func();
+    }
+    std::cout << "=================================" << std::endl;
+    Base2* b2 = d;
+    // 虚表指针
+    std::cout << "vatable addr:" << (int64_t*)b2 << std::endl;
+    std::cout << "Base::~Base:" << (int64_t*)(*(int64_t*)(b2)) << std::endl;
+    std::cout << "Base2::~Base2:" << (int64_t*)(*(int64_t*)b2 + 1) << std::endl;
+    std::cout << "Derived::func1 addr:" << (*((int64_t*)(*(int64_t*)b2) + 2)) << std::endl;
+    std::cout << "Derived::func2 addr:" << (*((int64_t*)(*(int64_t*)b2) + 3)) << std::endl;
+    std::cout << "Derived::func3 addr:" << (*((int64_t*)(*(int64_t*)b2) + 4)) << std::endl;
+    std::cout << "Derived::func4 addr:" << (*((int64_t*)(*(int64_t*)b2) + 5)) << std::endl;
+    for (int i = 2; i <= 5; ++i)
+    {
+        Func func = (Func)(*((int64_t*)(*(int64_t*)b2) + i));
+        func();
+    }
+    std::cout << "=================================" << std::endl;
+
+    Derived2* d2 = new Derived2();
+    // 虚表指针
+    std::cout << "vatable addr:" << (int64_t*)d2 << std::endl;
+    using Func = void (*)();
+    std::cout << "Base::~Base:" << (int64_t*)(*(int64_t*)(d2)) << std::endl;
+    std::cout << "Derive2::func1 addr:" << (*((int64_t*)(*(int64_t*)d2) + 2)) << std::endl;
+    std::cout << "Derive2::func2 addr:" << (*((int64_t*)(*(int64_t*)d2) + 3)) << std::endl;
+    for (int i = 2; i <= 3; ++i)
+    {
+        Func func = (Func)(*((int64_t*)(*(int64_t*)d2) + i));
+        func();
+    }
+    std::cout << "=================================" << std::endl;
+    Base* b3 = d2;
+    // 虚表指针
+    std::cout << "vatable addr:" << (int64_t*)b3 << std::endl;
+    using Func = void (*)();
+    std::cout << "Base::~Base:" << (int64_t*)(*(int64_t*)(b3)) << std::endl;
+    std::cout << "Derive2::func1 addr:" << (*((int64_t*)(*(int64_t*)b3) + 2)) << std::endl;
+    std::cout << "Derive2::func2 addr:" << (*((int64_t*)(*(int64_t*)b3) + 3)) << std::endl;
+    for (int i = 2; i <= 3; ++i)
+    {
+        Func func = (Func)(*((int64_t*)(*(int64_t*)b3) + i));
+        func();
+    }
+
+    std::cout << "=================================" << std::endl;
+    delete d;
+    delete d2;
 }
 } // namespace cpp
