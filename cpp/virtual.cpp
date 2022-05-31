@@ -3,6 +3,9 @@
 //
 
 /*
+参考链接：
+https://mp.weixin.qq.com/s/FJfSkrRKvuOmAfqqgf_e8Q
+https://mp.weixin.qq.com/s/7OXVqhkZuiZaTxwzc0hVwg
 C++三大特性之：多态
 总结：vtable只是内存中的一个静态块，主要包含指函数指针。当一个多态类派生自另一个多态类时，我们可能有以下几种情况：
 1.派生类不会添加新的虚函数，也不会覆盖任何虚函数。在这种情况下，此类与基类共享 vtable。
