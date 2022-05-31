@@ -166,8 +166,13 @@ extern void sampleModelTest();
 extern void sampleNormalTest();
 extern void sampleSpecularTest();
 
+namespace cpp
+{
+extern void virtualSimulation();
+}
+
 int main(int argc, char* argv[])
 {
-    sampleSpecularTest();
+    cpp::virtualSimulation();
     return 0;
 }

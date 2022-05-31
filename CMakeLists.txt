@@ -7,12 +7,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
 # 设置编译缓存
 find_program(CCACHE_PROGRAM ccache)
-if(CCACHE_PROGRAM)
+if (CCACHE_PROGRAM)
     message(STATUS "Set up ccache ...")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
     message(STATUS "found CCache: ${CCACHE_PROGRAM}")
-endif()
+endif ()
 
 add_compile_options(-fno-elide-constructors)    #关闭编译器优化
 set(CMAKE_CXX_FLAGS "-fno-elide-constructors ${CMAKE_CXX_FLAGS}")
@@ -87,6 +87,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         graphic/metal/*.mm
         rayTracing/*.cpp
         imageProcess/*.cpp
+        cpp/*.cpp
         qt/*cpp)
 
 # imgui
@@ -111,7 +112,7 @@ target_link_libraries(cpp_demo
         glew
         spdlog
         assimp
-#        Vulkan::Vulkan
+        #        Vulkan::Vulkan
         "-framework IOSurface"
         "-framework Metal"
         "-framework MetalKit"

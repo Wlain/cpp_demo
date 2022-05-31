@@ -513,7 +513,7 @@ void ImageWidget::openImage(ImageWrapper& image)
     auto width = image.matImage->cols;
     auto height = image.matImage->rows;
     cropImage(*image.matImage);
-    cv::resize(*image.matImage, *image.matImage, cvSize(s_imageWidth, s_imageWidth));
+    cv::resize(*image.matImage, *image.matImage, cv::Size(s_imageWidth, s_imageWidth));
     if (image.qImage == nullptr)
     {
         image.qImage = std::make_unique<QImage>();
