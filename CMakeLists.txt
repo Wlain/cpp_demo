@@ -88,7 +88,8 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         rayTracing/*.cpp
         imageProcess/*.cpp
         cpp/*.cpp
-        qt/*cpp)
+        qt/*cpp
+        leetCode/*.cpp)
 
 # imgui
 file(GLOB IMAGE_UI_SRC

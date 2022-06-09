@@ -212,7 +212,7 @@ void interviews()
     std::cout << b << std::endl;
     int max = MAX(12, ++value);
 
-    auto n = 1024 * 1024 * 1024 * 5;
+    auto n = 1024 * 1024 * 5;
     char* buf = new char[n];
     // 问题1：创建出来的是一个什么样的数组
     std::cout << n << std::endl;
