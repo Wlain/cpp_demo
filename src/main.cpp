@@ -170,9 +170,12 @@ namespace cpp
 {
 extern void virtualSimulation();
 }
+#include <vector>
 
 int main(int argc, char* argv[])
 {
-    cpp::virtualSimulation();
+    //    cpp::virtualSimulation();
+    std::vector test = { 1, 2, 3, 4, 1, 1, 3 };
+    std::cout << std::count(test.begin(), test.end(), 1) << std::endl;
     return 0;
 }
