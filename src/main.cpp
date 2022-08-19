@@ -77,6 +77,8 @@ extern void staticTest();
 extern void staticTest2();
 extern void crashTest();
 extern void restrictTest();
+extern void variantTest();
+extern void visitTest();
 /// 验证一个异步崩溃的demo
 extern void asyncTestDemo();
 
@@ -176,6 +178,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    addTwoNumbersTest();
+    visitTest();
     return 0;
 }
