@@ -167,6 +167,7 @@ extern void sampleGouraundTest();
 extern void sampleModelTest();
 extern void sampleNormalTest();
 extern void sampleSpecularTest();
+extern void microTest();
 
 namespace cpp
 {
@@ -178,6 +179,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    visitTest();
+    microTest();
     return 0;
 }
