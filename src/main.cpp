@@ -68,6 +68,7 @@ extern void luaTest();
 extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
+extern void opencvMP4Test();
 extern void optionalTest();
 extern void transformTest();
 extern void timerTest();
@@ -179,6 +180,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    microTest();
+    opencvMP4Test();
     return 0;
 }
