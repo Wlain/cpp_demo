@@ -7,6 +7,9 @@
 
 void opencvMP4Test()
 {
+    // 打开相机
+    // cv::VideoCapture videoCapture(0);
+    // 播放Mp4
     cv::VideoCapture videoCapture;
     videoCapture.open(GET_CURRENT("/resources/test.mp4"));
     // check if we succeeded
@@ -37,5 +40,4 @@ void opencvMP4Test()
         if (cv::waitKey(5) >= 0)
             break;
     }
-    cv::waitKey(0);
 }
