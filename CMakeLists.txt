@@ -4,6 +4,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error -Wno-deprecated -Wno-deprecated-declarations -Wno-unused-but-set-variable")
 
 # 设置编译缓存
 find_program(CCACHE_PROGRAM ccache)
@@ -105,6 +108,7 @@ set_target_properties(cpp_demo PROPERTIES
         MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/graphic/metal/Info.plist)
 
 target_compile_options(cpp_demo PUBLIC "-fobjc-arc")
+
 
 # 链接库
 target_link_libraries(cpp_demo

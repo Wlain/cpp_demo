@@ -180,6 +180,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    opencvMP4Test();
+    qtTest(argc, argv);
     return 0;
 }

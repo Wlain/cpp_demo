@@ -66,5 +66,6 @@ int inheritsTest()
 	tempB = 1
 	tempC = 2
     */
+    return 0;
 }
 } // namespace cpp

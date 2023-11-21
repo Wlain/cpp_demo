@@ -8,6 +8,7 @@
 
 #include "timer.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <functional>

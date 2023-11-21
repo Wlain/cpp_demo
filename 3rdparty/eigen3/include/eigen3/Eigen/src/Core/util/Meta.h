@@ -299,7 +299,7 @@ protected:
   EIGEN_DEVICE_FUNC noncopyable() {}
   EIGEN_DEVICE_FUNC ~noncopyable() {}
 };
-
+#undef EIGEN_HAS_STD_RESULT_OF
 /** \internal
   * Convenient struct to get the result type of a unary or binary functor.
   *
