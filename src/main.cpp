@@ -146,7 +146,11 @@ extern void chapter12();
 
 extern void imageProcessTest();
 extern void colorTransferBetweenImages();
+namespace qtTest
+{
 extern int qtTest(int argc, char* argv[]);
+extern int qtTest1(int argc, char* argv[]);
+} // namespace qtTest
 extern void annTest();
 extern void eigenTest();
 extern void virtualFuncTest();
@@ -180,6 +184,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    qtTest(argc, argv);
+    qtTest::qtTest1(argc, argv);
     return 0;
 }
