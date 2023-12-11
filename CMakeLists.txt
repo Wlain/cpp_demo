@@ -8,6 +8,12 @@ set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error -Wno-deprecated -Wno-deprecated-declarations -Wno-unused-but-set-variable")
 
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+endif()
+
 # 设置编译缓存
 find_program(CCACHE_PROGRAM ccache)
 if (CCACHE_PROGRAM)
