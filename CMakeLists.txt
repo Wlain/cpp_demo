@@ -42,6 +42,8 @@ add_subdirectory(3rdparty/spdlog)
 add_subdirectory(3rdparty/assimp)
 # v8
 include(3rdparty/v8/v8.cmake)
+# json11
+add_subdirectory(3rdparty/json11)
 
 # qt
 set(CMAKE_AUTOMOC ON)
@@ -110,7 +112,8 @@ file(GLOB IMAGE_UI_SRC
         )
 
 add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp test/charTest.cpp
-        test/js/jsTest.cpp)
+        test/js/jsTest.cpp
+        test/jsonTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
@@ -137,6 +140,7 @@ target_link_libraries(cpp_demo
         Qt5::Widgets
         Qt5::Gui
         Qt5::Core
+        json11
         v8Dll
         z
         )

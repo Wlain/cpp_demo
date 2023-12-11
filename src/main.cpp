@@ -67,6 +67,7 @@ extern void addAddTest();
 extern void luaTest();
 extern void jsTest(int argc, char* argv[]);
 extern std::string toHex(int num);
+extern void jsonTest();
 extern void eigen3Test();
 extern void opencvTest();
 extern void opencvMP4Test();
@@ -185,6 +186,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    jsTest(argc, argv);
+    jsonTest();
     return 0;
 }
