@@ -65,6 +65,7 @@ extern void unorderedMapTest();
 extern void stringTest();
 extern void addAddTest();
 extern void luaTest();
+extern void jsTest(int argc, char* argv[]);
 extern std::string toHex(int num);
 extern void eigen3Test();
 extern void opencvTest();
@@ -184,6 +185,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    qtTest::qtTest1(argc, argv);
+    jsTest(argc, argv);
     return 0;
 }

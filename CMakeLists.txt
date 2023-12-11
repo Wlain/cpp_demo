@@ -40,6 +40,8 @@ add_subdirectory(3rdparty/glew-2.2.0/build/cmake)
 add_subdirectory(3rdparty/spdlog)
 # assimp
 add_subdirectory(3rdparty/assimp)
+# v8
+include(3rdparty/v8/v8.cmake)
 
 # qt
 set(CMAKE_AUTOMOC ON)
@@ -107,7 +109,8 @@ file(GLOB IMAGE_UI_SRC
         3rdparty/imgui/*.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp test/charTest.cpp)
+add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp test/charTest.cpp
+        test/js/jsTest.cpp)
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"
@@ -134,5 +137,6 @@ target_link_libraries(cpp_demo
         Qt5::Widgets
         Qt5::Gui
         Qt5::Core
+        v8Dll
         z
         )
