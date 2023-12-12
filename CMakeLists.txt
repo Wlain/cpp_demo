@@ -26,8 +26,7 @@ endif ()
 add_compile_options(-fno-elide-constructors)    #关闭编译器优化
 set(CMAKE_CXX_FLAGS "-fno-elide-constructors ${CMAKE_CXX_FLAGS}")
 
-add_definitions(-DCURRENT_PROJECT_DIR="${PROJECT_SOURCE_DIR}" -DIMGUI_IMPL_OPENGL_LOADER_GL3W)
-
+add_definitions(-DCURRENT_PROJECT_DIR="${PROJECT_SOURCE_DIR}" -DIMGUI_IMPL_OPENGL_LOADER_GL3W -DSOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 # opencv
 find_package(OpenCV REQUIRED)
 # vulkan
@@ -111,9 +110,7 @@ file(GLOB IMAGE_UI_SRC
         3rdparty/imgui/*.cpp
         )
 
-add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC} test/setCallbackTest.cpp test/charTest.cpp
-        test/js/jsTest.cpp
-        test/jsonTest.cpp)
+add_executable(cpp_demo ${SOURCES} ${IMAGE_UI_SRC})
 
 set_target_properties(cpp_demo PROPERTIES
         COMPILE_FLAGS " -O0"

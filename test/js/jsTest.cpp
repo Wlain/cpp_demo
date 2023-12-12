@@ -19,17 +19,17 @@ void jsTest(int argc, char* argv[])
     v8::V8::Initialize();
 
     // Create a new Isolate and make it the current one.
-    v8::Isolate::CreateParams create_params;
-    create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
-    v8::Isolate* isolate = v8::Isolate::New(create_params);
+    v8::Isolate::CreateParams createParams;
+    createParams.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
+    v8::Isolate* isolate = v8::Isolate::New(createParams);
     {
-        v8::Isolate::Scope isolate_scope(isolate);
+        v8::Isolate::Scope isolateScope(isolate);
         // Create a stack-allocated handle scope.
-        v8::HandleScope handle_scope(isolate);
+        v8::HandleScope handleScope(isolate);
         // Create a new context.
         v8::Local<v8::Context> context = v8::Context::New(isolate);
         // Enter the context for compiling and running the hello world script.
-        v8::Context::Scope context_scope(context);
+        v8::Context::Scope contextScope(context);
         {
             // Create a string containing the JavaScript source code.
             v8::Local<v8::String> source = v8::String::NewFromUtf8Literal(isolate, "'Hello' + ', World!'");
@@ -69,5 +69,5 @@ void jsTest(int argc, char* argv[])
     isolate->Dispose();
     v8::V8::Dispose();
     v8::V8::DisposePlatform();
-    delete create_params.array_buffer_allocator;
+    delete createParams.array_buffer_allocator;
 }
