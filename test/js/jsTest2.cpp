@@ -72,13 +72,29 @@ int jsTest2(int argc, char* argv[])
         auto source = v8::String::NewFromUtf8(isolate, jsStr.data(), v8::NewStringType::kNormal).ToLocalChecked();
 
         // 编译源代码
-        v8::Local<v8::Script> script =
-            v8::Script::Compile(context, source).ToLocalChecked();
+        v8::Local<v8::Script> script = v8::Script::Compile(context, source).ToLocalChecked();
 
         // 运行脚本
-        v8::Local<v8::Value> result = script->Run(context).ToLocalChecked();
-    }
+        script->Run(context).ToLocalChecked();
 
+        // 获取add函数
+        v8::Local<v8::Value> add_fn_val = context->Global()->Get(context, v8::String::NewFromUtf8(isolate, "add", v8::NewStringType::kNormal).ToLocalChecked()).ToLocalChecked();
+        v8::Local<v8::Function> add_fn = v8::Local<v8::Function>::Cast(add_fn_val);
+
+        // 创建参数
+        const int argc = 2;
+        // 使用for循环调用函数
+        int index = 0;
+        while (true)
+        {
+            v8::Local<v8::Value> argv[argc] = { v8::Number::New(isolate, ++index), v8::Number::New(isolate, 1) };
+            // 调用函数
+            v8::Local<v8::Value> result = add_fn->Call(context, context->Global(), argc, argv).ToLocalChecked();
+            // 输出结果
+            v8::String::Utf8Value utf8(isolate, result);
+            std::cout << "Result[" << index << "]: " << *utf8 << std::endl;
+        }
+    }
     // 清理V8
     isolate->Dispose();
     v8::V8::Dispose();
