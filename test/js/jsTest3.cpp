@@ -38,9 +38,9 @@ void jsTest3(int argc, char* argv[])
     v8::Isolate::Scope isolateScope(isolate);
     v8::HandleScope handleScope(isolate);
     v8::Local<v8::Context> context = v8::Context::New(isolate);
+    v8::Context::Scope contextScope(context);
     v8::Persistent<v8::Context> preContext(isolate, context);
     JSDebugger::getInstance().getDebugger() = std::make_unique<CDebugJS>(preContext, nullptr, 5067);
-    v8::Context::Scope contextScope(context);
     v8::Local<v8::Object> globalObj = context->Global();
     v8::Local<v8::External> ScriptContext = v8::External::New(isolate, nullptr);
     auto console = globalObj->Get(context, v8::String::NewFromUtf8(isolate, "console").ToLocalChecked()).ToLocalChecked();

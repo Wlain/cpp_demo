@@ -1,6 +1,6 @@
 function printTest()
 {
-    console.log("Test javascript loaded");
+    // console.log("Test javascript loaded");
 }
 
 function testLog()

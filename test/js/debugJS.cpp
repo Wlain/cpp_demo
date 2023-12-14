@@ -1,4 +1,5 @@
 ﻿#include "debugJS.h"
+
 #include "common/CodeCvs.h"
 #include "common/Http.h"
 #include "common/TStrStream.h"
@@ -120,8 +121,8 @@ bool CDebugJS::CheckRemoteCmd()
     char szCommand[256];
     char_stream(szCommand) << "{\"id\":" << m_nMessageID++
                            << ",\"method\":\"Debugger.enable\"}";
-//    std::cout << "CDebugJS::CheckRemoteCmd" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::CheckRemoteCmd" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_strUtf8Buffer.clear();
     m_Session->dispatchProtocolMessage(view);
@@ -341,8 +342,8 @@ void CDebugJS::FetchChildren(SObjectInfo& ObjInfo)
         << "\"method\":\"Runtime.getProperties\","
         << "\"params\":{\"objectId\":\"" << ObjInfo.strID
         << "\",\"ownProperties\":true}}";
-//    std::cout << "CDebugJS::FetchChildren" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::FetchChildren" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_strUtf8Buffer.clear();
     m_Session->dispatchProtocolMessage(view);
@@ -382,11 +383,17 @@ uint32 CDebugJS::GenBreakPointID(const char* szFileName, int32 nLine)
         << "\"method\":\"Debugger.setBreakpoint\","
         << "\"params\":{\"location\":{\"scriptId\":\""
         << itFile->first << "\",\"lineNumber\":" << nLine - 1 << "}}}";
-//    std::cout << "CDebugJS::GenBreakPointID" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::GenBreakPointID" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
+
     m_strUtf8Buffer.clear();
-    m_Session->dispatchProtocolMessage(view);
+    constexpr const auto* method = "Debugger.setBreakpoint";
+    v8_inspector::StringView methodStr((const uint8_t*)method, strlen(method));
+    if (v8_inspector::V8InspectorSession::canDispatchMethod(methodStr))
+    {
+        m_Session->dispatchProtocolMessage(view);
+    }
     if (m_strUtf8Buffer.empty())
         return 0;
     CJson BreakPoint;
@@ -409,8 +416,8 @@ void CDebugJS::DelBreakPoint(uint32 nBreakPointID)
         << "{\"id\":" << m_nMessageID++ << ","
         << "\"method\":\"Debugger.removeBreakpoint\","
         << "\"params\":{\"breakpointId\":\"" << it->second << "\"}}";
-//    std::cout << "CDebugJS::DelBreakPoint" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::DelBreakPoint" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_mapBreakPoint.erase(it);
     m_Session->dispatchProtocolMessage(view);
@@ -518,8 +525,8 @@ void CDebugJS::Stop()
     char szCommand[256];
     char_stream(szCommand) << "{\"id\":" << m_nMessageID++
                            << ",\"method\":\"Debugger.enable\"}";
-//    std::cout << "CDebugJS::stop" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::stop" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_Session->dispatchProtocolMessage(view);
 
@@ -538,8 +545,8 @@ void CDebugJS::StepIn()
     char szCommand[256];
     char_stream(szCommand) << "{\"id\":" << m_nMessageID++
                            << ",\"method\":\"Debugger.stepInto\"}";
-//    std::cout << "CDebugJS::StepIn" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::StepIn" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_Session->dispatchProtocolMessage(view);
 }
@@ -554,8 +561,8 @@ void CDebugJS::StepOut()
     char szCommand[256];
     char_stream(szCommand) << "{\"id\":" << m_nMessageID++
                            << ",\"method\":\"Debugger.stepOut\"}";
-//    std::cout << "CDebugJS::StepOut" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::StepOut" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_Session->dispatchProtocolMessage(view);
 }
@@ -573,8 +580,8 @@ uint32 CDebugJS::EvaluateExpression(int32 nCurFrame, const char* szExpression)
         << "\"callFrameId\":\"" << CurFrame.strCallFrameID << "\","
         << "\"expression\":\"" << szExpression << "\","
         << "\"silent\":true}}";
-//    std::cout << "CDebugJS::EvaluateExpression" << std::endl;
-//    std::cout << szCommand << std::endl;
+    std::cout << "cwb:CDebugJS::EvaluateExpression" << std::endl;
+    std::cout << szCommand << std::endl;
     v8_inspector::StringView view((const uint8_t*)szCommand, strlen(szCommand));
     m_strUtf8Buffer.clear();
     m_Session->dispatchProtocolMessage(view);
