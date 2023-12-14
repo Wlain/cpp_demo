@@ -67,6 +67,8 @@ extern void addAddTest();
 extern void luaTest();
 extern void jsTest(int argc, char* argv[]);
 extern void jsTest2(int argc, char* argv[]);
+extern void jsTest3(int argc, char* argv[]);
+extern void socketTest();
 extern std::string toHex(int num);
 extern void jsonTest();
 extern void eigen3Test();
@@ -187,6 +189,6 @@ extern void addTwoNumbersTest();
 
 int main(int argc, char* argv[])
 {
-    jsTest2(argc, argv);
+    jsTest3(argc, argv);
     return 0;
 }

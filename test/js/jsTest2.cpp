@@ -12,7 +12,7 @@ std::string getRootDir()
     return path;
 }
 
-static std::string getFileContents(const std::filesystem::path& filename)
+std::string getFileContents(const std::filesystem::path& filename)
 {
     std::ifstream in{ filename, std::ios::in | std::ios::binary };
     if (in)
@@ -41,7 +41,7 @@ void printCallback(const v8::FunctionCallbackInfo<v8::Value>& args)
     std::cout << *value << std::endl;
 }
 
-int jsTest2(int argc, char* argv[])
+void jsTest2(int argc, char* argv[])
 {
     // 初始化V8
     v8::V8::InitializeICUDefaultLocation(argv[0]);
@@ -100,6 +100,4 @@ int jsTest2(int argc, char* argv[])
     v8::V8::Dispose();
     v8::V8::ShutdownPlatform();
     delete create_params.array_buffer_allocator;
-
-    return 0;
 }
