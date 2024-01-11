@@ -53,6 +53,7 @@ find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 # 头文件目录
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
+        ${PROJECT_SOURCE_DIR}/src
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/math
         ${PROJECT_SOURCE_DIR}/utils
@@ -73,7 +74,7 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/3rdparty/glm
         ${PROJECT_SOURCE_DIR}/3rdparty/glew-2.2.0/include
         ${PROJECT_SOURCE_DIR}/3rdparty/lua-5.1.5/src
-        ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
+#        ${PROJECT_SOURCE_DIR}/3rdparty/SOIL2
         ${PROJECT_SOURCE_DIR}/3rdparty/tolua-master/include
         ${PROJECT_SOURCE_DIR}/3rdparty/eigen3/include
         ${PROJECT_SOURCE_DIR}/3rdparty/ann/include
@@ -85,9 +86,10 @@ include_directories(
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         3rdparty/lua-5.1.5/src/*.c
         3rdparty/tolua-master/src/lib/*c
-        3rdparty/SOIL2/*.c
+#        3rdparty/SOIL2/*.c
         3rdparty/ann/src/*.cpp
         src/*.cpp
+        src/*.c
         cg/*.cpp
         rasterizer/*.cpp
         cpppreference/*.cpp
